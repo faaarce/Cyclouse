@@ -24,7 +24,7 @@ class TabbarCoordinator: Coordinator {
     homeCoordinator.start()
     
     let profileNav = UINavigationController()
-    let profileCoordinator = ProfileCoordinator(navigationController: profileNav)
+    let profileCoordinator = CartCoordinator(navigationController: profileNav)
     addChildCoordinator(profileCoordinator)
     profileCoordinator.start()
     
