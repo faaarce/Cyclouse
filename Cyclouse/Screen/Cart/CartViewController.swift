@@ -13,7 +13,7 @@ class CartViewController: UIViewController {
   
   lazy var tableView: UITableView = {
     let tableView = UITableView(frame: .zero, style: .grouped)
-    tableView.dataSource = self
+//    tableView.dataSource = self
     tableView.backgroundColor = .clear
     tableView.separatorStyle = .none
     tableView.separatorInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
@@ -54,13 +54,4 @@ class CartViewController: UIViewController {
   
 }
 
-extension CartViewController: UITableViewDataSource {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    <#code#>
-  }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    <#code#>
-  }
-}
 
