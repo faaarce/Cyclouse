@@ -61,6 +61,7 @@
 		C1C5338A2C90A6A2000ABA71 /* Bike.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C533892C90A6A2000ABA71 /* Bike.swift */; };
 		C1D1BE4E2C8E170A00E73A92 /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D1BE4D2C8E170900E73A92 /* HeaderReusableView.swift */; };
 		C1D1BE512C8EE70D00E73A92 /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D1BE502C8EE70D00E73A92 /* CategoryViewCell.swift */; };
+		C1FCACCB2C94A69900171DCD /* UILabel + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FCACCA2C94A69900171DCD /* UILabel + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +118,7 @@
 		C1C533892C90A6A2000ABA71 /* Bike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bike.swift; sourceTree = "<group>"; };
 		C1D1BE4D2C8E170900E73A92 /* HeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderReusableView.swift; sourceTree = "<group>"; };
 		C1D1BE502C8EE70D00E73A92 /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
+		C1FCACCA2C94A69900171DCD /* UILabel + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -390,6 +392,7 @@
 			isa = PBXGroup;
 			children = (
 				C19370592C8ABAEE00B56BA1 /* UIColor+Extension.swift */,
+				C1FCACCA2C94A69900171DCD /* UILabel + Extension.swift */,
 				C19370682C8B73D900B56BA1 /* UIView+Extension.swift */,
 			);
 			path = Extensions;
@@ -568,6 +571,7 @@
 				C1C533882C90A618000ABA71 /* HomeViewModel.swift in Sources */,
 				C19465682C8CBF6F00171932 /* HorizontalViewCell.swift in Sources */,
 				C19370132C89941600B56BA1 /* HandleDeepLink.swift in Sources */,
+				C1FCACCB2C94A69900171DCD /* UILabel + Extension.swift in Sources */,
 				C19370252C899AD300B56BA1 /* HomeViewController.swift in Sources */,
 				C194655C2C8C20AB00171932 /* CustomInputFieldView.swift in Sources */,
 				C19370672C8B72BA00B56BA1 /* ButtonFactory.swift in Sources */,
