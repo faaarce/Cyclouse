@@ -22,6 +22,41 @@ class CartViewController: UIViewController {
     return tableView
   }()
   
+  private let checkoutButton: UIButton = {
+    let button = UIButton()
+    button.setTitle("Checkout", for: .normal)
+    button.setTitleColor(ThemeColor.black, for: .normal)
+    button.backgroundColor = ThemeColor.primary
+    button.addTarget(self, action: #selector(checkoutButtonTapped), for: .touchUpInside)
+    return button
+  }()
+  
+  private let totalPriceView: UIView = {
+    let object = UIView(frame: .zero)
+    object.backgroundColor = ThemeColor.cardFillColor
+    return object
+  }()
+  
+  private let checkButton: UIButton = {
+    let object = UIButton(type: .system)
+    object.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+    object.tintColor = ThemeColor.labelColorSecondary
+    object.contentMode = .scaleAspectFit
+    return object
+  }()
+  
+  private let totalChecklistLabel: UILabel = {
+    LabelFactory.build(text: "Semua", font: ThemeFont.medium(ofSize: 14), textColor: .white)
+  }()
+  
+  private let priceLabel: UILabel = {
+    LabelFactory.build(text: "Rp 5,000,000", font: ThemeFont.medium(ofSize: 14), textColor: ThemeColor.primary)
+  }()
+  
+  private let totalLabel: UILabel = {
+    LabelFactory.build(text: "Total", font: ThemeFont.medium(ofSize: 12), textColor: ThemeColor.labelColorSecondary)
+  }()
+  
   init(coordinator: CartCoordinator) {
     self.coordinator = coordinator
     super.init(nibName: nil, bundle: nil)
@@ -39,17 +74,27 @@ class CartViewController: UIViewController {
     layout()
   }
   
+  @objc func checkoutButtonTapped() {
+    print("Check button tapped")
+  }
+  
   private func registerCells() {
     tableView.register(CartViewCell.self, forCellReuseIdentifier: "CartViewCell")
   }
   
   private func configureAppearance() {
-    title = "Git"
+    title = "Cart"
     view.backgroundColor = ThemeColor.background
   }
   
   private func setupViews() {
+    totalPriceView.addSubview(checkButton)
+    totalPriceView.addSubview(totalChecklistLabel)
+    totalPriceView.addSubview(priceLabel)
+    totalPriceView.addSubview(totalLabel)
+    self.view.addSubview(totalPriceView)
     self.view.addSubview(tableView)
+    self.view.addSubview(checkoutButton)
     registerCells()
   }
   
@@ -58,8 +103,43 @@ class CartViewController: UIViewController {
       $0.right.equalToSuperview().offset(-25)
       $0.left.equalToSuperview().offset(20)
       $0.top.equalToSuperview()
-      $0.bottom.equalToSuperview()
+      $0.bottom.equalTo(checkoutButton.snp.top)
     }
+    
+    checkoutButton.snp.makeConstraints {
+      $0.bottom.equalToSuperview()
+      $0.width.equalTo(113)
+      $0.right.equalToSuperview()
+      $0.height.equalTo(75)
+    }
+    
+    totalPriceView.snp.makeConstraints {
+      $0.left.equalToSuperview()
+      $0.bottom.equalToSuperview()
+      $0.height.equalTo(75)
+      $0.right.equalTo(checkoutButton.snp.left)
+    }
+    
+    checkButton.snp.makeConstraints {
+      $0.centerY.equalToSuperview()
+      $0.left.equalToSuperview().offset(20)
+    }
+    
+    totalChecklistLabel.snp.makeConstraints {
+      $0.centerY.equalToSuperview()
+      $0.left.equalTo(checkButton.snp.right).offset(10)
+    }
+
+    totalLabel.snp.makeConstraints {
+      $0.centerY.equalToSuperview()
+      $0.left.equalTo(totalChecklistLabel.snp.right).offset(20)
+    }
+    
+    priceLabel.snp.makeConstraints {
+      $0.centerY.equalToSuperview()
+      $0.left.equalTo(totalLabel.snp.right).offset(5)
+    }
+    
   }
   
 }

@@ -90,7 +90,7 @@ class HomeViewController: UIViewController {
   
   @objc func cartButtonTapped() {
     print("Cart button tapped")
-    coordinator.showDetailViewController()
+    coordinator.showCartController()
   }
   
   

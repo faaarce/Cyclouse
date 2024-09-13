@@ -29,4 +29,11 @@ class HomeCoordinator: Coordinator, NavigationCoordinator {
     detailCoordinator.parentCoordinator = self
     detailCoordinator.start()
   }
+  
+  func showCartController(){
+    let cartCoordinator = CartCoordinator(navigationController: navigationController)
+    addChildCoordinator(cartCoordinator)
+    cartCoordinator.parentCoordinator = self
+    cartCoordinator.start()
+  }
 }
