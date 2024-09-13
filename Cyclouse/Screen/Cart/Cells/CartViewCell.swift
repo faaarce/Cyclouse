@@ -11,8 +11,8 @@ class CartViewCell: UITableViewCell {
   
   private let checkButton: UIButton = {
     let object = UIButton(type: .system)
-    object.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
-    object.tintColor = .white
+    object.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
+    object.tintColor = ThemeColor.primary
     object.contentMode = .scaleAspectFit
     return object
   }()
@@ -34,6 +34,7 @@ class CartViewCell: UITableViewCell {
   private let plusButton: UIButton = {
     let object = UIButton(type: .system)
     object.setImage(UIImage(systemName: "plus.app"), for: .normal)
+    object.tintColor = ThemeColor.primary
     object.contentMode = .scaleAspectFit
     return object
   }()
@@ -41,6 +42,15 @@ class CartViewCell: UITableViewCell {
   private let minusButton: UIButton = {
     let object = UIButton(type: .system)
     object.setImage(UIImage(systemName: "minus.square"), for: .normal)
+    object.tintColor = ThemeColor.primary
+    object.contentMode = .scaleAspectFit
+    return object
+  }()
+  
+  private let deleteProductButton: UIButton = {
+    let object = UIButton(type: .system)
+    object.setImage(UIImage(systemName: "trash.fill"), for: .normal)
+    object.tintColor = .red
     object.contentMode = .scaleAspectFit
     return object
   }()
@@ -79,6 +89,7 @@ class CartViewCell: UITableViewCell {
     return object
   }()
   
+  
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     setupViews()
@@ -108,10 +119,11 @@ class CartViewCell: UITableViewCell {
   
   
   private func setupViews() {
+    [checkButton, cartImage, vStackView, deleteProductButton].forEach(productCardView.addSubview)
     contentView.addSubview(productCardView)
     [minusButton, quantityLabel, plusButton].forEach { hStackView.addArrangedSubview($0) }
     [bikeNameLabel, bikePriceLabel, hStackView].forEach { vStackView.addArrangedSubview($0) }
-    [checkButton, cartImage, vStackView].forEach(contentView.addSubview)
+
   }
   
   private func layout() {
@@ -132,6 +144,7 @@ class CartViewCell: UITableViewCell {
     vStackView.snp.makeConstraints {
       $0.left.equalTo(cartImage.snp.right).offset(12)
       $0.top.equalTo(checkButton.snp.top)
+      $0.bottom.equalTo(cartImage.snp.bottom)
     }
     
     productCardView.snp.makeConstraints {
@@ -140,6 +153,13 @@ class CartViewCell: UITableViewCell {
       $0.centerY.equalToSuperview()
       $0.left.equalToSuperview()
       $0.right.equalToSuperview()
+    }
+    
+    deleteProductButton.snp.makeConstraints {
+      $0.bottom.equalTo(vStackView.snp.bottom)
+      $0.right.equalToSuperview().offset(-10)
+      $0.width.equalTo(16)
+      $0.height.equalTo(16)
     }
   }
   
