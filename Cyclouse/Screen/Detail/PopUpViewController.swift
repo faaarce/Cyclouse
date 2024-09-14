@@ -4,157 +4,193 @@
 //
 //  Created by yoga arie on 14/09/24.
 //
-
+import SnapKit
 import UIKit
-
 class PopUpViewController: UIViewController {
   
-  // 1
-  lazy var containerView: UIView = {
+  private let productNameLabel: UILabel = {
+    LabelFactory.build(text: "Mountain Bike", font: ThemeFont.semibold(ofSize: 16))
+  }()
+  
+  private let priceLabel: UILabel = {
+    LabelFactory.build(text: "Rp 5,000,000", font: ThemeFont.semibold(ofSize: 16), textColor: ThemeColor.primary)
+  }()
+  
+  private lazy var containerView: UIView = {
     let view = UIView()
-    view.backgroundColor = .white
     view.layer.cornerRadius = 16
     view.clipsToBounds = true
-    view.backgroundColor = UIColor(hex: "F8EDDC", alpha: 1.0)
+    view.backgroundColor = ThemeColor.background
     return view
   }()
   
-  // 2
-  let maxDimmedAlpha: CGFloat = 0.6
-  lazy var dimmedView: UIView = {
+  private let maxDimmedAlpha: CGFloat = 0.6
+  private lazy var dimmedView: UIView = {
     let view = UIView()
     view.backgroundColor = .black
     view.alpha = maxDimmedAlpha
     return view
   }()
   
-  lazy var titleLabel: UILabel = {
-    let label = UILabel()
-    label.text = "You Place The Order Successfully"
-    label.textAlignment = .center
-    label.font = UIFont.systemFont(ofSize: 20, weight: .thin)
-    label.textColor = UIColor(hex: "010F07", alpha: 1.0)
-    label.numberOfLines = 2
-    label.font = .boldSystemFont(ofSize: 20)
-    return label
+  private let detailImage: UIImageView = {
+    let object = UIImageView(image: .init(named: "onthel"))
+    object.contentMode = .scaleToFill
+    object.layer.cornerRadius = 12
+    return object
   }()
   
-  lazy var notesLabel: UILabel = {
-    let label = UILabel()
-    label.text = "You placed the order successfully. You will get your food within minutes. Thanks for using our services. Enjoy your food :)"
-    label.textAlignment = .center
-    label.font = .systemFont(ofSize: 16)
-    label.textColor = UIColor(hex: "868686", alpha: 1.0)
-    label.numberOfLines = 0
-    label.translatesAutoresizingMaskIntoConstraints = false
-    
-    return label
+  private let closeButton: UIButton = {
+    let object = UIButton(type: .system)
+    object.setImage(UIImage(systemName: "xmark"), for: .normal)
+    object.tintColor = ThemeColor.labelColorSecondary
+    object.contentMode = .scaleAspectFit
+    object.addTarget(self, action: #selector(closeController), for: .touchUpInside)
+    return object
   }()
   
-  lazy var checkImage: UIImageView = {
-    let image = UIImageView(frame: .zero)
-    image.contentMode = .scaleAspectFit
-    image.image = UIImage(systemName: "checkmark.circle.fill")
-    image.tintColor = UIColor(hex: "F8B64C", alpha: 1.0)
-    return image
+  private let addToCart: UIButton = {
+    let object = ButtonFactory.build(title: "Add to Cart", font: ThemeFont.medium(ofSize: 12), radius: 12)
+    object.addTarget(self, action: #selector(closeController), for: .touchUpInside)
+    return object
   }()
   
-  lazy var contentStackView: UIStackView = {
-    let spacer = UIView()
-    let stackView = UIStackView(arrangedSubviews: [titleLabel, notesLabel, keepBrowsingButton])
-    stackView.axis = .vertical
-    stackView.distribution = .fillEqually
-    stackView.spacing = 12.0
-    return stackView
+  private let dividerView: UIView = {
+    let object = UIView()
+    object.backgroundColor = ThemeColor.cardFillColor
+    return object
   }()
   
-  lazy var keepBrowsingButton: UIButton = {
-    let button = UIButton(type: .system)
-    button.setTitle("KEEP BROWSING", for: .normal)
-    
-    
-    button.setTitleColor(UIColor(hex: "EEA734", alpha: 1.0), for: .normal)
-    button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-    button.layer.cornerRadius = 20
-    button.clipsToBounds = false
-    button.layer.shadowColor = UIColor.black.cgColor
-    button.layer.shadowOffset = CGSize(width: 0, height: 10)
-    button.layer.shadowRadius = 5
-    button.layer.shadowOpacity = 0.3
-    return button
+  private let plusButton: UIButton = {
+    let object = UIButton(type: .system)
+    object.setImage(UIImage(systemName: "plus.app"), for: .normal)
+    object.tintColor = ThemeColor.primary
+    object.contentMode = .scaleAspectFit
+    return object
   }()
   
-  let defaultHeight: CGFloat = 300
+  private let minusButton: UIButton = {
+    let object = UIButton(type: .system)
+    object.setImage(UIImage(systemName: "minus.square"), for: .normal)
+    object.tintColor = ThemeColor.primary
+    object.contentMode = .scaleAspectFit
+    return object
+  }()
   
-  // 3. Dynamic container constraint
-  var containerViewHeightConstraint: NSLayoutConstraint?
-  var containerViewBottomConstraint: NSLayoutConstraint?
+  private let quantityLabel: UILabel = {
+    LabelFactory.build(text: "1", font: ThemeFont.semibold(ofSize: 14), textColor: .white)
+  }()
+  
+  private let hStackView: UIStackView = {
+    let stack = UIStackView()
+    stack.axis = .horizontal
+    stack.spacing = 10
+    stack.alignment = .fill
+    stack.distribution = .fillEqually
+    return stack
+  }()
+  
+  private let totalLabel: UILabel = {
+    LabelFactory.build(text: "Jumlah", font: ThemeFont.semibold(ofSize: 14))
+  }()
+  
+  private let defaultHeight: CGFloat = 300
   
   override func viewDidLoad() {
     super.viewDidLoad()
     setupView()
     setupConstraints()
-    view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeController)))
   }
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    UIView.animate(withDuration: 0.3) {
-      self.containerViewBottomConstraint?.constant = 0
-      self.view.layoutIfNeeded()
+    animateContainerHeight()
+  }
+  
+  @objc private func closeController() {
+    self.dismiss(animated: true)
+  }
+  
+  private func setupView() {
+    view.backgroundColor = .clear
+    view.addSubview(dimmedView)
+    view.addSubview(containerView)
+    containerView.addSubview(hStackView)
+    containerView.addSubview(productNameLabel)
+    containerView.addSubview(priceLabel)
+    containerView.addSubview(closeButton)
+    containerView.addSubview(addToCart)
+    containerView.addSubview(detailImage)
+    containerView.addSubview(dividerView)
+    containerView.addSubview(totalLabel)
+    [minusButton, quantityLabel, plusButton].forEach { hStackView.addArrangedSubview($0) }
+  }
+  
+  private func setupConstraints() {
+    dimmedView.snp.makeConstraints { make in
+      make.edges.equalToSuperview()
+    }
+    
+    containerView.snp.makeConstraints { make in
+      make.leading.trailing.equalToSuperview()
+      make.height.equalTo(defaultHeight)
+      make.bottom.equalToSuperview().offset(defaultHeight)
+    }
+    
+    priceLabel.snp.makeConstraints { make in
+      make.top.equalTo(productNameLabel.snp.bottom).offset(8)
+      make.left.equalTo(detailImage.snp.right).offset(15)
+    }
+    
+    closeButton.snp.makeConstraints {
+      $0.right.equalToSuperview().offset(-20)
+      $0.top.equalToSuperview().offset(20)
+      $0.height.equalTo(24)
+      $0.width.equalTo(24)
+    }
+    
+    addToCart.snp.makeConstraints {
+      $0.left.equalToSuperview().offset(20)
+      $0.right.equalToSuperview().offset(-20)
+      $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-20)
+      $0.height.equalTo(36)
+    }
+    
+    detailImage.snp.makeConstraints {
+      $0.left.equalToSuperview().offset(20)
+      $0.top.equalToSuperview().offset(20)
+      $0.width.equalTo(94)
+      $0.height.equalTo(94)
+    }
+    
+    productNameLabel.snp.makeConstraints { make in
+      make.top.equalToSuperview().offset(20)
+      make.left.equalTo(detailImage.snp.right).offset(15)
+    }
+    
+    dividerView.snp.makeConstraints {
+      $0.height.equalTo(1)
+      $0.top.equalTo(detailImage.snp.bottom).offset(12)
+      $0.left.equalToSuperview().offset(20)
+      $0.right.equalToSuperview().offset(-20)
+    }
+    
+    hStackView.snp.makeConstraints {
+      $0.right.equalToSuperview().offset(-20)
+      $0.bottom.equalTo(addToCart.snp.top).offset(-12)
+    }
+    
+    totalLabel.snp.makeConstraints {
+      $0.left.equalToSuperview().offset(20)
+      $0.bottom.equalTo(addToCart.snp.top).offset(-12)
     }
   }
   
-  
-  @objc
-  func closeController() {
-    self.dismiss(animated: false)
-  }
-  
-  func setupView() {
-    view.backgroundColor = .clear
-  }
-  
-  func setupConstraints() {
-    // 4. Add subviews
-    view.addSubview(dimmedView)
-    view.addSubview(containerView)
-    view.addSubview(checkImage)
-    checkImage.translatesAutoresizingMaskIntoConstraints = false
-    dimmedView.translatesAutoresizingMaskIntoConstraints = false
-    containerView.translatesAutoresizingMaskIntoConstraints = false
-    containerView.addSubview(contentStackView)
-    contentStackView.translatesAutoresizingMaskIntoConstraints = false
-    
-    // 5. Set static constraints
-    NSLayoutConstraint.activate([
-      // set dimmedView edges to superview
-      
-      contentStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 32),
-      contentStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10),
-      contentStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
-      contentStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
-      dimmedView.topAnchor.constraint(equalTo: view.topAnchor),
-      dimmedView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-      dimmedView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      dimmedView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      // set container static constraint (trailing & leading)
-      containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-      containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
-      checkImage.centerYAnchor.constraint(equalTo: containerView.topAnchor),
-      checkImage.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-      checkImage.widthAnchor.constraint(equalToConstant: 70),
-      checkImage.heightAnchor.constraint(equalToConstant: 70)
-      
-    ])
-    
-    // 6. Set container to default height
-    containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: defaultHeight)
-    // 7. Set bottom constant to 0
-    containerViewBottomConstraint = containerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 300)
-    // Activate constraints
-    containerViewHeightConstraint?.isActive = true
-    containerViewBottomConstraint?.isActive = true
-    
+  private func animateContainerHeight() {
+    UIView.animate(withDuration: 0.3) {
+      self.containerView.snp.updateConstraints { make in
+        make.bottom.equalToSuperview()
+      }
+      self.view.layoutIfNeeded()
+    }
   }
 }
