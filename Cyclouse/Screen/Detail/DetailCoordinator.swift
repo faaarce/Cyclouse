@@ -19,6 +19,7 @@ class DetailCoordinator: Coordinator, NavigationCoordinator {
   
   func start() {
     let detailVC = DetailViewController(coordinator: self)
+    detailVC.hidesBottomBarWhenPushed = true
     navigationController.pushViewController(detailVC, animated: true)
   }
   
