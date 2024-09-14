@@ -68,14 +68,28 @@ class DetailViewController: UIViewController {
     LabelFactory.build(text: "TDR 3.000 - Mountain Bike", font: ThemeFont.semibold(ofSize: 12), textColor: .white)
   }()
   
-  private let descriptionLabel: UILabel = {
-    let label = UILabel()
-    label.numberOfLines = 5
-    label.font = ThemeFont.medium(ofSize: 12)
-    label.textColor = ThemeColor.labelColorSecondary
-    
-    return label
-  }()
+  private let descriptionTextView: ReadMoreTextView = {
+     let textView = ReadMoreTextView()
+     textView.font = ThemeFont.medium(ofSize: 12)
+     textView.textColor = ThemeColor.labelColorSecondary
+     textView.backgroundColor = .clear
+     textView.isScrollEnabled = false
+     textView.maximumNumberOfLines = 5
+     textView.shouldTrim = true
+    let readMoreAttributes: [NSAttributedString.Key: Any] = [
+      .foregroundColor: ThemeColor.primary,
+         .font: ThemeFont.medium(ofSize: 12)
+     ]
+     let readLessAttributes: [NSAttributedString.Key: Any] = [
+         .foregroundColor: ThemeColor.primary,
+         .font: ThemeFont.medium(ofSize: 12)
+     ]
+     
+     textView.attributedReadMoreText = NSAttributedString(string: "... Read More", attributes: readMoreAttributes)
+     textView.attributedReadLessText = NSAttributedString(string: "Read Less", attributes: readLessAttributes)
+     
+     return textView
+   }()
   
   private var fullDescription: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
   
@@ -85,7 +99,7 @@ class DetailViewController: UIViewController {
     view.backgroundColor = ThemeColor.background
     setupViews()
     layout()
-    setupDescriptionLabel()
+    configureDescriptionTextView()
   }
   
   init(coordinator: DetailCoordinator) {
@@ -105,25 +119,10 @@ class DetailViewController: UIViewController {
     view.addSubview(detailImage)
     view.addSubview(priceLabel)
     view.addSubview(productTitleLabel)
-    view.addSubview(descriptionLabel)
+    view.addSubview(descriptionTextView)
+
+  }
     
-    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(descriptionLabelTapped))
-    descriptionLabel.addGestureRecognizer(tapGesture)
-    descriptionLabel.isUserInteractionEnabled = true
-  }
-  
-  func setupDescriptionLabel() {
-    descriptionLabel.appendReadmore(after: fullDescription, trailingContent: .readmore)
-  }
-  
-  @objc func descriptionLabelTapped() {
-    if descriptionLabel.numberOfLines == 4 {
-      descriptionLabel.appendReadLess(after: fullDescription, trailingContent: .readless)
-    } else {
-      descriptionLabel.appendReadmore(after: fullDescription, trailingContent: .readmore)
-    }
-  }
-  
   func layout() {
     detailImage.snp.makeConstraints {
       $0.left.equalToSuperview().offset(20)
@@ -150,12 +149,23 @@ class DetailViewController: UIViewController {
       $0.left.equalToSuperview().offset(20)
     }
     
-    descriptionLabel.snp.makeConstraints {
+    descriptionTextView.snp.makeConstraints {
       $0.top.equalTo(productTitleLabel.snp.bottom).offset(8)
       $0.left.equalToSuperview().offset(20)
       $0.right.equalToSuperview().offset(-20)
     }
     
+    
+    
   }
+  
+  func configureDescriptionTextView() {
+      descriptionTextView.text = fullDescription
+      
+      // Handle size changes
+      descriptionTextView.onSizeChange = { [weak self] _ in
+        self?.view.layoutIfNeeded()
+      }
+    }
   
 }

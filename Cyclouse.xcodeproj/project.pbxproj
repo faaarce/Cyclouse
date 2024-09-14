@@ -17,6 +17,7 @@
 		C1464C542C92A96300F945BA /* CartCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1464C532C92A96300F945BA /* CartCoordinator.swift */; };
 		C1464C562C92A97900F945BA /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1464C552C92A97900F945BA /* CartViewController.swift */; };
 		C1464C592C92B41800F945BA /* CartViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1464C582C92B41800F945BA /* CartViewCell.swift */; };
+		C177238D2C951CF30078E598 /* ReadMoreTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177238C2C951CF30078E598 /* ReadMoreTextView.swift */; };
 		C1936FFD2C898D1C00B56BA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1936FFC2C898D1C00B56BA1 /* AppDelegate.swift */; };
 		C1936FFF2C898D1C00B56BA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1936FFE2C898D1C00B56BA1 /* SceneDelegate.swift */; };
 		C19370092C898D1D00B56BA1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = C19370082C898D1D00B56BA1 /* Base */; };
@@ -61,7 +62,6 @@
 		C1C5338A2C90A6A2000ABA71 /* Bike.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C533892C90A6A2000ABA71 /* Bike.swift */; };
 		C1D1BE4E2C8E170A00E73A92 /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D1BE4D2C8E170900E73A92 /* HeaderReusableView.swift */; };
 		C1D1BE512C8EE70D00E73A92 /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D1BE502C8EE70D00E73A92 /* CategoryViewCell.swift */; };
-		C1FCACCB2C94A69900171DCD /* UILabel + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FCACCA2C94A69900171DCD /* UILabel + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +75,7 @@
 		C1464C532C92A96300F945BA /* CartCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCoordinator.swift; sourceTree = "<group>"; };
 		C1464C552C92A97900F945BA /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		C1464C582C92B41800F945BA /* CartViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewCell.swift; sourceTree = "<group>"; };
+		C177238C2C951CF30078E598 /* ReadMoreTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreTextView.swift; sourceTree = "<group>"; };
 		C1936FF92C898D1C00B56BA1 /* Cyclouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cyclouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1936FFC2C898D1C00B56BA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1936FFE2C898D1C00B56BA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,7 +119,6 @@
 		C1C533892C90A6A2000ABA71 /* Bike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bike.swift; sourceTree = "<group>"; };
 		C1D1BE4D2C8E170900E73A92 /* HeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderReusableView.swift; sourceTree = "<group>"; };
 		C1D1BE502C8EE70D00E73A92 /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
-		C1FCACCA2C94A69900171DCD /* UILabel + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -392,7 +392,6 @@
 			isa = PBXGroup;
 			children = (
 				C19370592C8ABAEE00B56BA1 /* UIColor+Extension.swift */,
-				C1FCACCA2C94A69900171DCD /* UILabel + Extension.swift */,
 				C19370682C8B73D900B56BA1 /* UIView+Extension.swift */,
 			);
 			path = Extensions;
@@ -427,8 +426,9 @@
 		C19465622C8C488100171932 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C19465662C8CBEC200171932 /* SharedCells */,
 				C194655B2C8C20AB00171932 /* CustomInputFieldView.swift */,
+				C177238C2C951CF30078E598 /* ReadMoreTextView.swift */,
+				C19465662C8CBEC200171932 /* SharedCells */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -571,7 +571,7 @@
 				C1C533882C90A618000ABA71 /* HomeViewModel.swift in Sources */,
 				C19465682C8CBF6F00171932 /* HorizontalViewCell.swift in Sources */,
 				C19370132C89941600B56BA1 /* HandleDeepLink.swift in Sources */,
-				C1FCACCB2C94A69900171DCD /* UILabel + Extension.swift in Sources */,
+				C177238D2C951CF30078E598 /* ReadMoreTextView.swift in Sources */,
 				C19370252C899AD300B56BA1 /* HomeViewController.swift in Sources */,
 				C194655C2C8C20AB00171932 /* CustomInputFieldView.swift in Sources */,
 				C19370672C8B72BA00B56BA1 /* ButtonFactory.swift in Sources */,
