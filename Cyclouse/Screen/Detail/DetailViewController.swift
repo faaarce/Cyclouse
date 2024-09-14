@@ -151,8 +151,8 @@ class DetailViewController: UIViewController {
     
     descriptionTextView.snp.makeConstraints {
       $0.top.equalTo(productTitleLabel.snp.bottom).offset(8)
-      $0.left.equalToSuperview().offset(20)
-      $0.right.equalToSuperview().offset(-20)
+      $0.left.equalToSuperview().offset(16)
+      $0.right.equalToSuperview().offset(-16)
     }
     
     
