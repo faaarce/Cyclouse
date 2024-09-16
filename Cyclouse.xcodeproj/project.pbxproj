@@ -19,6 +19,15 @@
 		C1464C592C92B41800F945BA /* CartViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1464C582C92B41800F945BA /* CartViewCell.swift */; };
 		C177238D2C951CF30078E598 /* ReadMoreTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177238C2C951CF30078E598 /* ReadMoreTextView.swift */; };
 		C177238F2C954E6B0078E598 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177238E2C954E6B0078E598 /* PopUpViewController.swift */; };
+		C17D7D952C975EB800868F1E /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D7D942C975EB800868F1E /* HistoryViewController.swift */; };
+		C17D7D972C975EC200868F1E /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D7D962C975EC200868F1E /* HistoryCoordinator.swift */; };
+		C17D7D9B2C981C8D00868F1E /* PlusJakartaSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7D9A2C981C8D00868F1E /* PlusJakartaSans-Bold.ttf */; };
+		C17D7D9D2C981C9C00868F1E /* PlusJakartaSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7D9C2C981C9C00868F1E /* PlusJakartaSans-ExtraBold.ttf */; };
+		C17D7D9F2C981CA800868F1E /* PlusJakartaSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7D9E2C981CA800868F1E /* PlusJakartaSans-ExtraLight.ttf */; };
+		C17D7DA12C981CB900868F1E /* PlusJakartaSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7DA02C981CB800868F1E /* PlusJakartaSans-Light.ttf */; };
+		C17D7DA52C981CF900868F1E /* PlusJakartaSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7DA42C981CF900868F1E /* PlusJakartaSans-Medium.ttf */; };
+		C17D7DA72C981D0200868F1E /* PlusJakartaSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7DA62C981D0200868F1E /* PlusJakartaSans-Regular.ttf */; };
+		C17D7DA92C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7DA82C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf */; };
 		C1936FFD2C898D1C00B56BA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1936FFC2C898D1C00B56BA1 /* AppDelegate.swift */; };
 		C1936FFF2C898D1C00B56BA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1936FFE2C898D1C00B56BA1 /* SceneDelegate.swift */; };
 		C19370092C898D1D00B56BA1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = C19370082C898D1D00B56BA1 /* Base */; };
@@ -78,6 +87,15 @@
 		C1464C582C92B41800F945BA /* CartViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewCell.swift; sourceTree = "<group>"; };
 		C177238C2C951CF30078E598 /* ReadMoreTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreTextView.swift; sourceTree = "<group>"; };
 		C177238E2C954E6B0078E598 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
+		C17D7D942C975EB800868F1E /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		C17D7D962C975EC200868F1E /* HistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
+		C17D7D9A2C981C8D00868F1E /* PlusJakartaSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-Bold.ttf"; sourceTree = "<group>"; };
+		C17D7D9C2C981C9C00868F1E /* PlusJakartaSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		C17D7D9E2C981CA800868F1E /* PlusJakartaSans-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-ExtraLight.ttf"; sourceTree = "<group>"; };
+		C17D7DA02C981CB800868F1E /* PlusJakartaSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-Light.ttf"; sourceTree = "<group>"; };
+		C17D7DA42C981CF900868F1E /* PlusJakartaSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-Medium.ttf"; sourceTree = "<group>"; };
+		C17D7DA62C981D0200868F1E /* PlusJakartaSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-Regular.ttf"; sourceTree = "<group>"; };
+		C17D7DA82C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		C1936FF92C898D1C00B56BA1 /* Cyclouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cyclouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1936FFC2C898D1C00B56BA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1936FFE2C898D1C00B56BA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -205,6 +223,43 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		C17D7D932C975EA200868F1E /* History */ = {
+			isa = PBXGroup;
+			children = (
+				C17D7D942C975EB800868F1E /* HistoryViewController.swift */,
+				C17D7D962C975EC200868F1E /* HistoryCoordinator.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		C17D7D982C981C5200868F1E /* Manrope */ = {
+			isa = PBXGroup;
+			children = (
+				C193703E2C8A0C9400B56BA1 /* Manrope-Bold.ttf */,
+				C19370402C8A0C9400B56BA1 /* Manrope-ExtraBold.ttf */,
+				C193703D2C8A0C9400B56BA1 /* Manrope-ExtraLight.ttf */,
+				C19370412C8A0C9400B56BA1 /* Manrope-Light.ttf */,
+				C193703F2C8A0C9400B56BA1 /* Manrope-Medium.ttf */,
+				C193703C2C8A0C9400B56BA1 /* Manrope-Regular.ttf */,
+				C193703B2C8A0C9400B56BA1 /* Manrope-SemiBold.ttf */,
+			);
+			path = Manrope;
+			sourceTree = "<group>";
+		};
+		C17D7D992C981C5F00868F1E /* Plus Jakarta Sans */ = {
+			isa = PBXGroup;
+			children = (
+				C17D7D9C2C981C9C00868F1E /* PlusJakartaSans-ExtraBold.ttf */,
+				C17D7D9E2C981CA800868F1E /* PlusJakartaSans-ExtraLight.ttf */,
+				C17D7DA42C981CF900868F1E /* PlusJakartaSans-Medium.ttf */,
+				C17D7DA02C981CB800868F1E /* PlusJakartaSans-Light.ttf */,
+				C17D7DA62C981D0200868F1E /* PlusJakartaSans-Regular.ttf */,
+				C17D7DA82C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf */,
+				C17D7D9A2C981C8D00868F1E /* PlusJakartaSans-Bold.ttf */,
+			);
+			path = "Plus Jakarta Sans";
+			sourceTree = "<group>";
+		};
 		C1936FF02C898D1C00B56BA1 = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +303,7 @@
 		C19370172C89960F00B56BA1 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				C17D7D932C975EA200868F1E /* History */,
 				C1464C522C9230B500F945BA /* Cart */,
 				C193702B2C89E97200B56BA1 /* Profile */,
 				C13D90C62C91EE3000430BA4 /* Detail */,
@@ -355,13 +411,8 @@
 		C19370392C8A09A700B56BA1 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				C193703E2C8A0C9400B56BA1 /* Manrope-Bold.ttf */,
-				C19370402C8A0C9400B56BA1 /* Manrope-ExtraBold.ttf */,
-				C193703D2C8A0C9400B56BA1 /* Manrope-ExtraLight.ttf */,
-				C19370412C8A0C9400B56BA1 /* Manrope-Light.ttf */,
-				C193703F2C8A0C9400B56BA1 /* Manrope-Medium.ttf */,
-				C193703C2C8A0C9400B56BA1 /* Manrope-Regular.ttf */,
-				C193703B2C8A0C9400B56BA1 /* Manrope-SemiBold.ttf */,
+				C17D7D992C981C5F00868F1E /* Plus Jakarta Sans */,
+				C17D7D982C981C5200868F1E /* Manrope */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -533,11 +584,18 @@
 				C19370432C8A0C9400B56BA1 /* Manrope-Regular.ttf in Resources */,
 				C19370532C8A1D7E00B56BA1 /* CommonAssets.xcassets in Resources */,
 				C19370422C8A0C9400B56BA1 /* Manrope-SemiBold.ttf in Resources */,
+				C17D7D9B2C981C8D00868F1E /* PlusJakartaSans-Bold.ttf in Resources */,
 				C19370462C8A0C9400B56BA1 /* Manrope-Medium.ttf in Resources */,
 				C193706B2C8B7A7B00B56BA1 /* Assets.xcassets in Resources */,
+				C17D7DA92C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf in Resources */,
+				C17D7D9D2C981C9C00868F1E /* PlusJakartaSans-ExtraBold.ttf in Resources */,
+				C17D7DA52C981CF900868F1E /* PlusJakartaSans-Medium.ttf in Resources */,
 				C19370092C898D1D00B56BA1 /* Base in Resources */,
 				C19370472C8A0C9400B56BA1 /* Manrope-ExtraBold.ttf in Resources */,
+				C17D7DA12C981CB900868F1E /* PlusJakartaSans-Light.ttf in Resources */,
 				C19370452C8A0C9400B56BA1 /* Manrope-Bold.ttf in Resources */,
+				C17D7D9F2C981CA800868F1E /* PlusJakartaSans-ExtraLight.ttf in Resources */,
+				C17D7DA72C981D0200868F1E /* PlusJakartaSans-Regular.ttf in Resources */,
 				C19370482C8A0C9400B56BA1 /* Manrope-Light.ttf in Resources */,
 				C19370442C8A0C9400B56BA1 /* Manrope-ExtraLight.ttf in Resources */,
 			);
@@ -577,7 +635,9 @@
 				C19370132C89941600B56BA1 /* HandleDeepLink.swift in Sources */,
 				C177238D2C951CF30078E598 /* ReadMoreTextView.swift in Sources */,
 				C19370252C899AD300B56BA1 /* HomeViewController.swift in Sources */,
+				C17D7D952C975EB800868F1E /* HistoryViewController.swift in Sources */,
 				C194655C2C8C20AB00171932 /* CustomInputFieldView.swift in Sources */,
+				C17D7D972C975EC200868F1E /* HistoryCoordinator.swift in Sources */,
 				C19370672C8B72BA00B56BA1 /* ButtonFactory.swift in Sources */,
 				C193705A2C8ABAEE00B56BA1 /* UIColor+Extension.swift in Sources */,
 				C19370612C8AE9AC00B56BA1 /* OnboardingCoordinator.swift in Sources */,
