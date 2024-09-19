@@ -18,7 +18,7 @@ class AppCoordinator: Coordinator {
   }
   
   func start() {
-    showMainTabbar()
+    showOnboarding()
   }
   
   func showLogin() {
@@ -34,7 +34,7 @@ class AppCoordinator: Coordinator {
     addChildCoordinator(onboardingCoordinator)
     onboardingCoordinator.start()*/
     
-    let login = SignInCoordinator(navigationController: navigationController)
+    let login = SignUpCoordinator(navigationController: navigationController)
     addChildCoordinator(login)
     login.start()
   }

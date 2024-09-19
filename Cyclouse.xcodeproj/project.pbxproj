@@ -72,6 +72,8 @@
 		C1C5338A2C90A6A2000ABA71 /* Bike.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C533892C90A6A2000ABA71 /* Bike.swift */; };
 		C1D1BE4E2C8E170A00E73A92 /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D1BE4D2C8E170900E73A92 /* HeaderReusableView.swift */; };
 		C1D1BE512C8EE70D00E73A92 /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D1BE502C8EE70D00E73A92 /* CategoryViewCell.swift */; };
+		C1DF47EB2C9C9310004F5751 /* SignUpCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF47EA2C9C9305004F5751 /* SignUpCoordinator.swift */; };
+		C1DF47ED2C9C9379004F5751 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF47EC2C9C9379004F5751 /* SignUpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -139,6 +141,8 @@
 		C1C533892C90A6A2000ABA71 /* Bike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bike.swift; sourceTree = "<group>"; };
 		C1D1BE4D2C8E170900E73A92 /* HeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderReusableView.swift; sourceTree = "<group>"; };
 		C1D1BE502C8EE70D00E73A92 /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
+		C1DF47EA2C9C9305004F5751 /* SignUpCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpCoordinator.swift; sourceTree = "<group>"; };
+		C1DF47EC2C9C9379004F5751 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +307,7 @@
 		C19370172C89960F00B56BA1 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				C1DF47E92C9C92C4004F5751 /* SignUp */,
 				C17D7D932C975EA200868F1E /* History */,
 				C1464C522C9230B500F945BA /* Cart */,
 				C193702B2C89E97200B56BA1 /* Profile */,
@@ -513,6 +518,15 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		C1DF47E92C9C92C4004F5751 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				C1DF47EA2C9C9305004F5751 /* SignUpCoordinator.swift */,
+				C1DF47EC2C9C9379004F5751 /* SignUpViewController.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -608,6 +622,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1DF47ED2C9C9379004F5751 /* SignUpViewController.swift in Sources */,
 				C19370582C8AB21600B56BA1 /* WishlistCoordinator.swift in Sources */,
 				C13D90D42C92183A00430BA4 /* Constants.swift in Sources */,
 				C19370282C89A22700B56BA1 /* SignInViewController.swift in Sources */,
@@ -632,6 +647,7 @@
 				C1C533882C90A618000ABA71 /* HomeViewModel.swift in Sources */,
 				C19465682C8CBF6F00171932 /* HorizontalViewCell.swift in Sources */,
 				C177238F2C954E6B0078E598 /* PopUpViewController.swift in Sources */,
+				C1DF47EB2C9C9310004F5751 /* SignUpCoordinator.swift in Sources */,
 				C19370132C89941600B56BA1 /* HandleDeepLink.swift in Sources */,
 				C177238D2C951CF30078E598 /* ReadMoreTextView.swift in Sources */,
 				C19370252C899AD300B56BA1 /* HomeViewController.swift in Sources */,
