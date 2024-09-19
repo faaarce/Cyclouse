@@ -12,7 +12,7 @@ class SignInViewController: UIViewController {
   
   var coordinator: SignInCoordinator
   private let emailInputView = CustomInputFieldView(labelText: "Email", placeholder: "Input Email")
-  private let passwordInputView = CustomInputFieldView(labelText: "Password", placeholder: "Input Password")
+  private let passwordInputView = CustomInputFieldView(labelText: "Password", placeholder: "Input Password", isPassword: true)
   
   private let forgotPasswordButton: UIButton = {
     let object = UIButton()

@@ -13,9 +13,9 @@ class SignUpViewController: UIViewController {
   
   private let emailInputView = CustomInputFieldView(labelText: "Email", placeholder: "Enter your email")
   
-  private let passwordInputView = CustomInputFieldView(labelText: "Password", placeholder: "Enter your password")
+  private let passwordInputView = CustomInputFieldView(labelText: "Password", placeholder: "Enter your password", isPassword: true)
   
-  private let confirmPasswordInputView = CustomInputFieldView(labelText: "Confirm Password", placeholder: "Enter your password")
+  private let confirmPasswordInputView = CustomInputFieldView(labelText: "Confirm Password", placeholder: "Enter your password", isPassword: true)
   
   private let signupButton: UIButton = {
     ButtonFactory.build(title: "Sign Up", font: ThemeFont.semibold(ofSize: 14))
