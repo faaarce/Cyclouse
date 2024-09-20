@@ -28,6 +28,26 @@
 		C17D7DA52C981CF900868F1E /* PlusJakartaSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7DA42C981CF900868F1E /* PlusJakartaSans-Medium.ttf */; };
 		C17D7DA72C981D0200868F1E /* PlusJakartaSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7DA62C981D0200868F1E /* PlusJakartaSans-Regular.ttf */; };
 		C17D7DA92C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7DA82C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf */; };
+		C18F51622C9D1A1000E60C0D /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51502C9D1A1000E60C0D /* Email.swift */; };
+		C18F51632C9D1A1000E60C0D /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51522C9D1A1000E60C0D /* Password.swift */; };
+		C18F51642C9D1A1000E60C0D /* Username.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51512C9D1A1000E60C0D /* Username.swift */; };
+		C18F51652C9D1A1000E60C0D /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51592C9D1A1000E60C0D /* AuthenticationService.swift */; };
+		C18F51662C9D1A1000E60C0D /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F514C2C9D1A1000E60C0D /* ValidationError.swift */; };
+		C18F51672C9D1A1000E60C0D /* AuthenticationValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F515C2C9D1A1000E60C0D /* AuthenticationValidationError.swift */; };
+		C18F51682C9D1A1000E60C0D /* AuthenticationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F515B2C9D1A1000E60C0D /* AuthenticationError.swift */; };
+		C18F51692C9D1A1000E60C0D /* Validateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F514D2C9D1A1000E60C0D /* Validateable.swift */; };
+		C18F516A2C9D1A1000E60C0D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51532C9D1A1000E60C0D /* User.swift */; };
+		C18F516B2C9D1A1000E60C0D /* Valueable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F514E2C9D1A1000E60C0D /* Valueable.swift */; };
+		C18F516C2C9D1A1000E60C0D /* AuthenticationNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F515E2C9D1A1000E60C0D /* AuthenticationNetworkRepository.swift */; };
+		C18F516D2C9D1A1000E60C0D /* SigninResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51552C9D1A1000E60C0D /* SigninResponse.swift */; };
+		C18F516E2C9D1A1000E60C0D /* AuthenticationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F515F2C9D1A1000E60C0D /* AuthenticationRepository.swift */; };
+		C18F516F2C9D1A1000E60C0D /* AuthenticationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51572C9D1A1000E60C0D /* AuthenticationAPI.swift */; };
+		C18F51752C9D1AA300E60C0D /* Responseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51702C9D1AA300E60C0D /* Responseable.swift */; };
+		C18F51762C9D1AA300E60C0D /* ServerMessageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51712C9D1AA300E60C0D /* ServerMessageError.swift */; };
+		C18F51772C9D1AA300E60C0D /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51742C9D1AA300E60C0D /* APIService.swift */; };
+		C18F51782C9D1AA300E60C0D /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51732C9D1AA300E60C0D /* APIManager.swift */; };
+		C18F51792C9D1AA300E60C0D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51722C9D1AA300E60C0D /* API.swift */; };
+		C18F517C2C9D1E4900E60C0D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C18F517B2C9D1E4900E60C0D /* Alamofire */; };
 		C1936FFD2C898D1C00B56BA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1936FFC2C898D1C00B56BA1 /* AppDelegate.swift */; };
 		C1936FFF2C898D1C00B56BA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1936FFE2C898D1C00B56BA1 /* SceneDelegate.swift */; };
 		C19370092C898D1D00B56BA1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = C19370082C898D1D00B56BA1 /* Base */; };
@@ -98,6 +118,25 @@
 		C17D7DA42C981CF900868F1E /* PlusJakartaSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-Medium.ttf"; sourceTree = "<group>"; };
 		C17D7DA62C981D0200868F1E /* PlusJakartaSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-Regular.ttf"; sourceTree = "<group>"; };
 		C17D7DA82C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		C18F514C2C9D1A1000E60C0D /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
+		C18F514D2C9D1A1000E60C0D /* Validateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validateable.swift; sourceTree = "<group>"; };
+		C18F514E2C9D1A1000E60C0D /* Valueable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Valueable.swift; sourceTree = "<group>"; };
+		C18F51502C9D1A1000E60C0D /* Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Email.swift; sourceTree = "<group>"; };
+		C18F51512C9D1A1000E60C0D /* Username.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Username.swift; sourceTree = "<group>"; };
+		C18F51522C9D1A1000E60C0D /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
+		C18F51532C9D1A1000E60C0D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C18F51552C9D1A1000E60C0D /* SigninResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninResponse.swift; sourceTree = "<group>"; };
+		C18F51572C9D1A1000E60C0D /* AuthenticationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationAPI.swift; sourceTree = "<group>"; };
+		C18F51592C9D1A1000E60C0D /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		C18F515B2C9D1A1000E60C0D /* AuthenticationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationError.swift; sourceTree = "<group>"; };
+		C18F515C2C9D1A1000E60C0D /* AuthenticationValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationValidationError.swift; sourceTree = "<group>"; };
+		C18F515E2C9D1A1000E60C0D /* AuthenticationNetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationNetworkRepository.swift; sourceTree = "<group>"; };
+		C18F515F2C9D1A1000E60C0D /* AuthenticationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRepository.swift; sourceTree = "<group>"; };
+		C18F51702C9D1AA300E60C0D /* Responseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Responseable.swift; sourceTree = "<group>"; };
+		C18F51712C9D1AA300E60C0D /* ServerMessageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerMessageError.swift; sourceTree = "<group>"; };
+		C18F51722C9D1AA300E60C0D /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		C18F51732C9D1AA300E60C0D /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		C18F51742C9D1AA300E60C0D /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		C1936FF92C898D1C00B56BA1 /* Cyclouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cyclouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1936FFC2C898D1C00B56BA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1936FFE2C898D1C00B56BA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C193704B2C8A133100B56BA1 /* CombineCocoa in Frameworks */,
+				C18F517C2C9D1E4900E60C0D /* Alamofire in Frameworks */,
 				C193704E2C8A137600B56BA1 /* SnapKit in Frameworks */,
 				C19370512C8A140E00B56BA1 /* CombineDataSources in Frameworks */,
 			);
@@ -264,6 +304,83 @@
 			path = "Plus Jakarta Sans";
 			sourceTree = "<group>";
 		};
+		C18F514F2C9D1A1000E60C0D /* SubDomain */ = {
+			isa = PBXGroup;
+			children = (
+				C18F514C2C9D1A1000E60C0D /* ValidationError.swift */,
+				C18F514D2C9D1A1000E60C0D /* Validateable.swift */,
+				C18F514E2C9D1A1000E60C0D /* Valueable.swift */,
+			);
+			path = SubDomain;
+			sourceTree = "<group>";
+		};
+		C18F51542C9D1A1000E60C0D /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				C18F514F2C9D1A1000E60C0D /* SubDomain */,
+				C18F51502C9D1A1000E60C0D /* Email.swift */,
+				C18F51512C9D1A1000E60C0D /* Username.swift */,
+				C18F51522C9D1A1000E60C0D /* Password.swift */,
+				C18F51532C9D1A1000E60C0D /* User.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		C18F51562C9D1A1000E60C0D /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				C18F51552C9D1A1000E60C0D /* SigninResponse.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		C18F51582C9D1A1000E60C0D /* API */ = {
+			isa = PBXGroup;
+			children = (
+				C18F51572C9D1A1000E60C0D /* AuthenticationAPI.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		C18F515A2C9D1A1000E60C0D /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				C18F51592C9D1A1000E60C0D /* AuthenticationService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		C18F515D2C9D1A1000E60C0D /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				C18F515B2C9D1A1000E60C0D /* AuthenticationError.swift */,
+				C18F515C2C9D1A1000E60C0D /* AuthenticationValidationError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		C18F51602C9D1A1000E60C0D /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				C18F515E2C9D1A1000E60C0D /* AuthenticationNetworkRepository.swift */,
+				C18F515F2C9D1A1000E60C0D /* AuthenticationRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		C18F51612C9D1A1000E60C0D /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				C18F51542C9D1A1000E60C0D /* Domain */,
+				C18F51562C9D1A1000E60C0D /* Response */,
+				C18F51582C9D1A1000E60C0D /* API */,
+				C18F515A2C9D1A1000E60C0D /* Service */,
+				C18F515D2C9D1A1000E60C0D /* Error */,
+				C18F51602C9D1A1000E60C0D /* Repository */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
 		C1936FF02C898D1C00B56BA1 = {
 			isa = PBXGroup;
 			children = (
@@ -323,6 +440,7 @@
 		C19370182C89967300B56BA1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				C18F51612C9D1A1000E60C0D /* Authentication */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -398,6 +516,11 @@
 		C19370352C8A064400B56BA1 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				C18F51702C9D1AA300E60C0D /* Responseable.swift */,
+				C18F51712C9D1AA300E60C0D /* ServerMessageError.swift */,
+				C18F51722C9D1AA300E60C0D /* API.swift */,
+				C18F51732C9D1AA300E60C0D /* APIManager.swift */,
+				C18F51742C9D1AA300E60C0D /* APIService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -547,6 +670,7 @@
 				C193704A2C8A133100B56BA1 /* CombineCocoa */,
 				C193704D2C8A137600B56BA1 /* SnapKit */,
 				C19370502C8A140E00B56BA1 /* CombineDataSources */,
+				C18F517B2C9D1E4900E60C0D /* Alamofire */,
 			);
 			productName = Cyclouse;
 			productReference = C1936FF92C898D1C00B56BA1 /* Cyclouse.app */;
@@ -580,6 +704,7 @@
 				C19370492C8A133000B56BA1 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 				C193704C2C8A137600B56BA1 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				C193704F2C8A140E00B56BA1 /* XCRemoteSwiftPackageReference "CombineDataSources" */,
+				C18F517A2C9D1E4900E60C0D /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = C1936FFA2C898D1C00B56BA1 /* Products */;
 			projectDirPath = "";
@@ -629,6 +754,25 @@
 				C19370112C8991A700B56BA1 /* Coordinator.swift in Sources */,
 				C13D90CA2C91EEA200430BA4 /* DetailCoordinator.swift in Sources */,
 				C19370652C8B69ED00B56BA1 /* ThemeFont.swift in Sources */,
+				C18F51622C9D1A1000E60C0D /* Email.swift in Sources */,
+				C18F51632C9D1A1000E60C0D /* Password.swift in Sources */,
+				C18F51642C9D1A1000E60C0D /* Username.swift in Sources */,
+				C18F51652C9D1A1000E60C0D /* AuthenticationService.swift in Sources */,
+				C18F51662C9D1A1000E60C0D /* ValidationError.swift in Sources */,
+				C18F51672C9D1A1000E60C0D /* AuthenticationValidationError.swift in Sources */,
+				C18F51752C9D1AA300E60C0D /* Responseable.swift in Sources */,
+				C18F51762C9D1AA300E60C0D /* ServerMessageError.swift in Sources */,
+				C18F51772C9D1AA300E60C0D /* APIService.swift in Sources */,
+				C18F51782C9D1AA300E60C0D /* APIManager.swift in Sources */,
+				C18F51792C9D1AA300E60C0D /* API.swift in Sources */,
+				C18F51682C9D1A1000E60C0D /* AuthenticationError.swift in Sources */,
+				C18F51692C9D1A1000E60C0D /* Validateable.swift in Sources */,
+				C18F516A2C9D1A1000E60C0D /* User.swift in Sources */,
+				C18F516B2C9D1A1000E60C0D /* Valueable.swift in Sources */,
+				C18F516C2C9D1A1000E60C0D /* AuthenticationNetworkRepository.swift in Sources */,
+				C18F516D2C9D1A1000E60C0D /* SigninResponse.swift in Sources */,
+				C18F516E2C9D1A1000E60C0D /* AuthenticationRepository.swift in Sources */,
+				C18F516F2C9D1A1000E60C0D /* AuthenticationAPI.swift in Sources */,
 				C13D90DA2C9218E800430BA4 /* BuildConfiguration.swift in Sources */,
 				C19370232C899A0D00B56BA1 /* HomeCoordinator.swift in Sources */,
 				C1D1BE512C8EE70D00E73A92 /* CategoryViewCell.swift in Sources */,
@@ -883,6 +1027,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C18F517A2C9D1E4900E60C0D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
 		C19370492C8A133000B56BA1 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
@@ -910,6 +1062,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C18F517B2C9D1E4900E60C0D /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C18F517A2C9D1E4900E60C0D /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		C193704A2C8A133100B56BA1 /* CombineCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C19370492C8A133000B56BA1 /* XCRemoteSwiftPackageReference "CombineCocoa" */;

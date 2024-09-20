@@ -34,7 +34,7 @@ class AppCoordinator: Coordinator {
     addChildCoordinator(onboardingCoordinator)
     onboardingCoordinator.start()*/
     
-    let login = SignUpCoordinator(navigationController: navigationController)
+    let login = SignInCoordinator(navigationController: navigationController)
     addChildCoordinator(login)
     login.start()
   }

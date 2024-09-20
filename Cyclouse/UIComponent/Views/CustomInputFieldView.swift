@@ -79,24 +79,24 @@ class CustomInputFieldView: UIView {
     if isPassword {
       toggleButton.snp.makeConstraints {
         $0.centerY.equalTo(textField)
-        $0.right.equalTo(textField).offset(-5)
-        $0.width.height.equalTo(25)
+        $0.right.equalTo(textField).offset(-2)
+        $0.width.height.equalTo(10)
       }
     }
   }
   
   private func updateToggleButtonConfiguration() {
-     var config = UIButton.Configuration.plain()
-     config.image = UIImage(systemName: textField.isSecureTextEntry ? "eye.slash" : "eye")
-     config.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular)
-     config.baseForegroundColor = .white
-     
-     // Adjust content insets instead of image insets
-     config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 16)
-     
-     toggleButton.configuration = config
-   }
-   
+    var config = UIButton.Configuration.plain()
+    config.image = UIImage(systemName: textField.isSecureTextEntry ? "eye.slash" : "eye")
+    config.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular)
+    config.baseForegroundColor = .white
+    
+    // Adjust content insets instead of image insets
+    config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10)
+    
+    toggleButton.configuration = config
+  }
+  
   
   @objc private func togglePasswordVisibility() {
     textField.isSecureTextEntry.toggle()

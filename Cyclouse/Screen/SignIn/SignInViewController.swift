@@ -7,10 +7,14 @@
 import SnapKit
 import UIKit
 import AuthenticationServices
+import Combine
 
 class SignInViewController: UIViewController {
   
   var coordinator: SignInCoordinator
+  
+  private let authService = AuthenticationService()
+  private var cancellables = Set<AnyCancellable>()
   private let emailInputView = CustomInputFieldView(labelText: "Email", placeholder: "Input Email")
   private let passwordInputView = CustomInputFieldView(labelText: "Password", placeholder: "Input Password", isPassword: true)
   
@@ -27,6 +31,7 @@ class SignInViewController: UIViewController {
       title: "Login",
       font: ThemeFont.semibold(ofSize: 14)
     )
+    button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
     return button
   }()
   
@@ -112,6 +117,27 @@ class SignInViewController: UIViewController {
   
   @objc func handleLogInWithAppleID() {
     print("Test")
+  }
+  
+  @objc func loginButtonTapped() {
+  
+    authService.signIn(username: emailInputView.textField.text ?? "", password: passwordInputView.textField.text ?? "")
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                // Hide loading indicator
+                switch completion {
+                case .finished:
+                  print(completion)
+                   print("success auth")
+                case .failure(let error):
+                   print("failed login")
+                }
+            } receiveValue: { [weak self] response in
+                // Handle successful sign-in
+              print(response)
+              print("test")
+            }
+            .store(in: &cancellables)
   }
   
   private func setupViews() {
