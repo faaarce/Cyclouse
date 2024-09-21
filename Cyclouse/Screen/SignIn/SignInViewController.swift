@@ -110,6 +110,10 @@ class SignInViewController: UIViewController {
     layout()
   }
   
+  private func setupBindings() {
+    
+  }
+  
   private func configureAppearance() {
     title = "Sign In"
     view.backgroundColor = ThemeColor.background
