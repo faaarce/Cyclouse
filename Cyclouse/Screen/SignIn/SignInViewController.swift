@@ -8,10 +8,13 @@ import SnapKit
 import UIKit
 import AuthenticationServices
 import Combine
+import CombineCocoa
 
 class SignInViewController: UIViewController {
   
   var coordinator: SignInCoordinator
+  
+  private let viewModel = SignInViewModel()
   
   private let authService = AuthenticationService()
   private var cancellables = Set<AnyCancellable>()
@@ -31,7 +34,7 @@ class SignInViewController: UIViewController {
       title: "Login",
       font: ThemeFont.semibold(ofSize: 14)
     )
-    button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+
     return button
   }()
   
@@ -108,10 +111,112 @@ class SignInViewController: UIViewController {
     setupViews()
     configureAppearance()
     layout()
+    setupBindings()
   }
   
   private func setupBindings() {
+    emailInputView.textField.textPublisher
+      .assign(to: \.email, on: viewModel)
+      .store(in: &cancellables)
     
+    passwordInputView.textField.textPublisher
+      .assign(to: \.password, on: viewModel)
+      .store(in: &cancellables)
+    
+    loginButton.tapPublisher
+      .sink { [weak self] _ in
+        self?.viewModel.signInTapped.send()
+      }
+      .store(in: &cancellables)
+    
+    viewModel.$isLoading
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] isLoading in
+        self?.updateLoadingState(isLoading)
+      }
+      .store(in: &cancellables)
+    
+    
+    viewModel.errorMessage
+      .receive(on: DispatchQueue.main)
+      .sink { [unowned self] message in
+        self.presentErrorAlert(message: message)
+      }
+      .store(in: &cancellables)
+    
+    
+    viewModel.updatePlaceholderColors
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] isEmailValid, isPasswordValid in
+          self?.updatePlaceholderColors(isEmailValid: isEmailValid, isPasswordValid: isPasswordValid)
+      }
+      .store(in: &cancellables)
+    
+    viewModel.loginSuccess
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] _ in
+//            self?.showTabbarViewController()
+        }
+        .store(in: &cancellables)
+  }
+  
+  private func updateLoadingState(_ isLoading: Bool) {
+    if isLoading {
+      presentLoadingView(message: "Signing in...")
+    } else {
+      dismissLoadingView()
+    }
+  }
+  
+  private func updatePlaceholderColors(isEmailValid: Bool, isPasswordValid: Bool) {
+    emailInputView.textField.layer.borderWidth = isEmailValid ? 0.0 : 1.0
+    emailInputView.textField.layer.borderColor = isEmailValid ? UIColor.clear.cgColor : UIColor.red.cgColor
+    
+    passwordInputView.textField.layer.borderWidth = isEmailValid ? 0.0 : 1.0
+    passwordInputView.textField.layer.borderColor = isEmailValid ? UIColor.clear.cgColor : UIColor.red.cgColor
+  }
+  
+  private func presentErrorAlert(message: String) {
+         DispatchQueue.main.async { [weak self] in
+             guard let self = self else {
+                 print("ViewController: Self is nil, cannot present alert")
+                 return
+             }
+             
+             if self.presentedViewController != nil {
+                 print("ViewController: Another view controller is already presented, dismissing it")
+                 self.dismiss(animated: false) {
+                     self.showAlert(message: message)
+                 }
+             } else {
+                 self.showAlert(message: message)
+             }
+         }
+     }
+  
+  private func showAlert(message: String) {
+      print("ViewController: Creating and presenting alert")
+      let alert = UIAlertController(title: "Login Error", message: message, preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+          self?.resetInputFields()
+      }))
+      
+      if self.isViewLoaded && self.view.window != nil {
+          print("ViewController: View is loaded and visible, presenting alert")
+          self.present(alert, animated: true) {
+              print("ViewController: Alert presented successfully")
+          }
+      } else {
+          print("ViewController: View is not loaded or not in window hierarchy, cannot present alert")
+      }
+  }
+  
+  private func resetInputFields() {
+    emailInputView.textField.layer.borderWidth = 0.0
+    emailInputView.textField.layer.borderColor = UIColor.clear.cgColor
+    
+    passwordInputView.textField.layer.borderWidth = 0.0
+    passwordInputView.textField.layer.borderColor = UIColor.clear.cgColor
   }
   
   private func configureAppearance() {
@@ -123,26 +228,6 @@ class SignInViewController: UIViewController {
     print("Test")
   }
   
-  @objc func loginButtonTapped() {
-  
-    authService.signIn(username: emailInputView.textField.text ?? "", password: passwordInputView.textField.text ?? "")
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                // Hide loading indicator
-                switch completion {
-                case .finished:
-                  print(completion)
-                   print("success auth")
-                case .failure(let error):
-                   print("failed login")
-                }
-            } receiveValue: { [weak self] response in
-                // Handle successful sign-in
-              print(response)
-              print("test")
-            }
-            .store(in: &cancellables)
-  }
   
   private func setupViews() {
     [emailInputView, passwordInputView, forgotPasswordButton, hSignUpStackView, vSignInStackView].forEach(view.addSubview)
