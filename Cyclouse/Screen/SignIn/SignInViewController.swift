@@ -172,8 +172,8 @@ class SignInViewController: UIViewController {
     emailInputView.textField.layer.borderWidth = isEmailValid ? 0.0 : 1.0
     emailInputView.textField.layer.borderColor = isEmailValid ? UIColor.clear.cgColor : UIColor.red.cgColor
     
-    passwordInputView.textField.layer.borderWidth = isEmailValid ? 0.0 : 1.0
-    passwordInputView.textField.layer.borderColor = isEmailValid ? UIColor.clear.cgColor : UIColor.red.cgColor
+    passwordInputView.textField.layer.borderWidth = isPasswordValid ? 0.0 : 1.0
+    passwordInputView.textField.layer.borderColor = isPasswordValid ? UIColor.clear.cgColor : UIColor.red.cgColor
   }
   
   private func presentErrorAlert(message: String) {
