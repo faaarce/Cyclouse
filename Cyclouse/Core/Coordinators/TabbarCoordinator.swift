@@ -29,7 +29,7 @@ class TabbarCoordinator: Coordinator {
     profileCoordinator.start()
     
     let wishlistNav = UINavigationController()
-    let wishlistCoordinator = WishlistCoordinator(navigationController: wishlistNav)
+    let wishlistCoordinator = HistoryCoordinator(navigationController: wishlistNav)
     addChildCoordinator(wishlistCoordinator)
     wishlistCoordinator.start()
     

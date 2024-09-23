@@ -17,6 +17,7 @@
 		C1464C542C92A96300F945BA /* CartCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1464C532C92A96300F945BA /* CartCoordinator.swift */; };
 		C1464C562C92A97900F945BA /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1464C552C92A97900F945BA /* CartViewController.swift */; };
 		C1464C592C92B41800F945BA /* CartViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1464C582C92B41800F945BA /* CartViewCell.swift */; };
+		C147C2512CA14D6D002B88AF /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C147C2502CA14D6D002B88AF /* HistoryTableViewCell.swift */; };
 		C177238D2C951CF30078E598 /* ReadMoreTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177238C2C951CF30078E598 /* ReadMoreTextView.swift */; };
 		C177238F2C954E6B0078E598 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177238E2C954E6B0078E598 /* PopUpViewController.swift */; };
 		C17D7D952C975EB800868F1E /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D7D942C975EB800868F1E /* HistoryViewController.swift */; };
@@ -110,6 +111,7 @@
 		C1464C532C92A96300F945BA /* CartCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCoordinator.swift; sourceTree = "<group>"; };
 		C1464C552C92A97900F945BA /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		C1464C582C92B41800F945BA /* CartViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewCell.swift; sourceTree = "<group>"; };
+		C147C2502CA14D6D002B88AF /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		C177238C2C951CF30078E598 /* ReadMoreTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreTextView.swift; sourceTree = "<group>"; };
 		C177238E2C954E6B0078E598 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		C17D7D942C975EB800868F1E /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
@@ -330,9 +332,18 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
+		C147C24F2CA14D59002B88AF /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C147C2502CA14D6D002B88AF /* HistoryTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		C17D7D932C975EA200868F1E /* History */ = {
 			isa = PBXGroup;
 			children = (
+				C147C24F2CA14D59002B88AF /* Cells */,
 				C17D7D942C975EB800868F1E /* HistoryViewController.swift */,
 				C17D7D962C975EC200868F1E /* HistoryCoordinator.swift */,
 			);
@@ -444,13 +455,6 @@
 			path = Authentication;
 			sourceTree = "<group>";
 		};
-		C18F51882C9E937A00E60C0D /* Loading */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Loading;
-			sourceTree = "<group>";
-		};
 		C1936FF02C898D1C00B56BA1 = {
 			isa = PBXGroup;
 			children = (
@@ -470,7 +474,6 @@
 		C1936FFB2C898D1C00B56BA1 /* Cyclouse */ = {
 			isa = PBXGroup;
 			children = (
-				C18F51882C9E937A00E60C0D /* Loading */,
 				C19370382C8A09A000B56BA1 /* Resources */,
 				C19370162C89960700B56BA1 /* Core */,
 				C193701A2C89967D00B56BA1 /* UICore */,
@@ -864,6 +867,7 @@
 				C1D1BE4E2C8E170A00E73A92 /* HeaderReusableView.swift in Sources */,
 				C19370692C8B73D900B56BA1 /* UIView+Extension.swift in Sources */,
 				C13D90D62C9218D100430BA4 /* APIKeys.swift in Sources */,
+				C147C2512CA14D6D002B88AF /* HistoryTableViewCell.swift in Sources */,
 				C1C533882C90A618000ABA71 /* HomeViewModel.swift in Sources */,
 				C19465682C8CBF6F00171932 /* HorizontalViewCell.swift in Sources */,
 				C177238F2C954E6B0078E598 /* PopUpViewController.swift in Sources */,

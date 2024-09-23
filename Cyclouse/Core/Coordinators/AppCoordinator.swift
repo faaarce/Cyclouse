@@ -18,7 +18,7 @@ class AppCoordinator: Coordinator {
   }
   
   func start() {
-    showOnboarding()
+    showMainTabbar()
   }
   
   func showLogin() {

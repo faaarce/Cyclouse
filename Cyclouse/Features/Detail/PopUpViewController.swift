@@ -107,6 +107,7 @@ class PopUpViewController: UIViewController {
   }
   
   @objc private func closeController() {
+    print("test")
     self.dismiss(animated: true)
   }
   

@@ -19,7 +19,7 @@ class HistoryCoordinator: Coordinator, NavigationCoordinator {
   
   func start() {
     let historyVC = HistoryViewController(coordinator: self)
-    historyVC.hidesBottomBarWhenPushed = true
+//    historyVC.hidesBottomBarWhenPushed = true
     navigationController.pushViewController(historyVC, animated: true)
   }
   
