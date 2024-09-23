@@ -15,6 +15,8 @@ class HomeViewController: UIViewController {
   private var cancellable = Set<AnyCancellable>()
   var coordinator: HomeCoordinator
   
+  private let cellSelectedSubject = PassthroughSubject<IndexPath, Never>()
+  
   lazy var collectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .vertical
@@ -42,6 +44,7 @@ class HomeViewController: UIViewController {
     setupViews()
     setupLayout()
     setupNavigationVar()
+    bindViewModel()
   }
   
   
@@ -107,6 +110,22 @@ class HomeViewController: UIViewController {
         self?.collectionView.reloadData()
       }
       .store(in: &cancellable)
+    
+    cellSelectedSubject
+      .sink { [weak self] indexPath in
+        self?.handleCellSelection(at: indexPath)
+      }
+      .store(in: &cancellable)
+  }
+  
+  private func handleCellSelection(at indexPath: IndexPath) {
+    let section = viewModel.sections[indexPath.section]
+    if section.cellType == .cycleCard {
+      if indexPath.item < viewModel.bikeData.count {
+        let selectedBike = viewModel.bikeData[indexPath.item]
+        coordinator.showDetailViewController()
+      }
+    }
   }
   
 }
@@ -123,7 +142,16 @@ extension HomeViewController: UICollectionViewDataSource {
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    viewModel.configureCell(collectionView: collectionView, indexPath: indexPath)
+    let cell = viewModel.configureCell(collectionView: collectionView, indexPath: indexPath)
+    if let horizontalCell = cell as? HorizontalViewCell {
+      horizontalCell.cellSelected
+        .sink { [weak self] selectedIndexPath in
+          let globalIndexPath = IndexPath(item: selectedIndexPath.item, section: indexPath.section)
+          self?.cellSelectedSubject.send(globalIndexPath)
+        }
+        .store(in: &cancellable)
+    }
+    return cell
   }
   
   
@@ -152,4 +180,10 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
   
 }
 
+
+extension HomeViewController: UICollectionViewDelegate {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    cellSelectedSubject.send(indexPath)
+  }
+}
 

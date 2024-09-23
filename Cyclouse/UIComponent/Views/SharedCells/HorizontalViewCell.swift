@@ -6,6 +6,8 @@
 //
 import SnapKit
 import UIKit
+import Combine
+import CombineCocoa
 
 enum CellType {
   case cycleCard
@@ -13,9 +15,13 @@ enum CellType {
 }
 
 class HorizontalViewCell: UICollectionViewCell {
-  
+  private let cellSelectedSubject = PassthroughSubject<IndexPath, Never>()
   private var cellType: CellType = .cycleCard
   private var bikeData: [Bike] = []
+  
+  var cellSelected: AnyPublisher<IndexPath, Never> {
+    return cellSelectedSubject.eraseToAnyPublisher()
+  }
   
   lazy var collectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
@@ -101,5 +107,11 @@ extension HorizontalViewCell: UICollectionViewDelegateFlowLayout {
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
     return UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
+  }
+}
+
+extension HorizontalViewCell: UICollectionViewDelegate {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    cellSelectedSubject.send(indexPath)
   }
 }
