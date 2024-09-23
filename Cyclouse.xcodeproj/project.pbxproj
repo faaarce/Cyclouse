@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -62,7 +62,6 @@
 		C19370232C899A0D00B56BA1 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19370222C899A0D00B56BA1 /* HomeCoordinator.swift */; };
 		C19370252C899AD300B56BA1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19370242C899AD300B56BA1 /* HomeViewController.swift */; };
 		C19370282C89A22700B56BA1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19370272C89A22700B56BA1 /* SignInViewController.swift */; };
-		C193702A2C89A23100B56BA1 /* SignInCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19370292C89A23100B56BA1 /* SignInCoordinator.swift */; };
 		C193702D2C89E97B00B56BA1 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193702C2C89E97B00B56BA1 /* ProfileCoordinator.swift */; };
 		C193702F2C89E98300B56BA1 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193702E2C89E98300B56BA1 /* ProfileViewController.swift */; };
 		C19370422C8A0C9400B56BA1 /* Manrope-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C193703B2C8A0C9400B56BA1 /* Manrope-SemiBold.ttf */; };
@@ -156,7 +155,6 @@
 		C19370222C899A0D00B56BA1 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		C19370242C899AD300B56BA1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C19370272C89A22700B56BA1 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
-		C19370292C89A23100B56BA1 /* SignInCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInCoordinator.swift; sourceTree = "<group>"; };
 		C193702C2C89E97B00B56BA1 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		C193702E2C89E98300B56BA1 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C193703B2C8A0C9400B56BA1 /* Manrope-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -189,6 +187,10 @@
 		C1DF47EA2C9C9305004F5751 /* SignUpCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpCoordinator.swift; sourceTree = "<group>"; };
 		C1DF47EC2C9C9379004F5751 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		C147C24D2CA14805002B88AF /* Coortinator */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Coortinator; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		C1936FF62C898D1C00B56BA1 /* Frameworks */ = {
@@ -280,6 +282,46 @@
 				C18F51842C9E8D9200E60C0D /* Strings + Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C147C2482CA14685002B88AF /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				C1C533872C90A618000ABA71 /* HomeViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		C147C2492CA1468E002B88AF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C19370242C899AD300B56BA1 /* HomeViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C147C24A2CA14696002B88AF /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C19370222C899A0D00B56BA1 /* HomeCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		C147C24B2CA147E8002B88AF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C19370272C89A22700B56BA1 /* SignInViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C147C24C2CA147F5002B88AF /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				C18F51802C9E84DC00E60C0D /* SignInViewModel.swift */,
+			);
+			path = "View Model";
 			sourceTree = "<group>";
 		};
 		C17D7D932C975EA200868F1E /* History */ = {
@@ -490,10 +532,10 @@
 			isa = PBXGroup;
 			children = (
 				C1C533862C90A599000ABA71 /* Model */,
+				C147C2492CA1468E002B88AF /* View */,
+				C147C2482CA14685002B88AF /* View Model */,
+				C147C24A2CA14696002B88AF /* Coordinator */,
 				C1D1BE4F2C8EE6F600E73A92 /* Cells */,
-				C19370222C899A0D00B56BA1 /* HomeCoordinator.swift */,
-				C19370242C899AD300B56BA1 /* HomeViewController.swift */,
-				C1C533872C90A618000ABA71 /* HomeViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -501,9 +543,9 @@
 		C19370262C89A21C00B56BA1 /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
-				C19370272C89A22700B56BA1 /* SignInViewController.swift */,
-				C18F51802C9E84DC00E60C0D /* SignInViewModel.swift */,
-				C19370292C89A23100B56BA1 /* SignInCoordinator.swift */,
+				C147C24B2CA147E8002B88AF /* View */,
+				C147C24C2CA147F5002B88AF /* View Model */,
+				C147C24D2CA14805002B88AF /* Coortinator */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -690,6 +732,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				C147C24D2CA14805002B88AF /* Coortinator */,
+			);
 			name = Cyclouse;
 			packageProductDependencies = (
 				C193704A2C8A133100B56BA1 /* CombineCocoa */,
@@ -839,7 +884,6 @@
 				C1464C542C92A96300F945BA /* CartCoordinator.swift in Sources */,
 				C19370152C89943F00B56BA1 /* NavigationCoordinator.swift in Sources */,
 				C1936FFF2C898D1C00B56BA1 /* SceneDelegate.swift in Sources */,
-				C193702A2C89A23100B56BA1 /* SignInCoordinator.swift in Sources */,
 				C193701E2C89975A00B56BA1 /* AppCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
