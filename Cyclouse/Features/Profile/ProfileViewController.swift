@@ -58,7 +58,7 @@ class ProfileViewController: UIViewController {
   private lazy var menuItems: [UIView] = [
     createPaddedMenuItemStack(title: "My Account", icon: "person"),
     createDivider(),
-    createPaddedMenuItemStack(title: "Transaction History", icon: "clock.arrow.circlepath"),
+    createPaddedMenuItemStack(title: "Transaction History", icon: "clock.arrow.circlepath", action: #selector(transactionHistoryTapped)),
     createDivider(),
     createPaddedMenuItemStack(title: "Language", icon: "globe"),
     createDivider(),
@@ -129,7 +129,7 @@ class ProfileViewController: UIViewController {
     }
   }
   
-  private func createMenuItemStack(title: String, icon: String) -> UIStackView {
+  private func createMenuItemStack(title: String, icon: String, action: Selector? = nil) -> UIStackView {
     let label = LabelFactory.build(text: title, font: ThemeFont.medium(ofSize: 16), textColor: .white)
      
     let iconImageView = UIImageView(image: UIImage(systemName: icon))
@@ -141,7 +141,7 @@ class ProfileViewController: UIViewController {
      
     let arrowImageView = UIImageView(image: UIImage(systemName: "chevron.right"))
     arrowImageView.contentMode = .scaleAspectFit
-    arrowImageView.tintColor = .tertiaryLabel
+    arrowImageView.tintColor = ThemeColor.labelColorSecondary
     arrowImageView.snp.makeConstraints {
       $0.width.height.equalTo(24)
     }
@@ -160,11 +160,17 @@ class ProfileViewController: UIViewController {
     label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     arrowImageView.setContentHuggingPriority(.required, for: .horizontal)
      
+    if let action = action {
+      let tapGesture = UITapGestureRecognizer(target: self, action: action)
+      stack.addGestureRecognizer(tapGesture)
+      stack.isUserInteractionEnabled = true
+    }
+    
     return stack
   }
   
-  private func createPaddedMenuItemStack(title: String, icon: String) -> UIStackView {
-    let menuStack = createMenuItemStack(title: title, icon: icon)
+  private func createPaddedMenuItemStack(title: String, icon: String, action: Selector? = nil) -> UIStackView {
+    let menuStack = createMenuItemStack(title: title, icon: icon, action: action)
     let paddingStack = UIStackView(arrangedSubviews: [menuStack])
     paddingStack.axis = .vertical
     paddingStack.layoutMargins = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
@@ -179,5 +185,9 @@ class ProfileViewController: UIViewController {
       $0.height.equalTo(1)
     }
     return divider
+  }
+  
+  @objc private func transactionHistoryTapped() {
+    coordinator.showTransactionHistory()
   }
 }

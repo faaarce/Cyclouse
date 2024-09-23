@@ -22,6 +22,13 @@ class ProfileCoordinator: Coordinator, NavigationCoordinator {
     let vc = ProfileViewController(coordinator: self)
     navigationController.setViewControllers([vc], animated: true)
   }
+  
+  func showTransactionHistory(){
+    let historyCoordinator = HistoryCoordinator(navigationController: navigationController)
+    childCoordinators.append(historyCoordinator)
+    historyCoordinator.parentCoordinator = self
+    historyCoordinator.start()
+  }
 
 }
 

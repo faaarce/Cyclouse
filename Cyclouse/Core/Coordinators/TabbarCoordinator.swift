@@ -24,7 +24,7 @@ class TabbarCoordinator: Coordinator {
     homeCoordinator.start()
     
     let profileNav = UINavigationController()
-    let profileCoordinator = CartCoordinator(navigationController: profileNav)
+    let profileCoordinator = ProfileCoordinator(navigationController: profileNav)
     addChildCoordinator(profileCoordinator)
     profileCoordinator.start()
     
@@ -35,7 +35,6 @@ class TabbarCoordinator: Coordinator {
     
     tabBarController.setViewControllers([
       homeNav,
-      wishlistNav,
       profileNav
     ], animated: false)
     setupTabbar()
@@ -49,9 +48,9 @@ class TabbarCoordinator: Coordinator {
     
     viewControllers[0].tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "home_icon_inactive"), selectedImage:  UIImage(named: "home_icon_active"))
     
-    viewControllers[1].tabBarItem = UITabBarItem(title: "Cart", image: UIImage(systemName: "cart"), selectedImage: UIImage(systemName: "cart.fill"))
+//    viewControllers[1].tabBarItem = UITabBarItem(title: "Cart", image: UIImage(systemName: "cart"), selectedImage: UIImage(systemName: "cart.fill"))
   
-    viewControllers[2].tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "profile_icon_inactive"), selectedImage: UIImage(named: "profile_icon_active"))
+    viewControllers[1].tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "profile_icon_inactive"), selectedImage: UIImage(named: "profile_icon_active"))
     
   
     UITabBar.appearance().backgroundColor = ThemeColor.cardFillColor

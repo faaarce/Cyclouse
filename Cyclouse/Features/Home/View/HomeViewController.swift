@@ -7,6 +7,7 @@
 import SnapKit
 import UIKit
 import Combine
+import CombineCocoa
 
 class HomeViewController: UIViewController {
   
@@ -90,7 +91,7 @@ class HomeViewController: UIViewController {
   
   @objc func cartButtonTapped() {
     print("Cart button tapped")
-    coordinator.showDetailViewController()
+    coordinator.showCartController()
   }
   
   

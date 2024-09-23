@@ -20,7 +20,7 @@ class CartCoordinator: Coordinator, NavigationCoordinator {
   
   func start() {
     let vc = CartViewController(coordinator: self)
-//    vc.hidesBottomBarWhenPushed = true
+    vc.hidesBottomBarWhenPushed = true
     navigationController.pushViewController(vc, animated: true)
   }
   
