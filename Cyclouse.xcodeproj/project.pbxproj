@@ -50,9 +50,7 @@
 		C18F517C2C9D1E4900E60C0D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C18F517B2C9D1E4900E60C0D /* Alamofire */; };
 		C18F51812C9E84DC00E60C0D /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51802C9E84DC00E60C0D /* SignInViewModel.swift */; };
 		C18F51852C9E8D9200E60C0D /* Strings + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51842C9E8D9200E60C0D /* Strings + Extension.swift */; };
-		C18F51892C9E93F700E60C0D /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51862C9E937A00E60C0D /* LoadingViewController.swift */; };
-		C18F518A2C9E940100E60C0D /* LoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C18F51872C9E937A00E60C0D /* LoadingViewController.xib */; };
-		C18F518C2C9F341C00E60C0D /* LoadingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F518B2C9F341C00E60C0D /* LoadingsViewController.swift */; };
+		C18F518C2C9F341C00E60C0D /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F518B2C9F341C00E60C0D /* LoadingViewController.swift */; };
 		C1936FFD2C898D1C00B56BA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1936FFC2C898D1C00B56BA1 /* AppDelegate.swift */; };
 		C1936FFF2C898D1C00B56BA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1936FFE2C898D1C00B56BA1 /* SceneDelegate.swift */; };
 		C19370092C898D1D00B56BA1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = C19370082C898D1D00B56BA1 /* Base */; };
@@ -144,9 +142,7 @@
 		C18F51742C9D1AA300E60C0D /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		C18F51802C9E84DC00E60C0D /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		C18F51842C9E8D9200E60C0D /* Strings + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Strings + Extension.swift"; sourceTree = "<group>"; };
-		C18F51862C9E937A00E60C0D /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
-		C18F51872C9E937A00E60C0D /* LoadingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingViewController.xib; sourceTree = "<group>"; };
-		C18F518B2C9F341C00E60C0D /* LoadingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingsViewController.swift; sourceTree = "<group>"; };
+		C18F518B2C9F341C00E60C0D /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		C1936FF92C898D1C00B56BA1 /* Cyclouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cyclouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1936FFC2C898D1C00B56BA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1936FFE2C898D1C00B56BA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -222,6 +218,7 @@
 		C13D90CB2C9213B200430BA4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C147C2472CA14661002B88AF /* Extensions */,
 				C19370352C8A064400B56BA1 /* Network */,
 				C19370342C8A063E00B56BA1 /* Protocols */,
 			);
@@ -275,6 +272,14 @@
 				C1464C582C92B41800F945BA /* CartViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		C147C2472CA14661002B88AF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C18F51842C9E8D9200E60C0D /* Strings + Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C17D7D932C975EA200868F1E /* History */ = {
@@ -394,9 +399,6 @@
 		C18F51882C9E937A00E60C0D /* Loading */ = {
 			isa = PBXGroup;
 			children = (
-				C18F51862C9E937A00E60C0D /* LoadingViewController.swift */,
-				C18F51872C9E937A00E60C0D /* LoadingViewController.xib */,
-				C18F518B2C9F341C00E60C0D /* LoadingsViewController.swift */,
 			);
 			path = Loading;
 			sourceTree = "<group>";
@@ -596,7 +598,6 @@
 			isa = PBXGroup;
 			children = (
 				C19370592C8ABAEE00B56BA1 /* UIColor+Extension.swift */,
-				C18F51842C9E8D9200E60C0D /* Strings + Extension.swift */,
 				C19370682C8B73D900B56BA1 /* UIView+Extension.swift */,
 			);
 			path = Extensions;
@@ -631,6 +632,7 @@
 		C19465622C8C488100171932 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C18F518B2C9F341C00E60C0D /* LoadingViewController.swift */,
 				C194655B2C8C20AB00171932 /* CustomInputFieldView.swift */,
 				C177238C2C951CF30078E598 /* ReadMoreTextView.swift */,
 				C19465662C8CBEC200171932 /* SharedCells */,
@@ -752,7 +754,6 @@
 				C17D7DA92C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf in Resources */,
 				C17D7D9D2C981C9C00868F1E /* PlusJakartaSans-ExtraBold.ttf in Resources */,
 				C17D7DA52C981CF900868F1E /* PlusJakartaSans-Medium.ttf in Resources */,
-				C18F518A2C9E940100E60C0D /* LoadingViewController.xib in Resources */,
 				C19370092C898D1D00B56BA1 /* Base in Resources */,
 				C19370472C8A0C9400B56BA1 /* Manrope-ExtraBold.ttf in Resources */,
 				C17D7DA12C981CB900868F1E /* PlusJakartaSans-Light.ttf in Resources */,
@@ -804,7 +805,7 @@
 				C1D1BE512C8EE70D00E73A92 /* CategoryViewCell.swift in Sources */,
 				C19370562C8AB19900B56BA1 /* WishlistViewController.swift in Sources */,
 				C13D90D82C9218D700430BA4 /* AppConfig.swift in Sources */,
-				C18F518C2C9F341C00E60C0D /* LoadingsViewController.swift in Sources */,
+				C18F518C2C9F341C00E60C0D /* LoadingViewController.swift in Sources */,
 				C13D90C82C91EE5400430BA4 /* DetailViewController.swift in Sources */,
 				C1464C562C92A97900F945BA /* CartViewController.swift in Sources */,
 				C193702F2C89E98300B56BA1 /* ProfileViewController.swift in Sources */,
@@ -831,7 +832,6 @@
 				C19370632C8B697200B56BA1 /* LabelFactory.swift in Sources */,
 				C1936FFD2C898D1C00B56BA1 /* AppDelegate.swift in Sources */,
 				C193702D2C89E97B00B56BA1 /* ProfileCoordinator.swift in Sources */,
-				C18F51892C9E93F700E60C0D /* LoadingViewController.swift in Sources */,
 				C1464C592C92B41800F945BA /* CartViewCell.swift in Sources */,
 				C19465582C8C087100171932 /* PaddedTextField.swift in Sources */,
 				C1B4B94D2C8D4F8D00B4F54B /* BikeProductViewCell.swift in Sources */,
