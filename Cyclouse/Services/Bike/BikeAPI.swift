@@ -13,13 +13,13 @@ enum BikeAPI: API {
   case getBikes
   
   private var baseURL: String {
-    "https://localhost:3001"
+    "http://localhost:3002"
   }
   
   var url: any URLConvertible {
     switch self {
     case .getBikes:
-      return "\(baseURL)/bikes"
+      return "\(baseURL)/bike"
     }
   }
   

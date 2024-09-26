@@ -23,11 +23,11 @@ class CartViewCell: UITableViewCell {
     return view
   }()
   
-  private let bikeNameLabel: UILabel = {
+   let bikeNameLabel: UILabel = {
     LabelFactory.build(text: "TDR 3.000 - Mountain Bike", font: ThemeFont.semibold(ofSize: 14), textColor: .white)
   }()
   
-  private let bikePriceLabel: UILabel = {
+   let bikePriceLabel: UILabel = {
     LabelFactory.build(text: "Rp 5,000,000", font: ThemeFont.bold(ofSize: 14), textColor: ThemeColor.primary)
   }()
   

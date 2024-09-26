@@ -18,6 +18,11 @@
 		C1464C562C92A97900F945BA /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1464C552C92A97900F945BA /* CartViewController.swift */; };
 		C1464C592C92B41800F945BA /* CartViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1464C582C92B41800F945BA /* CartViewCell.swift */; };
 		C147C2512CA14D6D002B88AF /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C147C2502CA14D6D002B88AF /* HistoryTableViewCell.swift */; };
+		C1705E0A2CA55C6D0043CE9D /* Bikes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E052CA55C6D0043CE9D /* Bikes.swift */; };
+		C1705E0B2CA55C6D0043CE9D /* BikeNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E072CA55C6D0043CE9D /* BikeNetworkRepository.swift */; };
+		C1705E0C2CA55C6D0043CE9D /* BikeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E092CA55C6D0043CE9D /* BikeService.swift */; };
+		C1705E0D2CA55C6D0043CE9D /* BikeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E082CA55C6D0043CE9D /* BikeRepository.swift */; };
+		C1705E0E2CA55C6D0043CE9D /* BikeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E062CA55C6D0043CE9D /* BikeAPI.swift */; };
 		C177238D2C951CF30078E598 /* ReadMoreTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177238C2C951CF30078E598 /* ReadMoreTextView.swift */; };
 		C177238F2C954E6B0078E598 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177238E2C954E6B0078E598 /* PopUpViewController.swift */; };
 		C17D7D952C975EB800868F1E /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D7D942C975EB800868F1E /* HistoryViewController.swift */; };
@@ -29,11 +34,6 @@
 		C17D7DA52C981CF900868F1E /* PlusJakartaSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7DA42C981CF900868F1E /* PlusJakartaSans-Medium.ttf */; };
 		C17D7DA72C981D0200868F1E /* PlusJakartaSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7DA62C981D0200868F1E /* PlusJakartaSans-Regular.ttf */; };
 		C17D7DA92C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7DA82C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf */; };
-		C1880EC82CA5566800A9F193 /* BikeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1880EC72CA5566800A9F193 /* BikeAPI.swift */; };
-		C1880ECA2CA556F700A9F193 /* Bike.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1880EC92CA556F700A9F193 /* Bike.swift */; };
-		C1880ECC2CA5577400A9F193 /* BikeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1880ECB2CA5577400A9F193 /* BikeService.swift */; };
-		C1880ECE2CA5578B00A9F193 /* BikeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1880ECD2CA5578B00A9F193 /* BikeRepository.swift */; };
-		C1880ED02CA5580800A9F193 /* BikeNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1880ECF2CA5580800A9F193 /* BikeNetworkRepository.swift */; };
 		C18F51622C9D1A1000E60C0D /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51502C9D1A1000E60C0D /* Email.swift */; };
 		C18F51632C9D1A1000E60C0D /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51522C9D1A1000E60C0D /* Password.swift */; };
 		C18F51642C9D1A1000E60C0D /* Username.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51512C9D1A1000E60C0D /* Username.swift */; };
@@ -117,6 +117,11 @@
 		C1464C552C92A97900F945BA /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		C1464C582C92B41800F945BA /* CartViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewCell.swift; sourceTree = "<group>"; };
 		C147C2502CA14D6D002B88AF /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		C1705E052CA55C6D0043CE9D /* Bikes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bikes.swift; sourceTree = "<group>"; };
+		C1705E062CA55C6D0043CE9D /* BikeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeAPI.swift; sourceTree = "<group>"; };
+		C1705E072CA55C6D0043CE9D /* BikeNetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeNetworkRepository.swift; sourceTree = "<group>"; };
+		C1705E082CA55C6D0043CE9D /* BikeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRepository.swift; sourceTree = "<group>"; };
+		C1705E092CA55C6D0043CE9D /* BikeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeService.swift; sourceTree = "<group>"; };
 		C177238C2C951CF30078E598 /* ReadMoreTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreTextView.swift; sourceTree = "<group>"; };
 		C177238E2C954E6B0078E598 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		C17D7D942C975EB800868F1E /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
@@ -128,11 +133,6 @@
 		C17D7DA42C981CF900868F1E /* PlusJakartaSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-Medium.ttf"; sourceTree = "<group>"; };
 		C17D7DA62C981D0200868F1E /* PlusJakartaSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-Regular.ttf"; sourceTree = "<group>"; };
 		C17D7DA82C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-SemiBold.ttf"; sourceTree = "<group>"; };
-		C1880EC72CA5566800A9F193 /* BikeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeAPI.swift; sourceTree = "<group>"; };
-		C1880EC92CA556F700A9F193 /* Bike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bike.swift; sourceTree = "<group>"; };
-		C1880ECB2CA5577400A9F193 /* BikeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeService.swift; sourceTree = "<group>"; };
-		C1880ECD2CA5578B00A9F193 /* BikeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRepository.swift; sourceTree = "<group>"; };
-		C1880ECF2CA5580800A9F193 /* BikeNetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeNetworkRepository.swift; sourceTree = "<group>"; };
 		C18F514C2C9D1A1000E60C0D /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		C18F514D2C9D1A1000E60C0D /* Validateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validateable.swift; sourceTree = "<group>"; };
 		C18F514E2C9D1A1000E60C0D /* Valueable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Valueable.swift; sourceTree = "<group>"; };
@@ -350,6 +350,18 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		C1705E042CA55C260043CE9D /* Bike */ = {
+			isa = PBXGroup;
+			children = (
+				C1705E052CA55C6D0043CE9D /* Bikes.swift */,
+				C1705E062CA55C6D0043CE9D /* BikeAPI.swift */,
+				C1705E072CA55C6D0043CE9D /* BikeNetworkRepository.swift */,
+				C1705E082CA55C6D0043CE9D /* BikeRepository.swift */,
+				C1705E092CA55C6D0043CE9D /* BikeService.swift */,
+			);
+			path = Bike;
+			sourceTree = "<group>";
+		};
 		C17D7D932C975EA200868F1E /* History */ = {
 			isa = PBXGroup;
 			children = (
@@ -386,18 +398,6 @@
 				C17D7D9A2C981C8D00868F1E /* PlusJakartaSans-Bold.ttf */,
 			);
 			path = "Plus Jakarta Sans";
-			sourceTree = "<group>";
-		};
-		C1880EC62CA5558F00A9F193 /* Bike */ = {
-			isa = PBXGroup;
-			children = (
-				C1880EC72CA5566800A9F193 /* BikeAPI.swift */,
-				C1880EC92CA556F700A9F193 /* Bike.swift */,
-				C1880ECB2CA5577400A9F193 /* BikeService.swift */,
-				C1880ECF2CA5580800A9F193 /* BikeNetworkRepository.swift */,
-				C1880ECD2CA5578B00A9F193 /* BikeRepository.swift */,
-			);
-			path = Bike;
 			sourceTree = "<group>";
 		};
 		C18F514F2C9D1A1000E60C0D /* SubDomain */ = {
@@ -536,8 +536,8 @@
 		C19370182C89967300B56BA1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				C1880EC62CA5558F00A9F193 /* Bike */,
 				C18F51612C9D1A1000E60C0D /* Authentication */,
+				C1705E042CA55C260043CE9D /* Bike */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -860,11 +860,9 @@
 				C18F51652C9D1A1000E60C0D /* AuthenticationService.swift in Sources */,
 				C18F51662C9D1A1000E60C0D /* ValidationError.swift in Sources */,
 				C18F51672C9D1A1000E60C0D /* AuthenticationValidationError.swift in Sources */,
-				C1880EC82CA5566800A9F193 /* BikeAPI.swift in Sources */,
 				C18F51752C9D1AA300E60C0D /* Responseable.swift in Sources */,
 				C18F51762C9D1AA300E60C0D /* ServerMessageError.swift in Sources */,
 				C18F51772C9D1AA300E60C0D /* APIService.swift in Sources */,
-				C1880ECC2CA5577400A9F193 /* BikeService.swift in Sources */,
 				C18F51782C9D1AA300E60C0D /* APIManager.swift in Sources */,
 				C18F51792C9D1AA300E60C0D /* API.swift in Sources */,
 				C18F51682C9D1A1000E60C0D /* AuthenticationError.swift in Sources */,
@@ -879,7 +877,6 @@
 				C19370232C899A0D00B56BA1 /* HomeCoordinator.swift in Sources */,
 				C18F51812C9E84DC00E60C0D /* SignInViewModel.swift in Sources */,
 				C1D1BE512C8EE70D00E73A92 /* CategoryViewCell.swift in Sources */,
-				C1880ECA2CA556F700A9F193 /* Bike.swift in Sources */,
 				C19370562C8AB19900B56BA1 /* WishlistViewController.swift in Sources */,
 				C13D90D82C9218D700430BA4 /* AppConfig.swift in Sources */,
 				C18F518C2C9F341C00E60C0D /* LoadingViewController.swift in Sources */,
@@ -891,13 +888,11 @@
 				C13D90DC2C9218F400430BA4 /* Environment.swift in Sources */,
 				C19370202C89988800B56BA1 /* TabbarCoordinator.swift in Sources */,
 				C1D1BE4E2C8E170A00E73A92 /* HeaderReusableView.swift in Sources */,
-				C1880ED02CA5580800A9F193 /* BikeNetworkRepository.swift in Sources */,
 				C19370692C8B73D900B56BA1 /* UIView+Extension.swift in Sources */,
 				C13D90D62C9218D100430BA4 /* APIKeys.swift in Sources */,
 				C147C2512CA14D6D002B88AF /* HistoryTableViewCell.swift in Sources */,
 				C1C533882C90A618000ABA71 /* HomeViewModel.swift in Sources */,
 				C19465682C8CBF6F00171932 /* HorizontalViewCell.swift in Sources */,
-				C1880ECE2CA5578B00A9F193 /* BikeRepository.swift in Sources */,
 				C177238F2C954E6B0078E598 /* PopUpViewController.swift in Sources */,
 				C1DF47EB2C9C9310004F5751 /* SignUpCoordinator.swift in Sources */,
 				C19370132C89941600B56BA1 /* HandleDeepLink.swift in Sources */,
@@ -906,6 +901,11 @@
 				C17D7D952C975EB800868F1E /* HistoryViewController.swift in Sources */,
 				C194655C2C8C20AB00171932 /* CustomInputFieldView.swift in Sources */,
 				C17D7D972C975EC200868F1E /* HistoryCoordinator.swift in Sources */,
+				C1705E0A2CA55C6D0043CE9D /* Bikes.swift in Sources */,
+				C1705E0B2CA55C6D0043CE9D /* BikeNetworkRepository.swift in Sources */,
+				C1705E0C2CA55C6D0043CE9D /* BikeService.swift in Sources */,
+				C1705E0D2CA55C6D0043CE9D /* BikeRepository.swift in Sources */,
+				C1705E0E2CA55C6D0043CE9D /* BikeAPI.swift in Sources */,
 				C19370672C8B72BA00B56BA1 /* ButtonFactory.swift in Sources */,
 				C193705A2C8ABAEE00B56BA1 /* UIColor+Extension.swift in Sources */,
 				C19370612C8AE9AC00B56BA1 /* OnboardingCoordinator.swift in Sources */,

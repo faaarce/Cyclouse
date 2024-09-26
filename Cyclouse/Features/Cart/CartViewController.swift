@@ -6,10 +6,15 @@
 //
 import SnapKit
 import UIKit
+import Combine
 
 class CartViewController: UIViewController {
   
+  @Published var bikes: BikeShopResponse?
   var coordinator: CartCoordinator
+  
+  private let service = BikeService()
+  private var cancellables = Set<AnyCancellable>()
   
   lazy var tableView: UITableView = {
     let tableView = UITableView(frame: .zero, style: .grouped)
@@ -72,6 +77,26 @@ class CartViewController: UIViewController {
     configureAppearance()
     setupViews()
     layout()
+    fetchBikes()
+  }
+  
+  private func fetchBikes() {
+    service.getBikes()
+      .receive(on: DispatchQueue.main)
+      .sink { completion in
+        switch completion {
+        case .finished:
+          break
+          
+        case .failure(let error):
+          print(error)
+        }
+      } receiveValue: { [weak self] bikes in
+        self?.bikes = bikes
+        self?.tableView.reloadData()
+      }
+      .store(in: &cancellables)
+
   }
   
   @objc func checkoutButtonTapped() {
@@ -147,17 +172,20 @@ class CartViewController: UIViewController {
 
 extension CartViewController: UITableViewDataSource {
   func numberOfSections(in tableView: UITableView) -> Int {
-    1
+   return 1
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 20
+    let test = bikes?.bikes.categories.count ?? 0
+    print(test)
+    return test
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "CartViewCell", for: indexPath) as? CartViewCell else { return UITableViewCell()}
     cell.selectionStyle = .none
     cell.backgroundColor = .clear
+    cell.bikeNameLabel.text = bikes?.bikes.categories[indexPath.row].categoryName
     return cell
   }
 }

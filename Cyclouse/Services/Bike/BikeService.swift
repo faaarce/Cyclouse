@@ -14,7 +14,7 @@ struct BikeService {
     self.repository = repository
   }
   
-  func getBikes() -> AnyPublisher<BikeResponse, Error> {
+  func getBikes() -> AnyPublisher<BikeShopResponse, Error> {
     return repository.getBikes().eraseToAnyPublisher()
   }
 }
