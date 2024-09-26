@@ -36,4 +36,8 @@ class CategoryViewCell: UICollectionViewCell {
     }
   }
   
+  func configure(with category: String) {
+    categoryLabel.text = category
+  }
+  
 }

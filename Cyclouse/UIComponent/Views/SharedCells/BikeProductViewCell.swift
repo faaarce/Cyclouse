@@ -53,6 +53,12 @@ class BikeProductViewCell: UICollectionViewCell {
     layout()
   }
   
+  func configure(with product: Product) {
+    productLabel.text = product.name
+    priceLabel.text = "Rp \(product.price)"
+    categoryLabel.text = product.brand
+  }
+  
   private func setupViews() {
     [productImage, vStackView].forEach(contentView.addSubview)
   }

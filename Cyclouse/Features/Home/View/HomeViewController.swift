@@ -50,25 +50,10 @@ class HomeViewController: UIViewController {
   
   private func configureAppearance() {
     title = "Home"
-    viewModel = HomeViewModel(bikeData: loadBikeData())
+    viewModel = HomeViewModel(service: BikeService())
     view.backgroundColor = ThemeColor.background
   }
-  
-  private func loadBikeData() -> [Bike] {
-    return [
-      Bike(name: "Fixie FullBike Jayjo", type: "Fullbike", price: 25000000, numberSold: 20),
-      Bike(name: "Fixie FullBike Jayjo", type: "Fullbike", price: 25000000, numberSold: 20),
-      Bike(name: "Fixie FullBike Jayjo", type: "Fullbike", price: 25000000, numberSold: 20),
-      Bike(name: "Fixie FullBike Jayjo", type: "Fullbike", price: 25000000, numberSold: 20),
-      Bike(name: "Fixie FullBike Jayjo", type: "Fullbike", price: 25000000, numberSold: 20),
-      Bike(name: "Fixie FullBike Jayjo", type: "Fullbike", price: 25000000, numberSold: 20),
-      Bike(name: "Fixie FullBike Jayjo", type: "Fullbike", price: 25000000, numberSold: 20),
-      Bike(name: "Fixie FullBike Jayjo", type: "Fullbike", price: 25000000, numberSold: 20),
-      Bike(name: "Fixie FullBike Jayjo", type: "Fullbike", price: 25000000, numberSold: 20),
-      Bike(name: "Fixie FullBike Jayjo", type: "Fullbike", price: 25000000, numberSold: 20)
-    ]
-  }
-  
+    
   private func setupViews(){
     view.addSubview(collectionView)
     registerCells()
@@ -120,9 +105,13 @@ class HomeViewController: UIViewController {
   
   private func handleCellSelection(at indexPath: IndexPath) {
     let section = viewModel.sections[indexPath.section]
-    if section.cellType == .cycleCard {
-      if indexPath.item < viewModel.bikeData.count {
-        let selectedBike = viewModel.bikeData[indexPath.item]
+    switch section.cellType {
+    case .category:
+      break
+      
+    case .cycleCard:
+      if let products = section.items as? [Product], indexPath.item < products.count {
+        let selectedProduct = products[indexPath.item]
         coordinator.showDetailViewController()
       }
     }

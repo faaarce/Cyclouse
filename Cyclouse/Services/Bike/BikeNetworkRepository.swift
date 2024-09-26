@@ -15,7 +15,7 @@ class BikeNetworkRepository: BikeRepository {
     self.apiService = apiService
   }
   
-  func getBikes() -> AnyPublisher<BikeShopResponse, Error> {
+  func getBikes() -> AnyPublisher<BikeDataResponse, Error> {
     apiService.request(BikeAPI.getBikes)
   }
 }

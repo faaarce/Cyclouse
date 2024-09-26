@@ -10,7 +10,7 @@ import Combine
 
 class CartViewController: UIViewController {
   
-  @Published var bikes: BikeShopResponse?
+  @Published var bikes: BikeDataResponse?
   var coordinator: CartCoordinator
   
   private let service = BikeService()

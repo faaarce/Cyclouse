@@ -7,28 +7,54 @@
 
 import Foundation
 
-struct BikeShopResponse: Codable, Responseable {
-  var message: String
-  
-  var success: Bool
-  
-    let bikes: BikeCategories
+// MARK: - BikeDataResponse
+struct BikeDataResponse: Codable, Responseable {
+    let message: String
+    let success: Bool
+    let bikes: Bikes
 }
 
-struct BikeCategories: Codable {
-    let categories: [BikeCategory]
+// MARK: - Bikes
+struct Bikes: Codable {
+    let categories: [Category]
 }
 
-struct BikeCategory: Codable {
+// MARK: - Category
+struct Category: Codable {
     let categoryName: String
-    let products: [BikeProduct]
+    let products: [Product]
 }
 
-struct BikeProduct: Codable {
+// MARK: - Product
+struct Product: Codable {
     let name: String
     let description: String
     let images: [String]
-    let price: Double
+    let price: Int
     let brand: String
 }
 
+// MARK: - Convenience Initializers
+extension BikeDataResponse {
+    init(data: Data) throws {
+        self = try JSONDecoder().decode(BikeDataResponse.self, from: data)
+    }
+    
+    init(_ json: String, using encoding: String.Encoding = .utf8) throws {
+        guard let data = json.data(using: encoding) else {
+            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
+        }
+        try self.init(data: data)
+    }
+}
+
+// MARK: - Convenience methods
+extension BikeDataResponse {
+    var allProducts: [Product] {
+        return bikes.categories.flatMap { $0.products }
+    }
+    
+    func products(for category: String) -> [Product] {
+        return bikes.categories.first { $0.categoryName == category }?.products ?? []
+    }
+}

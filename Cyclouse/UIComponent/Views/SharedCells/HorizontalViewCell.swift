@@ -17,7 +17,7 @@ enum CellType {
 class HorizontalViewCell: UICollectionViewCell {
   private let cellSelectedSubject = PassthroughSubject<IndexPath, Never>()
   private var cellType: CellType = .cycleCard
-  private var bikeData: [Bike] = []
+  private var items: [Any] = []
   
   var cellSelected: AnyPublisher<IndexPath, Never> {
     return cellSelectedSubject.eraseToAnyPublisher()
@@ -52,9 +52,9 @@ class HorizontalViewCell: UICollectionViewCell {
     self.collectionView.register(CategoryViewCell.self, forCellWithReuseIdentifier: "CategoryViewCell")
   }
   
-  func configure(with type: CellType, bikes: [Bike]) {
+  func configure(with type: CellType, items: [Any]) {
     self.cellType = type
-    self.bikeData = bikes
+    self.items = items
     self.collectionView.reloadData()
   }
   
@@ -73,19 +73,25 @@ class HorizontalViewCell: UICollectionViewCell {
 
 extension HorizontalViewCell: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 4
+    return items.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     switch cellType {
     case .cycleCard:
       guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BikeProductViewCell", for: indexPath) as? BikeProductViewCell else { return UICollectionViewCell() }
+      if let product = items[indexPath.item] as? Product {
+        cell.configure(with: product)
+      }
       cell.backgroundColor = ThemeColor.cardFillColor
       cell.layer.cornerRadius = 8
       return cell
       
     case .category:
       guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryViewCell", for: indexPath) as? CategoryViewCell else { return UICollectionViewCell() }
+      if let category = items[indexPath.item] as? String {
+        cell.configure(with: category)
+      }
       cell.backgroundColor = ThemeColor.primary
       cell.layer.cornerRadius = 10
       return cell
