@@ -23,8 +23,8 @@ class HomeCoordinator: Coordinator, NavigationCoordinator {
     navigationController.setViewControllers([vc], animated: true)
   }
   
-  func showDetailViewController() {
-    let detailCoordinator = DetailCoordinator(navigationController: navigationController)
+  func showDetailViewController(for product: Product) {
+    let detailCoordinator = DetailCoordinator(navigationController: navigationController, product: product)
     addChildCoordinator(detailCoordinator)
     detailCoordinator.parentCoordinator = self
     detailCoordinator.start()

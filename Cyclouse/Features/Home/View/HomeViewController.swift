@@ -53,7 +53,7 @@ class HomeViewController: UIViewController {
     viewModel = HomeViewModel(service: BikeService())
     view.backgroundColor = ThemeColor.background
   }
-    
+  
   private func setupViews(){
     view.addSubview(collectionView)
     registerCells()
@@ -112,7 +112,7 @@ class HomeViewController: UIViewController {
     case .cycleCard:
       if let products = section.items as? [Product], indexPath.item < products.count {
         let selectedProduct = products[indexPath.item]
-        coordinator.showDetailViewController()
+        coordinator.showDetailViewController(for: selectedProduct)
       }
     }
   }
@@ -172,6 +172,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 
 extension HomeViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    print("test")
     cellSelectedSubject.send(indexPath)
   }
 }

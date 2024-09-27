@@ -10,6 +10,7 @@ import UIKit
 class DetailViewController: UIViewController {
   
   var coordinator: DetailCoordinator
+  let product: Product
   
   private let detailImage: UIImageView = {
     let object = UIImageView(image: .init(named: "bike"))
@@ -128,8 +129,9 @@ class DetailViewController: UIViewController {
     configureDescriptionTextView()
   }
   
-  init(coordinator: DetailCoordinator) {
+  init(coordinator: DetailCoordinator, product: Product) {
     self.coordinator = coordinator
+    self.product = product
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -141,6 +143,10 @@ class DetailViewController: UIViewController {
     let vc = PopUpViewController()
     vc.modalPresentationStyle = .overCurrentContext
     self.present(vc, animated: false)
+  }
+  
+  func configureViews() {
+    productTitleLabel.text = product.name
   }
   
   func setupViews(){

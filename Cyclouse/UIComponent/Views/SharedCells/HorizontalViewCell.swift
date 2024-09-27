@@ -118,6 +118,7 @@ extension HorizontalViewCell: UICollectionViewDelegateFlowLayout {
 
 extension HorizontalViewCell: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
     cellSelectedSubject.send(indexPath)
   }
 }

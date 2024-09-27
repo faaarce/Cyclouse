@@ -20,7 +20,7 @@ class HomeViewModel {
   private var cancellables = Set<AnyCancellable>()
   private let service: BikeService
   
-
+  
   init(service: BikeService) {
     self.service = service
     fetchBikes()
@@ -99,21 +99,24 @@ class HomeViewModel {
       return CGSize(width: viewWidth, height: 240)
     }
   }
-  
-  //    case 0:
-  //      return CGSize(width: viewWidth, height: 36)
-  //
-  //    case 1:
-  //      return CGSize(width: viewWidth, height: 240)
-  //
-  //    case 2:
-  //      return CGSize(width: viewWidth, height: 36)
-  //
-  //    default:
-  //      return .zero
-  
+
   
   func insetForSection(at section: Int) -> UIEdgeInsets {
     return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
   }
 }
+
+
+
+
+//    case 0:
+//      return CGSize(width: viewWidth, height: 36)
+//
+//    case 1:
+//      return CGSize(width: viewWidth, height: 240)
+//
+//    case 2:
+//      return CGSize(width: viewWidth, height: 36)
+//
+//    default:
+//      return .zero
