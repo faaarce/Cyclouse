@@ -15,11 +15,11 @@ enum CellType {
 }
 
 class HorizontalViewCell: UICollectionViewCell {
-  private let cellSelectedSubject = PassthroughSubject<IndexPath, Never>()
+  private let cellSelectedSubject = PassthroughSubject<(IndexPath, Any), Never>()
   private var cellType: CellType = .cycleCard
   private var items: [Any] = []
   
-  var cellSelected: AnyPublisher<IndexPath, Never> {
+  var cellSelected: AnyPublisher<(IndexPath, Any), Never> {
     return cellSelectedSubject.eraseToAnyPublisher()
   }
   
@@ -118,7 +118,8 @@ extension HorizontalViewCell: UICollectionViewDelegateFlowLayout {
 
 extension HorizontalViewCell: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    
-    cellSelectedSubject.send(indexPath)
+    if indexPath.item < items.count {
+      cellSelectedSubject.send((indexPath, items[indexPath.item]))
+    }
   }
 }

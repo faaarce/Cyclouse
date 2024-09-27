@@ -96,23 +96,22 @@ class HomeViewController: UIViewController {
       }
       .store(in: &cancellable)
     
-    cellSelectedSubject
-      .sink { [weak self] indexPath in
-        self?.handleCellSelection(at: indexPath)
-      }
-      .store(in: &cancellable)
+//    cellSelectedSubject
+//      .sink { [weak self] indexPath in
+//        self?.handleCellSelection(at: indexPath, item: <#Any#>)
+//      }
+//      .store(in: &cancellable)
   }
   
-  private func handleCellSelection(at indexPath: IndexPath) {
-    let section = viewModel.sections[indexPath.section]
+  private func handleCellSelection(section: Int, item: Any) {
+    let section = viewModel.sections[section]
     switch section.cellType {
     case .category:
       break
       
     case .cycleCard:
-      if let products = section.items as? [Product], indexPath.item < products.count {
-        let selectedProduct = products[indexPath.item]
-        coordinator.showDetailViewController(for: selectedProduct)
+      if let products = item as? Product {
+        coordinator.showDetailViewController(for: products)
       }
     }
   }
@@ -134,9 +133,8 @@ extension HomeViewController: UICollectionViewDataSource {
     let cell = viewModel.configureCell(collectionView: collectionView, indexPath: indexPath)
     if let horizontalCell = cell as? HorizontalViewCell {
       horizontalCell.cellSelected
-        .sink { [weak self] selectedIndexPath in
-          let globalIndexPath = IndexPath(item: selectedIndexPath.item, section: indexPath.section)
-          self?.cellSelectedSubject.send(globalIndexPath)
+        .sink { [weak self] (selectedIndexPath, selectedItem) in
+          self?.handleCellSelection(section: indexPath.section  , item: selectedItem)
         }
         .store(in: &cancellable)
     }
@@ -172,7 +170,6 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 
 extension HomeViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    print("test")
     cellSelectedSubject.send(indexPath)
   }
 }

@@ -127,6 +127,7 @@ class DetailViewController: UIViewController {
     setupViews()
     layout()
     configureDescriptionTextView()
+    configureViews()
   }
   
   init(coordinator: DetailCoordinator, product: Product) {
@@ -141,12 +142,15 @@ class DetailViewController: UIViewController {
   
   @objc func buyNowButtonTapped(_ sender: UIButton) {
     let vc = PopUpViewController()
-    vc.modalPresentationStyle = .overCurrentContext
-    self.present(vc, animated: false)
+    vc.modalPresentationStyle = .pageSheet
+    self.present(vc, animated: true) {
+      vc.view.becomeFirstResponder()
+    }
   }
   
   func configureViews() {
     productTitleLabel.text = product.name
+    descriptionTextView.text = product.description
   }
   
   func setupViews(){

@@ -24,6 +24,13 @@ class PopUpViewController: UIViewController {
     return view
   }()
   
+  private let testTextField: UITextField = {
+    let object = UITextField(frame: .zero)
+    object.placeholder = "Test"
+    object.textColor = .red
+    return object
+  }()
+  
   private let maxDimmedAlpha: CGFloat = 0.6
   private lazy var dimmedView: UIView = {
     let view = UIView()
@@ -44,7 +51,7 @@ class PopUpViewController: UIViewController {
     object.setImage(UIImage(systemName: "xmark"), for: .normal)
     object.tintColor = ThemeColor.labelColorSecondary
     object.contentMode = .scaleAspectFit
-    object.addTarget(self, action: #selector(closeController), for: .touchUpInside)
+    object.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
     return object
   }()
   
@@ -99,17 +106,49 @@ class PopUpViewController: UIViewController {
     super.viewDidLoad()
     setupView()
     setupConstraints()
+    view.isUserInteractionEnabled = true
+    containerView.isUserInteractionEnabled = true
+    closeButton.isUserInteractionEnabled = true
+    testTextField.isUserInteractionEnabled = true
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    animateContainerHeight()
   }
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     animateContainerHeight()
+    self.view.becomeFirstResponder()
+  }
+  
+  override var canBecomeFirstResponder: Bool {
+    return true
+  }
+  
+  
+  @objc private func closeButtonTapped() {
+    print("Close button tapped")
+    closeController()
   }
   
   @objc private func closeController() {
     print("test")
     self.dismiss(animated: true)
   }
+  
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesBegan(touches, with: event)
+    print("Touch began in PopUpViewController")
+  }
+  
+  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesEnded(touches, with: event)
+    print("Touch ended in PopUpViewController")
+  }
+  
+  
   
   private func setupView() {
     view.backgroundColor = .clear
@@ -123,6 +162,7 @@ class PopUpViewController: UIViewController {
     containerView.addSubview(detailImage)
     containerView.addSubview(dividerView)
     containerView.addSubview(totalLabel)
+    containerView.addSubview(testTextField)
     [minusButton, quantityLabel, plusButton].forEach { hStackView.addArrangedSubview($0) }
   }
   
@@ -173,6 +213,10 @@ class PopUpViewController: UIViewController {
       $0.top.equalTo(detailImage.snp.bottom).offset(12)
       $0.left.equalToSuperview().offset(20)
       $0.right.equalToSuperview().offset(-20)
+    }
+    
+    testTextField.snp.makeConstraints { make in
+      make.top.equalTo(detailImage.snp.bottom).offset(20)
     }
     
     hStackView.snp.makeConstraints {
