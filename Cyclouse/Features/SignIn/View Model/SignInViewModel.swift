@@ -96,7 +96,7 @@ class AuthService: AuthServiceProtocol {
   private var cancellables = Set<AnyCancellable>()
   
   func signIn(email: String, password: String, completion: @escaping (Result<Void, AuthError>) -> Void) {
-          authenticationManager.signIn(username: email, password: password)
+          authenticationManager.signIn(email: email, password: password)
               .sink(receiveCompletion: { [weak self] completionResult in
                   switch completionResult {
                   case .finished:

@@ -9,5 +9,5 @@ import Foundation
 import Combine
 
 protocol AuthenticationRepository {
-    func signIn(username: String, password: String) -> AnyPublisher<SignInResponse, Error>
+    func signIn(email: String, password: String) -> AnyPublisher<SignInResponse, Error>
 }

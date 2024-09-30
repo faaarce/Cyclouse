@@ -8,7 +8,7 @@
 import Alamofire
 
 enum AuthenticationAPI: API {
-  case signin(username: String, password: String)
+  case signin(email: String, password: String)
   case signup(username: String, email: String, password: String)
   
   private var baseURL: String {
@@ -30,9 +30,9 @@ enum AuthenticationAPI: API {
   
   var params: Alamofire.Parameters? {
     switch self {
-    case .signin(let username, let password):
+    case .signin(let email, let password):
       return [
-        "username": username,
+        "email": email,
         "password": password
       ]
       

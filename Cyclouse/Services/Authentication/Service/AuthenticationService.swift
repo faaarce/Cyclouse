@@ -14,8 +14,8 @@ class AuthenticationService {
         self.repository = repository
     }
     
-    func signIn(username: String, password: String) -> AnyPublisher<SignInResponse, Error> {
-        if let error = Username.validate(username) {
+    func signIn(email: String, password: String) -> AnyPublisher<SignInResponse, Error> {
+        if let error = Email.validate(email) {
             return Fail(error: error).eraseToAnyPublisher()
         }
         
@@ -24,7 +24,7 @@ class AuthenticationService {
         }
         
         return repository
-            .signIn(username: username, password: password)
+            .signIn(email: email, password: password)
             .eraseToAnyPublisher()
     }
 }
