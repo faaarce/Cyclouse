@@ -13,7 +13,7 @@ enum BikeAPI: API {
   case getBikes
   
   private var baseURL: String {
-    "http://localhost:3002"
+    "http://localhost:8080"
   }
   
   var url: any URLConvertible {

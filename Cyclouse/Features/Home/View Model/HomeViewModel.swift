@@ -38,7 +38,7 @@ class HomeViewModel {
           print("Error fethcing bikes :\(error)")
         }
       } receiveValue: { [weak self] bikeDataResponse in
-        self?.processBikeData(bikeDataResponse)
+        self?.processBikeData(bikeDataResponse.value)
       }
       .store(in: &cancellables)
     

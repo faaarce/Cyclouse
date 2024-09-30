@@ -15,15 +15,15 @@ enum APIManagerError: Error {
 }
 
 class APIManager: APIService {
-    
-    func request<T: Responseable>(_ api: any API, of: T.Type) -> AnyPublisher<T, Error> {
+    func request<T: Responseable>(_ api: any API, of: T.Type, includeHeaders: Bool = false) -> AnyPublisher<APIResponse<T>, Error> {
         AF.request(api.url, method: api.method, parameters: api.params)
             .publishDecodable(type: T.self)
-            .tryMap { response -> T in
+            .tryMap { response -> APIResponse<T> in
                 switch response.result {
                 case .success(let value):
                     if value.success {
-                        return value
+                        let headers = includeHeaders ? response.response?.headers.dictionary : nil
+                      return APIResponse<T>(value: value, httpResponse: response.response) //Generic parameter 'T' could not be inferred
                     } else {
                         throw ServerMessageError(message: value.message)
                     }
@@ -40,9 +40,8 @@ class APIManager: APIService {
             .eraseToAnyPublisher()
     }
     
-    func request<T: Responseable>(_ api: any API) -> AnyPublisher<T, Error> {
-        request(api, of: T.self)
+    func request<T: Responseable>(_ api: any API, includeHeaders: Bool = false) -> AnyPublisher<APIResponse<T>, Error> {
+        request(api, of: T.self, includeHeaders: includeHeaders)
     }
 }
-
 

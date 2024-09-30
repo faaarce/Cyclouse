@@ -92,7 +92,7 @@ class CartViewController: UIViewController {
           print(error)
         }
       } receiveValue: { [weak self] bikes in
-        self?.bikes = bikes
+        self?.bikes = bikes.value
         self?.tableView.reloadData()
       }
       .store(in: &cancellables)

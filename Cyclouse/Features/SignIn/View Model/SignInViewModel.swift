@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import UIKit
+import Valet
 
 class SignInViewModel: ObservableObject {
   @Published var email: String? = ""
@@ -94,41 +95,67 @@ class AuthService: AuthServiceProtocol {
   
   private var authenticationManager = AuthenticationService()
   private var cancellables = Set<AnyCancellable>()
+  private let valet: Valet
+  
+  init() {
+    self.valet = Valet.valet(with: Identifier(nonEmpty: "com.yourapp.auth")!, accessibility: .whenUnlocked)
+  }
   
   func signIn(email: String, password: String, completion: @escaping (Result<Void, AuthError>) -> Void) {
-          authenticationManager.signIn(email: email, password: password)
-              .sink(receiveCompletion: { [weak self] completionResult in
-                  switch completionResult {
-                  case .finished:
-                      break // We'll handle success in receiveValue
-                  case .failure(let error):
-                      if let authError = self?.mapError(error) {
-                          completion(.failure(authError))
-                      } else {
-                          completion(.failure(.unknown))
-                      }
-                  }
-              }, receiveValue: { signInResponse in
-                  if signInResponse.success {
-                      completion(.success(()))
-                  } else {
-                      completion(.failure(.invalidCredentials))
-                  }
-              })
-              .store(in: &cancellables)
-      }
-      
-      private func mapError(_ error: Error) -> AuthError {
-  
-          switch error {
-          case is URLError:
-              return .networkError(error)
-          case is DecodingError:
-              return .unknown // or a more specific error if you have one for decoding issues
-          default:
-              return .unknown
+    authenticationManager.signIn(email: email, password: password)
+      .sink(receiveCompletion: { [weak self] completionResult in
+        switch completionResult {
+        case .finished:
+          break // We'll handle success in receiveValue
+        case .failure(let error):
+          if let authError = self?.mapError(error) {
+            completion(.failure(authError))
+          } else {
+            completion(.failure(.unknown))
           }
-      }
+        }
+      }, receiveValue: { response in
+        if response.value.success {
+          if let authHeader = response.httpResponse?.allHeaderFields["Authorization"] as? String {
+            self.storeAuthToken(authHeader)
+            print("Auth token stored successfully")
+            completion(.success(()))
+          }
+        } else {
+          completion(.failure(.invalidCredentials))
+        }
+      })
+      .store(in: &cancellables)
+  }
+  
+  private func mapError(_ error: Error) -> AuthError {
+    
+    switch error {
+    case is URLError:
+      return .networkError(error)
+    case is DecodingError:
+      return .unknown // or a more specific error if you have one for decoding issues
+    default:
+      return .unknown
+    }
+  }
+  
+  private func storeAuthToken(_ token: String) {
+    do {
+      try valet.setString(token, forKey: "authToken")
+    } catch {
+      print("Failed to store auth token: \(error)")
+    }
+  }
+  
+  func getAuthToken() -> String? {
+    do {
+      return try valet.string(forKey: "authToken")
+    } catch {
+      print("Failed to retrieve auth token: \(error)")
+      return nil
+    }
+  }
 }
 
 enum AuthError: Error {

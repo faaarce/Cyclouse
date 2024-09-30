@@ -8,5 +8,5 @@ import Combine
 import Foundation
 
 protocol BikeRepository{
-  func getBikes() -> AnyPublisher<BikeDataResponse, Error>
+  func getBikes() -> AnyPublisher<APIResponse<BikeDataResponse>, Error>
 }

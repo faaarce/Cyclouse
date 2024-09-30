@@ -7,6 +7,6 @@
 import Combine
 
 protocol APIService {
-    func request<T: Responseable>(_ api: any API, of: T.Type) -> AnyPublisher<T, Error>
-    func request<T: Responseable>(_ api: any API) -> AnyPublisher<T, Error>
+    func request<T: Responseable>(_ api: any API, of: T.Type, includeHeaders: Bool) -> AnyPublisher<APIResponse<T>, Error>
+    func request<T: Responseable>(_ api: any API, includeHeaders: Bool) -> AnyPublisher<APIResponse<T>, Error>
 }

@@ -12,13 +12,13 @@ enum AuthenticationAPI: API {
   case signup(username: String, email: String, password: String)
   
   private var baseURL: String {
-    "http://localhost:3001"
+    "http://localhost:8080"
   }
   
   var url: any URLConvertible {
     switch self {
     case .signin:
-      return "\(baseURL)/auth/signin"
+      return "\(baseURL)/auth/login"
     case .signup:
       return "\(baseURL)/auth/signup"
     }
