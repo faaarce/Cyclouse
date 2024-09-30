@@ -19,7 +19,7 @@ enum BikeAPI: API {
   var url: any URLConvertible {
     switch self {
     case .getBikes:
-      return "\(baseURL)/bike"
+      return "\(baseURL)/product"
     }
   }
   

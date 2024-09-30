@@ -18,6 +18,7 @@
 		C1464C562C92A97900F945BA /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1464C552C92A97900F945BA /* CartViewController.swift */; };
 		C1464C592C92B41800F945BA /* CartViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1464C582C92B41800F945BA /* CartViewCell.swift */; };
 		C147C2512CA14D6D002B88AF /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C147C2502CA14D6D002B88AF /* HistoryTableViewCell.swift */; };
+		C151E8A72CA9B9BD000C6B73 /* Valet in Frameworks */ = {isa = PBXBuildFile; productRef = C151E8A62CA9B9BD000C6B73 /* Valet */; };
 		C1705E0A2CA55C6D0043CE9D /* Bikes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E052CA55C6D0043CE9D /* Bikes.swift */; };
 		C1705E0B2CA55C6D0043CE9D /* BikeNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E072CA55C6D0043CE9D /* BikeNetworkRepository.swift */; };
 		C1705E0C2CA55C6D0043CE9D /* BikeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E092CA55C6D0043CE9D /* BikeService.swift */; };
@@ -208,6 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C193704B2C8A133100B56BA1 /* CombineCocoa in Frameworks */,
+				C151E8A72CA9B9BD000C6B73 /* Valet in Frameworks */,
 				C18F517C2C9D1E4900E60C0D /* Alamofire in Frameworks */,
 				C193704E2C8A137600B56BA1 /* SnapKit in Frameworks */,
 				C19370512C8A140E00B56BA1 /* CombineDataSources in Frameworks */,
@@ -770,6 +772,7 @@
 				C193704D2C8A137600B56BA1 /* SnapKit */,
 				C19370502C8A140E00B56BA1 /* CombineDataSources */,
 				C18F517B2C9D1E4900E60C0D /* Alamofire */,
+				C151E8A62CA9B9BD000C6B73 /* Valet */,
 			);
 			productName = Cyclouse;
 			productReference = C1936FF92C898D1C00B56BA1 /* Cyclouse.app */;
@@ -804,6 +807,7 @@
 				C193704C2C8A137600B56BA1 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				C193704F2C8A140E00B56BA1 /* XCRemoteSwiftPackageReference "CombineDataSources" */,
 				C18F517A2C9D1E4900E60C0D /* XCRemoteSwiftPackageReference "Alamofire" */,
+				C151E8A52CA9B9BD000C6B73 /* XCRemoteSwiftPackageReference "Valet" */,
 			);
 			productRefGroup = C1936FFA2C898D1C00B56BA1 /* Products */;
 			projectDirPath = "";
@@ -1135,6 +1139,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C151E8A52CA9B9BD000C6B73 /* XCRemoteSwiftPackageReference "Valet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/square/Valet";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.0;
+			};
+		};
 		C18F517A2C9D1E4900E60C0D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -1170,6 +1182,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C151E8A62CA9B9BD000C6B73 /* Valet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C151E8A52CA9B9BD000C6B73 /* XCRemoteSwiftPackageReference "Valet" */;
+			productName = Valet;
+		};
 		C18F517B2C9D1E4900E60C0D /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C18F517A2C9D1E4900E60C0D /* XCRemoteSwiftPackageReference "Alamofire" */;

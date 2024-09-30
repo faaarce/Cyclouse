@@ -21,5 +21,9 @@ class SignInCoordinator: Coordinator, NavigationCoordinator {
     let vc = SignInViewController(coordinator: self)
     navigationController.setViewControllers([vc], animated: true)
   }
+  
+  func didFinishSign() {
+    (parentCoordinator as? AppCoordinator)?.showMainTabbar()
+  }
 }
 

@@ -18,7 +18,7 @@ class AppCoordinator: Coordinator {
   }
   
   func start() {
-    showMainTabbar()
+    showOnboarding()
   }
   
   func showLogin() {
@@ -44,6 +44,9 @@ class AppCoordinator: Coordinator {
     let coordinator = TabbarCoordinator(tabBarController: tabbarController)
     addChildCoordinator(coordinator)
     coordinator.start()
+    
+    navigationController.setViewControllers([tabbarController], animated: true)
+    childCoordinators.removeAll { $0 is SignInCoordinator }
   }
   
   

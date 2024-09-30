@@ -155,7 +155,8 @@ class SignInViewController: UIViewController {
     viewModel.loginSuccess
         .receive(on: DispatchQueue.main)
         .sink { [weak self] _ in
-//            self?.showTabbarViewController()
+          self?.coordinator.didFinishSign()
+          print("success")
         }
         .store(in: &cancellables)
   }

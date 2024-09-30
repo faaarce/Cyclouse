@@ -7,6 +7,7 @@
 
 import Combine
 import Alamofire
+import Valet
 
 enum APIManagerError: Error {
     case noValue

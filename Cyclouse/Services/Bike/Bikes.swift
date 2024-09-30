@@ -27,6 +27,7 @@ struct Category: Codable {
 
 // MARK: - Product
 struct Product: Codable {
+  let id: String
     let name: String
     let description: String
     let images: [String]
