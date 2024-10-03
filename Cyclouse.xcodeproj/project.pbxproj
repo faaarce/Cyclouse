@@ -111,6 +111,7 @@
 		C1EDE5AB2CAB3CA700816876 /* CartNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EDE5AA2CAB3CA700816876 /* CartNetworkRepository.swift */; };
 		C1EDE5AD2CAB3CBA00816876 /* CartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EDE5AC2CAB3CBA00816876 /* CartService.swift */; };
 		C1EDE5AF2CAB3D0F00816876 /* CartAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EDE5AE2CAB3D0F00816876 /* CartAPI.swift */; };
+		C1EE5EBC2CAE9D2F00856B94 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EE5EBB2CAE9D2F00856B94 /* EmptyStateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -215,6 +216,7 @@
 		C1EDE5AA2CAB3CA700816876 /* CartNetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartNetworkRepository.swift; sourceTree = "<group>"; };
 		C1EDE5AC2CAB3CBA00816876 /* CartService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartService.swift; sourceTree = "<group>"; };
 		C1EDE5AE2CAB3D0F00816876 /* CartAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartAPI.swift; sourceTree = "<group>"; };
+		C1EE5EBB2CAE9D2F00856B94 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -727,6 +729,7 @@
 				C18F518B2C9F341C00E60C0D /* LoadingViewController.swift */,
 				C194655B2C8C20AB00171932 /* CustomInputFieldView.swift */,
 				C177238C2C951CF30078E598 /* ReadMoreTextView.swift */,
+				C1EE5EBB2CAE9D2F00856B94 /* EmptyStateView.swift */,
 				C19465662C8CBEC200171932 /* SharedCells */,
 			);
 			path = Views;
@@ -940,6 +943,7 @@
 				C19370252C899AD300B56BA1 /* HomeViewController.swift in Sources */,
 				C17D7D952C975EB800868F1E /* HistoryViewController.swift in Sources */,
 				C194655C2C8C20AB00171932 /* CustomInputFieldView.swift in Sources */,
+				C1EE5EBC2CAE9D2F00856B94 /* EmptyStateView.swift in Sources */,
 				C17D7D972C975EC200868F1E /* HistoryCoordinator.swift in Sources */,
 				C1705E0A2CA55C6D0043CE9D /* Bikes.swift in Sources */,
 				C1705E0B2CA55C6D0043CE9D /* BikeNetworkRepository.swift in Sources */,
