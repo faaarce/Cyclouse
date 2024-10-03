@@ -10,10 +10,11 @@ import Combine
 
 class CartViewController: UIViewController {
   
-  @Published var bikes: BikeDataResponse?
+  @Published var bikes: GetCartResponse?
   var coordinator: CartCoordinator
+  private let service = CartService()
   
-  private let service = BikeService()
+//  private let service = BikeService()
   private var cancellables = Set<AnyCancellable>()
   
   lazy var tableView: UITableView = {
@@ -75,27 +76,30 @@ class CartViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     configureAppearance()
+    fetchBikes()
     setupViews()
     layout()
-    fetchBikes()
   }
   
   private func fetchBikes() {
-    service.getBikes()
+    service.getCart()
       .receive(on: DispatchQueue.main)
       .sink { completion in
         switch completion {
         case .finished:
-          break
+          print("Successfully retrieved cart")
           
         case .failure(let error):
-          print(error)
+          print("Failed to retrieve cart: \(error)")
         }
-      } receiveValue: { [weak self] bikes in
-        self?.bikes = bikes.value
-        self?.tableView.reloadData()
+      } receiveValue: { response in
+        print(response.value)
+            self.bikes = response.value
+      
+        self.tableView.reloadData()
       }
       .store(in: &cancellables)
+
 
   }
   
@@ -176,7 +180,7 @@ extension CartViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    let test = bikes?.bikes.categories.count ?? 0
+    let test = bikes?.data.items.count ?? 0
     print(test)
     return test
   }
@@ -185,7 +189,7 @@ extension CartViewController: UITableViewDataSource {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "CartViewCell", for: indexPath) as? CartViewCell else { return UITableViewCell()}
     cell.selectionStyle = .none
     cell.backgroundColor = .clear
-    cell.bikeNameLabel.text = bikes?.bikes.categories[indexPath.row].categoryName
+    cell.bikeNameLabel.text = bikes?.data.items[indexPath.row].productId
     return cell
   }
 }

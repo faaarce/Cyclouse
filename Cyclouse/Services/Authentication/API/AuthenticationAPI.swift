@@ -46,4 +46,8 @@ enum AuthenticationAPI: API {
     }
   }
   
+  var headers: HTTPHeaders? {
+    return nil
+  }
+  
 }

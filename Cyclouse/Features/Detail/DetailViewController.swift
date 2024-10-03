@@ -6,11 +6,14 @@
 //
 import SnapKit
 import UIKit
+import Combine
 
 class DetailViewController: UIViewController {
   
   var coordinator: DetailCoordinator
   let product: Product
+  private let cartService: CartService
+  private var cancellables = Set<AnyCancellable>()
   
   private let detailImage: UIImageView = {
     let object = UIImageView(image: .init(named: "bike"))
@@ -66,6 +69,7 @@ class DetailViewController: UIViewController {
     object.backgroundColor = ThemeColor.cardFillColor
     object.setImage(UIImage(systemName: "cart.badge.plus"), for: .normal)
     object.tintColor = ThemeColor.primary
+    object.addTarget(self, action: #selector(addToCartButtonTapped), for: .touchUpInside)
     return object
   }()
   
@@ -82,7 +86,7 @@ class DetailViewController: UIViewController {
     view.spacing = 0
     view.distribution = .fillEqually
     view.alignment = .fill
-  
+    
     return view
   }()
   
@@ -95,29 +99,29 @@ class DetailViewController: UIViewController {
   }()
   
   private let descriptionTextView: ReadMoreTextView = {
-     let textView = ReadMoreTextView()
-     textView.font = ThemeFont.medium(ofSize: 12)
-     textView.textColor = ThemeColor.labelColorSecondary
-     textView.backgroundColor = .clear
-     textView.isScrollEnabled = false
-     textView.maximumNumberOfLines = 5
-     textView.shouldTrim = true
+    let textView = ReadMoreTextView()
+    textView.font = ThemeFont.medium(ofSize: 12)
+    textView.textColor = ThemeColor.labelColorSecondary
+    textView.backgroundColor = .clear
+    textView.isScrollEnabled = false
+    textView.maximumNumberOfLines = 5
+    textView.shouldTrim = true
     let readMoreAttributes: [NSAttributedString.Key: Any] = [
       .foregroundColor: ThemeColor.primary,
-         .font: ThemeFont.medium(ofSize: 12)
-     ]
-     let readLessAttributes: [NSAttributedString.Key: Any] = [
-         .foregroundColor: ThemeColor.primary,
-         .font: ThemeFont.medium(ofSize: 12)
-     ]
-     
-     textView.attributedReadMoreText = NSAttributedString(string: "... Read More", attributes: readMoreAttributes)
-     textView.attributedReadLessText = NSAttributedString(string: "Read Less", attributes: readLessAttributes)
-     
-     return textView
-   }()
+      .font: ThemeFont.medium(ofSize: 12)
+    ]
+    let readLessAttributes: [NSAttributedString.Key: Any] = [
+      .foregroundColor: ThemeColor.primary,
+      .font: ThemeFont.medium(ofSize: 12)
+    ]
+    
+    textView.attributedReadMoreText = NSAttributedString(string: "... Read More", attributes: readMoreAttributes)
+    textView.attributedReadLessText = NSAttributedString(string: "Read Less", attributes: readLessAttributes)
+    
+    return textView
+  }()
   
-
+  
   private var fullDescription: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
   
   override func viewDidLoad() {
@@ -130,14 +134,44 @@ class DetailViewController: UIViewController {
     configureViews()
   }
   
-  init(coordinator: DetailCoordinator, product: Product) {
+  init(coordinator: DetailCoordinator, product: Product, cartService: CartService = CartService()) {
     self.coordinator = coordinator
     self.product = product
+    self.cartService = cartService
     super.init(nibName: nil, bundle: nil)
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  @objc func addToCartButtonTapped(_ sender: UIButton) {
+    let productId = product.id
+    
+    cartService.addToCart(productId: productId, quantity: 1)
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] completion in
+        switch completion {
+        case .finished:
+          break
+          
+        case .failure(let error):
+          if let apiError = error as? APIError {
+            print("API Error: \(apiError.localizedDescription)")
+          } else {
+            print("Unknown error: \(error.localizedDescription)")
+          }
+        }
+      } receiveValue: { [weak self] response in
+        self?.showAlert(title: "Success", message: "Added to cart: \(response.value.message)")
+      }
+      .store(in: &cancellables)
+  }
+  
+  private func showAlert(title: String, message: String) {
+    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "OK", style: .default))
+    present(alert, animated: true)
   }
   
   @objc func buyNowButtonTapped(_ sender: UIButton) {
@@ -165,7 +199,7 @@ class DetailViewController: UIViewController {
       view.addSubview(hButtonStackView)
     }
   }
-    
+  
   func layout() {
     detailImage.snp.makeConstraints {
       $0.left.equalToSuperview().offset(20)
@@ -208,12 +242,12 @@ class DetailViewController: UIViewController {
   }
   
   func configureDescriptionTextView() {
-      descriptionTextView.text = fullDescription
-      
-      // Handle size changes
-      descriptionTextView.onSizeChange = { [weak self] _ in
-        self?.view.layoutIfNeeded()
-      }
+    descriptionTextView.text = fullDescription
+    
+    // Handle size changes
+    descriptionTextView.onSizeChange = { [weak self] _ in
+      self?.view.layoutIfNeeded()
     }
+  }
   
 }

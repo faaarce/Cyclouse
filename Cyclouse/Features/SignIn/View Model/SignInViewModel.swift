@@ -84,7 +84,6 @@ class SignInViewModel: ObservableObject {
       }
     }
   }
-  
 }
 
 protocol AuthServiceProtocol {
@@ -117,7 +116,7 @@ class AuthService: AuthServiceProtocol {
       }, receiveValue: { response in
         if response.value.success {
           if let authHeader = response.httpResponse?.allHeaderFields["Authorization"] as? String {
-            self.storeAuthToken(authHeader)
+            TokenManager.shared.setToken(authHeader)
             print("Auth token stored successfully")
             completion(.success(()))
           }
@@ -137,23 +136,6 @@ class AuthService: AuthServiceProtocol {
       return .unknown // or a more specific error if you have one for decoding issues
     default:
       return .unknown
-    }
-  }
-  
-  private func storeAuthToken(_ token: String) {
-    do {
-      try valet.setString(token, forKey: "authToken")
-    } catch {
-      print("Failed to store auth token: \(error)")
-    }
-  }
-  
-  func getAuthToken() -> String? {
-    do {
-      return try valet.string(forKey: "authToken")
-    } catch {
-      print("Failed to retrieve auth token: \(error)")
-      return nil
     }
   }
 }

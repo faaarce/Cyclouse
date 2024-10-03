@@ -37,4 +37,8 @@ enum BikeAPI: API {
       return nil
     }
   }
+  
+  var headers: HTTPHeaders? {
+    return nil
+  }
 }

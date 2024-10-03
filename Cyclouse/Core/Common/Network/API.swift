@@ -11,6 +11,7 @@ protocol API {
   var url: URLConvertible { get }
   var method: HTTPMethod { get }
   var params: Parameters? { get }
+  var headers: HTTPHeaders? { get }
 }
 
 struct APIResponse<T: Responseable> {
