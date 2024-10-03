@@ -28,6 +28,8 @@ class CartViewController: UIViewController {
     return tableView
   }()
   
+  lazy var emptyStateView = EmptyStateView(frame: tableView.frame)
+  
   private let checkoutButton: UIButton = {
     let button = UIButton()
     button.setTitle("Checkout", for: .normal)
@@ -81,6 +83,32 @@ class CartViewController: UIViewController {
     layout()
   }
   
+  private func updateEmptyStateView() {
+    
+    emptyStateView.configure(image: UIImage(named: "bikes"), description: "No Data Available", buttonTitle:  "Order")
+    let isEmpty = bikes?.data.items.isEmpty ?? true
+    tableView.isHidden = isEmpty
+    totalPriceView.isHidden = isEmpty
+    checkButton.isHidden = isEmpty
+    shouldShowErrorView(isEmpty)
+  }
+  
+  func shouldShowErrorView(_ status: Bool) {
+      switch status {
+      case true:
+          if !view.subviews.contains(emptyStateView) {
+              view.addSubview(emptyStateView)
+          } else {
+              emptyStateView.isHidden = false
+          }
+      case false:
+          if view.subviews.contains(emptyStateView) {
+              emptyStateView.isHidden = true
+          }
+      }
+  }
+
+  
   private func fetchBikes() {
     service.getCart()
       .receive(on: DispatchQueue.main)
@@ -95,11 +123,11 @@ class CartViewController: UIViewController {
       } receiveValue: { response in
         print(response.value)
             self.bikes = response.value
-      
+        
         self.tableView.reloadData()
+        self.updateEmptyStateView()
       }
       .store(in: &cancellables)
-
 
   }
   
@@ -124,6 +152,7 @@ class CartViewController: UIViewController {
     self.view.addSubview(totalPriceView)
     self.view.addSubview(tableView)
     self.view.addSubview(checkoutButton)
+    self.view.addSubview(emptyStateView)
     registerCells()
   }
   
@@ -133,6 +162,10 @@ class CartViewController: UIViewController {
       $0.left.equalToSuperview().offset(20)
       $0.top.equalToSuperview()
       $0.bottom.equalTo(checkoutButton.snp.top)
+    }
+    
+    emptyStateView.snp.makeConstraints { make in
+      make.edges.equalTo(tableView)
     }
     
     checkoutButton.snp.makeConstraints {
