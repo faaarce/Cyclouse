@@ -89,7 +89,7 @@ class CartViewController: UIViewController {
     let isEmpty = bikes?.data.items.isEmpty ?? true
     tableView.isHidden = isEmpty
     totalPriceView.isHidden = isEmpty
-    checkButton.isHidden = isEmpty
+    checkoutButton.isHidden = isEmpty
     shouldShowErrorView(isEmpty)
   }
   
