@@ -4,10 +4,12 @@
 //
 //  Created by yoga arie on 05/09/24.
 //
-
+import Valet
 import UIKit
 
 class ProfileViewController: UIViewController {
+  
+  private let valet = Valet.valet(with: Identifier(nonEmpty: "com.yourapp.auth")!, accessibility: .whenUnlocked)
   
   var coordinator: ProfileCoordinator
   
@@ -77,6 +79,7 @@ class ProfileViewController: UIViewController {
     super.viewDidLoad()
     setupViews()
     layout()
+    loadUserProfile()
   }
   
   private func setupViews() {
@@ -85,6 +88,20 @@ class ProfileViewController: UIViewController {
     view.sendSubviewToBack(profileView)
    
     menuItems.forEach { mainStackView.addArrangedSubview($0) }
+  }
+  
+  private func loadUserProfile(){
+    do {
+      let profileData = try valet.object(forKey: "userProfile")
+        let userProfile = try JSONDecoder().decode(UserProfile.self, from: profileData)
+      updateUI(with: userProfile)
+    } catch {
+      print("Failed to load user profile: \(error)")
+    }
+  }
+  
+  private func updateUI(with profile: UserProfile) {
+    profileEmail.text = profile.email
   }
   
   private func layout() {

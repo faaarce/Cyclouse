@@ -118,6 +118,7 @@ class AuthService: AuthServiceProtocol {
           if let authHeader = response.httpResponse?.allHeaderFields["Authorization"] as? String {
             TokenManager.shared.setToken(authHeader)
             print("Auth token stored successfully")
+            self.storeUserProfile(email)
             completion(.success(()))
           }
         } else {
@@ -126,6 +127,24 @@ class AuthService: AuthServiceProtocol {
       })
       .store(in: &cancellables)
   }
+  
+  private func storeUserProfile(_ email: String) { // need revision later
+    let userProfile = UserProfile(
+  
+      email: email
+     
+      // Add any other relevant fields from your login response
+    )
+    
+    do {
+      let encodedProfile = try JSONEncoder().encode(userProfile)
+      try valet.setObject(encodedProfile, forKey: "userProfile")
+      print("User profile stored successfully")
+    } catch {
+      print("Failed to store user profile: \(error)")
+    }
+  }
+  
   
   private func mapError(_ error: Error) -> AuthError {
     
