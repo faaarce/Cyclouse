@@ -18,6 +18,7 @@ class ProfileCoordinator: Coordinator, NavigationCoordinator {
     self.navigationController = navigationController
   }
   
+  
   func start() {
     let vc = ProfileViewController(coordinator: self)
     navigationController.setViewControllers([vc], animated: true)
@@ -28,6 +29,11 @@ class ProfileCoordinator: Coordinator, NavigationCoordinator {
     childCoordinators.append(historyCoordinator)
     historyCoordinator.parentCoordinator = self
     historyCoordinator.start()
+  }
+  
+  func logout() {
+    didFinish()
+    (parentCoordinator as? TabbarCoordinator)?.handleLogout()
   }
 
 }

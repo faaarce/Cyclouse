@@ -27,4 +27,10 @@ class AuthenticationService {
             .signIn(email: email, password: password)
             .eraseToAnyPublisher()
     }
+  
+  func signOut() -> AnyPublisher<APIResponse<SignoutResponse>, Error> {
+    return repository
+      .signOut()
+      .eraseToAnyPublisher()
+  }
 }

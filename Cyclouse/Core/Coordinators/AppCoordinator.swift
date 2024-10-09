@@ -21,12 +21,6 @@ class AppCoordinator: Coordinator {
     showOnboarding()
   }
   
-  func showLogin() {
-    let nav = UINavigationController()
-    let coordinator = HomeCoordinator(navigationController: nav)
-    addChildCoordinator(coordinator)
-    coordinator.start()
-  }
   
   func showOnboarding() {
     /*
@@ -49,6 +43,27 @@ class AppCoordinator: Coordinator {
     childCoordinators.removeAll { $0 is SignInCoordinator }
   }
   
+  func coordinatorDidFinish(_ coordinator: Coordinator) {
+    if coordinator is TabbarCoordinator {
+          showLogin()
+      }
+  }
   
+  func showLogin() {
+      childCoordinators.removeAll()
+      let signInCoordinator = SignInCoordinator(navigationController: navigationController)
+      addChildCoordinator(signInCoordinator)
+      signInCoordinator.start()
+      
+      // Ensure we're setting the root view controller of the window
+      if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+         let window = windowScene.windows.first {
+          window.rootViewController = navigationController
+      }
+  }
+  
+  func handleLogout() {
+    showLogin()
+  }
   
 }

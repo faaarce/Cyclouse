@@ -62,4 +62,13 @@ class TabbarCoordinator: Coordinator {
     tabBarController.selectedIndex = 3
   }
   
+
+  func handleLogout() {
+    didFinish()
+    (parentCoordinator as? AppCoordinator)?.handleLogout()
+  }
+  
+
+
+  
 }

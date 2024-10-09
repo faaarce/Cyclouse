@@ -32,4 +32,17 @@ class TokenManager {
              print("Failed to store auth token: \(error)")
          }
      }
+  
+  func isLoggedIn() -> Bool {
+    return getToken() != nil
+  }
+  
+  
+  func logout() {
+    do {
+      try valet.removeObject(forKey: "authToken")
+    } catch {
+      print("Error during logout: \(error)")
+    }
+  }
 }

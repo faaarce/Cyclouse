@@ -14,9 +14,15 @@ protocol Coordinator: AnyObject {
   func start()
   func removeChildCoordinator(_ coordinator: Coordinator)
   func addChildCoordinator(_ coordinator: Coordinator)
+  func didFinish()
 }
 
 extension Coordinator {
+  
+  func didFinish() {
+    parentCoordinator?.removeChildCoordinator(self)
+  }
+  
   func removeChildCoordinator(_ coordinator: Coordinator) {
     childCoordinators.removeAll { $0 === coordinator }
   }

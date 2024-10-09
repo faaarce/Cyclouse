@@ -6,12 +6,16 @@
 //
 import Valet
 import UIKit
+import Combine
 
 class ProfileViewController: UIViewController {
   
   private let valet = Valet.valet(with: Identifier(nonEmpty: "com.yourapp.auth")!, accessibility: .whenUnlocked)
   
   var coordinator: ProfileCoordinator
+  
+  private let authService = AuthenticationService()
+  private var cancellables = Set<AnyCancellable>()
   
   private lazy var mainStackView: UIStackView = {
     let stack = UIStackView()
@@ -31,7 +35,7 @@ class ProfileViewController: UIViewController {
     object.backgroundColor = ThemeColor.cardFillColor
     return object
   }()
-    
+  
   private let cameraButton: UIButton = {
     let object = UIButton(type: .system)
     object.setTitle(nil, for: .normal)
@@ -64,7 +68,7 @@ class ProfileViewController: UIViewController {
     createDivider(),
     createPaddedMenuItemStack(title: "Language", icon: "globe"),
     createDivider(),
-    createPaddedMenuItemStack(title: "Help Center", icon: "questionmark.circle")
+    createPaddedMenuItemStack(title: "Logout", icon: "questionmark.circle", action: #selector(logoutButtonTapped))
   ]
   init(coordinator: ProfileCoordinator) {
     self.coordinator = coordinator
@@ -86,14 +90,14 @@ class ProfileViewController: UIViewController {
     view.backgroundColor = ThemeColor.background
     [profileImageView, cameraButton, profileView, mainStackView, profileName, profileEmail].forEach(view.addSubview)
     view.sendSubviewToBack(profileView)
-   
+    
     menuItems.forEach { mainStackView.addArrangedSubview($0) }
   }
   
   private func loadUserProfile(){
     do {
       let profileData = try valet.object(forKey: "userProfile")
-        let userProfile = try JSONDecoder().decode(UserProfile.self, from: profileData)
+      let userProfile = try JSONDecoder().decode(UserProfile.self, from: profileData)
       updateUI(with: userProfile)
     } catch {
       print("Failed to load user profile: \(error)")
@@ -130,7 +134,7 @@ class ProfileViewController: UIViewController {
     profileName.snp.makeConstraints {
       $0.top.equalTo(profileImageView.snp.bottom).offset(10)
       $0.centerX.equalToSuperview()
-     
+      
     }
     
     profileEmail.snp.makeConstraints {
@@ -148,35 +152,35 @@ class ProfileViewController: UIViewController {
   
   private func createMenuItemStack(title: String, icon: String, action: Selector? = nil) -> UIStackView {
     let label = LabelFactory.build(text: title, font: ThemeFont.medium(ofSize: 16), textColor: .white)
-     
+    
     let iconImageView = UIImageView(image: UIImage(systemName: icon))
     iconImageView.contentMode = .scaleAspectFit
     iconImageView.tintColor = ThemeColor.primary
     iconImageView.snp.makeConstraints {
       $0.width.height.equalTo(24)
     }
-     
+    
     let arrowImageView = UIImageView(image: UIImage(systemName: "chevron.right"))
     arrowImageView.contentMode = .scaleAspectFit
     arrowImageView.tintColor = ThemeColor.labelColorSecondary
     arrowImageView.snp.makeConstraints {
       $0.width.height.equalTo(24)
     }
-     
+    
     let spacerView = UIView()
     spacerView.setContentHuggingPriority(.defaultLow, for: .horizontal)
     spacerView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-     
+    
     let stack = UIStackView(arrangedSubviews: [iconImageView, label, spacerView, arrowImageView])
     stack.axis = .horizontal
     stack.spacing = 16
     stack.alignment = .center
     stack.distribution = .fill
-     
+    
     iconImageView.setContentHuggingPriority(.required, for: .horizontal)
     label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     arrowImageView.setContentHuggingPriority(.required, for: .horizontal)
-     
+    
     if let action = action {
       let tapGesture = UITapGestureRecognizer(target: self, action: action)
       stack.addGestureRecognizer(tapGesture)
@@ -207,4 +211,39 @@ class ProfileViewController: UIViewController {
   @objc private func transactionHistoryTapped() {
     coordinator.showTransactionHistory()
   }
+  
+  @objc private func logoutButtonTapped() {
+    let alertController = UIAlertController(title: "Logout", message: "Are you sure you want to logout", preferredStyle: .alert)
+    
+    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { [weak self] _ in
+      self?.performLogout()
+    }
+    
+    alertController.addAction(cancelAction)
+    alertController.addAction(logoutAction)
+    
+    present(alertController, animated: true, completion: nil)
+  }
+  
+  private func performLogout() {
+    authService.signOut()
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] completion in
+        switch completion {
+        case .finished:
+          print("Logout request completed")
+        case .failure(let error):
+          print("Logout failed: \(error)")
+          // Handle error (show alert, etc.)
+        }
+        TokenManager.shared.logout()
+        self?.coordinator.logout()
+      } receiveValue: { response in
+        print("Logout successful: \(response)")
+      }
+      .store(in: &cancellables)
+    
+  }
+  
 }

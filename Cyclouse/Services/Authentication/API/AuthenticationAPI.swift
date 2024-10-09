@@ -10,6 +10,7 @@ import Alamofire
 enum AuthenticationAPI: API {
   case signin(email: String, password: String)
   case signup(username: String, email: String, password: String)
+  case signout
   
   private var baseURL: String {
     "http://localhost:8080"
@@ -19,8 +20,12 @@ enum AuthenticationAPI: API {
     switch self {
     case .signin:
       return "\(baseURL)/auth/login"
+      
     case .signup:
       return "\(baseURL)/auth/signup"
+      
+    case .signout:
+      return "\(baseURL)/auth/signout"
     }
   }
   
@@ -43,10 +48,22 @@ enum AuthenticationAPI: API {
         "password": password
       ]
       
+    case .signout:
+      return nil
     }
   }
   
   var headers: HTTPHeaders? {
+    switch self {
+    case .signout:
+      if let token = TokenManager.shared.getToken() {
+        return ["Authorization" : token]
+      } else {
+        print("No authorization token available")
+      }
+    default:
+      return nil
+    }
     return nil
   }
   

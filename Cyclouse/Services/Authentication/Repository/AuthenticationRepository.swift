@@ -10,6 +10,8 @@ import Combine
 
 protocol AuthenticationRepository {
     func signIn(email: String, password: String) -> AnyPublisher<APIResponse<SignInResponse>, Error>
+  
+  func signOut() -> AnyPublisher<APIResponse<SignoutResponse>, Error>
 }
 
 
