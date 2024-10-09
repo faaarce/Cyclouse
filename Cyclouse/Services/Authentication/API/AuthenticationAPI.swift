@@ -25,7 +25,7 @@ enum AuthenticationAPI: API {
       return "\(baseURL)/auth/signup"
       
     case .signout:
-      return "\(baseURL)/auth/signout"
+      return "\(baseURL)/auth/logout"
     }
   }
   
