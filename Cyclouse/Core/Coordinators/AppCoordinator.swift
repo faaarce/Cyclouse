@@ -18,7 +18,11 @@ class AppCoordinator: Coordinator {
   }
   
   func start() {
-    showMainTabbar()
+    if TokenManager.shared.isLoggedIn() {
+      showMainTabbar()
+    } else {
+      showLogin()
+    }
   }
   
   
@@ -38,9 +42,9 @@ class AppCoordinator: Coordinator {
     let coordinator = TabbarCoordinator(tabBarController: tabbarController)
     addChildCoordinator(coordinator)
     coordinator.start()
-    
-    navigationController.setViewControllers([tabbarController], animated: true)
-    childCoordinators.removeAll { $0 is SignInCoordinator }
+//    
+//    navigationController.setViewControllers([tabbarController], animated: true)
+//    childCoordinators.removeAll { $0 is SignInCoordinator }
   }
   
   func coordinatorDidFinish(_ coordinator: Coordinator) {
