@@ -140,37 +140,60 @@ class CartViewController: UIViewController {
   }
   
   func updateBikeQuantity(_ bike: BikeV2, newQuantity: Int) {
-    databaseService.updateBikeQuantity(bike, newQuantity: newQuantity)
-      .receive(on: DispatchQueue.main)
-      .sink { completion in
-        if case .failure(let error) = completion {
-          print("Error updating bike quantity: \(error)")
-        }
-      } receiveValue: { [weak self] _ in
-        self?.fetchBikes()
-      }
-      .store(in: &cancellables)
+      databaseService.updateBikeQuantity(bike, newQuantity: newQuantity)
+          .receive(on: DispatchQueue.main)
+          .sink { completion in
+              if case .failure(let error) = completion {
+                  print("Error updating bike quantity: \(error)")
+              }
+          } receiveValue: { [weak self] _ in
+              guard let self = self else { return }
+              if let index = self.bikeData.firstIndex(where: { $0.id == bike.id }) {
+                  self.bikeData[index].cartQuantity = newQuantity
+                  // Reload only the affected cell
+                  self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
+                  self.updateTotalPrice()
+              }
+          }
+          .store(in: &cancellables)
   }
+
   
   private func fetchBikes() {
     
     databaseService.fetchBike()
-      .receive(on: DispatchQueue.main)
-      .sink { completion in
-        if case .failure(let error) = completion {
-          print("Error fetching foods: \(error)")
-        }
-      } receiveValue: { [weak self] bike in
-        self?.selectedStates = Dictionary(uniqueKeysWithValues: bike.map { ($0.id, true) })
-        self?.isAllSelected = true
-        self?.checkButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
-        self?.bikeData = bike
-        self?.tableView.reloadData()
-        self?.updateViewVisibility()
-        self?.updateTotalPrice()
-      }
-      .store(in: &cancellables)
-    
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                if case .failure(let error) = completion {
+                    print("Error fetching bikes: \(error)")
+                }
+            } receiveValue: { [weak self] bikes in
+                guard let self = self else { return }
+
+                // Preserve existing selectedStates and add new bikes as selected
+                var newSelectedStates = self.selectedStates
+                for bike in bikes {
+                    if newSelectedStates[bike.id] == nil {
+                        newSelectedStates[bike.id] = true // Default new bikes to selected
+                    }
+                }
+                // Remove selection states for bikes no longer in cart
+                let bikeIds = Set(bikes.map { $0.id })
+                newSelectedStates = newSelectedStates.filter { bikeIds.contains($0.key) }
+                self.selectedStates = newSelectedStates
+
+                self.bikeData = bikes
+
+                // Update isAllSelected
+                self.isAllSelected = !self.selectedStates.values.contains(false)
+                let imageName = self.isAllSelected ? "checkmark.square.fill" : "square"
+                self.checkButton.setImage(UIImage(systemName: imageName), for: .normal)
+
+                self.tableView.reloadData()
+                self.updateViewVisibility()
+                self.updateTotalPrice()
+            }
+            .store(in: &cancellables)
     // 2. Fetch from Add to cart API
     /*
      service.getCart()
