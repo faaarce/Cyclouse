@@ -55,7 +55,7 @@ class BikeProductViewCell: UICollectionViewCell {
   
   func configure(with product: Product) {
     productLabel.text = product.name
-    priceLabel.text = "Rp \(product.price)"
+    priceLabel.text = product.price.toRupiah()
     categoryLabel.text = product.brand
     bikeSoldQuantityLabel.text = "\(product.quantity)"
   }

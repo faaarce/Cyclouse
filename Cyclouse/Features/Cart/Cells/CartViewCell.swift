@@ -135,7 +135,7 @@ class CartViewCell: UITableViewCell {
   func configure(with bike: BikeV2) {
     self.bike = bike
     bikeNameLabel.text = bike.name
-    bikePriceLabel.text = "\(bike.price)"
+    bikePriceLabel.text = bike.price.toRupiah()
     quantityLabel.text = "\(bike.cartQuantity)"
     updateButtonState(stockQuantity: bike.stockQuantity, cartQuantity: bike.cartQuantity)
   }

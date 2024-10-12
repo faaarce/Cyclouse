@@ -24,6 +24,7 @@
 		C147C2512CA14D6D002B88AF /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C147C2502CA14D6D002B88AF /* HistoryTableViewCell.swift */; };
 		C151E8A72CA9B9BD000C6B73 /* Valet in Frameworks */ = {isa = PBXBuildFile; productRef = C151E8A62CA9B9BD000C6B73 /* Valet */; };
 		C15B513E2CBA447500892DBD /* BikeV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15B513D2CBA447500892DBD /* BikeV2.swift */; };
+		C15B51402CBAB40300892DBD /* Integer + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15B513F2CBAB40300892DBD /* Integer + Extension.swift */; };
 		C1705E0A2CA55C6D0043CE9D /* Bikes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E052CA55C6D0043CE9D /* Bikes.swift */; };
 		C1705E0B2CA55C6D0043CE9D /* BikeNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E072CA55C6D0043CE9D /* BikeNetworkRepository.swift */; };
 		C1705E0C2CA55C6D0043CE9D /* BikeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E092CA55C6D0043CE9D /* BikeService.swift */; };
@@ -141,6 +142,7 @@
 		C1464C582C92B41800F945BA /* CartViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewCell.swift; sourceTree = "<group>"; };
 		C147C2502CA14D6D002B88AF /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		C15B513D2CBA447500892DBD /* BikeV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeV2.swift; sourceTree = "<group>"; };
+		C15B513F2CBAB40300892DBD /* Integer + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Integer + Extension.swift"; sourceTree = "<group>"; };
 		C1705E052CA55C6D0043CE9D /* Bikes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bikes.swift; sourceTree = "<group>"; };
 		C1705E062CA55C6D0043CE9D /* BikeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeAPI.swift; sourceTree = "<group>"; };
 		C1705E072CA55C6D0043CE9D /* BikeNetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeNetworkRepository.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 			isa = PBXGroup;
 			children = (
 				C18F51842C9E8D9200E60C0D /* Strings + Extension.swift */,
+				C15B513F2CBAB40300892DBD /* Integer + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1008,6 +1011,7 @@
 				C177238F2C954E6B0078E598 /* PopUpViewController.swift in Sources */,
 				C1DF47EB2C9C9310004F5751 /* SignUpCoordinator.swift in Sources */,
 				C19370132C89941600B56BA1 /* HandleDeepLink.swift in Sources */,
+				C15B51402CBAB40300892DBD /* Integer + Extension.swift in Sources */,
 				C177238D2C951CF30078E598 /* ReadMoreTextView.swift in Sources */,
 				C19370252C899AD300B56BA1 /* HomeViewController.swift in Sources */,
 				C17D7D952C975EB800868F1E /* HistoryViewController.swift in Sources */,

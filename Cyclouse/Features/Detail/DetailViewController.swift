@@ -214,7 +214,7 @@ class DetailViewController: UIViewController {
   func configureViews() {
     productTitleLabel.text = product.name
     descriptionTextView.text = product.description
-    
+    priceLabel.text = product.price.toRupiah()
   }
   
   func setupViews(){
