@@ -29,9 +29,9 @@ extension Coordinator {
   
   func addChildCoordinator(_ coordinator: Coordinator) {
     self.childCoordinators.append(coordinator)
-    // Question: childCoordinators it just a blueprint or there a real property
+
     coordinator.parentCoordinator = self
-    // Question: Who is self
+ 
   }
   
   func startWithRoot(_ vc: UIViewController) {

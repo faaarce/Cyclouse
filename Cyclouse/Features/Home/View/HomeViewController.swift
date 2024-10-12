@@ -8,12 +8,14 @@ import SnapKit
 import UIKit
 import Combine
 import CombineCocoa
+import EasyNotificationBadge
 
 class HomeViewController: UIViewController {
   
   private var viewModel: HomeViewModel!
   private var cancellable = Set<AnyCancellable>()
   var coordinator: HomeCoordinator
+  private let service = DatabaseService.shared
   
   private let cellSelectedSubject = PassthroughSubject<IndexPath, Never>()
   
@@ -45,6 +47,13 @@ class HomeViewController: UIViewController {
     setupLayout()
     setupNavigationVar()
     bindViewModel()
+    setupDatabaseObserver()
+    updateBadge()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    updateBadge()
   }
   
   
@@ -66,9 +75,22 @@ class HomeViewController: UIViewController {
   }
   
   private func setupNavigationVar(){
-    let cartButton = UIBarButtonItem(image: UIImage(systemName: "cart.fill"), style: .plain, target: self, action: #selector(cartButtonTapped))
+    let cartButton = UIButton(type: .system)
+    cartButton.setImage(UIImage(systemName: "cart.fill"), for: .normal)
     cartButton.tintColor = UIColor(hex: "F2F2F2")
-    navigationItem.rightBarButtonItems = [cartButton]
+    cartButton.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
+    
+    // Add badge to cart button
+    var badgeAppearance = BadgeAppearance()
+    badgeAppearance.backgroundColor = .red
+    badgeAppearance.textColor = .white
+    badgeAppearance.font = ThemeFont.bold(ofSize: 12)
+    badgeAppearance.distanceFromCenterX = 13
+    badgeAppearance.distanceFromCenterY = -10
+    cartButton.badge(text: "5", appearance: badgeAppearance)
+    
+    let cartBarButton = UIBarButtonItem(customView: cartButton)
+    navigationItem.rightBarButtonItems = [cartBarButton]
     
     searchController = UISearchController(searchResultsController: nil)
     searchController.obscuresBackgroundDuringPresentation = false
@@ -80,6 +102,44 @@ class HomeViewController: UIViewController {
   @objc func cartButtonTapped() {
     print("Cart button tapped")
     coordinator.showCartController()
+  }
+  
+  func updateCartBadge(count: Int) {
+    if let cartButton = navigationItem.rightBarButtonItems?.first?.customView as? UIButton {
+      if count > 0 {
+        cartButton.badge(text: "\(count)")
+      } else {
+        cartButton.badge(text: nil)
+      }
+      
+    }
+  }
+  
+  private func setupDatabaseObserver() {
+    service.databaseUpdated
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] _ in
+        self?.updateBadge()
+      }
+      .store(in: &cancellable)
+
+  }
+  
+  private func updateBadge() {
+    service.fetchBike()
+      .receive(on: DispatchQueue.main)
+      .sink { completion in
+        switch completion {
+        case .finished:
+          break
+          
+        case .failure(let error):
+          print("Error fetching bike items: \(error.localizedDescription)")
+        }
+      } receiveValue: { [weak self] bike in
+        self?.updateCartBadge(count: bike.count)
+      }
+      .store(in: &cancellable)
   }
   
   
@@ -96,11 +156,11 @@ class HomeViewController: UIViewController {
       }
       .store(in: &cancellable)
     
-//    cellSelectedSubject
-//      .sink { [weak self] indexPath in
-//        self?.handleCellSelection(at: indexPath, item: <#Any#>)
-//      }
-//      .store(in: &cancellable)
+    //    cellSelectedSubject
+    //      .sink { [weak self] indexPath in
+    //        self?.handleCellSelection(at: indexPath, item: <#Any#>)
+    //      }
+    //      .store(in: &cancellable)
   }
   
   private func handleCellSelection(section: Int, item: Any) {

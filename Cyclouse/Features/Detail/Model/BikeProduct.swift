@@ -17,8 +17,9 @@ final class BikeProduct {
   let images: [String]
   let descriptions: String
   let time: Double
+  @Attribute(.externalStorage) var quantity: Int
   
-  init(name: String, price: Int, brand: String, images: [String], descriptions: String) {
+  init(name: String, price: Int, brand: String, images: [String], descriptions: String, quantity: Int) {
     self.id = UUID().uuidString
     self.name = name
     self.price = price
@@ -26,5 +27,6 @@ final class BikeProduct {
     self.images = images
     self.descriptions = descriptions
     self.time = Date().timeIntervalSince1970
+    self.quantity = quantity
   }
 }

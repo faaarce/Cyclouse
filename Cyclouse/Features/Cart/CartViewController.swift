@@ -8,14 +8,31 @@ import SnapKit
 import UIKit
 import Combine
 
+protocol OrderBadgesUpdateDelegate {
+  func updateBadge(badgeNumber: Int)
+}
+
 class CartViewController: UIViewController {
   
   @Published var bikes: GetCartResponse?
   var coordinator: CartCoordinator
   private let service = CartService()
-  
-//  private let service = BikeService()
+  var delegate: OrderBadgesUpdateDelegate?
+  let databaseService = DatabaseService.shared
   private var cancellables = Set<AnyCancellable>()
+  
+  var bikeData: [BikeV2] = [] {
+    didSet {
+      delegate?.updateBadge(badgeNumber: bikeData.count)
+      updateViewVisibility()
+    }
+  }
+  
+  private lazy var emptyStateView: EmptyStateView = {
+      let view = EmptyStateView()
+      view.delegate = self // Conform to EmptyStateViewDelegate if needed
+      return view
+  }()
   
   lazy var tableView: UITableView = {
     let tableView = UITableView(frame: .zero, style: .grouped)
@@ -27,8 +44,6 @@ class CartViewController: UIViewController {
     tableView.separatorInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
     return tableView
   }()
-  
-  lazy var emptyStateView = EmptyStateView(frame: tableView.frame)
   
   private let checkoutButton: UIButton = {
     let button = UIButton()
@@ -83,53 +98,83 @@ class CartViewController: UIViewController {
     layout()
   }
   
-  private func updateEmptyStateView() {
-    
-    emptyStateView.configure(image: UIImage(named: "bikes"), description: "No Data Available", buttonTitle:  "Order")
-    let isEmpty = bikes?.data.items.isEmpty ?? true
-    tableView.isHidden = isEmpty
-    totalPriceView.isHidden = isEmpty
-    checkoutButton.isHidden = isEmpty
-    shouldShowErrorView(isEmpty)
-  }
-  
-  func shouldShowErrorView(_ status: Bool) {
-      switch status {
-      case true:
-          if !view.subviews.contains(emptyStateView) {
-              view.addSubview(emptyStateView)
-          } else {
+  private func updateViewVisibility() {
+          if bikeData.isEmpty {
+              if !view.subviews.contains(emptyStateView) {
+                  view.addSubview(emptyStateView)
+                  emptyStateView.snp.makeConstraints { make in
+                      make.edges.equalToSuperview()
+                  }
+                  emptyStateView.configure(
+                      image: UIImage(named: "bikes"),
+                      description: "Your cart is empty.",
+                      buttonTitle: "Start Shopping"
+                  )
+              }
               emptyStateView.isHidden = false
-          }
-      case false:
-          if view.subviews.contains(emptyStateView) {
+              tableView.isHidden = true
+              totalPriceView.isHidden = true
+              checkoutButton.isHidden = true
+          } else {
               emptyStateView.isHidden = true
+              tableView.isHidden = false
+              totalPriceView.isHidden = false
+              checkoutButton.isHidden = false
           }
       }
-  }
-
+  
+  func updateBikeQuantity(_ bike: BikeV2, newQuantity: Int) {
+       databaseService.updateBikeQuantity(bike, newQuantity: newQuantity)
+           .receive(on: DispatchQueue.main)
+           .sink { completion in
+               if case .failure(let error) = completion {
+                   print("Error updating bike quantity: \(error)")
+               }
+           } receiveValue: { [weak self] _ in
+               self?.fetchBikes()
+           }
+           .store(in: &cancellables)
+   }
   
   private func fetchBikes() {
-    service.getCart()
+    
+    databaseService.fetchBike()
       .receive(on: DispatchQueue.main)
       .sink { completion in
-        switch completion {
-        case .finished:
-          print("Successfully retrieved cart")
-          
-        case .failure(let error):
-          print("Failed to retrieve cart: \(error)")
+        if case .failure(let error) = completion {
+          print("Error fetching foods: \(error)")
         }
-      } receiveValue: { response in
-        print(response.value)
-            self.bikes = response.value
-        
-        self.tableView.reloadData()
-        self.updateEmptyStateView()
+      } receiveValue: { [weak self] bike in
+        self?.bikeData = bike
+        self?.tableView.reloadData()
+        self?.updateViewVisibility()
       }
       .store(in: &cancellables)
-
+    
+    // 2. Fetch from Add to cart API
+    /*
+     service.getCart()
+     .receive(on: DispatchQueue.main)
+     .sink { completion in
+     switch completion {
+     case .finished:
+     print("Successfully retrieved cart")
+     
+     case .failure(let error):
+     print("Failed to retrieve cart: \(error)")
+     }
+     } receiveValue: { response in
+     print(response.value)
+     self.bikes = response.value
+     
+     self.tableView.reloadData()
+     self.updateEmptyStateView()
+     }
+     .store(in: &cancellables)
+     */
   }
+  
+  
   
   @objc func checkoutButtonTapped() {
     print("Check button tapped")
@@ -152,7 +197,6 @@ class CartViewController: UIViewController {
     self.view.addSubview(totalPriceView)
     self.view.addSubview(tableView)
     self.view.addSubview(checkoutButton)
-    self.view.addSubview(emptyStateView)
     registerCells()
   }
   
@@ -162,10 +206,6 @@ class CartViewController: UIViewController {
       $0.left.equalToSuperview().offset(20)
       $0.top.equalToSuperview()
       $0.bottom.equalTo(checkoutButton.snp.top)
-    }
-    
-    emptyStateView.snp.makeConstraints { make in
-      make.edges.equalTo(tableView)
     }
     
     checkoutButton.snp.makeConstraints {
@@ -191,7 +231,7 @@ class CartViewController: UIViewController {
       $0.centerY.equalToSuperview()
       $0.left.equalTo(checkButton.snp.right).offset(10)
     }
-
+    
     totalLabel.snp.makeConstraints {
       $0.centerY.equalToSuperview()
       $0.left.equalTo(totalChecklistLabel.snp.right).offset(20)
@@ -209,20 +249,25 @@ class CartViewController: UIViewController {
 
 extension CartViewController: UITableViewDataSource {
   func numberOfSections(in tableView: UITableView) -> Int {
-   return 1
+    return 1
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    let test = bikes?.data.items.count ?? 0
-    print(test)
-    return test
+    //    let test = bikes?.data.items.count ?? 0
+    //    print(test)
+    //    return test
+    
+    return bikeData.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "CartViewCell", for: indexPath) as? CartViewCell else { return UITableViewCell()}
+    cell.delegate = self
+    let bike = bikeData[indexPath.row]
+    cell.indexPath = indexPath
+    cell.configure(with: bike)
     cell.selectionStyle = .none
     cell.backgroundColor = .clear
-    cell.bikeNameLabel.text = bikes?.data.items[indexPath.row].productId
     return cell
   }
 }
@@ -234,6 +279,59 @@ extension CartViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-      return false  // Prevent the cell from highlighting when tapped
-    }
+    return false  // Prevent the cell from highlighting when tapped
+  }
+}
+
+
+extension CartViewController: CartCellDelegate {
+  func minusButton(_ cell: CartViewCell) {
+    guard let indexPath = tableView.indexPath(for: cell),
+              indexPath.row < bikeData.count else { return }
+        
+        let bike = bikeData[indexPath.row]
+        let newQuantity = max(1, bike.cartQuantity - 1)
+        updateBikeQuantity(bike, newQuantity: newQuantity)
+     }
+     
+     func plusButton(_ cell: CartViewCell) {
+       guard let indexPath = tableView.indexPath(for: cell),
+                   indexPath.row < bikeData.count else { return }
+             
+             let bike = bikeData[indexPath.row]
+             let newQuantity = min(bike.stockQuantity, bike.cartQuantity + 1)
+             updateBikeQuantity(bike, newQuantity: newQuantity)
+     }
+  
+
+  
+  func deleteButton(_ cell: CartViewCell, indexPath: IndexPath) {
+    let bikeToDelete = self.bikeData[indexPath.row]
+    self.databaseService.delete(bikeToDelete)
+      .receive(on: DispatchQueue.main)
+      .sink { result in
+        switch result {
+        case .finished:
+          self.fetchBikes()
+          
+        case .failure(let error):
+          print("Error deleting bike: \(error)")
+        }
+      } receiveValue: { _ in
+        
+      }
+      .store(in: &cancellables)
+
+  }
+  
+  
+}
+
+
+extension CartViewController: EmptyStateViewDelegate {
+  func tapButton() {
+    print("Test")
+  }
+  
+  
 }

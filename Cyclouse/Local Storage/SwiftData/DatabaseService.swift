@@ -29,8 +29,9 @@ class DatabaseService {
     
     private func setupContainer() {
         do {
-          let schema = Schema([BikeProduct.self])
+          let schema = Schema([BikeV2.self])
             let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+          
             container = try ModelContainer(for: schema, configurations: [modelConfiguration])
             if let container = container {
                 context = ModelContext(container)
@@ -155,8 +156,26 @@ class DatabaseService {
         }
     }
     
+  func updateBike(_ bike: BikeV2) -> AnyPublisher<Void, Error> {
+          Deferred {
+              Future { [weak self] promise in
+                  guard let self = self else {
+                      promise(.failure(DatabaseError.contextNotFound))
+                      return
+                  }
+                  do {
+                      try self.saveContext()
+                      self.databaseUpdated.send()
+                      promise(.success(()))
+                  } catch {
+                      promise(.failure(error))
+                  }
+              }
+          }.eraseToAnyPublisher()
+      }
+  
     // Specific methods for Food and History
-  func saveBike(_ bike: BikeProduct) -> AnyPublisher<Void, Error> {
+  func saveBike(_ bike: BikeV2) -> AnyPublisher<Void, Error> {
         create(bike)
     }
     
@@ -181,8 +200,8 @@ class DatabaseService {
         }.eraseToAnyPublisher()
     }
     
-  func fetchBike() -> AnyPublisher<[BikeProduct], Error> {
-    fetch(BikeProduct.self, sortBy: SortDescriptor<BikeProduct>(\.time))
+  func fetchBike() -> AnyPublisher<[BikeV2], Error> {
+    fetch(BikeV2.self, sortBy: SortDescriptor<BikeV2>(\.time))
     }
     
     func fetchHistory() -> AnyPublisher<[History], Error> {
@@ -190,10 +209,18 @@ class DatabaseService {
     }
     
     func deleteAllBike() -> AnyPublisher<Void, Error> {
-      deleteAll(BikeProduct.self)
+      deleteAll(BikeV2.self)
     }
     
-  func deleteFood(_ bike: BikeProduct) -> AnyPublisher<Void, Error> {
+  func deleteBike(_ bike: BikeV2) -> AnyPublisher<Void, Error> {
         delete(bike)
     }
+  
+  func updateBikeQuantity(_ bike: BikeV2, newQuantity: Int) -> AnyPublisher<Void, Error> {
+      update(bike) { updatedBike in
+        updatedBike.cartQuantity = newQuantity
+      }
+  }
+
+
 }

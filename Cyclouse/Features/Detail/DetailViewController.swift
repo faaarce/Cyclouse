@@ -10,6 +10,7 @@ import Combine
 
 class DetailViewController: UIViewController {
   
+  let service = DatabaseService.shared
   var coordinator: DetailCoordinator
   let product: Product
   private let cartService: CartService
@@ -146,6 +147,33 @@ class DetailViewController: UIViewController {
   }
   
   @objc func addToCartButtonTapped(_ sender: UIButton) {
+  
+    
+    let bikeProduct = BikeV2(
+      name: product.name,
+      price: product.price,
+      brand: product.brand,
+      images: product.images,
+      descriptions: product.description,
+      stockQuantity: product.quantity
+    )
+    
+    service.create(bikeProduct)
+      .receive(on: DispatchQueue.main)
+      .sink { completion in
+        switch completion {
+        case .finished:
+          break
+          
+        case .failure(let error):
+          self.showAlert(title: "Error", message: "Failed to add bike item: \(error.localizedDescription)")
+        }
+      } receiveValue: { [weak self] response in
+        self?.showAlert(title: "Success", message: "Bike item added to cart")
+      }
+      .store(in: &cancellables)
+
+    /*  with Add to cart API
     let productId = product.id
     
     cartService.addToCart(productId: productId, quantity: 1)
@@ -166,6 +194,7 @@ class DetailViewController: UIViewController {
         self?.showAlert(title: "Success", message: "Added to cart: \(response.value.message)")
       }
       .store(in: &cancellables)
+    */
   }
   
   private func showAlert(title: String, message: String) {
@@ -185,6 +214,7 @@ class DetailViewController: UIViewController {
   func configureViews() {
     productTitleLabel.text = product.name
     descriptionTextView.text = product.description
+    
   }
   
   func setupViews(){

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C121FD482CB903BE00B4AEF5 /* EasyNotificationBadge in Frameworks */ = {isa = PBXBuildFile; productRef = C121FD472CB903BE00B4AEF5 /* EasyNotificationBadge */; };
 		C12251C42CB6E065001278E6 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12251C32CB6E065001278E6 /* DatabaseService.swift */; };
 		C12251C72CB6EDDF001278E6 /* BikeProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12251C62CB6EDDF001278E6 /* BikeProduct.swift */; };
 		C12251C92CB78D56001278E6 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12251C82CB78D56001278E6 /* History.swift */; };
@@ -22,6 +23,7 @@
 		C1464C592C92B41800F945BA /* CartViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1464C582C92B41800F945BA /* CartViewCell.swift */; };
 		C147C2512CA14D6D002B88AF /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C147C2502CA14D6D002B88AF /* HistoryTableViewCell.swift */; };
 		C151E8A72CA9B9BD000C6B73 /* Valet in Frameworks */ = {isa = PBXBuildFile; productRef = C151E8A62CA9B9BD000C6B73 /* Valet */; };
+		C15B513E2CBA447500892DBD /* BikeV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15B513D2CBA447500892DBD /* BikeV2.swift */; };
 		C1705E0A2CA55C6D0043CE9D /* Bikes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E052CA55C6D0043CE9D /* Bikes.swift */; };
 		C1705E0B2CA55C6D0043CE9D /* BikeNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E072CA55C6D0043CE9D /* BikeNetworkRepository.swift */; };
 		C1705E0C2CA55C6D0043CE9D /* BikeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E092CA55C6D0043CE9D /* BikeService.swift */; };
@@ -138,6 +140,7 @@
 		C1464C552C92A97900F945BA /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		C1464C582C92B41800F945BA /* CartViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewCell.swift; sourceTree = "<group>"; };
 		C147C2502CA14D6D002B88AF /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		C15B513D2CBA447500892DBD /* BikeV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeV2.swift; sourceTree = "<group>"; };
 		C1705E052CA55C6D0043CE9D /* Bikes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bikes.swift; sourceTree = "<group>"; };
 		C1705E062CA55C6D0043CE9D /* BikeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeAPI.swift; sourceTree = "<group>"; };
 		C1705E072CA55C6D0043CE9D /* BikeNetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeNetworkRepository.swift; sourceTree = "<group>"; };
@@ -245,6 +248,7 @@
 				C193704B2C8A133100B56BA1 /* CombineCocoa in Frameworks */,
 				C151E8A72CA9B9BD000C6B73 /* Valet in Frameworks */,
 				C18F517C2C9D1E4900E60C0D /* Alamofire in Frameworks */,
+				C121FD482CB903BE00B4AEF5 /* EasyNotificationBadge in Frameworks */,
 				C193704E2C8A137600B56BA1 /* SnapKit in Frameworks */,
 				C19370512C8A140E00B56BA1 /* CombineDataSources in Frameworks */,
 			);
@@ -788,6 +792,7 @@
 			isa = PBXGroup;
 			children = (
 				C1C533892C90A6A2000ABA71 /* Bike.swift */,
+				C15B513D2CBA447500892DBD /* BikeV2.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -864,6 +869,7 @@
 				C19370502C8A140E00B56BA1 /* CombineDataSources */,
 				C18F517B2C9D1E4900E60C0D /* Alamofire */,
 				C151E8A62CA9B9BD000C6B73 /* Valet */,
+				C121FD472CB903BE00B4AEF5 /* EasyNotificationBadge */,
 			);
 			productName = Cyclouse;
 			productReference = C1936FF92C898D1C00B56BA1 /* Cyclouse.app */;
@@ -899,6 +905,7 @@
 				C193704F2C8A140E00B56BA1 /* XCRemoteSwiftPackageReference "CombineDataSources" */,
 				C18F517A2C9D1E4900E60C0D /* XCRemoteSwiftPackageReference "Alamofire" */,
 				C151E8A52CA9B9BD000C6B73 /* XCRemoteSwiftPackageReference "Valet" */,
+				C121FD462CB903BE00B4AEF5 /* XCRemoteSwiftPackageReference "EasyNotificationBadge" */,
 			);
 			productRefGroup = C1936FFA2C898D1C00B56BA1 /* Products */;
 			projectDirPath = "";
@@ -987,6 +994,7 @@
 				C193705C2C8ABBAB00B56BA1 /* ThemeColor.swift in Sources */,
 				C193705F2C8AE99E00B56BA1 /* OnboardingViewController.swift in Sources */,
 				C13D90DC2C9218F400430BA4 /* Environment.swift in Sources */,
+				C15B513E2CBA447500892DBD /* BikeV2.swift in Sources */,
 				C1EDE5AF2CAB3D0F00816876 /* CartAPI.swift in Sources */,
 				C19370202C89988800B56BA1 /* TabbarCoordinator.swift in Sources */,
 				C1956D122CABC70600642FF8 /* TokenManager.swift in Sources */,
@@ -1247,6 +1255,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C121FD462CB903BE00B4AEF5 /* XCRemoteSwiftPackageReference "EasyNotificationBadge" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Minitour/EasyNotificationBadge.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.5;
+			};
+		};
 		C151E8A52CA9B9BD000C6B73 /* XCRemoteSwiftPackageReference "Valet" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/square/Valet";
@@ -1290,6 +1306,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C121FD472CB903BE00B4AEF5 /* EasyNotificationBadge */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C121FD462CB903BE00B4AEF5 /* XCRemoteSwiftPackageReference "EasyNotificationBadge" */;
+			productName = EasyNotificationBadge;
+		};
 		C151E8A62CA9B9BD000C6B73 /* Valet */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C151E8A52CA9B9BD000C6B73 /* XCRemoteSwiftPackageReference "Valet" */;

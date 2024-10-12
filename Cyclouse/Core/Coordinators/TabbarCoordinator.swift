@@ -6,12 +6,17 @@
 //
 
 import UIKit
+import Combine
 
 class TabbarCoordinator: Coordinator {
   var childCoordinators: [any Coordinator] = []
   
   weak var parentCoordinator: Coordinator?
   unowned var tabBarController: UITabBarController
+  
+  private var cancellables = Set<AnyCancellable>()
+  private let service = DatabaseService.shared
+  private var itemCount: Int = 0
   
   init(tabBarController: UITabBarController) {
     self.tabBarController = tabBarController
@@ -38,10 +43,14 @@ class TabbarCoordinator: Coordinator {
       profileNav
     ], animated: false)
     setupTabbar()
+    setupDatabaseObserver()
+    updateBadge()
     startWithRoot(tabBarController)
     
     
   }
+  
+  
   
   private func setupTabbar() {
     guard let viewControllers = tabBarController.viewControllers else { return }
@@ -58,6 +67,40 @@ class TabbarCoordinator: Coordinator {
     UITabBar.appearance().unselectedItemTintColor = ThemeColor.secondary
   }
   
+  private func setupDatabaseObserver() {
+    service.databaseUpdated
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] _ in
+        self?.updateBadge()
+      }
+      .store(in: &cancellables)
+
+  }
+  
+  private func updateBadge() {
+    service.fetchBike()
+      .receive(on: DispatchQueue.main)
+      .sink { completion in
+        switch completion {
+        case .finished:
+          break
+          
+        case .failure(let error):
+          print("Error fetching bike items: \(error.localizedDescription)")
+        }
+      } receiveValue: { [weak self] bike in
+        self?.itemCount = bike.count
+        self?.updateCartTabBadge()
+      }
+      .store(in: &cancellables)
+  }
+  
+  private func updateCartTabBadge(){
+    if let cartTab = tabBarController.viewControllers?[0].tabBarItem {
+      cartTab.badgeValue = itemCount > 0 ? "\(itemCount)" : nil
+    }
+  }
+  
   func gotoProfile() {
     tabBarController.selectedIndex = 3
   }
@@ -68,7 +111,9 @@ class TabbarCoordinator: Coordinator {
     (parentCoordinator as? AppCoordinator)?.handleLogout()
   }
   
-
+  deinit {
+    cancellables.removeAll()
+  }
 
   
 }

@@ -7,7 +7,19 @@
 
 import UIKit
 
+protocol CartCellDelegate: AnyObject {
+  func minusButton(_ cell: CartViewCell)
+  func plusButton(_ cell: CartViewCell)
+  func deleteButton(_ cell: CartViewCell, indexPath: IndexPath)
+}
+
 class CartViewCell: UITableViewCell {
+  
+  weak var delegate: CartCellDelegate?
+  var bike: BikeV2?
+  var indexPath: IndexPath?
+  
+  var quantity: Int = 1
   
   private let checkButton: UIButton = {
     let object = UIButton(type: .system)
@@ -36,6 +48,7 @@ class CartViewCell: UITableViewCell {
     object.setImage(UIImage(systemName: "plus.app"), for: .normal)
     object.tintColor = ThemeColor.primary
     object.contentMode = .scaleAspectFit
+    object.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
     return object
   }()
   
@@ -44,6 +57,7 @@ class CartViewCell: UITableViewCell {
     object.setImage(UIImage(systemName: "minus.square"), for: .normal)
     object.tintColor = ThemeColor.primary
     object.contentMode = .scaleAspectFit
+    object.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
     return object
   }()
   
@@ -52,6 +66,7 @@ class CartViewCell: UITableViewCell {
     object.setImage(UIImage(systemName: "trash.fill"), for: .normal)
     object.tintColor = .red
     object.contentMode = .scaleAspectFit
+    object.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
     return object
   }()
   
@@ -116,6 +131,38 @@ class CartViewCell: UITableViewCell {
     setupViews()
     layout()
   }
+  
+  func configure(with bike: BikeV2) {
+    self.bike = bike
+    bikeNameLabel.text = bike.name
+    bikePriceLabel.text = "\(bike.price)"
+    quantityLabel.text = "\(bike.cartQuantity)"
+    updateButtonState(stockQuantity: bike.stockQuantity, cartQuantity: bike.cartQuantity)
+  }
+  
+  private func updateButtonState(stockQuantity: Int, cartQuantity: Int) {
+         minusButton.isEnabled = cartQuantity > 1
+         plusButton.isEnabled = cartQuantity < stockQuantity
+     }
+  
+ 
+
+  @objc private func plusButtonTapped() {
+
+           delegate?.plusButton(self)
+  }
+  
+  @objc private func minusButtonTapped() {
+
+         delegate?.minusButton(self)
+  }
+  
+  @objc private func deleteButtonTapped() {
+    if let indexPath = self.indexPath {
+      delegate?.deleteButton(self, indexPath: indexPath)
+    }
+  }
+  
   
   
   private func setupViews() {
