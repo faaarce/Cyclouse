@@ -35,11 +35,11 @@ class CartViewCell: UITableViewCell {
     return view
   }()
   
-   let bikeNameLabel: UILabel = {
+  let bikeNameLabel: UILabel = {
     LabelFactory.build(text: "TDR 3.000 - Mountain Bike", font: ThemeFont.semibold(ofSize: 14), textColor: .white)
   }()
   
-   let bikePriceLabel: UILabel = {
+  let bikePriceLabel: UILabel = {
     LabelFactory.build(text: "Rp 5,000,000", font: ThemeFont.bold(ofSize: 14), textColor: ThemeColor.primary)
   }()
   
@@ -141,20 +141,20 @@ class CartViewCell: UITableViewCell {
   }
   
   private func updateButtonState(stockQuantity: Int, cartQuantity: Int) {
-         minusButton.isEnabled = cartQuantity > 1
-         plusButton.isEnabled = cartQuantity < stockQuantity
-     }
+    minusButton.isEnabled = cartQuantity > 1
+    plusButton.isEnabled = cartQuantity < stockQuantity
+  }
   
- 
-
+  
+  
   @objc private func plusButtonTapped() {
-
-           delegate?.plusButton(self)
+    
+    delegate?.plusButton(self)
   }
   
   @objc private func minusButtonTapped() {
-
-         delegate?.minusButton(self)
+    
+    delegate?.minusButton(self)
   }
   
   @objc private func deleteButtonTapped() {
@@ -170,7 +170,7 @@ class CartViewCell: UITableViewCell {
     contentView.addSubview(productCardView)
     [minusButton, quantityLabel, plusButton].forEach { hStackView.addArrangedSubview($0) }
     [bikeNameLabel, bikePriceLabel, hStackView].forEach { vStackView.addArrangedSubview($0) }
-
+    
   }
   
   private func layout() {

@@ -29,9 +29,9 @@ class CartViewController: UIViewController {
   }
   
   private lazy var emptyStateView: EmptyStateView = {
-      let view = EmptyStateView()
-      view.delegate = self // Conform to EmptyStateViewDelegate if needed
-      return view
+    let view = EmptyStateView()
+    view.delegate = self // Conform to EmptyStateViewDelegate if needed
+    return view
   }()
   
   lazy var tableView: UITableView = {
@@ -99,42 +99,42 @@ class CartViewController: UIViewController {
   }
   
   private func updateViewVisibility() {
-          if bikeData.isEmpty {
-              if !view.subviews.contains(emptyStateView) {
-                  view.addSubview(emptyStateView)
-                  emptyStateView.snp.makeConstraints { make in
-                      make.edges.equalToSuperview()
-                  }
-                  emptyStateView.configure(
-                      image: UIImage(named: "bikes"),
-                      description: "Your cart is empty.",
-                      buttonTitle: "Start Shopping"
-                  )
-              }
-              emptyStateView.isHidden = false
-              tableView.isHidden = true
-              totalPriceView.isHidden = true
-              checkoutButton.isHidden = true
-          } else {
-              emptyStateView.isHidden = true
-              tableView.isHidden = false
-              totalPriceView.isHidden = false
-              checkoutButton.isHidden = false
-          }
+    if bikeData.isEmpty {
+      if !view.subviews.contains(emptyStateView) {
+        view.addSubview(emptyStateView)
+        emptyStateView.snp.makeConstraints { make in
+          make.edges.equalToSuperview()
+        }
+        emptyStateView.configure(
+          image: UIImage(named: "bikes"),
+          description: "Your cart is empty.",
+          buttonTitle: "Start Shopping"
+        )
       }
+      emptyStateView.isHidden = false
+      tableView.isHidden = true
+      totalPriceView.isHidden = true
+      checkoutButton.isHidden = true
+    } else {
+      emptyStateView.isHidden = true
+      tableView.isHidden = false
+      totalPriceView.isHidden = false
+      checkoutButton.isHidden = false
+    }
+  }
   
   func updateBikeQuantity(_ bike: BikeV2, newQuantity: Int) {
-       databaseService.updateBikeQuantity(bike, newQuantity: newQuantity)
-           .receive(on: DispatchQueue.main)
-           .sink { completion in
-               if case .failure(let error) = completion {
-                   print("Error updating bike quantity: \(error)")
-               }
-           } receiveValue: { [weak self] _ in
-               self?.fetchBikes()
-           }
-           .store(in: &cancellables)
-   }
+    databaseService.updateBikeQuantity(bike, newQuantity: newQuantity)
+      .receive(on: DispatchQueue.main)
+      .sink { completion in
+        if case .failure(let error) = completion {
+          print("Error updating bike quantity: \(error)")
+        }
+      } receiveValue: { [weak self] _ in
+        self?.fetchBikes()
+      }
+      .store(in: &cancellables)
+  }
   
   private func fetchBikes() {
     
@@ -287,23 +287,23 @@ extension CartViewController: UITableViewDelegate {
 extension CartViewController: CartCellDelegate {
   func minusButton(_ cell: CartViewCell) {
     guard let indexPath = tableView.indexPath(for: cell),
-              indexPath.row < bikeData.count else { return }
-        
-        let bike = bikeData[indexPath.row]
-        let newQuantity = max(1, bike.cartQuantity - 1)
-        updateBikeQuantity(bike, newQuantity: newQuantity)
-     }
-     
-     func plusButton(_ cell: CartViewCell) {
-       guard let indexPath = tableView.indexPath(for: cell),
-                   indexPath.row < bikeData.count else { return }
-             
-             let bike = bikeData[indexPath.row]
-             let newQuantity = min(bike.stockQuantity, bike.cartQuantity + 1)
-             updateBikeQuantity(bike, newQuantity: newQuantity)
-     }
+          indexPath.row < bikeData.count else { return }
+    
+    let bike = bikeData[indexPath.row]
+    let newQuantity = max(1, bike.cartQuantity - 1)
+    updateBikeQuantity(bike, newQuantity: newQuantity)
+  }
   
-
+  func plusButton(_ cell: CartViewCell) {
+    guard let indexPath = tableView.indexPath(for: cell),
+          indexPath.row < bikeData.count else { return }
+    
+    let bike = bikeData[indexPath.row]
+    let newQuantity = min(bike.stockQuantity, bike.cartQuantity + 1)
+    updateBikeQuantity(bike, newQuantity: newQuantity)
+  }
+  
+  
   
   func deleteButton(_ cell: CartViewCell, indexPath: IndexPath) {
     let bikeToDelete = self.bikeData[indexPath.row]
@@ -321,7 +321,7 @@ extension CartViewController: CartCellDelegate {
         
       }
       .store(in: &cancellables)
-
+    
   }
   
   
