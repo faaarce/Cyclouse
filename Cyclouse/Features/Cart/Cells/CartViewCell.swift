@@ -11,6 +11,7 @@ protocol CartCellDelegate: AnyObject {
   func minusButton(_ cell: CartViewCell)
   func plusButton(_ cell: CartViewCell)
   func deleteButton(_ cell: CartViewCell, indexPath: IndexPath)
+  func checkProduct(_ cell: CartViewCell, isChecked: Bool)
 }
 
 class CartViewCell: UITableViewCell {
@@ -18,14 +19,15 @@ class CartViewCell: UITableViewCell {
   weak var delegate: CartCellDelegate?
   var bike: BikeV2?
   var indexPath: IndexPath?
+  var isChecked: Bool = true
   
-  var quantity: Int = 1
   
   private let checkButton: UIButton = {
     let object = UIButton(type: .system)
     object.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
     object.tintColor = ThemeColor.primary
     object.contentMode = .scaleAspectFit
+    object.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
     return object
   }()
   
@@ -132,12 +134,14 @@ class CartViewCell: UITableViewCell {
     layout()
   }
   
-  func configure(with bike: BikeV2) {
+  func configure(with bike: BikeV2, isChecked: Bool) {
     self.bike = bike
     bikeNameLabel.text = bike.name
     bikePriceLabel.text = bike.price.toRupiah()
     quantityLabel.text = "\(bike.cartQuantity)"
+    self.isChecked = isChecked
     updateButtonState(stockQuantity: bike.stockQuantity, cartQuantity: bike.cartQuantity)
+    updateCheckButtonAppearance()
   }
   
   private func updateButtonState(stockQuantity: Int, cartQuantity: Int) {
@@ -145,6 +149,11 @@ class CartViewCell: UITableViewCell {
     plusButton.isEnabled = cartQuantity < stockQuantity
   }
   
+  
+  private func updateCheckButtonAppearance(){
+    let imageName = isChecked ? "checkmark.square.fill" : "square"
+          checkButton.setImage(UIImage(systemName: imageName), for: .normal)
+  }
   
   
   @objc private func plusButtonTapped() {
@@ -163,6 +172,11 @@ class CartViewCell: UITableViewCell {
     }
   }
   
+  @objc private func checkButtonTapped() {
+    isChecked.toggle()
+    updateCheckButtonAppearance()
+    delegate?.checkProduct(self, isChecked: isChecked)
+  }
   
   
   private func setupViews() {

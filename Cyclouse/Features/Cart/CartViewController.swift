@@ -20,6 +20,8 @@ class CartViewController: UIViewController {
   var delegate: OrderBadgesUpdateDelegate?
   let databaseService = DatabaseService.shared
   private var cancellables = Set<AnyCancellable>()
+  var selectedStates: [String: Bool] = [:]
+  private var isAllSelected = true
   
   var bikeData: [BikeV2] = [] {
     didSet {
@@ -65,6 +67,7 @@ class CartViewController: UIViewController {
     object.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
     object.tintColor = ThemeColor.labelColorSecondary
     object.contentMode = .scaleAspectFit
+    object.addTarget(self, action: #selector(totalCheckButtonTapped), for: .touchUpInside)
     return object
   }()
   
@@ -96,6 +99,19 @@ class CartViewController: UIViewController {
     fetchBikes()
     setupViews()
     layout()
+  }
+  
+  @objc private func totalCheckButtonTapped() {
+      isAllSelected.toggle()
+      let imageName = isAllSelected ? "checkmark.square.fill" : "square"
+      checkButton.setImage(UIImage(systemName: imageName), for: .normal)
+
+      // Update the selection state of all items
+      for bike in bikeData {
+          selectedStates[bike.id] = isAllSelected
+      }
+      tableView.reloadData()
+      updateTotalPrice()
   }
   
   private func updateViewVisibility() {
@@ -145,9 +161,13 @@ class CartViewController: UIViewController {
           print("Error fetching foods: \(error)")
         }
       } receiveValue: { [weak self] bike in
+        self?.selectedStates = Dictionary(uniqueKeysWithValues: bike.map { ($0.id, true) })
+        self?.isAllSelected = true
+        self?.checkButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
         self?.bikeData = bike
         self?.tableView.reloadData()
         self?.updateViewVisibility()
+        self?.updateTotalPrice()
       }
       .store(in: &cancellables)
     
@@ -264,8 +284,9 @@ extension CartViewController: UITableViewDataSource {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "CartViewCell", for: indexPath) as? CartViewCell else { return UITableViewCell()}
     cell.delegate = self
     let bike = bikeData[indexPath.row]
+    let isChecked = selectedStates[bike.id] ?? false
     cell.indexPath = indexPath
-    cell.configure(with: bike)
+    cell.configure(with: bike, isChecked: isChecked)
     cell.selectionStyle = .none
     cell.backgroundColor = .clear
     return cell
@@ -303,6 +324,34 @@ extension CartViewController: CartCellDelegate {
     updateBikeQuantity(bike, newQuantity: newQuantity)
   }
   
+  func checkProduct(_ cell: CartViewCell, isChecked: Bool) {
+    guard let indexPath = tableView.indexPath(for: cell),
+                 indexPath.row < bikeData.count else { return }
+           let bike = bikeData[indexPath.row]
+           selectedStates[bike.id] = isChecked
+
+           // Update the 'Select All' button state
+           if selectedStates.values.contains(false) {
+               isAllSelected = false
+               checkButton.setImage(UIImage(systemName: "square"), for: .normal)
+           } else {
+               isAllSelected = true
+               checkButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
+           }
+
+           updateTotalPrice()
+  }
+  
+  private func updateTotalPrice() {
+      var total: Double = 0.0
+      for bike in bikeData {
+          if selectedStates[bike.id] ?? false {
+              total += Double(bike.price) * Double(bike.cartQuantity)
+          }
+      }
+      priceLabel.text = total.toRupiah()
+  }
+
   
   
   func deleteButton(_ cell: CartViewCell, indexPath: IndexPath) {
@@ -321,10 +370,7 @@ extension CartViewController: CartCellDelegate {
         
       }
       .store(in: &cancellables)
-    
   }
-  
-  
 }
 
 
