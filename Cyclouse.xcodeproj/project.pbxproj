@@ -519,6 +519,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		C17682762CBB989100065AD5 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				C18F51532C9D1A1000E60C0D /* User.swift */,
+				C1CDE9AC2CB520FA005B491F /* UserProfile.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		C17D7D932C975EA200868F1E /* History */ = {
 			isa = PBXGroup;
 			children = (
@@ -574,7 +583,7 @@
 				C18F51502C9D1A1000E60C0D /* Email.swift */,
 				C18F51512C9D1A1000E60C0D /* Username.swift */,
 				C18F51522C9D1A1000E60C0D /* Password.swift */,
-				C18F51532C9D1A1000E60C0D /* User.swift */,
+				C17682762CBB989100065AD5 /* User */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -661,7 +670,6 @@
 				C19370182C89967300B56BA1 /* Services */,
 				C19370172C89960F00B56BA1 /* Features */,
 				C193700A2C898D1D00B56BA1 /* Info.plist */,
-				C1CDE9AC2CB520FA005B491F /* UserProfile.swift */,
 			);
 			path = Cyclouse;
 			sourceTree = "<group>";
