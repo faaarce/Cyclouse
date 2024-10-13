@@ -26,6 +26,7 @@
 		C15B513E2CBA447500892DBD /* BikeV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15B513D2CBA447500892DBD /* BikeV2.swift */; };
 		C15B51402CBAB40300892DBD /* Integer + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15B513F2CBAB40300892DBD /* Integer + Extension.swift */; };
 		C15B51422CBAC53E00892DBD /* Double + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15B51412CBAC53E00892DBD /* Double + Extension.swift */; };
+		C15F0B7C2CBC27E800F5ACC3 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15F0B7B2CBC27E800F5ACC3 /* Dummy.swift */; };
 		C1705E0A2CA55C6D0043CE9D /* Bikes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E052CA55C6D0043CE9D /* Bikes.swift */; };
 		C1705E0B2CA55C6D0043CE9D /* BikeNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E072CA55C6D0043CE9D /* BikeNetworkRepository.swift */; };
 		C1705E0C2CA55C6D0043CE9D /* BikeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E092CA55C6D0043CE9D /* BikeService.swift */; };
@@ -118,6 +119,7 @@
 		C1D1BE512C8EE70D00E73A92 /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D1BE502C8EE70D00E73A92 /* CategoryViewCell.swift */; };
 		C1DF47EB2C9C9310004F5751 /* SignUpCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF47EA2C9C9305004F5751 /* SignUpCoordinator.swift */; };
 		C1DF47ED2C9C9379004F5751 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF47EC2C9C9379004F5751 /* SignUpViewController.swift */; };
+		C1EAE3A32CBC11530032DE1B /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = C1EAE3A22CBC11530032DE1B /* SkeletonView */; };
 		C1EDE5A72CAB396200816876 /* AddToCartResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EDE5A62CAB396200816876 /* AddToCartResponse.swift */; };
 		C1EDE5A92CAB3C8000816876 /* CartRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EDE5A82CAB3C7F00816876 /* CartRepository.swift */; };
 		C1EDE5AB2CAB3CA700816876 /* CartNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EDE5AA2CAB3CA700816876 /* CartNetworkRepository.swift */; };
@@ -148,6 +150,7 @@
 		C15B513D2CBA447500892DBD /* BikeV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeV2.swift; sourceTree = "<group>"; };
 		C15B513F2CBAB40300892DBD /* Integer + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Integer + Extension.swift"; sourceTree = "<group>"; };
 		C15B51412CBAC53E00892DBD /* Double + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double + Extension.swift"; sourceTree = "<group>"; };
+		C15F0B7B2CBC27E800F5ACC3 /* Dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
 		C1705E052CA55C6D0043CE9D /* Bikes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bikes.swift; sourceTree = "<group>"; };
 		C1705E062CA55C6D0043CE9D /* BikeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeAPI.swift; sourceTree = "<group>"; };
 		C1705E072CA55C6D0043CE9D /* BikeNetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeNetworkRepository.swift; sourceTree = "<group>"; };
@@ -258,6 +261,7 @@
 				C151E8A72CA9B9BD000C6B73 /* Valet in Frameworks */,
 				C18F517C2C9D1E4900E60C0D /* Alamofire in Frameworks */,
 				C17682792CBB9D4800065AD5 /* Xendit in Frameworks */,
+				C1EAE3A32CBC11530032DE1B /* SkeletonView in Frameworks */,
 				C121FD482CB903BE00B4AEF5 /* EasyNotificationBadge in Frameworks */,
 				C193704E2C8A137600B56BA1 /* SnapKit in Frameworks */,
 				C19370512C8A140E00B56BA1 /* CombineDataSources in Frameworks */,
@@ -417,6 +421,7 @@
 			isa = PBXGroup;
 			children = (
 				C147C2502CA14D6D002B88AF /* HistoryTableViewCell.swift */,
+				C15F0B7B2CBC27E800F5ACC3 /* Dummy.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -981,6 +986,7 @@
 				C151E8A62CA9B9BD000C6B73 /* Valet */,
 				C121FD472CB903BE00B4AEF5 /* EasyNotificationBadge */,
 				C17682782CBB9D4800065AD5 /* Xendit */,
+				C1EAE3A22CBC11530032DE1B /* SkeletonView */,
 			);
 			productName = Cyclouse;
 			productReference = C1936FF92C898D1C00B56BA1 /* Cyclouse.app */;
@@ -1018,6 +1024,7 @@
 				C151E8A52CA9B9BD000C6B73 /* XCRemoteSwiftPackageReference "Valet" */,
 				C121FD462CB903BE00B4AEF5 /* XCRemoteSwiftPackageReference "EasyNotificationBadge" */,
 				C17682772CBB9D4800065AD5 /* XCRemoteSwiftPackageReference "xendit-sdk-ios-src" */,
+				C1EAE3A12CBC11530032DE1B /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = C1936FFA2C898D1C00B56BA1 /* Products */;
 			projectDirPath = "";
@@ -1138,6 +1145,7 @@
 				C1705E0E2CA55C6D0043CE9D /* BikeAPI.swift in Sources */,
 				C19370672C8B72BA00B56BA1 /* ButtonFactory.swift in Sources */,
 				C193705A2C8ABAEE00B56BA1 /* UIColor+Extension.swift in Sources */,
+				C15F0B7C2CBC27E800F5ACC3 /* Dummy.swift in Sources */,
 				C19370612C8AE9AC00B56BA1 /* OnboardingCoordinator.swift in Sources */,
 				C19370632C8B697200B56BA1 /* LabelFactory.swift in Sources */,
 				C1936FFD2C898D1C00B56BA1 /* AppDelegate.swift in Sources */,
@@ -1427,6 +1435,14 @@
 				minimumVersion = 0.2.5;
 			};
 		};
+		C1EAE3A12CBC11530032DE1B /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.31.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1464,6 +1480,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C193704F2C8A140E00B56BA1 /* XCRemoteSwiftPackageReference "CombineDataSources" */;
 			productName = CombineDataSources;
+		};
+		C1EAE3A22CBC11530032DE1B /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1EAE3A12CBC11530032DE1B /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

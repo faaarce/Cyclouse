@@ -57,6 +57,7 @@ class HistoryTableViewCell: UITableViewCell {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     setupViews()
     layout()
+    configureSkeleton()
   }
   
   
@@ -64,6 +65,7 @@ class HistoryTableViewCell: UITableViewCell {
     super.init(coder: coder)
     setupViews()
     layout()
+    configureSkeleton()
   }
   
   
@@ -71,13 +73,34 @@ class HistoryTableViewCell: UITableViewCell {
     super.awakeFromNib()
     setupViews()
     layout()
+    configureSkeleton()
   }
   
   override func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
     setupViews()
     layout()
+    configureSkeleton()
   }
+  
+  private func configureSkeleton() {
+        isSkeletonable = true
+        contentView.isSkeletonable = true
+        productCardView.isSkeletonable = true
+        productBikeImage.isSkeletonable = true
+        productNameLabel.isSkeletonable = true
+        priceLabel.isSkeletonable = true
+        categoryLabel.isSkeletonable = true
+        totalPriceLabel.isSkeletonable = true
+        quantityLabel.isSkeletonable = true
+
+        // Optionally set skeleton text line height
+        productNameLabel.linesCornerRadius = 5
+        priceLabel.linesCornerRadius = 5
+        categoryLabel.linesCornerRadius = 5
+        totalPriceLabel.linesCornerRadius = 5
+        quantityLabel.linesCornerRadius = 5
+    }
   
   private func layout() {
     productCardView.snp.makeConstraints {
@@ -115,6 +138,14 @@ class HistoryTableViewCell: UITableViewCell {
     
     
   }
+  
+  func configure(with item: Dummy) {
+       productBikeImage.image = UIImage(named: item.image)
+       productNameLabel.text = item.name
+       priceLabel.text = "Rp \(item.price)"
+       quantityLabel.text = "Total \(item.qty) Product"
+       totalPriceLabel.text = "Rp \(item.price * item.qty)"
+   }
   
   
   private func setupViews() {
