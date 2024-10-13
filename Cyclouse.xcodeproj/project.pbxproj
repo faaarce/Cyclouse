@@ -264,6 +264,7 @@
 		C12251C22CB6DF35001278E6 /* SwiftData */ = {
 			isa = PBXGroup;
 			children = (
+				C17682752CBB8CCF00065AD5 /* Model */,
 				C12251C32CB6E065001278E6 /* DatabaseService.swift */,
 			);
 			path = SwiftData;
@@ -507,6 +508,15 @@
 				C1956D112CABC70600642FF8 /* TokenManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		C17682752CBB8CCF00065AD5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C1C533892C90A6A2000ABA71 /* Bike.swift */,
+				C15B513D2CBA447500892DBD /* BikeV2.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		C17D7D932C975EA200868F1E /* History */ = {
@@ -880,8 +890,6 @@
 		C1C533862C90A599000ABA71 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C1C533892C90A6A2000ABA71 /* Bike.swift */,
-				C15B513D2CBA447500892DBD /* BikeV2.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
