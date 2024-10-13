@@ -31,6 +31,13 @@ class ProfileCoordinator: Coordinator, NavigationCoordinator {
     historyCoordinator.start()
   }
   
+  func showPayment(){
+    let paymentCoordinator = PaymentCoordinator(navigationController: navigationController)
+    childCoordinators.append(paymentCoordinator)
+    paymentCoordinator.parentCoordinator = self
+    paymentCoordinator.start()
+  }
+  
   func logout() {
     didFinish()
     (parentCoordinator as? TabbarCoordinator)?.handleLogout()
