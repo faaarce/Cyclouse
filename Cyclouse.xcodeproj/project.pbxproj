@@ -31,6 +31,7 @@
 		C1705E0C2CA55C6D0043CE9D /* BikeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E092CA55C6D0043CE9D /* BikeService.swift */; };
 		C1705E0D2CA55C6D0043CE9D /* BikeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E082CA55C6D0043CE9D /* BikeRepository.swift */; };
 		C1705E0E2CA55C6D0043CE9D /* BikeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E062CA55C6D0043CE9D /* BikeAPI.swift */; };
+		C17682792CBB9D4800065AD5 /* Xendit in Frameworks */ = {isa = PBXBuildFile; productRef = C17682782CBB9D4800065AD5 /* Xendit */; };
 		C177238D2C951CF30078E598 /* ReadMoreTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177238C2C951CF30078E598 /* ReadMoreTextView.swift */; };
 		C177238F2C954E6B0078E598 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177238E2C954E6B0078E598 /* PopUpViewController.swift */; };
 		C17D7D952C975EB800868F1E /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D7D942C975EB800868F1E /* HistoryViewController.swift */; };
@@ -252,6 +253,7 @@
 				C193704B2C8A133100B56BA1 /* CombineCocoa in Frameworks */,
 				C151E8A72CA9B9BD000C6B73 /* Valet in Frameworks */,
 				C18F517C2C9D1E4900E60C0D /* Alamofire in Frameworks */,
+				C17682792CBB9D4800065AD5 /* Xendit in Frameworks */,
 				C121FD482CB903BE00B4AEF5 /* EasyNotificationBadge in Frameworks */,
 				C193704E2C8A137600B56BA1 /* SnapKit in Frameworks */,
 				C19370512C8A140E00B56BA1 /* CombineDataSources in Frameworks */,
@@ -964,6 +966,7 @@
 				C18F517B2C9D1E4900E60C0D /* Alamofire */,
 				C151E8A62CA9B9BD000C6B73 /* Valet */,
 				C121FD472CB903BE00B4AEF5 /* EasyNotificationBadge */,
+				C17682782CBB9D4800065AD5 /* Xendit */,
 			);
 			productName = Cyclouse;
 			productReference = C1936FF92C898D1C00B56BA1 /* Cyclouse.app */;
@@ -1000,6 +1003,7 @@
 				C18F517A2C9D1E4900E60C0D /* XCRemoteSwiftPackageReference "Alamofire" */,
 				C151E8A52CA9B9BD000C6B73 /* XCRemoteSwiftPackageReference "Valet" */,
 				C121FD462CB903BE00B4AEF5 /* XCRemoteSwiftPackageReference "EasyNotificationBadge" */,
+				C17682772CBB9D4800065AD5 /* XCRemoteSwiftPackageReference "xendit-sdk-ios-src" */,
 			);
 			productRefGroup = C1936FFA2C898D1C00B56BA1 /* Products */;
 			projectDirPath = "";
@@ -1367,6 +1371,14 @@
 				minimumVersion = 4.3.0;
 			};
 		};
+		C17682772CBB9D4800065AD5 /* XCRemoteSwiftPackageReference "xendit-sdk-ios-src" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/xendit/xendit-sdk-ios-src";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.10.0;
+			};
+		};
 		C18F517A2C9D1E4900E60C0D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -1411,6 +1423,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C151E8A52CA9B9BD000C6B73 /* XCRemoteSwiftPackageReference "Valet" */;
 			productName = Valet;
+		};
+		C17682782CBB9D4800065AD5 /* Xendit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C17682772CBB9D4800065AD5 /* XCRemoteSwiftPackageReference "xendit-sdk-ios-src" */;
+			productName = Xendit;
 		};
 		C18F517B2C9D1E4900E60C0D /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
