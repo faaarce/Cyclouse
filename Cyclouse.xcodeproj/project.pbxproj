@@ -417,13 +417,96 @@
 		C1705E042CA55C260043CE9D /* Bike */ = {
 			isa = PBXGroup;
 			children = (
-				C1705E052CA55C6D0043CE9D /* Bikes.swift */,
-				C1705E062CA55C6D0043CE9D /* BikeAPI.swift */,
-				C1705E072CA55C6D0043CE9D /* BikeNetworkRepository.swift */,
-				C1705E082CA55C6D0043CE9D /* BikeRepository.swift */,
-				C1705E092CA55C6D0043CE9D /* BikeService.swift */,
+				C17682722CBB82EC00065AD5 /* Response */,
+				C17682712CBB82DB00065AD5 /* Service */,
+				C17682702CBB82CA00065AD5 /* Repository */,
+				C176826F2CBB82C400065AD5 /* API */,
 			);
 			path = Bike;
+			sourceTree = "<group>";
+		};
+		C176826B2CBB826D00065AD5 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				C1EDE5A82CAB3C7F00816876 /* CartRepository.swift */,
+				C1EDE5AA2CAB3CA700816876 /* CartNetworkRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		C176826C2CBB827900065AD5 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				C1EDE5AC2CAB3CBA00816876 /* CartService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		C176826D2CBB829200065AD5 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				C196DE4C2CAD0E7E00743EFB /* GetCartResponse.swift */,
+				C1EDE5A62CAB396200816876 /* AddToCartResponse.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		C176826E2CBB82B200065AD5 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				C1EDE5AE2CAB3D0F00816876 /* CartAPI.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		C176826F2CBB82C400065AD5 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				C1705E062CA55C6D0043CE9D /* BikeAPI.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		C17682702CBB82CA00065AD5 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				C1705E082CA55C6D0043CE9D /* BikeRepository.swift */,
+				C1705E072CA55C6D0043CE9D /* BikeNetworkRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		C17682712CBB82DB00065AD5 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				C1705E092CA55C6D0043CE9D /* BikeService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		C17682722CBB82EC00065AD5 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				C1705E052CA55C6D0043CE9D /* Bikes.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		C17682732CBB860D00065AD5 /* Persistance */ = {
+			isa = PBXGroup;
+			children = (
+				C12251C22CB6DF35001278E6 /* SwiftData */,
+				C1EE5EC22CAEB30100856B94 /* CoreData */,
+			);
+			path = Persistance;
+			sourceTree = "<group>";
+		};
+		C17682742CBB86EA00065AD5 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				C1956D112CABC70600642FF8 /* TokenManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		C17D7D932C975EA200868F1E /* History */ = {
@@ -561,7 +644,6 @@
 		C1936FFB2C898D1C00B56BA1 /* Cyclouse */ = {
 			isa = PBXGroup;
 			children = (
-				C1EE5EBD2CAEB26B00856B94 /* Local Storage */,
 				C19370382C8A09A000B56BA1 /* Resources */,
 				C19370162C89960700B56BA1 /* Core */,
 				C193701A2C89967D00B56BA1 /* UICore */,
@@ -569,7 +651,6 @@
 				C19370182C89967300B56BA1 /* Services */,
 				C19370172C89960F00B56BA1 /* Features */,
 				C193700A2C898D1D00B56BA1 /* Info.plist */,
-				C1956D112CABC70600642FF8 /* TokenManager.swift */,
 				C1CDE9AC2CB520FA005B491F /* UserProfile.swift */,
 			);
 			path = Cyclouse;
@@ -604,6 +685,8 @@
 		C19370182C89967300B56BA1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				C17682742CBB86EA00065AD5 /* Manager */,
+				C17682732CBB860D00065AD5 /* Persistance */,
 				C1EDE5A52CAB394F00816876 /* Cart */,
 				C18F51612C9D1A1000E60C0D /* Authentication */,
 				C1705E042CA55C260043CE9D /* Bike */,
@@ -823,23 +906,12 @@
 		C1EDE5A52CAB394F00816876 /* Cart */ = {
 			isa = PBXGroup;
 			children = (
-				C1EDE5A62CAB396200816876 /* AddToCartResponse.swift */,
-				C1EDE5A82CAB3C7F00816876 /* CartRepository.swift */,
-				C1EDE5AA2CAB3CA700816876 /* CartNetworkRepository.swift */,
-				C1EDE5AC2CAB3CBA00816876 /* CartService.swift */,
-				C1EDE5AE2CAB3D0F00816876 /* CartAPI.swift */,
-				C196DE4C2CAD0E7E00743EFB /* GetCartResponse.swift */,
+				C176826E2CBB82B200065AD5 /* API */,
+				C176826D2CBB829200065AD5 /* Response */,
+				C176826C2CBB827900065AD5 /* Service */,
+				C176826B2CBB826D00065AD5 /* Repository */,
 			);
 			path = Cart;
-			sourceTree = "<group>";
-		};
-		C1EE5EBD2CAEB26B00856B94 /* Local Storage */ = {
-			isa = PBXGroup;
-			children = (
-				C12251C22CB6DF35001278E6 /* SwiftData */,
-				C1EE5EC22CAEB30100856B94 /* CoreData */,
-			);
-			path = "Local Storage";
 			sourceTree = "<group>";
 		};
 		C1EE5EC22CAEB30100856B94 /* CoreData */ = {
