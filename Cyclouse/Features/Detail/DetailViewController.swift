@@ -7,8 +7,11 @@
 import SnapKit
 import UIKit
 import Combine
+import SkeletonView
 
 class DetailViewController: UIViewController {
+  
+  var isLoading = true
   
   let service = DatabaseService.shared
   var coordinator: DetailCoordinator
@@ -123,7 +126,7 @@ class DetailViewController: UIViewController {
   }()
   
   
-  private var fullDescription: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  private var fullDescription: String = ""
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -132,7 +135,13 @@ class DetailViewController: UIViewController {
     setupViews()
     layout()
     configureDescriptionTextView()
-    configureViews()
+    configureSkeleton()
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+      self.isLoading = false
+      self.hideSkeleton()
+      self.configureViews()
+    }
   }
   
   init(coordinator: DetailCoordinator, product: Product, cartService: CartService = CartService()) {
@@ -146,8 +155,30 @@ class DetailViewController: UIViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
-  @objc func addToCartButtonTapped(_ sender: UIButton) {
+  private func configureSkeleton() {
+    // Make views skeletonable
+    detailImage.isSkeletonable = true
+    firstImage.isSkeletonable = true
+    secondImage.isSkeletonable = true
+    thirdImage.isSkeletonable = true
+    fourImage.isSkeletonable = true
+    priceLabel.isSkeletonable = true
+    productTitleLabel.isSkeletonable = true
+    descriptionTextView.isSkeletonable = true
+    hImageStackView.isSkeletonable = true
+    // Configure text views for skeleton
+    priceLabel.linesCornerRadius = 8
+    productTitleLabel.linesCornerRadius = 8
+//    descriptionTextView.skeletonTextLineHeight = .fixed(5)
+    descriptionTextView.skeletonTextNumberOfLines = 1
+    
+    // Show skeleton
+    view.isSkeletonable = true
+    view.showAnimatedGradientSkeleton()
+  }
   
+  @objc func addToCartButtonTapped(_ sender: UIButton) {
+    
     
     let bikeProduct = BikeV2(
       name: product.name,
@@ -172,29 +203,29 @@ class DetailViewController: UIViewController {
         self?.showAlert(title: "Success", message: "Bike item added to cart")
       }
       .store(in: &cancellables)
-
-    /*  with Add to cart API
-    let productId = product.id
     
-    cartService.addToCart(productId: productId, quantity: 1)
-      .receive(on: DispatchQueue.main)
-      .sink { [weak self] completion in
-        switch completion {
-        case .finished:
-          break
-          
-        case .failure(let error):
-          if let apiError = error as? APIError {
-            print("API Error: \(apiError.localizedDescription)")
-          } else {
-            print("Unknown error: \(error.localizedDescription)")
-          }
-        }
-      } receiveValue: { [weak self] response in
-        self?.showAlert(title: "Success", message: "Added to cart: \(response.value.message)")
-      }
-      .store(in: &cancellables)
-    */
+    /*  with Add to cart API
+     let productId = product.id
+     
+     cartService.addToCart(productId: productId, quantity: 1)
+     .receive(on: DispatchQueue.main)
+     .sink { [weak self] completion in
+     switch completion {
+     case .finished:
+     break
+     
+     case .failure(let error):
+     if let apiError = error as? APIError {
+     print("API Error: \(apiError.localizedDescription)")
+     } else {
+     print("Unknown error: \(error.localizedDescription)")
+     }
+     }
+     } receiveValue: { [weak self] response in
+     self?.showAlert(title: "Success", message: "Added to cart: \(response.value.message)")
+     }
+     .store(in: &cancellables)
+     */
   }
   
   private func showAlert(title: String, message: String) {
@@ -211,24 +242,27 @@ class DetailViewController: UIViewController {
     }
   }
   
+  private func hideSkeleton() {
+        view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+    }
+  
   func configureViews() {
     productTitleLabel.text = product.name
     descriptionTextView.text = product.description
     priceLabel.text = product.price.toRupiah()
   }
   
-  func setupViews(){
-    [firstImage, secondImage, thirdImage, fourImage].forEach {
-      hImageStackView.addArrangedSubview($0)
-      [addToCartButton, buyNowButton].forEach { hButtonStackView.addArrangedSubview($0) }
-      view.addSubview(hImageStackView)
-      view.addSubview(detailImage)
-      view.addSubview(priceLabel)
-      view.addSubview(productTitleLabel)
-      view.addSubview(descriptionTextView)
-      view.addSubview(hButtonStackView)
-    }
-  }
+  func setupViews() {
+         [firstImage, secondImage, thirdImage, fourImage].forEach {
+             hImageStackView.addArrangedSubview($0)
+         }
+         [addToCartButton, buyNowButton].forEach { hButtonStackView.addArrangedSubview($0) }
+         
+         [hImageStackView, detailImage, priceLabel, productTitleLabel, descriptionTextView, hButtonStackView].forEach {
+             view.addSubview($0)
+           
+         }
+     }
   
   func layout() {
     detailImage.snp.makeConstraints {
