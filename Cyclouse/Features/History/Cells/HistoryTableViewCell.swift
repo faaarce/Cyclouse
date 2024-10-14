@@ -6,6 +6,7 @@
 //
 import SnapKit
 import UIKit
+import SkeletonView
 
 class HistoryTableViewCell: UITableViewCell {
   
@@ -103,6 +104,39 @@ class HistoryTableViewCell: UITableViewCell {
     quantityLabel.linesCornerRadius = 5
   }
   
+  func showCustomSkeletonAnimation() {
+         showAnimatedSkeleton { (layer) -> CAAnimation in
+             let pulseAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.opacity))
+             pulseAnimation.fromValue = 0.5
+             pulseAnimation.toValue = 1
+             pulseAnimation.duration = 1.0
+             pulseAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+             pulseAnimation.autoreverses = true
+             pulseAnimation.repeatCount = .infinity
+             
+             let colorAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.backgroundColor))
+             colorAnimation.fromValue = UIColor.systemGray5.cgColor
+             colorAnimation.toValue = UIColor.systemGray3.cgColor
+             colorAnimation.duration = 1.5
+             colorAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+             colorAnimation.autoreverses = true
+             colorAnimation.repeatCount = .infinity
+             
+             let animationGroup = CAAnimationGroup()
+             animationGroup.animations = [pulseAnimation, colorAnimation]
+             animationGroup.duration = 1.5
+             animationGroup.repeatCount = .infinity
+             
+             return animationGroup
+         }
+     }
+     
+  override func prepareForReuse() {
+      super.prepareForReuse()
+      hideSkeleton()
+      // Reset or remove any custom configurations like animation states here
+  }
+  
   private func layout() {
     productCardView.snp.makeConstraints {
       $0.top.equalToSuperview().offset(10)
@@ -153,5 +187,11 @@ class HistoryTableViewCell: UITableViewCell {
     [productNameLabel, categoryLabel, priceLabel].forEach(vStackView.addArrangedSubview)
     [productBikeImage,vStackView, totalPriceLabel, quantityLabel].forEach(productCardView.addSubview)
     contentView.addSubview(productCardView)
+  }
+  
+  func showAnimatedSkeleton() {
+      let gradient = SkeletonGradient(baseColor: .clouds)
+      let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight)
+      showAnimatedGradientSkeleton(usingGradient: gradient, animation: animation)
   }
 }

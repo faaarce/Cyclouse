@@ -34,7 +34,7 @@ class HistoryViewController: UIViewController {
     tableView.showsVerticalScrollIndicator = false
     tableView.backgroundColor = .clear
     tableView.separatorStyle = .none
-    
+    tableView.isSkeletonable = true
     return tableView
   }()
   
@@ -44,13 +44,11 @@ class HistoryViewController: UIViewController {
     setupViews()
     layout()
     
-    tableView.isSkeletonable = true
-    tableView.showAnimatedGradientSkeleton()
+    showCustomSkeletonAnimation()
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
       self.isLoading = false
-      self.tableView.stopSkeletonAnimation()
-      self.tableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+      self.hideSkeletonWithAnimation()
     }
   }
   
@@ -63,9 +61,48 @@ class HistoryViewController: UIViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
+  private func showCustomSkeletonAnimation() {
+         isLoading = true
+         view.showAnimatedSkeleton { (layer) -> CAAnimation in
+             let pulseAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.opacity))
+             pulseAnimation.fromValue = 0.5
+             pulseAnimation.toValue = 1
+             pulseAnimation.duration = 1.0
+             pulseAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+             pulseAnimation.autoreverses = true
+             pulseAnimation.repeatCount = .infinity
+             
+             let colorAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.backgroundColor))
+             colorAnimation.fromValue = UIColor.systemGray5.cgColor
+             colorAnimation.toValue = UIColor.systemGray3.cgColor
+             colorAnimation.duration = 1.5
+             colorAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+             colorAnimation.autoreverses = true
+             colorAnimation.repeatCount = .infinity
+             
+             let animationGroup = CAAnimationGroup()
+             animationGroup.animations = [pulseAnimation, colorAnimation]
+             animationGroup.duration = 1.5
+             animationGroup.repeatCount = .infinity
+             
+             return animationGroup
+         }
+     }
+     
+  
   private func registerCells(){
     tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: "HistoryTableViewCell")
   }
+  
+  private func showSkeletonWithAnimation() {
+       let gradient = SkeletonGradient(baseColor: .clouds)
+       let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight)
+       view.showAnimatedGradientSkeleton(usingGradient: gradient, animation: animation)
+   }
+   
+   private func hideSkeletonWithAnimation() {
+       view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+   }
   
   private func configureAppearance(){
     title = "History"
@@ -113,6 +150,8 @@ extension HistoryViewController: UITableViewDataSource, SkeletonTableViewDataSou
     if !isLoading {
       let item = dummyItems[indexPath.row]
       cell.configure(with: item)
+    } else {
+      cell.showCustomSkeletonAnimation()
     }
     return cell
   }
