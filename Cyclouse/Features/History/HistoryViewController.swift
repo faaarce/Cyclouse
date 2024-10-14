@@ -9,7 +9,7 @@ import UIKit
 import SkeletonView
 
 class HistoryViewController: UIViewController {
-
+  
   var coordinator: HistoryCoordinator
   var isLoading = true
   
@@ -38,22 +38,22 @@ class HistoryViewController: UIViewController {
     return tableView
   }()
   
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      configureAppearance()
-      setupViews()
-      layout()
-      
-      tableView.isSkeletonable = true
-      tableView.showAnimatedGradientSkeleton()
-      
-      DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-          self.isLoading = false
-          self.tableView.stopSkeletonAnimation()
-          self.tableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
-      }
-    }
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    configureAppearance()
+    setupViews()
+    layout()
     
+    tableView.isSkeletonable = true
+    tableView.showAnimatedGradientSkeleton()
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+      self.isLoading = false
+      self.tableView.stopSkeletonAnimation()
+      self.tableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+    }
+  }
+  
   init(coordinator: HistoryCoordinator) {
     self.coordinator = coordinator
     super.init(nibName: nil, bundle: nil)
@@ -111,9 +111,9 @@ extension HistoryViewController: UITableViewDataSource, SkeletonTableViewDataSou
     cell.selectionStyle = .none
     cell.backgroundColor = .clear
     if !isLoading {
-                let item = dummyItems[indexPath.row]
-                cell.configure(with: item)
-            }
+      let item = dummyItems[indexPath.row]
+      cell.configure(with: item)
+    }
     return cell
   }
   
@@ -121,5 +121,5 @@ extension HistoryViewController: UITableViewDataSource, SkeletonTableViewDataSou
 }
 
 extension HistoryViewController: UITableViewDelegate {
-
+  
 }
