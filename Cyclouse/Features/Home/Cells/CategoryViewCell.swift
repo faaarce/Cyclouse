@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class CategoryViewCell: UICollectionViewCell {
   
@@ -17,15 +18,28 @@ class CategoryViewCell: UICollectionViewCell {
     super.init(frame: frame)
     setupViews()
     layout()
+    setupSkeletonView()
   }
   
   required init?(coder: NSCoder) {
     super.init(coder: coder)
+
     setupViews()
     layout()
+    setupSkeletonView()
+  }
+  
+  private func setupSkeletonView() {
+    isSkeletonable = true
+    contentView.isSkeletonable = true
+    categoryLabel.isSkeletonable = true
+    
+    categoryLabel.linesCornerRadius = 8
   }
   
   private func setupViews() {
+    backgroundColor = ThemeColor.primary
+    layer.cornerRadius = 10
     contentView.addSubview(categoryLabel)
   }
   

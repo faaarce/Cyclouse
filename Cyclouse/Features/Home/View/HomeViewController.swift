@@ -181,6 +181,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UICollectionViewDataSource {
   
+  
   func numberOfSections(in collectionView: UICollectionView) -> Int {
     return viewModel.sections.count
   }

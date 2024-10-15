@@ -4,7 +4,7 @@
 //
 //  Created by yoga arie on 08/09/24.
 //
-
+import SkeletonView
 import UIKit
 
 class BikeProductViewCell: UICollectionViewCell {
@@ -43,14 +43,29 @@ class BikeProductViewCell: UICollectionViewCell {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
+
     setupViews()
     layout()
+    setupSkeletonView()
   }
   
   required init?(coder: NSCoder) {
     super.init(coder: coder)
-    setupViews()
-    layout()
+    setupSkeletonView()
+  }
+  
+  func setupSkeletonView(){
+    isSkeletonable = true
+    contentView.isSkeletonable = true
+    vStackView.isSkeletonable = true
+    productImage.isSkeletonable = true
+    productLabel.isSkeletonable = true
+    categoryLabel.isSkeletonable = true
+    priceLabel.isSkeletonable = true
+    bikeSoldQuantityLabel.isSkeletonable = true
+    [productLabel, categoryLabel, bikeSoldQuantityLabel, priceLabel].forEach { view in
+      view?.linesCornerRadius = 8 
+    }
   }
   
   func configure(with product: Product) {
@@ -61,6 +76,8 @@ class BikeProductViewCell: UICollectionViewCell {
   }
   
   private func setupViews() {
+    backgroundColor = ThemeColor.cardFillColor
+    layer.cornerRadius = 8
     [productImage, vStackView].forEach(contentView.addSubview)
   }
   

@@ -8,6 +8,7 @@ import SnapKit
 import UIKit
 import Combine
 import CombineCocoa
+import SkeletonView
 
 enum CellType {
   case cycleCard
@@ -18,6 +19,12 @@ class HorizontalViewCell: UICollectionViewCell {
   private let cellSelectedSubject = PassthroughSubject<(IndexPath, Any), Never>()
   private var cellType: CellType = .cycleCard
   private var items: [Any] = []
+  
+  var isLoading = true {
+    didSet {
+      collectionView.reloadData()
+    }
+  }
   
   var cellSelected: AnyPublisher<(IndexPath, Any), Never> {
     return cellSelectedSubject.eraseToAnyPublisher()
@@ -37,12 +44,20 @@ class HorizontalViewCell: UICollectionViewCell {
     registerCells()
     setupViews()
     layout()
+    simulateLoading()
   }
   
   required init?(coder: NSCoder) {
     super.init(coder: coder)
     setupViews()
     layout()
+    simulateLoading()
+  }
+  
+  private func simulateLoading() {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [weak self] in
+      self?.isLoading = false
+    }
   }
   
   private func registerCells(){
@@ -71,7 +86,21 @@ class HorizontalViewCell: UICollectionViewCell {
   
 }
 
-extension HorizontalViewCell: UICollectionViewDataSource {
+extension HorizontalViewCell: SkeletonCollectionViewDataSource {
+  
+  func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return 5
+  }
+  
+  func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+    switch cellType {
+    case .cycleCard:
+              return "BikeProductViewCell"
+    case .category:
+              return "CategoryViewCell"
+          }
+  }
+  
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return items.count
   }
@@ -79,21 +108,31 @@ extension HorizontalViewCell: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     switch cellType {
     case .cycleCard:
-      guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BikeProductViewCell", for: indexPath) as? BikeProductViewCell else { return UICollectionViewCell() }
-      if let product = items[indexPath.item] as? Product {
-        cell.configure(with: product)
+       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BikeProductViewCell", for: indexPath) as! BikeProductViewCell
+      if isLoading {
+        cell.showAnimatedGradientSkeleton()
+     
+      } else {
+        cell.hideSkeleton()
+        if let product = items[indexPath.item] as? Product {
+          cell.configure(with: product)
+        }
       }
-      cell.backgroundColor = ThemeColor.cardFillColor
-      cell.layer.cornerRadius = 8
+
       return cell
       
     case .category:
       guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryViewCell", for: indexPath) as? CategoryViewCell else { return UICollectionViewCell() }
-      if let category = items[indexPath.item] as? String {
+      
+      if isLoading {
+        cell.showAnimatedGradientSkeleton()
+      } else {
+        cell.hideSkeleton()
+        if let category = items[indexPath.item] as? String {
         cell.configure(with: category)
       }
-      cell.backgroundColor = ThemeColor.primary
-      cell.layer.cornerRadius = 10
+      }
+    
       return cell
     }
   }
