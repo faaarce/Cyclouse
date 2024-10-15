@@ -9,6 +9,8 @@ import UIKit
 import Combine
 import CombineCocoa
 import EasyNotificationBadge
+import JDStatusBarNotification
+import Valet
 
 class HomeViewController: UIViewController {
   
@@ -18,6 +20,9 @@ class HomeViewController: UIViewController {
   private let service = DatabaseService.shared
   
   private let cellSelectedSubject = PassthroughSubject<IndexPath, Never>()
+  
+  private let valet = Valet.valet(with: Identifier(nonEmpty: "com.yourapp.auth")!, accessibility: .whenUnlocked)
+  
   
   lazy var collectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
@@ -49,12 +54,66 @@ class HomeViewController: UIViewController {
     bindViewModel()
     setupDatabaseObserver()
     updateBadge()
+    loadUserProfile()
+    
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     updateBadge()
   }
+  
+  private func showWelcomeNotification(with profile: UserProfile) {
+    // Create a custom style
+    
+    let styleName = "WelcomeStyle"
+    NotificationPresenter.shared.addStyle(named: styleName) { style in
+      style.backgroundStyle.backgroundColor = ThemeColor.primary
+      style.textStyle.textColor = ThemeColor.cardFillColor
+      style.textStyle.font = ThemeFont.bold(ofSize: 14)
+      style.subtitleStyle.textColor = ThemeColor.cardFillColor
+      style.subtitleStyle.font = ThemeFont.medium(ofSize: 12)
+      style.progressBarStyle.barColor = ThemeColor.cardFillColor // Set progress bar color to light gray
+      style.progressBarStyle.barHeight = 0.1
+      return style
+    }
+    
+    // Create the left view (game controller icon)
+    let imageConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
+    let image = UIImage(systemName: "helmet.fill", withConfiguration: imageConfig)
+    let imageView = UIImageView(image: image)
+    imageView.tintColor =  ThemeColor.cardFillColor
+    
+    let username = profile.email.components(separatedBy: "@").first ?? "User"
+    
+    // Present the notification
+    NotificationPresenter.shared.present(
+      "Welcome back, \(username)!",
+      subtitle: "Ready to ride",
+      styleName: styleName
+    ) { presenter in
+      presenter.displayLeftView(imageView)
+  
+      presenter.animateProgressBar(to: 1.0, duration: 2.0) { presenter in
+         presenter.dismiss()
+       }
+     }
+
+     // or set an explicit percentage manually (without animation)
+     NotificationPresenter.shared.displayProgressBar(at: 0.0)
+    }
+  
+  
+  private func loadUserProfile(){
+    do {
+      let profileData = try valet.object(forKey: "userProfile")
+      let userProfile = try JSONDecoder().decode(UserProfile.self, from: profileData)
+      showWelcomeNotification(with: userProfile)
+    } catch {
+      print("Failed to load user profile: \(error)")
+    }
+  }
+  
   
   
   private func configureAppearance() {
@@ -122,7 +181,7 @@ class HomeViewController: UIViewController {
         self?.updateBadge()
       }
       .store(in: &cancellable)
-
+    
   }
   
   private func updateBadge() {

@@ -108,6 +108,10 @@
 		C19465682C8CBF6F00171932 /* HorizontalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19465672C8CBF6F00171932 /* HorizontalViewCell.swift */; };
 		C1956D122CABC70600642FF8 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1956D112CABC70600642FF8 /* TokenManager.swift */; };
 		C196DE4D2CAD0E7E00743EFB /* GetCartResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C196DE4C2CAD0E7E00743EFB /* GetCartResponse.swift */; };
+		C1A426E52CBEBC9A000B1579 /* JDStatusBarNotification in Frameworks */ = {isa = PBXBuildFile; productRef = C1A426E42CBEBC9A000B1579 /* JDStatusBarNotification */; };
+		C1A426E92CBECB8A000B1579 /* InstantSearch in Frameworks */ = {isa = PBXBuildFile; productRef = C1A426E82CBECB8A000B1579 /* InstantSearch */; };
+		C1A426EB2CBECB8A000B1579 /* InstantSearchCore in Frameworks */ = {isa = PBXBuildFile; productRef = C1A426EA2CBECB8A000B1579 /* InstantSearchCore */; };
+		C1A426ED2CBECB8A000B1579 /* InstantSearchInsights in Frameworks */ = {isa = PBXBuildFile; productRef = C1A426EC2CBECB8A000B1579 /* InstantSearchInsights */; };
 		C1B4B94D2C8D4F8D00B4F54B /* BikeProductViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B4B94C2C8D4F8D00B4F54B /* BikeProductViewCell.swift */; };
 		C1C533882C90A618000ABA71 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C533872C90A618000ABA71 /* HomeViewModel.swift */; };
 		C1C5338A2C90A6A2000ABA71 /* Bike.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C533892C90A6A2000ABA71 /* Bike.swift */; };
@@ -261,10 +265,14 @@
 				C151E8A72CA9B9BD000C6B73 /* Valet in Frameworks */,
 				C18F517C2C9D1E4900E60C0D /* Alamofire in Frameworks */,
 				C17682792CBB9D4800065AD5 /* Xendit in Frameworks */,
+				C1A426E92CBECB8A000B1579 /* InstantSearch in Frameworks */,
+				C1A426ED2CBECB8A000B1579 /* InstantSearchInsights in Frameworks */,
 				C1EAE3A32CBC11530032DE1B /* SkeletonView in Frameworks */,
 				C121FD482CB903BE00B4AEF5 /* EasyNotificationBadge in Frameworks */,
+				C1A426E52CBEBC9A000B1579 /* JDStatusBarNotification in Frameworks */,
 				C193704E2C8A137600B56BA1 /* SnapKit in Frameworks */,
 				C19370512C8A140E00B56BA1 /* CombineDataSources in Frameworks */,
+				C1A426EB2CBECB8A000B1579 /* InstantSearchCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -987,6 +995,10 @@
 				C121FD472CB903BE00B4AEF5 /* EasyNotificationBadge */,
 				C17682782CBB9D4800065AD5 /* Xendit */,
 				C1EAE3A22CBC11530032DE1B /* SkeletonView */,
+				C1A426E42CBEBC9A000B1579 /* JDStatusBarNotification */,
+				C1A426E82CBECB8A000B1579 /* InstantSearch */,
+				C1A426EA2CBECB8A000B1579 /* InstantSearchCore */,
+				C1A426EC2CBECB8A000B1579 /* InstantSearchInsights */,
 			);
 			productName = Cyclouse;
 			productReference = C1936FF92C898D1C00B56BA1 /* Cyclouse.app */;
@@ -1025,6 +1037,8 @@
 				C121FD462CB903BE00B4AEF5 /* XCRemoteSwiftPackageReference "EasyNotificationBadge" */,
 				C17682772CBB9D4800065AD5 /* XCRemoteSwiftPackageReference "xendit-sdk-ios-src" */,
 				C1EAE3A12CBC11530032DE1B /* XCRemoteSwiftPackageReference "SkeletonView" */,
+				C1A426E32CBEBC9A000B1579 /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */,
+				C1A426E72CBECB8A000B1579 /* XCRemoteSwiftPackageReference "instantsearch-ios" */,
 			);
 			productRefGroup = C1936FFA2C898D1C00B56BA1 /* Products */;
 			projectDirPath = "";
@@ -1435,6 +1449,22 @@
 				minimumVersion = 0.2.5;
 			};
 		};
+		C1A426E32CBEBC9A000B1579 /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:calimarkus/JDStatusBarNotification.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.2;
+			};
+		};
+		C1A426E72CBECB8A000B1579 /* XCRemoteSwiftPackageReference "instantsearch-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/algolia/instantsearch-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.26.3;
+			};
+		};
 		C1EAE3A12CBC11530032DE1B /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
@@ -1480,6 +1510,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C193704F2C8A140E00B56BA1 /* XCRemoteSwiftPackageReference "CombineDataSources" */;
 			productName = CombineDataSources;
+		};
+		C1A426E42CBEBC9A000B1579 /* JDStatusBarNotification */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1A426E32CBEBC9A000B1579 /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */;
+			productName = JDStatusBarNotification;
+		};
+		C1A426E82CBECB8A000B1579 /* InstantSearch */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1A426E72CBECB8A000B1579 /* XCRemoteSwiftPackageReference "instantsearch-ios" */;
+			productName = InstantSearch;
+		};
+		C1A426EA2CBECB8A000B1579 /* InstantSearchCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1A426E72CBECB8A000B1579 /* XCRemoteSwiftPackageReference "instantsearch-ios" */;
+			productName = InstantSearchCore;
+		};
+		C1A426EC2CBECB8A000B1579 /* InstantSearchInsights */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1A426E72CBECB8A000B1579 /* XCRemoteSwiftPackageReference "instantsearch-ios" */;
+			productName = InstantSearchInsights;
 		};
 		C1EAE3A22CBC11530032DE1B /* SkeletonView */ = {
 			isa = XCSwiftPackageProductDependency;
