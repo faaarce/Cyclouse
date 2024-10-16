@@ -55,7 +55,7 @@ class HorizontalViewCell: UICollectionViewCell {
   }
   
   private func simulateLoading() {
-    DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [weak self] in
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
       self?.isLoading = false
     }
   }
