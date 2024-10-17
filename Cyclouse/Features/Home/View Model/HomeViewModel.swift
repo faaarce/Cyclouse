@@ -19,7 +19,7 @@ class HomeViewModel {
   @Published private(set) var sections: [SectionModel] = []
   private var cancellables = Set<AnyCancellable>()
   private let service: BikeService
-  
+  private var allSections: [SectionModel] = []
   
   init(service: BikeService) {
     self.service = service
@@ -45,18 +45,22 @@ class HomeViewModel {
   }
   
   private func processBikeData(_ bikeData: BikeDataResponse) {
-    let categories = bikeData.bikes.categories
-    
-    sections.removeAll()
-    
-    let categoryNames = categories.map { $0.categoryName }
-    
-    sections.append(SectionModel(header: "", items: [categoryNames], cellType: .category))
-    
-    for category in categories {
-      sections.append(SectionModel(header: category.categoryName, items: [category.products], cellType: .cycleCard))
-    }
-  }
+     let categories = bikeData.bikes.categories
+
+     allSections.removeAll()
+     sections.removeAll()
+
+     let categoryNames = categories.map { $0.categoryName }
+
+     allSections.append(SectionModel(header: "", items: [categoryNames], cellType: .category))
+     sections.append(SectionModel(header: "", items: [categoryNames], cellType: .category))
+
+     for category in categories {
+       let sectionModel = SectionModel(header: category.categoryName, items: [category.products], cellType: .cycleCard)
+       allSections.append(sectionModel)
+       sections.append(sectionModel)
+     }
+   }
   
   func configureCell(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
     let section = sections[indexPath.section]
@@ -84,6 +88,15 @@ class HomeViewModel {
     }
     return cell
   }
+  
+  func filterProducts(by category: String) {
+      if category.isEmpty {
+        sections = allSections // Reset to show all sections
+      } else {
+        sections = allSections.filter { $0.cellType == .category || $0.header == category }
+      }
+      // Note: We don't need to call collectionView.reloadData() here because the @Published property will trigger the binding in HomeViewController
+    }
   
   func sizeForHeader(in section: Int, collectionViewWidth: CGFloat) -> CGSize {
     return section == 0 ? .zero : CGSize(width: collectionViewWidth, height: 40)

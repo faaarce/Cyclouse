@@ -226,7 +226,10 @@ class HomeViewController: UIViewController {
     let section = viewModel.sections[section]
     switch section.cellType {
     case .category:
-      break
+      if let category = item as? String {
+        viewModel.filterProducts(by: category)
+        collectionView.reloadData()
+      }
       
     case .cycleCard:
       if let products = item as? Product {
