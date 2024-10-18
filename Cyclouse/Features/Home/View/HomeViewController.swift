@@ -253,6 +253,7 @@ extension HomeViewController: UICollectionViewDataSource {
     if let horizontalCell = cell as? HorizontalViewCell {
       horizontalCell.cellSelected
         .sink { [weak self] (selectedIndexPath, selectedItem) in
+          print("test homeviewmodel")
           self?.handleCellSelection(section: indexPath.section  , item: selectedItem)
         }
         .store(in: &cancellable)
@@ -287,9 +288,9 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 }
 
 
-extension HomeViewController: UICollectionViewDelegate {
-  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    cellSelectedSubject.send(indexPath)
-  }
-}
+//extension HomeViewController: UICollectionViewDelegate {
+//  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//    cellSelectedSubject.send(indexPath)
+//  }
+//}
 

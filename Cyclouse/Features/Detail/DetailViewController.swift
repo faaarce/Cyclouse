@@ -251,7 +251,12 @@ class DetailViewController: UIViewController {
     productTitleLabel.text = product.name
     descriptionTextView.text = product.description
     priceLabel.text = product.price.toRupiah()
-    
+    product.images.map { image in
+      [detailImage, firstImage, secondImage, thirdImage, fourImage].forEach { display in
+        display.kf.setImage(with: URL(string: image))
+      }
+    }
+//    detailImage.heroID = product.images.first
     productTitleLabel.heroID = product.name
     priceLabel.heroID = String(product.price)
   }

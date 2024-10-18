@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C121FD482CB903BE00B4AEF5 /* EasyNotificationBadge in Frameworks */ = {isa = PBXBuildFile; productRef = C121FD472CB903BE00B4AEF5 /* EasyNotificationBadge */; };
+		C12213202CC2551B005F8421 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C122131F2CC2551B005F8421 /* Kingfisher */; };
 		C12251C42CB6E065001278E6 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12251C32CB6E065001278E6 /* DatabaseService.swift */; };
 		C12251C72CB6EDDF001278E6 /* BikeProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12251C62CB6EDDF001278E6 /* BikeProduct.swift */; };
 		C12251C92CB78D56001278E6 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12251C82CB78D56001278E6 /* History.swift */; };
@@ -264,6 +265,7 @@
 			files = (
 				C193704B2C8A133100B56BA1 /* CombineCocoa in Frameworks */,
 				C1AF6D0F2CC16A3000BEFD41 /* Hero in Frameworks */,
+				C12213202CC2551B005F8421 /* Kingfisher in Frameworks */,
 				C151E8A72CA9B9BD000C6B73 /* Valet in Frameworks */,
 				C18F517C2C9D1E4900E60C0D /* Alamofire in Frameworks */,
 				C17682792CBB9D4800065AD5 /* Xendit in Frameworks */,
@@ -1002,6 +1004,7 @@
 				C1A426EA2CBECB8A000B1579 /* InstantSearchCore */,
 				C1A426EC2CBECB8A000B1579 /* InstantSearchInsights */,
 				C1AF6D0E2CC16A3000BEFD41 /* Hero */,
+				C122131F2CC2551B005F8421 /* Kingfisher */,
 			);
 			productName = Cyclouse;
 			productReference = C1936FF92C898D1C00B56BA1 /* Cyclouse.app */;
@@ -1043,6 +1046,7 @@
 				C1A426E32CBEBC9A000B1579 /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */,
 				C1A426E72CBECB8A000B1579 /* XCRemoteSwiftPackageReference "instantsearch-ios" */,
 				C1AF6D0D2CC16A3000BEFD41 /* XCRemoteSwiftPackageReference "Hero" */,
+				C122131E2CC2551B005F8421 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = C1936FFA2C898D1C00B56BA1 /* Products */;
 			projectDirPath = "";
@@ -1405,6 +1409,14 @@
 				minimumVersion = 1.2.5;
 			};
 		};
+		C122131E2CC2551B005F8421 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.1.0;
+			};
+		};
 		C151E8A52CA9B9BD000C6B73 /* XCRemoteSwiftPackageReference "Valet" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/square/Valet";
@@ -1492,6 +1504,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C121FD462CB903BE00B4AEF5 /* XCRemoteSwiftPackageReference "EasyNotificationBadge" */;
 			productName = EasyNotificationBadge;
+		};
+		C122131F2CC2551B005F8421 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C122131E2CC2551B005F8421 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		C151E8A62CA9B9BD000C6B73 /* Valet */ = {
 			isa = XCSwiftPackageProductDependency;

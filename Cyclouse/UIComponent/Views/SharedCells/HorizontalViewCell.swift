@@ -159,6 +159,7 @@ extension HorizontalViewCell: UICollectionViewDelegateFlowLayout {
 extension HorizontalViewCell: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     if indexPath.item < items.count {
+      print("test")
       cellSelectedSubject.send((indexPath, items[indexPath.item]))
     }
   }

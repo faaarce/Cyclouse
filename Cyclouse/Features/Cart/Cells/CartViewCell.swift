@@ -4,7 +4,7 @@
 //
 //  Created by yoga arie on 12/09/24.
 //
-
+import Kingfisher
 import UIKit
 
 protocol CartCellDelegate: AnyObject {
@@ -26,14 +26,14 @@ class CartViewCell: UITableViewCell {
     let object = UIButton(type: .system)
     object.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
     object.tintColor = ThemeColor.primary
-    object.contentMode = .scaleAspectFit
+    object.contentMode = .scaleToFill
     object.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
     return object
   }()
   
   private let cartImage: UIImageView = {
     let view = UIImageView(image: .init(named: "onthel"))
-    view.contentMode = .scaleAspectFill
+    view.contentMode = .scaleAspectFit
     return view
   }()
   
@@ -139,6 +139,7 @@ class CartViewCell: UITableViewCell {
     bikeNameLabel.text = bike.name
     bikePriceLabel.text = bike.price.toRupiah()
     quantityLabel.text = "\(bike.cartQuantity)"
+    cartImage.kf.setImage(with: URL(string: bike.images.first ?? "https://i.imgur.com/DXv1ptr.jpeg"))
     self.isChecked = isChecked
     updateButtonState(stockQuantity: bike.stockQuantity, cartQuantity: bike.cartQuantity)
     updateCheckButtonAppearance()

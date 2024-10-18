@@ -7,6 +7,7 @@
 import SkeletonView
 import UIKit
 import Hero
+import Kingfisher
 
 class BikeProductViewCell: UICollectionViewCell {
   
@@ -74,9 +75,11 @@ class BikeProductViewCell: UICollectionViewCell {
     priceLabel.text = product.price.toRupiah()
     categoryLabel.text = product.brand
     bikeSoldQuantityLabel.text = "\(product.quantity)"
+    productImage.kf.setImage(with: URL(string: product.images.first ?? "https://i.imgur.com/DXv1ptr.jpeg"))
     
+    productImage.heroID = product.images.first
     productLabel.heroID = product.name
-    priceLabel.heroID = String(product.price)
+//    priceLabel.heroID = String(product.price)
 //    categoryLabel.heroID = product.brand
 //    bikeSoldQuantityLabel.heroID = String(product.quantity)
   }
