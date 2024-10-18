@@ -6,6 +6,7 @@
 //
 import SkeletonView
 import UIKit
+import Hero
 
 class BikeProductViewCell: UICollectionViewCell {
   
@@ -73,6 +74,11 @@ class BikeProductViewCell: UICollectionViewCell {
     priceLabel.text = product.price.toRupiah()
     categoryLabel.text = product.brand
     bikeSoldQuantityLabel.text = "\(product.quantity)"
+    
+    productLabel.heroID = product.name
+    priceLabel.heroID = String(product.price)
+//    categoryLabel.heroID = product.brand
+//    bikeSoldQuantityLabel.heroID = String(product.quantity)
   }
   
   private func setupViews() {

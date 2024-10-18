@@ -7,7 +7,8 @@
 import SnapKit
 import UIKit
 import Combine
-import SkeletonView
+
+import Hero
 
 class DetailViewController: UIViewController {
   
@@ -135,12 +136,12 @@ class DetailViewController: UIViewController {
     setupViews()
     layout()
     configureDescriptionTextView()
-    configureSkeleton()
+//    configureSkeleton()
     
+    self.configureViews()
     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
       self.isLoading = false
-      self.hideSkeleton()
-      self.configureViews()
+//      self.hideSkeleton()
     }
   }
   
@@ -250,6 +251,9 @@ class DetailViewController: UIViewController {
     productTitleLabel.text = product.name
     descriptionTextView.text = product.description
     priceLabel.text = product.price.toRupiah()
+    
+    productTitleLabel.heroID = product.name
+    priceLabel.heroID = String(product.price)
   }
   
   func setupViews() {

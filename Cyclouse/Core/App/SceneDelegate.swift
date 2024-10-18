@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Hero
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -19,6 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let navigationController = UINavigationController()
     window.rootViewController = navigationController
     window.makeKeyAndVisible()
+    window.isHeroEnabled = true
     self.window = window
     coordinator = AppCoordinator(navigationController: navigationController)
     coordinator?.start()

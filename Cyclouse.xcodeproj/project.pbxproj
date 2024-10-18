@@ -112,6 +112,7 @@
 		C1A426E92CBECB8A000B1579 /* InstantSearch in Frameworks */ = {isa = PBXBuildFile; productRef = C1A426E82CBECB8A000B1579 /* InstantSearch */; };
 		C1A426EB2CBECB8A000B1579 /* InstantSearchCore in Frameworks */ = {isa = PBXBuildFile; productRef = C1A426EA2CBECB8A000B1579 /* InstantSearchCore */; };
 		C1A426ED2CBECB8A000B1579 /* InstantSearchInsights in Frameworks */ = {isa = PBXBuildFile; productRef = C1A426EC2CBECB8A000B1579 /* InstantSearchInsights */; };
+		C1AF6D0F2CC16A3000BEFD41 /* Hero in Frameworks */ = {isa = PBXBuildFile; productRef = C1AF6D0E2CC16A3000BEFD41 /* Hero */; };
 		C1B4B94D2C8D4F8D00B4F54B /* BikeProductViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B4B94C2C8D4F8D00B4F54B /* BikeProductViewCell.swift */; };
 		C1C533882C90A618000ABA71 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C533872C90A618000ABA71 /* HomeViewModel.swift */; };
 		C1C5338A2C90A6A2000ABA71 /* Bike.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C533892C90A6A2000ABA71 /* Bike.swift */; };
@@ -262,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C193704B2C8A133100B56BA1 /* CombineCocoa in Frameworks */,
+				C1AF6D0F2CC16A3000BEFD41 /* Hero in Frameworks */,
 				C151E8A72CA9B9BD000C6B73 /* Valet in Frameworks */,
 				C18F517C2C9D1E4900E60C0D /* Alamofire in Frameworks */,
 				C17682792CBB9D4800065AD5 /* Xendit in Frameworks */,
@@ -999,6 +1001,7 @@
 				C1A426E82CBECB8A000B1579 /* InstantSearch */,
 				C1A426EA2CBECB8A000B1579 /* InstantSearchCore */,
 				C1A426EC2CBECB8A000B1579 /* InstantSearchInsights */,
+				C1AF6D0E2CC16A3000BEFD41 /* Hero */,
 			);
 			productName = Cyclouse;
 			productReference = C1936FF92C898D1C00B56BA1 /* Cyclouse.app */;
@@ -1039,6 +1042,7 @@
 				C1EAE3A12CBC11530032DE1B /* XCRemoteSwiftPackageReference "SkeletonView" */,
 				C1A426E32CBEBC9A000B1579 /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */,
 				C1A426E72CBECB8A000B1579 /* XCRemoteSwiftPackageReference "instantsearch-ios" */,
+				C1AF6D0D2CC16A3000BEFD41 /* XCRemoteSwiftPackageReference "Hero" */,
 			);
 			productRefGroup = C1936FFA2C898D1C00B56BA1 /* Products */;
 			projectDirPath = "";
@@ -1465,6 +1469,14 @@
 				minimumVersion = 7.26.3;
 			};
 		};
+		C1AF6D0D2CC16A3000BEFD41 /* XCRemoteSwiftPackageReference "Hero" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/HeroTransitions/Hero.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.3;
+			};
+		};
 		C1EAE3A12CBC11530032DE1B /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
@@ -1530,6 +1542,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C1A426E72CBECB8A000B1579 /* XCRemoteSwiftPackageReference "instantsearch-ios" */;
 			productName = InstantSearchInsights;
+		};
+		C1AF6D0E2CC16A3000BEFD41 /* Hero */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1AF6D0D2CC16A3000BEFD41 /* XCRemoteSwiftPackageReference "Hero" */;
+			productName = Hero;
 		};
 		C1EAE3A22CBC11530032DE1B /* SkeletonView */ = {
 			isa = XCSwiftPackageProductDependency;

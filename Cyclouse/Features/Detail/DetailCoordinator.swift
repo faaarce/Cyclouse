@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Hero
 
 class DetailCoordinator: Coordinator, NavigationCoordinator {
   var childCoordinators: [Coordinator] = []
@@ -21,7 +22,9 @@ class DetailCoordinator: Coordinator, NavigationCoordinator {
   
   func start() {
     let detailVC = DetailViewController(coordinator: self, product: product)
+    detailVC.hero.isEnabled = true
     detailVC.hidesBottomBarWhenPushed = true
+    navigationController.hero.isEnabled = true
     navigationController.pushViewController(detailVC, animated: true)
   }
   

@@ -11,6 +11,7 @@ import CombineCocoa
 import EasyNotificationBadge
 import JDStatusBarNotification
 import Valet
+import Hero
 
 class HomeViewController: UIViewController {
   
@@ -215,11 +216,6 @@ class HomeViewController: UIViewController {
       }
       .store(in: &cancellable)
     
-    //    cellSelectedSubject
-    //      .sink { [weak self] indexPath in
-    //        self?.handleCellSelection(at: indexPath, item: <#Any#>)
-    //      }
-    //      .store(in: &cancellable)
   }
   
   private func handleCellSelection(section: Int, item: Any) {
