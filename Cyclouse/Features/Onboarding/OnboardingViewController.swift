@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Lottie
 
 class OnboardingViewController: UIViewController {
   
@@ -40,6 +41,13 @@ class OnboardingViewController: UIViewController {
     return button
   }()
   
+  private let animationView: LottieAnimationView = {
+    let animationView = LottieAnimationView(name: "cycle") // Replace with your Lottie JSON file name
+       animationView.contentMode = .scaleAspectFit
+       animationView.loopMode = .loop
+       return animationView
+  }()
+  
   init(coordinator: OnboardingCoordinator) {
     self.coordinator = coordinator
     super.init(nibName: nil, bundle: nil)
@@ -52,12 +60,23 @@ class OnboardingViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     layout()
+    setupAnimation()
+    customizeAnimationColors()
   }
   
   private func layout() {
     self.view.addSubview(backgroundImage)
     backgroundImage.snp.makeConstraints {
       $0.edges.equalToSuperview()
+    }
+    
+    view.addSubview(animationView)
+    animationView.snp.makeConstraints {
+//      $0.top.equalToSuperview()
+//      $0.centerX.equalToSuperview()
+      $0.centerY.equalToSuperview()
+//      $0.height.equalTo(200)
+//      $0.bottom.equalTo(topLabel.snp.top).offset(-8)
     }
     
     self.view.addSubview(startedButton)
@@ -83,4 +102,17 @@ class OnboardingViewController: UIViewController {
     }
   }
   
+  private func setupAnimation() {
+      animationView.play()
+    }
+  
+  private func customizeAnimationColors() {
+         // Change a specific color in the animation
+    let colorValueProvider = ColorValueProvider(ThemeColor.primary.lottieColorValue)
+         animationView.setValueProvider(colorValueProvider, keypath: AnimationKeypath(keypath: "**.Fill 1.Color"))
+
+         // You can set multiple colors
+    let blueColorProvider = ColorValueProvider(ThemeColor.cardFillColor.lottieColorValue)
+         animationView.setValueProvider(blueColorProvider, keypath: AnimationKeypath(keypath: "**.Stroke 1.Color"))
+     }
 }
