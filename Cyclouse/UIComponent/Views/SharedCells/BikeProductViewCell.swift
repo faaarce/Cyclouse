@@ -2,7 +2,7 @@
 //  BikeProductViewCell.swift
 //  Cyclouse
 //
-//  Created by yoga arie on 08/09/24.
+//  Created by faris arie on 08/09/24.
 //
 import SkeletonView
 import UIKit
