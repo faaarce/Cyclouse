@@ -71,6 +71,7 @@ class HorizontalViewCell: UICollectionViewCell {
   func configure(with type: CellType, items: [Any]) {
     self.cellType = type
     self.items = items
+    print("DEBUG: HorizontalViewCell configured with \(items.count) items of type \(type)")
     self.collectionView.reloadData()
   }
   
@@ -159,7 +160,7 @@ extension HorizontalViewCell: UICollectionViewDelegateFlowLayout {
 extension HorizontalViewCell: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     if indexPath.item < items.count {
-      print("test")
+      print("DEBUG: Item selected in HorizontalViewCell - IndexPath: \(indexPath), Item: \(items[indexPath.item])")
       cellSelectedSubject.send((indexPath, items[indexPath.item]))
     }
   }

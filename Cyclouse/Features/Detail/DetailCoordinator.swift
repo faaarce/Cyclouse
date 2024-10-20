@@ -21,6 +21,7 @@ class DetailCoordinator: Coordinator, NavigationCoordinator {
   }
   
   func start() {
+    print("DEBUG: Coordinator showing detail view for product: \(product.name)")
     let detailVC = DetailViewController(coordinator: self, product: product)
     detailVC.hero.isEnabled = true
     detailVC.hidesBottomBarWhenPushed = true

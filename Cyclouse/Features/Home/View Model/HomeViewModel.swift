@@ -76,6 +76,7 @@ class HomeViewModel {
   private func configureBikeProductCell(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HorizontalViewCell", for: indexPath) as! HorizontalViewCell
     if let products = sections[indexPath.section].items.first as? [Product] {
+      print("DEBUG: Configuring BikeProductCell with \(products.count) products")
       cell.configure(with: .cycleCard, items: products)
     }
     return cell
@@ -84,6 +85,7 @@ class HomeViewModel {
   private func configureCategoryCell(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HorizontalViewCell", for: indexPath) as! HorizontalViewCell
     if let categories = sections[indexPath.section].items.first as? [String] {
+      print("DEBUG: Configuring CategoryCell with \(categories.count) categories")
       cell.configure(with: .category, items: categories)
     }
     return cell
