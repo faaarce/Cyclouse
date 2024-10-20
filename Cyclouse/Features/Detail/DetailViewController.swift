@@ -225,13 +225,13 @@ class DetailViewController: UIViewController {
           
         case .failure(let error):
           self.showMessage(title: "Error", body: "Failed to add bike item: \(error.localizedDescription)", theme: .error)
-                         }
         }
+        
       } receiveValue: { [weak self] response in
         self?.showMessage(title: "Success", body: "Bike item added to cart", theme: .success)
       }
       .store(in: &cancellables)
-    
+  }
     /*  with Add to cart API
      let productId = product.id
      
@@ -254,7 +254,8 @@ class DetailViewController: UIViewController {
      }
      .store(in: &cancellables)
      */
-  }
+  
+
   
   private func showAlert(title: String, message: String) {
     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -284,8 +285,8 @@ class DetailViewController: UIViewController {
       }
     }
 //    detailImage.heroID = product.images.first
-    productTitleLabel.heroID = product.name
-    priceLabel.heroID = String(product.price)
+//    productTitleLabel.heroID = product.name
+//    priceLabel.heroID = String(product.price)
   }
   
   func setupViews() {
