@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C104D20E2CC541DC006EB92B /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C104D20D2CC541DC006EB92B /* Lottie */; };
 		C104D2102CC54370006EB92B /* cycle.json in Resources */ = {isa = PBXBuildFile; fileRef = C104D20F2CC54370006EB92B /* cycle.json */; };
+		C104D2142CC5537E006EB92B /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = C104D2132CC5537E006EB92B /* SwiftMessages */; };
 		C121FD482CB903BE00B4AEF5 /* EasyNotificationBadge in Frameworks */ = {isa = PBXBuildFile; productRef = C121FD472CB903BE00B4AEF5 /* EasyNotificationBadge */; };
 		C12213202CC2551B005F8421 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C122131F2CC2551B005F8421 /* Kingfisher */; };
 		C12251C42CB6E065001278E6 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12251C32CB6E065001278E6 /* DatabaseService.swift */; };
@@ -268,6 +269,7 @@
 			files = (
 				C193704B2C8A133100B56BA1 /* CombineCocoa in Frameworks */,
 				C1AF6D0F2CC16A3000BEFD41 /* Hero in Frameworks */,
+				C104D2142CC5537E006EB92B /* SwiftMessages in Frameworks */,
 				C12213202CC2551B005F8421 /* Kingfisher in Frameworks */,
 				C151E8A72CA9B9BD000C6B73 /* Valet in Frameworks */,
 				C18F517C2C9D1E4900E60C0D /* Alamofire in Frameworks */,
@@ -1019,6 +1021,7 @@
 				C1AF6D0E2CC16A3000BEFD41 /* Hero */,
 				C122131F2CC2551B005F8421 /* Kingfisher */,
 				C104D20D2CC541DC006EB92B /* Lottie */,
+				C104D2132CC5537E006EB92B /* SwiftMessages */,
 			);
 			productName = Cyclouse;
 			productReference = C1936FF92C898D1C00B56BA1 /* Cyclouse.app */;
@@ -1062,6 +1065,7 @@
 				C1AF6D0D2CC16A3000BEFD41 /* XCRemoteSwiftPackageReference "Hero" */,
 				C122131E2CC2551B005F8421 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				C104D20C2CC541DC006EB92B /* XCRemoteSwiftPackageReference "lottie-spm" */,
+				C104D2122CC5537E006EB92B /* XCRemoteSwiftPackageReference "SwiftMessages" */,
 			);
 			productRefGroup = C1936FFA2C898D1C00B56BA1 /* Products */;
 			projectDirPath = "";
@@ -1425,6 +1429,14 @@
 				minimumVersion = 4.5.0;
 			};
 		};
+		C104D2122CC5537E006EB92B /* XCRemoteSwiftPackageReference "SwiftMessages" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftKickMobile/SwiftMessages";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.1;
+			};
+		};
 		C121FD462CB903BE00B4AEF5 /* XCRemoteSwiftPackageReference "EasyNotificationBadge" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Minitour/EasyNotificationBadge.git";
@@ -1528,6 +1540,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C104D20C2CC541DC006EB92B /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
+		};
+		C104D2132CC5537E006EB92B /* SwiftMessages */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C104D2122CC5537E006EB92B /* XCRemoteSwiftPackageReference "SwiftMessages" */;
+			productName = SwiftMessages;
 		};
 		C121FD472CB903BE00B4AEF5 /* EasyNotificationBadge */ = {
 			isa = XCSwiftPackageProductDependency;

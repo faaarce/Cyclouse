@@ -1,5 +1,5 @@
 {
-  "originHash" : "643ba9707383be7289b9499e7e6d3021de761e70fad91fa708dce0171c96a76c",
+  "originHash" : "a9d15675ea912ed5a132e769062f1f459f2c2951f81a21ef2ded47b51e2f6d9a",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -143,6 +143,15 @@
       "state" : {
         "revision" : "ebc7251dd5b37f627c93698e4374084d98409633",
         "version" : "1.28.2"
+      }
+    },
+    {
+      "identity" : "swiftmessages",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftKickMobile/SwiftMessages",
+      "state" : {
+        "revision" : "c544df6ce316422b9d65a571f932e800213dd09c",
+        "version" : "10.0.1"
       }
     },
     {

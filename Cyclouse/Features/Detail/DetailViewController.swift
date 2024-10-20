@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 import Combine
-
+import SwiftMessages
 import Hero
 
 class DetailViewController: UIViewController {
@@ -156,6 +156,32 @@ class DetailViewController: UIViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
+  private func showMessage(title: String, body: String, theme: Theme, backgroundColor: UIColor? = nil, foregroundColor: UIColor? = nil) {
+          let view = MessageView.viewFromNib(layout: .cardView)
+          view.configureTheme(theme)
+          view.configureDropShadow()
+          
+          if let backgroundColor = backgroundColor {
+              view.backgroundColor = backgroundColor
+          }
+          
+          if let foregroundColor = foregroundColor {
+              view.titleLabel?.textColor = foregroundColor
+              view.bodyLabel?.textColor = foregroundColor
+          }
+          
+          view.configureContent(title: title, body: body)
+          view.button?.isHidden = true
+          
+          var config = SwiftMessages.Config()
+          config.presentationStyle = .top
+          config.duration = .seconds(seconds: 3)
+          config.dimMode = .gray(interactive: true)
+          config.interactiveHide = true
+          
+          SwiftMessages.show(config: config, view: view)
+      }
+  
   private func configureSkeleton() {
     // Make views skeletonable
     detailImage.isSkeletonable = true
@@ -198,10 +224,11 @@ class DetailViewController: UIViewController {
           break
           
         case .failure(let error):
-          self.showAlert(title: "Error", message: "Failed to add bike item: \(error.localizedDescription)")
+          self.showMessage(title: "Error", body: "Failed to add bike item: \(error.localizedDescription)", theme: .error)
+                         }
         }
       } receiveValue: { [weak self] response in
-        self?.showAlert(title: "Success", message: "Bike item added to cart")
+        self?.showMessage(title: "Success", body: "Bike item added to cart", theme: .success)
       }
       .store(in: &cancellables)
     
