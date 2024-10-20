@@ -287,6 +287,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C104D2112CC546CD006EB92B /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				C104D20F2CC54370006EB92B /* cycle.json */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
 		C12251C22CB6DF35001278E6 /* SwiftData */ = {
 			isa = PBXGroup;
 			children = (
@@ -690,7 +698,6 @@
 		C1936FFB2C898D1C00B56BA1 /* Cyclouse */ = {
 			isa = PBXGroup;
 			children = (
-				C104D20F2CC54370006EB92B /* cycle.json */,
 				C19370382C8A09A000B56BA1 /* Resources */,
 				C19370162C89960700B56BA1 /* Core */,
 				C193701A2C89967D00B56BA1 /* UICore */,
@@ -825,6 +832,7 @@
 		C19370382C8A09A000B56BA1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C104D2112CC546CD006EB92B /* Animations */,
 				C193706A2C8B7A7B00B56BA1 /* Assets.xcassets */,
 				C19370072C898D1D00B56BA1 /* LaunchScreen.storyboard */,
 				C193703A2C8A09AD00B56BA1 /* Images */,
