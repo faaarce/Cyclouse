@@ -134,6 +134,8 @@
 		C1EDE5AB2CAB3CA700816876 /* CartNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EDE5AA2CAB3CA700816876 /* CartNetworkRepository.swift */; };
 		C1EDE5AD2CAB3CBA00816876 /* CartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EDE5AC2CAB3CBA00816876 /* CartService.swift */; };
 		C1EDE5AF2CAB3D0F00816876 /* CartAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EDE5AE2CAB3D0F00816876 /* CartAPI.swift */; };
+		C1EE51A22CC57E7A00280BBC /* TestingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EE51A12CC57E7A00280BBC /* TestingViewController.swift */; };
+		C1EE51A42CC57F0E00280BBC /* TestingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EE51A32CC57F0E00280BBC /* TestingCoordinator.swift */; };
 		C1EE5EBC2CAE9D2F00856B94 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EE5EBB2CAE9D2F00856B94 /* EmptyStateView.swift */; };
 		C1EE5EC32CAEB30100856B94 /* Codable + Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EE5EBE2CAEB30100856B94 /* Codable + Dictionary.swift */; };
 		C1EE5EC42CAEB30100856B94 /* CoreDataManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EE5EC12CAEB30100856B94 /* CoreDataManagerError.swift */; };
@@ -255,6 +257,8 @@
 		C1EDE5AA2CAB3CA700816876 /* CartNetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartNetworkRepository.swift; sourceTree = "<group>"; };
 		C1EDE5AC2CAB3CBA00816876 /* CartService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartService.swift; sourceTree = "<group>"; };
 		C1EDE5AE2CAB3D0F00816876 /* CartAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartAPI.swift; sourceTree = "<group>"; };
+		C1EE51A12CC57E7A00280BBC /* TestingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingViewController.swift; sourceTree = "<group>"; };
+		C1EE51A32CC57F0E00280BBC /* TestingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingCoordinator.swift; sourceTree = "<group>"; };
 		C1EE5EBB2CAE9D2F00856B94 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		C1EE5EBE2CAEB30100856B94 /* Codable + Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable + Dictionary.swift"; sourceTree = "<group>"; };
 		C1EE5EBF2CAEB30100856B94 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -700,6 +704,7 @@
 		C1936FFB2C898D1C00B56BA1 /* Cyclouse */ = {
 			isa = PBXGroup;
 			children = (
+				C1EE51A02CC57E5A00280BBC /* Mockup */,
 				C19370382C8A09A000B56BA1 /* Resources */,
 				C19370162C89960700B56BA1 /* Core */,
 				C193701A2C89967D00B56BA1 /* UICore */,
@@ -978,6 +983,15 @@
 			path = Cart;
 			sourceTree = "<group>";
 		};
+		C1EE51A02CC57E5A00280BBC /* Mockup */ = {
+			isa = PBXGroup;
+			children = (
+				C1EE51A12CC57E7A00280BBC /* TestingViewController.swift */,
+				C1EE51A32CC57F0E00280BBC /* TestingCoordinator.swift */,
+			);
+			path = Mockup;
+			sourceTree = "<group>";
+		};
 		C1EE5EC22CAEB30100856B94 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -1138,6 +1152,7 @@
 				C18F516C2C9D1A1000E60C0D /* AuthenticationNetworkRepository.swift in Sources */,
 				C18F516D2C9D1A1000E60C0D /* SigninResponse.swift in Sources */,
 				C18F516E2C9D1A1000E60C0D /* AuthenticationRepository.swift in Sources */,
+				C1EE51A42CC57F0E00280BBC /* TestingCoordinator.swift in Sources */,
 				C18F516F2C9D1A1000E60C0D /* AuthenticationAPI.swift in Sources */,
 				C1EDE5AB2CAB3CA700816876 /* CartNetworkRepository.swift in Sources */,
 				C13D90DA2C9218E800430BA4 /* BuildConfiguration.swift in Sources */,
@@ -1193,6 +1208,7 @@
 				C1936FFD2C898D1C00B56BA1 /* AppDelegate.swift in Sources */,
 				C1EE5EC32CAEB30100856B94 /* Codable + Dictionary.swift in Sources */,
 				C1EE5EC42CAEB30100856B94 /* CoreDataManagerError.swift in Sources */,
+				C1EE51A22CC57E7A00280BBC /* TestingViewController.swift in Sources */,
 				C1EE5EC52CAEB30100856B94 /* CoreDataManager + CRUD.swift in Sources */,
 				C1EE5EC62CAEB30100856B94 /* CoreDataManager.swift in Sources */,
 				C193702D2C89E97B00B56BA1 /* ProfileCoordinator.swift in Sources */,

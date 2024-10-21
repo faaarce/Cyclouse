@@ -8,25 +8,25 @@
 import Foundation
 
 // MARK: - BikeDataResponse
-struct BikeDataResponse: Codable, Responseable {
+struct BikeDataResponse: Codable, Responseable, Hashable {
   let message: String
   let success: Bool
   let bikes: Bikes
 }
 
 // MARK: - Bikes
-struct Bikes: Codable {
+struct Bikes: Codable, Hashable {
   let categories: [Category]
 }
 
 // MARK: - Category
-struct Category: Codable {
+struct Category: Codable, Hashable {
   let categoryName: String
   let products: [Product]
 }
 
 // MARK: - Product
-struct Product: Codable {
+struct Product: Codable, Hashable {
   let id: String
   let name: String
   let description: String
