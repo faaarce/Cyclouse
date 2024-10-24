@@ -28,6 +28,8 @@ class TabbarCoordinator: Coordinator {
     addChildCoordinator(homeCoordinator)
     homeCoordinator.start()
     
+    let myVC = MyViewController() //new featueres
+    
     let profileNav = UINavigationController()
     let profileCoordinator = ProfileCoordinator(navigationController: profileNav)
     addChildCoordinator(profileCoordinator)
@@ -39,7 +41,7 @@ class TabbarCoordinator: Coordinator {
     wishlistCoordinator.start()
     
     tabBarController.setViewControllers([
-      homeNav,
+      myVC,  //new featueres
       profileNav
     ], animated: false)
     setupTabbar()
