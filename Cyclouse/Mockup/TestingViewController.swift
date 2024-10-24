@@ -8,6 +8,7 @@
 
 import UIKit
 import Combine
+import ReactiveCollectionsKit
 
 class TestingViewController: UIViewController {
     enum Section: Hashable {

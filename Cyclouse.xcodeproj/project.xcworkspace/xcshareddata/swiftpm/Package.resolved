@@ -1,5 +1,5 @@
 {
-  "originHash" : "a9d15675ea912ed5a132e769062f1f459f2c2951f81a21ef2ded47b51e2f6d9a",
+  "originHash" : "36a5bf7dd4d63c26628f6f209d27158497e41146be083a2447a16958dba13c16",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -98,6 +98,15 @@
       "state" : {
         "revision" : "b842598f1295f3ffa1475b1580672d1fe5b83580",
         "version" : "4.5.0"
+      }
+    },
+    {
+      "identity" : "reactivecollectionskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jessesquires/ReactiveCollectionsKit.git",
+      "state" : {
+        "revision" : "557c2229dce66b385ff8d43776b53d37df183f0c",
+        "version" : "0.1.8"
       }
     },
     {

@@ -136,6 +136,7 @@
 		C1EDE5AF2CAB3D0F00816876 /* CartAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EDE5AE2CAB3D0F00816876 /* CartAPI.swift */; };
 		C1EE51A22CC57E7A00280BBC /* TestingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EE51A12CC57E7A00280BBC /* TestingViewController.swift */; };
 		C1EE51A42CC57F0E00280BBC /* TestingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EE51A32CC57F0E00280BBC /* TestingCoordinator.swift */; };
+		C1EE51A72CC67FCE00280BBC /* ReactiveCollectionsKit in Frameworks */ = {isa = PBXBuildFile; productRef = C1EE51A62CC67FCE00280BBC /* ReactiveCollectionsKit */; };
 		C1EE5EBC2CAE9D2F00856B94 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EE5EBB2CAE9D2F00856B94 /* EmptyStateView.swift */; };
 		C1EE5EC32CAEB30100856B94 /* Codable + Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EE5EBE2CAEB30100856B94 /* Codable + Dictionary.swift */; };
 		C1EE5EC42CAEB30100856B94 /* CoreDataManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EE5EC12CAEB30100856B94 /* CoreDataManagerError.swift */; };
@@ -274,6 +275,7 @@
 				C193704B2C8A133100B56BA1 /* CombineCocoa in Frameworks */,
 				C1AF6D0F2CC16A3000BEFD41 /* Hero in Frameworks */,
 				C104D2142CC5537E006EB92B /* SwiftMessages in Frameworks */,
+				C1EE51A72CC67FCE00280BBC /* ReactiveCollectionsKit in Frameworks */,
 				C12213202CC2551B005F8421 /* Kingfisher in Frameworks */,
 				C151E8A72CA9B9BD000C6B73 /* Valet in Frameworks */,
 				C18F517C2C9D1E4900E60C0D /* Alamofire in Frameworks */,
@@ -1036,6 +1038,7 @@
 				C122131F2CC2551B005F8421 /* Kingfisher */,
 				C104D20D2CC541DC006EB92B /* Lottie */,
 				C104D2132CC5537E006EB92B /* SwiftMessages */,
+				C1EE51A62CC67FCE00280BBC /* ReactiveCollectionsKit */,
 			);
 			productName = Cyclouse;
 			productReference = C1936FF92C898D1C00B56BA1 /* Cyclouse.app */;
@@ -1080,6 +1083,7 @@
 				C122131E2CC2551B005F8421 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				C104D20C2CC541DC006EB92B /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				C104D2122CC5537E006EB92B /* XCRemoteSwiftPackageReference "SwiftMessages" */,
+				C1EE51A52CC67FCE00280BBC /* XCRemoteSwiftPackageReference "ReactiveCollectionsKit" */,
 			);
 			productRefGroup = C1936FFA2C898D1C00B56BA1 /* Products */;
 			projectDirPath = "";
@@ -1549,6 +1553,14 @@
 				minimumVersion = 1.31.0;
 			};
 		};
+		C1EE51A52CC67FCE00280BBC /* XCRemoteSwiftPackageReference "ReactiveCollectionsKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jessesquires/ReactiveCollectionsKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.8;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1631,6 +1643,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C1EAE3A12CBC11530032DE1B /* XCRemoteSwiftPackageReference "SkeletonView" */;
 			productName = SkeletonView;
+		};
+		C1EE51A62CC67FCE00280BBC /* ReactiveCollectionsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1EE51A52CC67FCE00280BBC /* XCRemoteSwiftPackageReference "ReactiveCollectionsKit" */;
+			productName = ReactiveCollectionsKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
