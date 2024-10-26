@@ -1,5 +1,6 @@
 import UIKit
 import ReactiveCollectionsKit
+import SnapKit
 
 class MyViewController: UIViewController {
     var collectionView: UICollectionView!
@@ -75,51 +76,66 @@ class MyViewController: UIViewController {
         return layout
     }
 
-    private func makeViewModel() -> CollectionViewModel {
-        // Sample data for two sections
-        let section1Items = (1...10).map { Item(id: UUID(), title: "S1 Item \($0)") }
-        let section2Items = (1...10).map { Item(id: UUID(), title: "S2 Item \($0)") }
-
-        // Map items to cell view models
-        let section1CellViewModels = section1Items.map {
-          ExperimentCellViewModel(item: $0).eraseToAnyViewModel()
-        }
-        let section2CellViewModels = section2Items.map {
-          ExperimentCellViewModel(item: $0).eraseToAnyViewModel()
-        }
-
-        // Create section headers
-        let section1Header = SectionHeaderViewModel(id: "header1", title: "Section 1")
-        let section2Header = SectionHeaderViewModel(id: "header2", title: "Section 2")
-
-        // Create sections
-        let section1 = SectionViewModel(
-            id: "section1",
-            cells: section1CellViewModels,
-            header: section1Header.eraseToAnyViewModel()
-        )
-        let section2 = SectionViewModel(
-            id: "section2",
-            cells: section2CellViewModels,
-            header: section2Header.eraseToAnyViewModel()
-        )
-
-        // Create the collection view model
-        let collectionViewModel = CollectionViewModel(
-            id: "main_collection",
-            sections: [section1, section2]
-        )
-
-        return collectionViewModel
-    }
-}
+  private func makeViewModel() -> CollectionViewModel {
+     // Create sections array to hold all sections
+     var sections: [SectionViewModel] = []
+     
+     // Create 10 sections
+     for sectionIndex in 1...10 {
+         // Create items for each section
+         let sectionItems = (1...10).map { itemIndex in
+             Item(id: UUID(), title: "S\(sectionIndex) Item \(itemIndex)")
+         }
+         
+         // Map items to cell view models
+         let cellViewModels = sectionItems.map {
+             ExperimentCellViewModel(item: $0).eraseToAnyViewModel()
+         }
+         
+         // Create section header
+         let sectionHeader = SectionHeaderViewModel(
+             id: "header\(sectionIndex)",
+             title: "Section \(sectionIndex)"
+         )
+         
+         // Create section
+         let section = SectionViewModel(
+             id: "section\(sectionIndex)",
+             cells: cellViewModels,
+             header: sectionHeader.eraseToAnyViewModel()
+         )
+         
+         // Add to sections array
+         sections.append(section)
+     }
+     
+     // Create final collection view model with all sections
+     return CollectionViewModel(
+         id: "main_collection",
+         sections: sections
+     )
+  }}
 
 // MARK: - CellEventCoordinator
 
 extension MyViewController: CellEventCoordinator {
-    func didSelectCell(viewModel: AnyCellViewModel) {
-        print("Selected cell with id: \(viewModel.id)")
-        // Handle cell selection
+    func didSelectCell(viewModel: any CellViewModel) {
+        if let collectionViewModel = driver?.viewModel {
+            // Find section and cell indices
+            for (sectionIndex, section) in collectionViewModel.sections.enumerated() {
+                if let cellIndex = section.cells.firstIndex(where: { $0.id == viewModel.id }) {
+                    // Get the selected cell details
+                    if let experimentVM = viewModel as? ExperimentCellViewModel {
+                        print("🔹 Selection Details:")
+                        print("📍 Section: \(sectionIndex + 1)")
+                        print("📍 Item: \(cellIndex + 1)")
+                        print("📍 Title: \(experimentVM.title)")
+                        print("📍 ID: \(experimentVM.id)")
+                    }
+                    return
+                }
+            }
+        }
     }
 }
 

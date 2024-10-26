@@ -15,6 +15,8 @@ struct ExperimentCellViewModel: CellViewModel {
     let id: UniqueIdentifier
     let title: String
 
+  var shouldSelect: Bool { true }
+  
     init(item: Item) {
         self.id = item.id
         self.title = item.title
