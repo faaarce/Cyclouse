@@ -12,28 +12,22 @@ import EasyNotificationBadge
 import JDStatusBarNotification
 import Valet
 import Hero
+import ReactiveCollectionsKit
 
 class HomeViewController: UIViewController {
   
-  private var viewModel: HomeViewModel!
+  var collectionView: UICollectionView!
   private var cancellable = Set<AnyCancellable>()
   var coordinator: HomeCoordinator
   private let service = DatabaseService.shared
-  
-  private let cellSelectedSubject = PassthroughSubject<IndexPath, Never>()
-  
+  var driver: CollectionViewDriver?
+  var services = BikeService()
+  var cancellables = Set<AnyCancellable>()
+  var categories: [Category] = []
   private let valet = Valet.valet(with: Identifier(nonEmpty: "com.yourapp.auth")!, accessibility: .whenUnlocked)
   
   
-  lazy var collectionView: UICollectionView = {
-    let layout = UICollectionViewFlowLayout()
-    layout.scrollDirection = .vertical
-    let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    collection.dataSource = self
-    collection.delegate = self
-    collection.backgroundColor = .clear
-    return collection
-  }()
+  
   
   private var searchController: UISearchController!
   
@@ -48,14 +42,38 @@ class HomeViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    view.backgroundColor = ThemeColor.background
     configureAppearance()
-    setupViews()
-    setupLayout()
+//    setupViews()
+//    setupLayout()
     setupNavigationVar()
-    bindViewModel()
-    setupDatabaseObserver()
+//    setupDatabaseObserver()
     updateBadge()
     loadUserProfile()
+    
+    
+    collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeLayout())
+    collectionView.backgroundColor = .clear
+    
+    // Add to view hierarchy
+    view.addSubview(collectionView)
+    collectionView.translatesAutoresizingMaskIntoConstraints = false
+    
+    NSLayoutConstraint.activate([
+      collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+      collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+    ])
+    
+    // Initialize the driver
+    driver = CollectionViewDriver(
+      view: collectionView,
+      viewModel: makeViewModel(),
+      cellEventCoordinator: self
+    )
+    
+    fetchBikes()
     
   }
   
@@ -115,24 +133,181 @@ class HomeViewController: UIViewController {
     }
   }
   
+  private func fetchBikes() {
+    services.getBikes()
+      .receive(on: DispatchQueue.main)
+      .sink { completion in
+        switch completion {
+        case .finished:
+          break
+          
+        case .failure(let error):
+          print("Error fetching bikes: \(error)")
+        }
+      } receiveValue: { [weak self] bikeDataResponse in
+        guard let self = self else { return }
+        self.categories = bikeDataResponse.value.bikes.categories
+        //        self.productByCategory = Dictionary(uniqueKeysWithValues: self.categories.map { ($0.categoryName, $0.products) })
+        // Update the collection view
+        updateCollectionView()
+      }
+      .store(in: &cancellables)
+  }
+
+  
+  private func updateCollectionView() {
+    let viewModel = makeViewModel()
+    driver?.update(viewModel: viewModel, animated: true)
+  }
+  
+  private func makeViewModel() -> CollectionViewModel {
+      var sections: [SectionViewModel] = []
+
+      // **First Section: Categories**
+      let categoryCellViewModels = categories.map {
+          CategoryCellViewModel(category: $0.categoryName).eraseToAnyViewModel()
+      }
+
+      let categorySectionHeader = SectionHeaderViewModel(
+          id: "header_categories",
+          title: "Categories"
+      )
+
+      let categorySection = SectionViewModel(
+          id: "section_categories",
+          cells: categoryCellViewModels,
+          header: categorySectionHeader.eraseToAnyViewModel()
+      )
+
+      sections.append(categorySection)
+
+      // **Subsequent Sections: Bike Products**
+      for category in categories {
+          let productCellViewModels = category.products.map {
+              BikeProductCellViewModel(product: $0, categoryName: category.categoryName).eraseToAnyViewModel()
+          }
+
+          let productSectionHeader = SectionHeaderViewModel(
+              id: "header_\(category.categoryName)",
+              title: category.categoryName
+          )
+
+          let productSection = SectionViewModel(
+              id: "section_\(category.categoryName)",
+              cells: productCellViewModels,
+              header: productSectionHeader.eraseToAnyViewModel()
+          )
+
+          sections.append(productSection)
+      }
+
+      return CollectionViewModel(
+          id: "main_collection",
+          sections: sections
+      )
+  }
+  
+  private func makeLayout() -> UICollectionViewCompositionalLayout {
+      let layout = UICollectionViewCompositionalLayout { [weak self] (sectionIndex, environment) -> NSCollectionLayoutSection? in
+
+          // Common Section Insets
+          let sectionInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
+          
+          if sectionIndex == 0 {
+              // **Section 0: Categories (Horizontal Scrolling)**
+
+              // Item Size
+              let itemSize = NSCollectionLayoutSize(
+                  widthDimension: .estimated(80),
+                  heightDimension: .absolute(36)
+              )
+              let item = NSCollectionLayoutItem(layoutSize: itemSize)
+              // Add gaps between items using contentInsets
+              item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
+              
+              // Group Size
+              let groupSize = NSCollectionLayoutSize(
+                  widthDimension: .estimated(80),
+                  heightDimension: .absolute(36)
+              )
+              let group = NSCollectionLayoutGroup.horizontal(
+                  layoutSize: groupSize,
+                  subitems: [item]
+              )
+              // Optionally, you can adjust interItemSpacing instead of item.contentInsets
+              // group.interItemSpacing = .fixed(10)
+              
+              // Section Configuration
+              let section = NSCollectionLayoutSection(group: group)
+              section.orthogonalScrollingBehavior = .continuous
+              section.contentInsets = sectionInsets
+              
+              return section
+              
+          } else {
+              // **Sections 1...N: Bike Product Cells (Horizontal Scrolling)**
+
+              // Item Size
+              let itemSize = NSCollectionLayoutSize(
+                  widthDimension: .absolute(150),
+                  heightDimension: .absolute(240)
+              )
+              let item = NSCollectionLayoutItem(layoutSize: itemSize)
+              // Add gaps between items using contentInsets
+              item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
+              
+              // Group Size
+              let groupSize = NSCollectionLayoutSize(
+                  widthDimension: .estimated(150),
+                  heightDimension: .absolute(240)
+              )
+              let group = NSCollectionLayoutGroup.horizontal(
+                  layoutSize: groupSize,
+                  subitems: [item]
+              )
+              // Optionally, you can adjust interItemSpacing instead of item.contentInsets
+              // group.interItemSpacing = .fixed(10)
+              
+              // Section Configuration
+              let section = NSCollectionLayoutSection(group: group)
+              section.orthogonalScrollingBehavior = .continuous
+              section.contentInsets = sectionInsets
+              
+              // Header
+              let headerSize = NSCollectionLayoutSize(
+                  widthDimension: .fractionalWidth(1.0),
+                  heightDimension: .absolute(40)
+              )
+              let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                  layoutSize: headerSize,
+                  elementKind: SectionHeaderViewModel.kind,
+                  alignment: .topLeading
+              )
+              section.boundarySupplementaryItems = [sectionHeader]
+              
+              return section
+          }
+      }
+      
+      return layout
+  }
   
   
   private func configureAppearance() {
     title = "Home"
-    viewModel = HomeViewModel(service: BikeService())
-    view.backgroundColor = ThemeColor.background
+//    viewModel = HomeViewModel(service: BikeService())
+//    view.backgroundColor = ThemeColor.background
   }
   
-  private func setupViews(){
-    view.addSubview(collectionView)
-    registerCells()
-  }
+//  private func setupViews(){
+// 
+//  }
   
-  private func setupLayout() {
-    collectionView.snp.makeConstraints {
-      $0.edges.equalToSuperview()
-    }
-  }
+//  private func setupLayout() {
+//    collectionView.snp.makeConstraints {
+//      $0.edges.equalToSuperview()
+//    }
+//  }
   
   private func setupNavigationVar(){
     let cartButton = UIButton(type: .system)
@@ -175,15 +350,15 @@ class HomeViewController: UIViewController {
     }
   }
   
-  private func setupDatabaseObserver() {
-    service.databaseUpdated
-      .receive(on: DispatchQueue.main)
-      .sink { [weak self] _ in
-        self?.updateBadge()
-      }
-      .store(in: &cancellable)
-    
-  }
+//  private func setupDatabaseObserver() {
+//    service.databaseUpdated
+//      .receive(on: DispatchQueue.main)
+//      .sink { [weak self] _ in
+//        self?.updateBadge()
+//      }
+//      .store(in: &cancellable)
+//    
+//  }
   
   private func updateBadge() {
     service.fetchBike()
@@ -203,89 +378,22 @@ class HomeViewController: UIViewController {
   }
   
   
-  private func registerCells(){
-    collectionView.register(HorizontalViewCell.self, forCellWithReuseIdentifier: "HorizontalViewCell")
-    collectionView.register(HeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerCell")
-  }
-  
-  private func bindViewModel() {
-    viewModel.$sections
-      .receive(on: RunLoop.main)
-      .sink { [weak self] _ in
-        self?.collectionView.reloadData()
-      }
-      .store(in: &cancellable)
-    
-  }
-  
-  private func handleCellSelection(section: Int, item: Any) {
-    let section = viewModel.sections[section]
-    switch section.cellType {
-    case .category:
-      if let category = item as? String {
-        viewModel.filterProducts(by: category)
-        collectionView.reloadData()
-      }
-      
-    case .cycleCard:
-      if let products = item as? Product {
-        coordinator.showDetailViewController(for: products)
+}
+extension HomeViewController: CellEventCoordinator {
+  func didSelectCell(viewModel: any CellViewModel) {
+          if let categoryVM = viewModel as? CategoryCellViewModel {
+              print("Selected Category: \(categoryVM.category)")
+              // Handle category selection
+          } else if let productVM = viewModel as? BikeProductCellViewModel {
+              print("Selected Product: \(productVM.product.name)")
+              print("Product ID: \(productVM.product.id)")
+              // Navigate to product detail, etc.
+          }
       }
     }
-  }
-  
-}
 
 
-extension HomeViewController: UICollectionViewDataSource {
-  
-  
-  func numberOfSections(in collectionView: UICollectionView) -> Int {
-    return viewModel.sections.count
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return viewModel.sections[section].items.count
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = viewModel.configureCell(collectionView: collectionView, indexPath: indexPath)
-    if let horizontalCell = cell as? HorizontalViewCell {
-      horizontalCell.cellSelected
-        .sink { [weak self] (selectedIndexPath, selectedItem) in
-          print("test homeviewmodel")
-          self?.handleCellSelection(section: indexPath.section  , item: selectedItem)
-        }
-        .store(in: &cancellable)
-    }
-    return cell
-  }
-  
-  
-}
 
-extension HomeViewController: UICollectionViewDelegateFlowLayout {
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    viewModel.sizeForItem(at: indexPath, viewWidth: self.view.frame.width)
-  }
-  
-  
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    viewModel.insetForSection(at: section)
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-    let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerCell", for: indexPath) as! HeaderReusableView
-    header.headerLabel.text = viewModel.sections[indexPath.section].header
-    return header
-  }
-  
-  
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-    viewModel.sizeForHeader(in: section, collectionViewWidth: collectionView.frame.width)
-  }
-  
-}
 
 
 //extension HomeViewController: UICollectionViewDelegate {
