@@ -28,7 +28,10 @@ class TabbarCoordinator: Coordinator {
     addChildCoordinator(homeCoordinator)
     homeCoordinator.start()
     
-    let myVC = MyViewController() //new featueres
+    let myNav = UINavigationController()
+     let myVC = MyViewController()
+     myNav.viewControllers = [myVC] // Set MyViewController as root
+      //new featueres
     
     let profileNav = UINavigationController()
     let profileCoordinator = ProfileCoordinator(navigationController: profileNav)

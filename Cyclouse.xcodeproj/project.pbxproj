@@ -144,6 +144,9 @@
 		C1EE5EC42CAEB30100856B94 /* CoreDataManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EE5EC12CAEB30100856B94 /* CoreDataManagerError.swift */; };
 		C1EE5EC52CAEB30100856B94 /* CoreDataManager + CRUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EE5EC02CAEB30100856B94 /* CoreDataManager + CRUD.swift */; };
 		C1EE5EC62CAEB30100856B94 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EE5EBF2CAEB30100856B94 /* CoreDataManager.swift */; };
+		C1F0F2022CCD033000B8AFDA /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F0F2012CCD033000B8AFDA /* Category.swift */; };
+		C1F0F2042CCD03C700B8AFDA /* CategoryCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F0F2032CCD03C700B8AFDA /* CategoryCellViewModel.swift */; };
+		C1F0F2252CCD177400B8AFDA /* BikeProductCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F0F2242CCD177400B8AFDA /* BikeProductCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -269,6 +272,9 @@
 		C1EE5EBF2CAEB30100856B94 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		C1EE5EC02CAEB30100856B94 /* CoreDataManager + CRUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataManager + CRUD.swift"; sourceTree = "<group>"; };
 		C1EE5EC12CAEB30100856B94 /* CoreDataManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerError.swift; sourceTree = "<group>"; };
+		C1F0F2012CCD033000B8AFDA /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		C1F0F2032CCD03C700B8AFDA /* CategoryCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellViewModel.swift; sourceTree = "<group>"; };
+		C1F0F2242CCD177400B8AFDA /* BikeProductCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeProductCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -940,6 +946,7 @@
 			children = (
 				C19465672C8CBF6F00171932 /* HorizontalViewCell.swift */,
 				C1B4B94C2C8D4F8D00B4F54B /* BikeProductViewCell.swift */,
+				C1F0F2242CCD177400B8AFDA /* BikeProductCellViewModel.swift */,
 				C1D1BE4D2C8E170900E73A92 /* HeaderReusableView.swift */,
 			);
 			path = SharedCells;
@@ -965,6 +972,8 @@
 			isa = PBXGroup;
 			children = (
 				C1D1BE502C8EE70D00E73A92 /* CategoryViewCell.swift */,
+				C1F0F2012CCD033000B8AFDA /* Category.swift */,
+				C1F0F2032CCD03C700B8AFDA /* CategoryCellViewModel.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1157,6 +1166,7 @@
 				C18F51692C9D1A1000E60C0D /* Validateable.swift in Sources */,
 				C1EDE5AD2CAB3CBA00816876 /* CartService.swift in Sources */,
 				C18F516A2C9D1A1000E60C0D /* User.swift in Sources */,
+				C1F0F2042CCD03C700B8AFDA /* CategoryCellViewModel.swift in Sources */,
 				C18F516B2C9D1A1000E60C0D /* Valueable.swift in Sources */,
 				C196DE4D2CAD0E7E00743EFB /* GetCartResponse.swift in Sources */,
 				C18F516C2C9D1A1000E60C0D /* AuthenticationNetworkRepository.swift in Sources */,
@@ -1195,6 +1205,7 @@
 				C147C2512CA14D6D002B88AF /* HistoryTableViewCell.swift in Sources */,
 				C1CDE9AF2CB5318B005B491F /* SignoutResponse.swift in Sources */,
 				C1C533882C90A618000ABA71 /* HomeViewModel.swift in Sources */,
+				C1F0F2022CCD033000B8AFDA /* Category.swift in Sources */,
 				C19465682C8CBF6F00171932 /* HorizontalViewCell.swift in Sources */,
 				C177238F2C954E6B0078E598 /* PopUpViewController.swift in Sources */,
 				C1DF47EB2C9C9310004F5751 /* SignUpCoordinator.swift in Sources */,
@@ -1213,6 +1224,7 @@
 				C1705E0D2CA55C6D0043CE9D /* BikeRepository.swift in Sources */,
 				C1705E0E2CA55C6D0043CE9D /* BikeAPI.swift in Sources */,
 				C19370672C8B72BA00B56BA1 /* ButtonFactory.swift in Sources */,
+				C1F0F2252CCD177400B8AFDA /* BikeProductCellViewModel.swift in Sources */,
 				C193705A2C8ABAEE00B56BA1 /* UIColor+Extension.swift in Sources */,
 				C15F0B7C2CBC27E800F5ACC3 /* Dummy.swift in Sources */,
 				C19370612C8AE9AC00B56BA1 /* OnboardingCoordinator.swift in Sources */,
