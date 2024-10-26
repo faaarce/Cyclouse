@@ -213,80 +213,88 @@ class HomeViewController: UIViewController {
           // Common Section Insets
           let sectionInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
           
-          if sectionIndex == 0 {
-              // **Section 0: Categories (Horizontal Scrolling)**
+        if sectionIndex == 0 {
+            // Item Size - Use estimated width to adapt to content
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .estimated(87),  // Will adjust based on content
+                heightDimension: .absolute(35)
+            )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
+            
+            // Group Size - Use estimated width
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .estimated(87), // Match item estimated width
+                heightDimension: .absolute(36)
+            )
+            
+            // Create group that can contain multiple items
+            let group = NSCollectionLayoutGroup.horizontal(
+                layoutSize: groupSize,
+                subitems: [item]
+            )
+            
+            // Section Configuration
+            let section = NSCollectionLayoutSection(group: group)
+            section.orthogonalScrollingBehavior = .continuous
+            section.interGroupSpacing = 8 // Space between groups
+            section.contentInsets = NSDirectionalEdgeInsets(
+                top: 0,
+                leading: 16,
+                bottom: 0,
+                trailing: 16
+            )
+            
+            return section
+        } else {
+          // **Sections 1...N: Bike Product Cells (Horizontal Scrolling)**
 
-              // Item Size
-              let itemSize = NSCollectionLayoutSize(
-                  widthDimension: .estimated(80),
-                  heightDimension: .absolute(36)
-              )
-              let item = NSCollectionLayoutItem(layoutSize: itemSize)
-              // Add gaps between items using contentInsets
-              item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
-              
-              // Group Size
-              let groupSize = NSCollectionLayoutSize(
-                  widthDimension: .estimated(80),
-                  heightDimension: .absolute(36)
-              )
-              let group = NSCollectionLayoutGroup.horizontal(
-                  layoutSize: groupSize,
-                  subitems: [item]
-              )
-              // Optionally, you can adjust interItemSpacing instead of item.contentInsets
-              // group.interItemSpacing = .fixed(10)
-              
-              // Section Configuration
-              let section = NSCollectionLayoutSection(group: group)
-              section.orthogonalScrollingBehavior = .continuous
-              section.contentInsets = sectionInsets
-              
-              return section
-              
-          } else {
-              // **Sections 1...N: Bike Product Cells (Horizontal Scrolling)**
-
-              // Item Size
-              let itemSize = NSCollectionLayoutSize(
-                  widthDimension: .absolute(150),
-                  heightDimension: .absolute(240)
-              )
-              let item = NSCollectionLayoutItem(layoutSize: itemSize)
-              // Add gaps between items using contentInsets
-              item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
-              
-              // Group Size
-              let groupSize = NSCollectionLayoutSize(
-                  widthDimension: .estimated(150),
-                  heightDimension: .absolute(240)
-              )
-              let group = NSCollectionLayoutGroup.horizontal(
-                  layoutSize: groupSize,
-                  subitems: [item]
-              )
-              // Optionally, you can adjust interItemSpacing instead of item.contentInsets
-              // group.interItemSpacing = .fixed(10)
-              
-              // Section Configuration
-              let section = NSCollectionLayoutSection(group: group)
-              section.orthogonalScrollingBehavior = .continuous
-              section.contentInsets = sectionInsets
-              
-              // Header
-              let headerSize = NSCollectionLayoutSize(
-                  widthDimension: .fractionalWidth(1.0),
-                  heightDimension: .absolute(40)
-              )
-              let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                  layoutSize: headerSize,
-                  elementKind: SectionHeaderViewModel.kind,
-                  alignment: .topLeading
-              )
-              section.boundarySupplementaryItems = [sectionHeader]
-              
-              return section
-          }
+          // Item Size
+          let itemSize = NSCollectionLayoutSize(
+              widthDimension: .absolute(150),
+              heightDimension: .absolute(220)  // Adjusted height to match your design
+          )
+          let item = NSCollectionLayoutItem(layoutSize: itemSize)
+          item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
+          
+          // Group Size
+          let groupSize = NSCollectionLayoutSize(
+              widthDimension: .estimated(150),  // Changed to estimated to adapt to content
+              heightDimension: .absolute(240)
+          )
+          
+          // Create group that repeats items
+          let group = NSCollectionLayoutGroup.horizontal(
+              layoutSize: groupSize,
+              repeatingSubitem: item,
+              count: 1  // Each group contains 1 item, but will repeat
+          )
+          
+          // Section Configuration
+          let section = NSCollectionLayoutSection(group: group)
+          section.orthogonalScrollingBehavior = .continuous
+          section.interGroupSpacing = 10  // Space between groups
+          section.contentInsets = NSDirectionalEdgeInsets(
+              top: 0,
+              leading: 16,
+              bottom: 16,
+              trailing: 16
+          )
+          
+          // Header
+          let headerSize = NSCollectionLayoutSize(
+              widthDimension: .fractionalWidth(1.0),
+              heightDimension: .absolute(40)
+          )
+          let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+              layoutSize: headerSize,
+              elementKind: SectionHeaderViewModel.kind,
+              alignment: .topLeading
+          )
+          section.boundarySupplementaryItems = [sectionHeader]
+          
+          return section
+      }
       }
       
       return layout
@@ -295,19 +303,7 @@ class HomeViewController: UIViewController {
   
   private func configureAppearance() {
     title = "Home"
-//    viewModel = HomeViewModel(service: BikeService())
-//    view.backgroundColor = ThemeColor.background
   }
-  
-//  private func setupViews(){
-// 
-//  }
-  
-//  private func setupLayout() {
-//    collectionView.snp.makeConstraints {
-//      $0.edges.equalToSuperview()
-//    }
-//  }
   
   private func setupNavigationVar(){
     let cartButton = UIButton(type: .system)
@@ -350,16 +346,6 @@ class HomeViewController: UIViewController {
     }
   }
   
-//  private func setupDatabaseObserver() {
-//    service.databaseUpdated
-//      .receive(on: DispatchQueue.main)
-//      .sink { [weak self] _ in
-//        self?.updateBadge()
-//      }
-//      .store(in: &cancellable)
-//    
-//  }
-  
   private func updateBadge() {
     service.fetchBike()
       .receive(on: DispatchQueue.main)
@@ -385,20 +371,9 @@ extension HomeViewController: CellEventCoordinator {
               print("Selected Category: \(categoryVM.category)")
               // Handle category selection
           } else if let productVM = viewModel as? BikeProductCellViewModel {
-              print("Selected Product: \(productVM.product.name)")
-              print("Product ID: \(productVM.product.id)")
-              // Navigate to product detail, etc.
+            coordinator.showDetailViewController(for: productVM.product)
           }
       }
     }
 
-
-
-
-
-//extension HomeViewController: UICollectionViewDelegate {
-//  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//    cellSelectedSubject.send(indexPath)
-//  }
-//}
 

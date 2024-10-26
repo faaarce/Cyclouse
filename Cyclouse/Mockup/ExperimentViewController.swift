@@ -281,13 +281,14 @@ struct SectionHeaderViewModel: SupplementaryHeaderViewModel {
     
     let label = UILabel()
     label.text = title
-    label.font = UIFont.boldSystemFont(ofSize: 18)
+    label.textColor = .white
+    label.font = ThemeFont.semibold(ofSize: 14)
     label.translatesAutoresizingMaskIntoConstraints = false
     
     view.addSubview(label)
     
     NSLayoutConstraint.activate([
-      label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+      label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
       label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
     ])
   }
