@@ -190,8 +190,8 @@ class HomeViewController: UIViewController {
 
     // Filter categories based on selectedCategory
     let filteredCategories: [Category]
-    // if let selectedCategory = selectedCategory, selectedCategory != "All" {
-    if let selectedCategory = selectedCategory {
+     if let selectedCategory = selectedCategory, selectedCategory != "All" {
+//    if let selectedCategory = selectedCategory {
         // Filter the categories to only include the selected category
         filteredCategories = categories.filter { $0.categoryName == selectedCategory }
     } else {
