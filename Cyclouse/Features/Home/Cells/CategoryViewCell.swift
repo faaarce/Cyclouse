@@ -23,7 +23,7 @@ class CategoryViewCell: UICollectionViewCell {
   
   required init?(coder: NSCoder) {
     super.init(coder: coder)
-
+    
     setupViews()
     layout()
     setupSkeletonView()
@@ -50,8 +50,15 @@ class CategoryViewCell: UICollectionViewCell {
     }
   }
   
-  func configure(with category: String) {
+  func configure(with category: String, isSelected: Bool) {
     categoryLabel.text = category
+    if isSelected {
+      backgroundColor = ThemeColor.primary  // Selected color
+      categoryLabel.textColor = ThemeColor.black
+    } else {
+      backgroundColor = ThemeColor.cardFillColor  // Default color
+      categoryLabel.textColor = ThemeColor.labelColorSecondary
+    }
   }
   
 }

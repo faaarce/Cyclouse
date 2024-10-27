@@ -11,10 +11,12 @@ struct CategoryCellViewModel: CellViewModel {
   typealias CellType = CategoryViewCell
   let id: UniqueIdentifier
   let category: String
+  var isSelected: Bool
   
-  init(category: String) {
+  init(category: String, isSelected: Bool) {
     self.id = category
     self.category = category
+    self.isSelected = isSelected
   }
   
   var shouldSelect: Bool { true }
@@ -28,6 +30,6 @@ struct CategoryCellViewModel: CellViewModel {
   }
   
   func configure(cell: CategoryViewCell) {
-    cell.configure(with: category)
+    cell.configure(with: category, isSelected: isSelected)
   }
 }

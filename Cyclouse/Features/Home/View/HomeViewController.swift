@@ -16,6 +16,10 @@ import ReactiveCollectionsKit
 
 class HomeViewController: UIViewController {
   
+  // Hardcoded list of categories
+  let allCategories = ["All", "Full Bike", "Handlebar", "Saddle", "Pedal", "Seatpost", "Stem", "Crank", "Wheelset", "Frame", "Tires"]
+  var selectedCategory: String? = nil
+
   var collectionView: UICollectionView!
   private var cancellable = Set<AnyCancellable>()
   var coordinator: HomeCoordinator
@@ -161,51 +165,65 @@ class HomeViewController: UIViewController {
   }
   
   private func makeViewModel() -> CollectionViewModel {
-      var sections: [SectionViewModel] = []
+    var sections: [SectionViewModel] = []
 
-      // **First Section: Categories**
-      let categoryCellViewModels = categories.map {
-          CategoryCellViewModel(category: $0.categoryName).eraseToAnyViewModel()
+    // **First Section: Categories**
+    let categoryCellViewModels = allCategories.map { categoryName in
+          let isSelected = (categoryName == selectedCategory) || (selectedCategory == nil && categoryName == "All")
+          return CategoryCellViewModel(category: categoryName, isSelected: isSelected).eraseToAnyViewModel()
       }
+    
+    let categorySectionHeader = SectionHeaderViewModel(
+        id: "header_categories",
+        title: "Categories"
+    )
 
-      let categorySectionHeader = SectionHeaderViewModel(
-          id: "header_categories",
-          title: "Categories"
-      )
+    let categorySection = SectionViewModel(
+        id: "section_categories",
+        cells: categoryCellViewModels,
+        header: categorySectionHeader.eraseToAnyViewModel()
+    )
 
-      let categorySection = SectionViewModel(
-          id: "section_categories",
-          cells: categoryCellViewModels,
-          header: categorySectionHeader.eraseToAnyViewModel()
-      )
+    sections.append(categorySection)
 
-      sections.append(categorySection)
+    // **Subsequent Sections: Bike Products**
 
-      // **Subsequent Sections: Bike Products**
-      for category in categories {
-          let productCellViewModels = category.products.map {
-              BikeProductCellViewModel(product: $0, categoryName: category.categoryName).eraseToAnyViewModel()
-          }
+    // Filter categories based on selectedCategory
+    let filteredCategories: [Category]
+    // if let selectedCategory = selectedCategory, selectedCategory != "All" {
+    if let selectedCategory = selectedCategory {
+        // Filter the categories to only include the selected category
+        filteredCategories = categories.filter { $0.categoryName == selectedCategory }
+    } else {
+        // No category selected, include all categories
+        filteredCategories = categories
+    }
 
-          let productSectionHeader = SectionHeaderViewModel(
-              id: "header_\(category.categoryName)",
-              title: category.categoryName
-          )
+    for category in filteredCategories {
+        let productCellViewModels = category.products.map {
+            BikeProductCellViewModel(product: $0, categoryName: category.categoryName).eraseToAnyViewModel()
+        }
 
-          let productSection = SectionViewModel(
-              id: "section_\(category.categoryName)",
-              cells: productCellViewModels,
-              header: productSectionHeader.eraseToAnyViewModel()
-          )
+        let productSectionHeader = SectionHeaderViewModel(
+            id: "header_\(category.categoryName)",
+            title: category.categoryName
+        )
 
-          sections.append(productSection)
-      }
+        let productSection = SectionViewModel(
+            id: "section_\(category.categoryName)",
+            cells: productCellViewModels,
+            header: productSectionHeader.eraseToAnyViewModel()
+        )
 
-      return CollectionViewModel(
-          id: "main_collection",
-          sections: sections
-      )
-  }
+        sections.append(productSection)
+    }
+
+    return CollectionViewModel(
+        id: "main_collection",
+        sections: sections
+    )
+}
+
   
   private func makeLayout() -> UICollectionViewCompositionalLayout {
       let layout = UICollectionViewCompositionalLayout { [weak self] (sectionIndex, environment) -> NSCollectionLayoutSection? in
@@ -366,14 +384,17 @@ class HomeViewController: UIViewController {
   
 }
 extension HomeViewController: CellEventCoordinator {
-  func didSelectCell(viewModel: any CellViewModel) {
-          if let categoryVM = viewModel as? CategoryCellViewModel {
-              print("Selected Category: \(categoryVM.category)")
-              // Handle category selection
-          } else if let productVM = viewModel as? BikeProductCellViewModel {
+    func didSelectCell(viewModel: any CellViewModel) {
+        if let categoryVM = viewModel as? CategoryCellViewModel {
+            print("Selected Category: \(categoryVM.category)")
+            selectedCategory = categoryVM.category != "All" ? categoryVM.category : nil
+            // Update collection view
+            updateCollectionView()
+        } else if let productVM = viewModel as? BikeProductCellViewModel {
             coordinator.showDetailViewController(for: productVM.product)
-          }
-      }
+        }
     }
+}
+
 
 
