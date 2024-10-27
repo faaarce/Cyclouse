@@ -76,10 +76,10 @@ class BikeProductViewCell: UICollectionViewCell {
     categoryLabel.text = product.brand
     bikeSoldQuantityLabel.text = "\(product.quantity)"
     productImage.kf.setImage(with: URL(string: product.images.first ?? "https://i.imgur.com/DXv1ptr.jpeg"))
-    
-//    productImage.heroID = product.images.first
-    productLabel.heroID = product.name
-    priceLabel.heroID = String(product.price)
+   
+    productImage.heroID = "productImage_\(product.id)"
+    productLabel.heroID = "productLabel_\(product.id)"
+    priceLabel.heroID = "priceLabel_\(product.id)"
 //    categoryLabel.heroID = product.brand
     bikeSoldQuantityLabel.heroID = String(product.quantity)
   }

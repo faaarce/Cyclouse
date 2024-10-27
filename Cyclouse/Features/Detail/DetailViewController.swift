@@ -284,9 +284,9 @@ class DetailViewController: UIViewController {
         display.kf.setImage(with: URL(string: image))
       }
     }
-//    detailImage.heroID = product.images.first
-//    productTitleLabel.heroID = product.name
-//    priceLabel.heroID = String(product.price)
+    detailImage.heroID = "productImage_\(product.id)"
+    productTitleLabel.heroID = "productLabel_\(product.id)"
+    priceLabel.heroID = "priceLabel_\(product.id)"
   }
   
   func setupViews() {

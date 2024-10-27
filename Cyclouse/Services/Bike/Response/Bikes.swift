@@ -60,3 +60,18 @@ extension BikeDataResponse {
     return bikes.categories.first { $0.categoryName == category }?.products ?? []
   }
 }
+
+
+extension Product {
+    static var placeholder: Product {
+        return Product(
+            id: "placeholder",
+            name: "",
+            description: "",
+            images: [],
+            price: 0,
+            brand: "",
+            quantity: 0
+        )
+    }
+}
