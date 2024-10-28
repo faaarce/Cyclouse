@@ -128,6 +128,8 @@
 		C1D1BE4E2C8E170A00E73A92 /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D1BE4D2C8E170900E73A92 /* HeaderReusableView.swift */; };
 		C1D1BE512C8EE70D00E73A92 /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D1BE502C8EE70D00E73A92 /* CategoryViewCell.swift */; };
 		C1DC8F572CCFFF2E009BEA1F /* LaunchScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1DC8F562CCFFF2E009BEA1F /* LaunchScreen.xcassets */; };
+		C1DC8F592CD0030D009BEA1F /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DC8F582CD0030D009BEA1F /* SplashScreen.swift */; };
+		C1DC8F5B2CD0035E009BEA1F /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DC8F5A2CD0035E009BEA1F /* SplashViewController.swift */; };
 		C1DF47EB2C9C9310004F5751 /* SignUpCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF47EA2C9C9305004F5751 /* SignUpCoordinator.swift */; };
 		C1DF47ED2C9C9379004F5751 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF47EC2C9C9379004F5751 /* SignUpViewController.swift */; };
 		C1EAE3A32CBC11530032DE1B /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = C1EAE3A22CBC11530032DE1B /* SkeletonView */; };
@@ -258,6 +260,8 @@
 		C1D1BE4D2C8E170900E73A92 /* HeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderReusableView.swift; sourceTree = "<group>"; };
 		C1D1BE502C8EE70D00E73A92 /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
 		C1DC8F562CCFFF2E009BEA1F /* LaunchScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LaunchScreen.xcassets; sourceTree = "<group>"; };
+		C1DC8F582CD0030D009BEA1F /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		C1DC8F5A2CD0035E009BEA1F /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		C1DF47EA2C9C9305004F5751 /* SignUpCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpCoordinator.swift; sourceTree = "<group>"; };
 		C1DF47EC2C9C9379004F5751 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C1EDE5A62CAB396200816876 /* AddToCartResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToCartResponse.swift; sourceTree = "<group>"; };
@@ -726,6 +730,8 @@
 				C19370172C89960F00B56BA1 /* Features */,
 				C193700A2C898D1D00B56BA1 /* Info.plist */,
 				C1DC8F562CCFFF2E009BEA1F /* LaunchScreen.xcassets */,
+				C1DC8F582CD0030D009BEA1F /* SplashScreen.swift */,
+				C1DC8F5A2CD0035E009BEA1F /* SplashViewController.swift */,
 			);
 			path = Cyclouse;
 			sourceTree = "<group>";
@@ -1199,6 +1205,7 @@
 				C1956D122CABC70600642FF8 /* TokenManager.swift in Sources */,
 				C1D1BE4E2C8E170A00E73A92 /* HeaderReusableView.swift in Sources */,
 				C19370692C8B73D900B56BA1 /* UIView+Extension.swift in Sources */,
+				C1DC8F5B2CD0035E009BEA1F /* SplashViewController.swift in Sources */,
 				C13D90D62C9218D100430BA4 /* APIKeys.swift in Sources */,
 				C1C582AB2CBBACD500280F6F /* PaymentCoordinator.swift in Sources */,
 				C15B51422CBAC53E00892DBD /* Double + Extension.swift in Sources */,
@@ -1234,6 +1241,7 @@
 				C1EE5EC42CAEB30100856B94 /* CoreDataManagerError.swift in Sources */,
 				C1EE51A22CC57E7A00280BBC /* TestingViewController.swift in Sources */,
 				C1EE5EC52CAEB30100856B94 /* CoreDataManager + CRUD.swift in Sources */,
+				C1DC8F592CD0030D009BEA1F /* SplashScreen.swift in Sources */,
 				C1EE5EC62CAEB30100856B94 /* CoreDataManager.swift in Sources */,
 				C193702D2C89E97B00B56BA1 /* ProfileCoordinator.swift in Sources */,
 				C1464C592C92B41800F945BA /* CartViewCell.swift in Sources */,
