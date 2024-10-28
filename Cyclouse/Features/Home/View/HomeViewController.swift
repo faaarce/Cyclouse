@@ -16,6 +16,11 @@ import ReactiveCollectionsKit
 
 class HomeViewController: UIViewController {
   
+  var isLoading = true {
+  didSet {
+    updateCollectionView()
+  }
+}
   // Hardcoded list of categories
   let allCategories = ["All", "Full Bike", "Handlebar", "Saddle", "Pedal", "Seatpost", "Stem", "Crank", "Wheelset", "Frame", "Tires"]
   var selectedCategory: String? = nil
@@ -76,14 +81,23 @@ class HomeViewController: UIViewController {
       viewModel: makeViewModel(),
       cellEventCoordinator: self
     )
+    isLoading = true
+      updateCollectionView()
+      simulateLoading()
     
-    fetchBikes()
     
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     updateBadge()
+  }
+  
+  private func simulateLoading() {
+      DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+          self?.isLoading = false
+          self?.fetchBikes()
+      }
   }
   
   private func showWelcomeNotification(with profile: UserProfile) {
@@ -147,12 +161,15 @@ class HomeViewController: UIViewController {
           
         case .failure(let error):
           print("Error fetching bikes: \(error)")
+          self.isLoading = false
+          self.updateCollectionView()
         }
       } receiveValue: { [weak self] bikeDataResponse in
         guard let self = self else { return }
         self.categories = bikeDataResponse.value.bikes.categories
         //        self.productByCategory = Dictionary(uniqueKeysWithValues: self.categories.map { ($0.categoryName, $0.products) })
         // Update the collection view
+        self.isLoading = false
         updateCollectionView()
       }
       .store(in: &cancellables)
@@ -163,75 +180,104 @@ class HomeViewController: UIViewController {
     let viewModel = makeViewModel()
     driver?.update(viewModel: viewModel, animated: true)
   }
-  
+
   private func makeViewModel() -> CollectionViewModel {
-    var sections: [SectionViewModel] = []
+   var sections: [SectionViewModel] = []
 
-    // **First Section: Categories**
-    let categoryCellViewModels = allCategories.map { categoryName in
-          let isSelected = (categoryName == selectedCategory) || (selectedCategory == nil && categoryName == "All")
-          return CategoryCellViewModel(category: categoryName, isSelected: isSelected).eraseToAnyViewModel()
-      }
-    
-    let categorySectionHeader = SectionHeaderViewModel(
-        id: "header_categories",
-        title: "Categories"
-    )
+   // **First Section: Categories**
+   let categoryCellViewModels = allCategories.map { categoryName in
+       let isSelected = (categoryName == selectedCategory) || (selectedCategory == nil && categoryName == "All")
+       return CategoryCellViewModel(category: categoryName, isSelected: isSelected).eraseToAnyViewModel()
+   }
 
-    let categorySection = SectionViewModel(
-        id: "section_categories",
-        cells: categoryCellViewModels,
-        header: categorySectionHeader.eraseToAnyViewModel()
-    )
+   let categorySectionHeader = SectionHeaderViewModel(
+       id: "header_categories",
+       title: "Categories"
+   )
 
-    sections.append(categorySection)
+   let categorySection = SectionViewModel(
+       id: "section_categories",
+       cells: categoryCellViewModels,
+       header: categorySectionHeader.eraseToAnyViewModel()
+   )
 
-    // **Subsequent Sections: Bike Products**
+   sections.append(categorySection)
 
-    // Filter categories based on selectedCategory
-    let filteredCategories: [Category]
-     if let selectedCategory = selectedCategory, selectedCategory != "All" {
-//    if let selectedCategory = selectedCategory {
-        // Filter the categories to only include the selected category
-        filteredCategories = categories.filter { $0.categoryName == selectedCategory }
-    } else {
-        // No category selected, include all categories
-        filteredCategories = categories
-    }
+   if isLoading {
+       // **Create Multiple Placeholder Sections**
 
-    for category in filteredCategories {
-        let productCellViewModels = category.products.map {
-            BikeProductCellViewModel(product: $0, categoryName: category.categoryName).eraseToAnyViewModel()
-        }
+       // Let's simulate having 3 placeholder categories
+       let placeholderCategoryNames = ["Loading Category 1", "Loading Category 2", "Loading Category 3"]
 
-        let productSectionHeader = SectionHeaderViewModel(
-            id: "header_\(category.categoryName)",
-            title: category.categoryName
-        )
+       for placeholderCategoryName in placeholderCategoryNames {
+           // Create placeholder header view model
+           let loadingHeader = SectionHeaderViewModel(
+               id: "loading_header_\(placeholderCategoryName)",
+               isLoading: true
+           )
 
-        let productSection = SectionViewModel(
-            id: "section_\(category.categoryName)",
-            cells: productCellViewModels,
-            header: productSectionHeader.eraseToAnyViewModel()
-        )
+           // Placeholder cells
+           let placeholderCellViewModels = (0..<5).map { _ in
+               BikeProductCellViewModel(isLoading: true).eraseToAnyViewModel()
+           }
 
-        sections.append(productSection)
-    }
+           let loadingSection = SectionViewModel(
+               id: "loading_section_\(placeholderCategoryName)",
+               cells: placeholderCellViewModels,
+               header: loadingHeader.eraseToAnyViewModel()
+           )
 
-    return CollectionViewModel(
-        id: "main_collection",
-        sections: sections
-    )
+           sections.append(loadingSection)
+       }
+   } else {
+       // **Subsequent Sections: Bike Products**
+
+       // Filter categories based on selectedCategory
+       let filteredCategories: [Category]
+       if let selectedCategory = selectedCategory, selectedCategory != "All" {
+           filteredCategories = categories.filter { $0.categoryName == selectedCategory }
+       } else {
+           filteredCategories = categories
+       }
+
+       for category in filteredCategories {
+           let productCellViewModels = category.products.map {
+               BikeProductCellViewModel(product: $0, categoryName: category.categoryName).eraseToAnyViewModel()
+           }
+
+           let productSectionHeader = SectionHeaderViewModel(
+               id: "header_\(category.categoryName)",
+               title: category.categoryName
+           )
+
+           let productSection = SectionViewModel(
+               id: "section_\(category.categoryName)",
+               cells: productCellViewModels,
+               header: productSectionHeader.eraseToAnyViewModel()
+           )
+
+           sections.append(productSection)
+       }
+   }
+
+   return CollectionViewModel(
+       id: "main_collection",
+       sections: sections
+   )
 }
 
-  
-  private func makeLayout() -> UICollectionViewCompositionalLayout {
-      let layout = UICollectionViewCompositionalLayout { [weak self] (sectionIndex, environment) -> NSCollectionLayoutSection? in
 
-          // Common Section Insets
-          let sectionInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
-          
+
+
+  
+ private func makeLayout() -> UICollectionViewCompositionalLayout {
+    let layout = UICollectionViewCompositionalLayout { [weak self] (sectionIndex, environment) -> NSCollectionLayoutSection? in
+
+        guard let self = self else { return nil }
+
         if sectionIndex == 0 {
+            // **Layout for Category Cells**
+
             // Item Size - Use estimated width to adapt to content
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .estimated(87),  // Will adjust based on content
@@ -239,19 +285,19 @@ class HomeViewController: UIViewController {
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
-            
+
             // Group Size - Use estimated width
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .estimated(87), // Match item estimated width
                 heightDimension: .absolute(36)
             )
-            
+
             // Create group that can contain multiple items
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: groupSize,
                 subitems: [item]
             )
-            
+
             // Section Configuration
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous
@@ -262,61 +308,64 @@ class HomeViewController: UIViewController {
                 bottom: 0,
                 trailing: 16
             )
-            
-            return section
-        } else {
-          // **Sections 1...N: Bike Product Cells (Horizontal Scrolling)**
 
-          // Item Size
-          let itemSize = NSCollectionLayoutSize(
-              widthDimension: .absolute(150),
-              heightDimension: .absolute(220)  // Adjusted height to match your design
-          )
-          let item = NSCollectionLayoutItem(layoutSize: itemSize)
-          item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
-          
-          // Group Size
-          let groupSize = NSCollectionLayoutSize(
-              widthDimension: .estimated(150),  // Changed to estimated to adapt to content
-              heightDimension: .absolute(240)
-          )
-          
-          // Create group that repeats items
-          let group = NSCollectionLayoutGroup.horizontal(
-              layoutSize: groupSize,
-              repeatingSubitem: item,
-              count: 1  // Each group contains 1 item, but will repeat
-          )
-          
-          // Section Configuration
-          let section = NSCollectionLayoutSection(group: group)
-          section.orthogonalScrollingBehavior = .continuous
-          section.interGroupSpacing = 10  // Space between groups
-          section.contentInsets = NSDirectionalEdgeInsets(
-              top: 0,
-              leading: 16,
-              bottom: 16,
-              trailing: 16
-          )
-          
-          // Header
+            return section
+
+        } else {
+            // **Layout for Product Cells or Loading Placeholders**
+
+            // Item Size
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .absolute(150),
+                heightDimension: .absolute(220)  // Adjusted height to match your design
+            )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
+
+            // Group Size
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .estimated(150),
+                heightDimension: .absolute(240)
+            )
+
+            // Create group that repeats items
+            let group = NSCollectionLayoutGroup.horizontal(
+                layoutSize: groupSize,
+                repeatingSubitem: item,
+                count: 1
+            )
+
+            // Section Configuration
+            let section = NSCollectionLayoutSection(group: group)
+            section.orthogonalScrollingBehavior = .continuous
+            section.interGroupSpacing = 10  // Space between groups
+            section.contentInsets = NSDirectionalEdgeInsets(
+                top: 0,
+                leading: 16,
+                bottom: 16,
+                trailing: 16
+            )
+
+            // Header for Product Sections (excluding the loading placeholder section)
           let headerSize = NSCollectionLayoutSize(
-              widthDimension: .fractionalWidth(1.0),
-              heightDimension: .absolute(40)
-          )
-          let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-              layoutSize: headerSize,
-              elementKind: SectionHeaderViewModel.kind,
-              alignment: .topLeading
-          )
-          section.boundarySupplementaryItems = [sectionHeader]
-          
-          return section
-      }
-      }
-      
-      return layout
-  }
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .absolute(40)
+                )
+                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: headerSize,
+                    elementKind: SectionHeaderViewModel.kind,
+                    alignment: .topLeading
+                )
+                section.boundarySupplementaryItems = [sectionHeader]
+            
+
+            return section
+        }
+    }
+
+    return layout
+}
+
   
   
   private func configureAppearance() {
@@ -346,6 +395,7 @@ class HomeViewController: UIViewController {
     searchController.searchBar.placeholder = "Search bikes"
     navigationItem.searchController = searchController
     definesPresentationContext = true
+    navigationItem.hidesSearchBarWhenScrolling = false
   }
   
   @objc func cartButtonTapped() {
@@ -391,7 +441,15 @@ extension HomeViewController: CellEventCoordinator {
             // Update collection view
             updateCollectionView()
         } else if let productVM = viewModel as? BikeProductCellViewModel {
-            coordinator.showDetailViewController(for: productVM.product)
+          coordinator.showDetailViewController(for: productVM.product ??       Product(
+            id: "PLACEHOLDER-001",
+            name: "Loading...",
+            description: "Loading product details...",
+            images: ["placeholder_image"],
+            price: 0,
+            brand: "Loading...",
+            quantity: 0
+        ))
         }
     }
 }

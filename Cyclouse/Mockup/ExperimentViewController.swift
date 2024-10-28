@@ -273,26 +273,28 @@ import EasyNotificationBadge
 ////}
 
 struct SectionHeaderViewModel: SupplementaryHeaderViewModel {
-  typealias ViewType = UICollectionReusableView
-  let id: UniqueIdentifier
-  let title: String
-  
-  func configure(view: UICollectionReusableView) {
-    view.subviews.forEach { $0.removeFromSuperview() }
-    
-    let label = UILabel()
-    label.text = title
-    label.textColor = .white
-    label.font = ThemeFont.semibold(ofSize: 14)
-    label.translatesAutoresizingMaskIntoConstraints = false
-    
-    view.addSubview(label)
-    
-    NSLayoutConstraint.activate([
-      label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-      label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-    ])
-  }
+    typealias ViewType = ReusableSectionHeaderView
+    let id: UniqueIdentifier
+    let title: String?
+    let isLoading: Bool
+
+    // Initializer for real data
+    init(id: UniqueIdentifier, title: String) {
+        self.id = id
+        self.title = title
+        self.isLoading = false
+    }
+
+    // Initializer for placeholder (loading) state
+    init(id: UniqueIdentifier, isLoading: Bool) {
+        self.id = id
+        self.title = nil
+        self.isLoading = isLoading
+    }
+
+    func configure(view: ReusableSectionHeaderView) {
+        view.configure(with: title, isLoading: isLoading)
+    }
 }
 
 
@@ -312,16 +314,53 @@ extension SectionHeaderViewModel {
 }
 
 // Custom reusable view for the header
+import SkeletonView
+
 class ReusableSectionHeaderView: UICollectionReusableView {
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    // Additional setup if needed
-  }
-  
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+    private let label = UILabel()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+        setupSkeletonView()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupViews()
+        setupSkeletonView()
+    }
+
+    private func setupViews() {
+        label.textColor = .white
+        label.font = ThemeFont.semibold(ofSize: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+        addSubview(label)
+
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            label.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+    }
+
+    private func setupSkeletonView() {
+        isSkeletonable = true
+        label.isSkeletonable = true
+        label.linesCornerRadius = 8
+    }
+
+    func configure(with title: String?, isLoading: Bool) {
+        if isLoading {
+            label.text = nil
+            label.showAnimatedGradientSkeleton()
+        } else {
+            label.text = title
+            label.hideSkeleton()
+        }
+    }
 }
+
 
 struct Item: Hashable {
   let id: UUID
