@@ -25,7 +25,7 @@ class HomeViewController: UIViewController {
   let allCategories = ["All", "Full Bike", "Handlebar", "Saddle", "Pedal", "Seatpost", "Stem", "Crank", "Wheelset", "Frame", "Tires"]
   var selectedCategory: String? = nil
 
-  var collectionView: UICollectionView!
+  
   private var cancellable = Set<AnyCancellable>()
   var coordinator: HomeCoordinator
   private let service = DatabaseService.shared
@@ -40,6 +40,12 @@ class HomeViewController: UIViewController {
   
   private var searchController: UISearchController!
   
+  private lazy var collectionView: UICollectionView = {
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeLayout())
+    collectionView.backgroundColor = .clear
+    return collectionView
+  }()
+  
   init(coordinator: HomeCoordinator) {
     self.coordinator = coordinator
     super.init(nibName: nil, bundle: nil)
@@ -53,34 +59,10 @@ class HomeViewController: UIViewController {
     super.viewDidLoad()
     view.backgroundColor = ThemeColor.background
     configureAppearance()
-//    setupViews()
-//    setupLayout()
     setupNavigationVar()
-//    setupDatabaseObserver()
+    setupCollectionView()
     updateBadge()
     loadUserProfile()
-    
-    
-    collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeLayout())
-    collectionView.backgroundColor = .clear
-    
-    // Add to view hierarchy
-    view.addSubview(collectionView)
-    collectionView.translatesAutoresizingMaskIntoConstraints = false
-    
-    NSLayoutConstraint.activate([
-      collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-      collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-      collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-    ])
-    
-    // Initialize the driver
-    driver = CollectionViewDriver(
-      view: collectionView,
-      viewModel: makeViewModel(),
-      cellEventCoordinator: self
-    )
     isLoading = true
       updateCollectionView()
       simulateLoading()
@@ -91,6 +73,15 @@ class HomeViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     updateBadge()
+  }
+  
+  private func setupCollectionView(){
+    view.addSubview(collectionView)
+    collectionView.snp.makeConstraints {
+      $0.left.right.top.bottom.equalToSuperview()
+    }
+    
+    driver = CollectionViewDriver(view: collectionView, viewModel: makeViewModel(), cellEventCoordinator: self)
   }
   
   private func simulateLoading() {
