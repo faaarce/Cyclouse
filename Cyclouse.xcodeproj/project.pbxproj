@@ -106,6 +106,7 @@
 		C19370652C8B69ED00B56BA1 /* ThemeFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19370642C8B69ED00B56BA1 /* ThemeFont.swift */; };
 		C19370672C8B72BA00B56BA1 /* ButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19370662C8B72BA00B56BA1 /* ButtonFactory.swift */; };
 		C19370692C8B73D900B56BA1 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19370682C8B73D900B56BA1 /* UIView+Extension.swift */; };
+		C193706B2C8B7A7B00B56BA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C193706A2C8B7A7B00B56BA1 /* Assets.xcassets */; };
 		C19465582C8C087100171932 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19465572C8C087100171932 /* PaddedTextField.swift */; };
 		C194655C2C8C20AB00171932 /* CustomInputFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C194655B2C8C20AB00171932 /* CustomInputFieldView.swift */; };
 		C19465682C8CBF6F00171932 /* HorizontalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19465672C8CBF6F00171932 /* HorizontalViewCell.swift */; };
@@ -127,9 +128,6 @@
 		C1D0B28A2CCA1DC3007C294A /* ExperimentCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D0B2872CCA1DC3007C294A /* ExperimentCellViewModel.swift */; };
 		C1D1BE4E2C8E170A00E73A92 /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D1BE4D2C8E170900E73A92 /* HeaderReusableView.swift */; };
 		C1D1BE512C8EE70D00E73A92 /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D1BE502C8EE70D00E73A92 /* CategoryViewCell.swift */; };
-		C1DC8F572CCFFF2E009BEA1F /* LaunchScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1DC8F562CCFFF2E009BEA1F /* LaunchScreen.xcassets */; };
-		C1DC8F592CD0030D009BEA1F /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DC8F582CD0030D009BEA1F /* SplashScreen.swift */; };
-		C1DC8F5B2CD0035E009BEA1F /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DC8F5A2CD0035E009BEA1F /* SplashViewController.swift */; };
 		C1DF47EB2C9C9310004F5751 /* SignUpCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF47EA2C9C9305004F5751 /* SignUpCoordinator.swift */; };
 		C1DF47ED2C9C9379004F5751 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF47EC2C9C9379004F5751 /* SignUpViewController.swift */; };
 		C1EAE3A32CBC11530032DE1B /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = C1EAE3A22CBC11530032DE1B /* SkeletonView */; };
@@ -212,7 +210,7 @@
 		C1936FF92C898D1C00B56BA1 /* Cyclouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cyclouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1936FFC2C898D1C00B56BA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1936FFE2C898D1C00B56BA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C19370082C898D1D00B56BA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/LaunchScreen 3.storyboard"; sourceTree = "<group>"; };
+		C19370082C898D1D00B56BA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C193700A2C898D1D00B56BA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C19370102C8991A700B56BA1 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		C19370122C89941600B56BA1 /* HandleDeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleDeepLink.swift; sourceTree = "<group>"; };
@@ -243,6 +241,7 @@
 		C19370642C8B69ED00B56BA1 /* ThemeFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeFont.swift; sourceTree = "<group>"; };
 		C19370662C8B72BA00B56BA1 /* ButtonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFactory.swift; sourceTree = "<group>"; };
 		C19370682C8B73D900B56BA1 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		C193706A2C8B7A7B00B56BA1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C19465572C8C087100171932 /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
 		C194655B2C8C20AB00171932 /* CustomInputFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInputFieldView.swift; sourceTree = "<group>"; };
 		C19465672C8CBF6F00171932 /* HorizontalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalViewCell.swift; sourceTree = "<group>"; };
@@ -259,9 +258,6 @@
 		C1D0B2882CCA1DC3007C294A /* ExperimentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentViewController.swift; sourceTree = "<group>"; };
 		C1D1BE4D2C8E170900E73A92 /* HeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderReusableView.swift; sourceTree = "<group>"; };
 		C1D1BE502C8EE70D00E73A92 /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
-		C1DC8F562CCFFF2E009BEA1F /* LaunchScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LaunchScreen.xcassets; sourceTree = "<group>"; };
-		C1DC8F582CD0030D009BEA1F /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
-		C1DC8F5A2CD0035E009BEA1F /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		C1DF47EA2C9C9305004F5751 /* SignUpCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpCoordinator.swift; sourceTree = "<group>"; };
 		C1DF47EC2C9C9379004F5751 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C1EDE5A62CAB396200816876 /* AddToCartResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToCartResponse.swift; sourceTree = "<group>"; };
@@ -720,7 +716,6 @@
 		C1936FFB2C898D1C00B56BA1 /* Cyclouse */ = {
 			isa = PBXGroup;
 			children = (
-				C19370072C898D1D00B56BA1 /* LaunchScreen.storyboard */,
 				C1EE51A02CC57E5A00280BBC /* Mockup */,
 				C19370382C8A09A000B56BA1 /* Resources */,
 				C19370162C89960700B56BA1 /* Core */,
@@ -729,9 +724,6 @@
 				C19370182C89967300B56BA1 /* Services */,
 				C19370172C89960F00B56BA1 /* Features */,
 				C193700A2C898D1D00B56BA1 /* Info.plist */,
-				C1DC8F562CCFFF2E009BEA1F /* LaunchScreen.xcassets */,
-				C1DC8F582CD0030D009BEA1F /* SplashScreen.swift */,
-				C1DC8F5A2CD0035E009BEA1F /* SplashViewController.swift */,
 			);
 			path = Cyclouse;
 			sourceTree = "<group>";
@@ -860,6 +852,8 @@
 			isa = PBXGroup;
 			children = (
 				C104D2112CC546CD006EB92B /* Animations */,
+				C193706A2C8B7A7B00B56BA1 /* Assets.xcassets */,
+				C19370072C898D1D00B56BA1 /* LaunchScreen.storyboard */,
 				C193703A2C8A09AD00B56BA1 /* Images */,
 				C19370392C8A09A700B56BA1 /* Fonts */,
 			);
@@ -1125,12 +1119,12 @@
 				C19370422C8A0C9400B56BA1 /* Manrope-SemiBold.ttf in Resources */,
 				C17D7D9B2C981C8D00868F1E /* PlusJakartaSans-Bold.ttf in Resources */,
 				C19370462C8A0C9400B56BA1 /* Manrope-Medium.ttf in Resources */,
+				C193706B2C8B7A7B00B56BA1 /* Assets.xcassets in Resources */,
 				C17D7DA92C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf in Resources */,
 				C17D7D9D2C981C9C00868F1E /* PlusJakartaSans-ExtraBold.ttf in Resources */,
 				C17D7DA52C981CF900868F1E /* PlusJakartaSans-Medium.ttf in Resources */,
 				C19370092C898D1D00B56BA1 /* Base in Resources */,
 				C19370472C8A0C9400B56BA1 /* Manrope-ExtraBold.ttf in Resources */,
-				C1DC8F572CCFFF2E009BEA1F /* LaunchScreen.xcassets in Resources */,
 				C17D7DA12C981CB900868F1E /* PlusJakartaSans-Light.ttf in Resources */,
 				C104D2102CC54370006EB92B /* cycle.json in Resources */,
 				C19370452C8A0C9400B56BA1 /* Manrope-Bold.ttf in Resources */,
@@ -1205,7 +1199,6 @@
 				C1956D122CABC70600642FF8 /* TokenManager.swift in Sources */,
 				C1D1BE4E2C8E170A00E73A92 /* HeaderReusableView.swift in Sources */,
 				C19370692C8B73D900B56BA1 /* UIView+Extension.swift in Sources */,
-				C1DC8F5B2CD0035E009BEA1F /* SplashViewController.swift in Sources */,
 				C13D90D62C9218D100430BA4 /* APIKeys.swift in Sources */,
 				C1C582AB2CBBACD500280F6F /* PaymentCoordinator.swift in Sources */,
 				C15B51422CBAC53E00892DBD /* Double + Extension.swift in Sources */,
@@ -1241,7 +1234,6 @@
 				C1EE5EC42CAEB30100856B94 /* CoreDataManagerError.swift in Sources */,
 				C1EE51A22CC57E7A00280BBC /* TestingViewController.swift in Sources */,
 				C1EE5EC52CAEB30100856B94 /* CoreDataManager + CRUD.swift in Sources */,
-				C1DC8F592CD0030D009BEA1F /* SplashScreen.swift in Sources */,
 				C1EE5EC62CAEB30100856B94 /* CoreDataManager.swift in Sources */,
 				C193702D2C89E97B00B56BA1 /* ProfileCoordinator.swift in Sources */,
 				C1464C592C92B41800F945BA /* CartViewCell.swift in Sources */,
@@ -1402,7 +1394,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cyclouse/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "LaunchScreen 3";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1429,7 +1421,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cyclouse/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "LaunchScreen 3";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
