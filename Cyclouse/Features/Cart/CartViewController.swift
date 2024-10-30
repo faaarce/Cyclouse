@@ -32,7 +32,7 @@ class CartViewController: UIViewController {
   
   private lazy var emptyStateView: EmptyStateView = {
     let view = EmptyStateView()
-    view.delegate = self // Conform to EmptyStateViewDelegate if needed
+    view.delegate = self
     return view
   }()
   

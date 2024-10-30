@@ -14,10 +14,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    configureAppearance()
+    return true
+  }
+  
+  func configureAppearance() {
     UINavigationBar.appearance().barTintColor = ThemeColor.background
     UITabBar.appearance().barTintColor = ThemeColor.background
   
-    return true
   }
 
   // MARK: UISceneSession Lifecycle
