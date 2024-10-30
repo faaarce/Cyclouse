@@ -59,16 +59,3 @@ enum CheckoutAPI: API  {
   
 }
 
-
-/*
- [
-  "items": cart.items.map { ["productId": $0.productId, "quantity": $0.quantity] },
-  "shippingAddress": [
-      "street": cart.shippingAddress.street,
-      "city": cart.shippingAddress.city,
-      "state": cart.shippingAddress.state,
-      "zipCode": cart.shippingAddress.zipCode,
-      "country": cart.shippingAddress.country
-  ]
-]
- */

@@ -31,6 +31,8 @@
 		C15B51402CBAB40300892DBD /* Integer + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15B513F2CBAB40300892DBD /* Integer + Extension.swift */; };
 		C15B51422CBAC53E00892DBD /* Double + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15B51412CBAC53E00892DBD /* Double + Extension.swift */; };
 		C15F0B7C2CBC27E800F5ACC3 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15F0B7B2CBC27E800F5ACC3 /* Dummy.swift */; };
+		C162D4362CD2420700DBA8CC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C162D4352CD2420700DBA8CC /* MapViewController.swift */; };
+		C162D4382CD243B900DBA8CC /* MapViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C162D4372CD243B900DBA8CC /* MapViewCoordinator.swift */; };
 		C16468B22CD0984700876224 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16468B12CD0984700876224 /* CheckoutViewController.swift */; };
 		C16468B42CD0985D00876224 /* CheckoutCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16468B32CD0985D00876224 /* CheckoutCoordinator.swift */; };
 		C16468B82CD09CBD00876224 /* CheckoutAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16468B72CD09CBD00876224 /* CheckoutAPI.swift */; };
@@ -177,6 +179,8 @@
 		C15B513F2CBAB40300892DBD /* Integer + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Integer + Extension.swift"; sourceTree = "<group>"; };
 		C15B51412CBAC53E00892DBD /* Double + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double + Extension.swift"; sourceTree = "<group>"; };
 		C15F0B7B2CBC27E800F5ACC3 /* Dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
+		C162D4352CD2420700DBA8CC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		C162D4372CD243B900DBA8CC /* MapViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewCoordinator.swift; sourceTree = "<group>"; };
 		C16468B12CD0984700876224 /* CheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		C16468B32CD0985D00876224 /* CheckoutCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutCoordinator.swift; sourceTree = "<group>"; };
 		C16468B72CD09CBD00876224 /* CheckoutAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutAPI.swift; sourceTree = "<group>"; };
@@ -488,6 +492,8 @@
 			isa = PBXGroup;
 			children = (
 				C16468B12CD0984700876224 /* CheckoutViewController.swift */,
+				C162D4352CD2420700DBA8CC /* MapViewController.swift */,
+				C162D4372CD243B900DBA8CC /* MapViewCoordinator.swift */,
 				C16468B32CD0985D00876224 /* CheckoutCoordinator.swift */,
 			);
 			path = Checkout;
@@ -1229,7 +1235,9 @@
 				C19370282C89A22700B56BA1 /* SignInViewController.swift in Sources */,
 				C19370112C8991A700B56BA1 /* Coordinator.swift in Sources */,
 				C13D90CA2C91EEA200430BA4 /* DetailCoordinator.swift in Sources */,
+				C162D4362CD2420700DBA8CC /* MapViewController.swift in Sources */,
 				C19370652C8B69ED00B56BA1 /* ThemeFont.swift in Sources */,
+				C162D4382CD243B900DBA8CC /* MapViewCoordinator.swift in Sources */,
 				C1EDE5A92CAB3C8000816876 /* CartRepository.swift in Sources */,
 				C18F51622C9D1A1000E60C0D /* Email.swift in Sources */,
 				C18F51632C9D1A1000E60C0D /* Password.swift in Sources */,
@@ -1481,6 +1489,9 @@
 				DEVELOPMENT_TEAM = 7AS32Y773Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cyclouse/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Cyclouse need your location to show delivery options";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Cyclouse need your location to show delivery options";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Cyclouse need your location to show delivery options";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1508,6 +1519,9 @@
 				DEVELOPMENT_TEAM = 7AS32Y773Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cyclouse/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Cyclouse need your location to show delivery options";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Cyclouse need your location to show delivery options";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Cyclouse need your location to show delivery options";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
