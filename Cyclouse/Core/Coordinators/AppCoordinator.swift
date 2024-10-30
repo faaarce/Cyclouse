@@ -25,6 +25,14 @@ class AppCoordinator: Coordinator {
     }
   }
   
+  func showOnboarding() {
+       childCoordinators.removeAll()
+       let onboardingCoordinator = OnboardingCoordinator(navigationController: navigationController)
+       onboardingCoordinator.parentCoordinator = self
+       addChildCoordinator(onboardingCoordinator)
+       onboardingCoordinator.start()
+   }
+  
   func showMainTabbar() {
     let tabbarController = UITabBarController()
     let coordinator = TabbarCoordinator(tabBarController: tabbarController)

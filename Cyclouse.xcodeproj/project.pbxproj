@@ -33,6 +33,7 @@
 		C15F0B7C2CBC27E800F5ACC3 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15F0B7B2CBC27E800F5ACC3 /* Dummy.swift */; };
 		C162D4362CD2420700DBA8CC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C162D4352CD2420700DBA8CC /* MapViewController.swift */; };
 		C162D4382CD243B900DBA8CC /* MapViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C162D4372CD243B900DBA8CC /* MapViewCoordinator.swift */; };
+		C162D43A2CD2522600DBA8CC /* fixedgear.json in Resources */ = {isa = PBXBuildFile; fileRef = C162D4392CD2522600DBA8CC /* fixedgear.json */; };
 		C16468B22CD0984700876224 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16468B12CD0984700876224 /* CheckoutViewController.swift */; };
 		C16468B42CD0985D00876224 /* CheckoutCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16468B32CD0985D00876224 /* CheckoutCoordinator.swift */; };
 		C16468B82CD09CBD00876224 /* CheckoutAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16468B72CD09CBD00876224 /* CheckoutAPI.swift */; };
@@ -181,6 +182,7 @@
 		C15F0B7B2CBC27E800F5ACC3 /* Dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
 		C162D4352CD2420700DBA8CC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C162D4372CD243B900DBA8CC /* MapViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewCoordinator.swift; sourceTree = "<group>"; };
+		C162D4392CD2522600DBA8CC /* fixedgear.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = fixedgear.json; sourceTree = "<group>"; };
 		C16468B12CD0984700876224 /* CheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		C16468B32CD0985D00876224 /* CheckoutCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutCoordinator.swift; sourceTree = "<group>"; };
 		C16468B72CD09CBD00876224 /* CheckoutAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutAPI.swift; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 		C104D2112CC546CD006EB92B /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				C162D4392CD2522600DBA8CC /* fixedgear.json */,
 				C104D20F2CC54370006EB92B /* cycle.json */,
 			);
 			path = Animations;
@@ -1207,6 +1210,7 @@
 				C19370462C8A0C9400B56BA1 /* Manrope-Medium.ttf in Resources */,
 				C193706B2C8B7A7B00B56BA1 /* Assets.xcassets in Resources */,
 				C17D7DA92C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf in Resources */,
+				C162D43A2CD2522600DBA8CC /* fixedgear.json in Resources */,
 				C17D7D9D2C981C9C00868F1E /* PlusJakartaSans-ExtraBold.ttf in Resources */,
 				C17D7DA52C981CF900868F1E /* PlusJakartaSans-Medium.ttf in Resources */,
 				C19370092C898D1D00B56BA1 /* Base in Resources */,
