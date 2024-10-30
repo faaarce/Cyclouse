@@ -39,35 +39,43 @@ enum APIManagerError: Error {
 }
 
 class APIManager: APIService {
-    func request<T: Responseable>(_ api: any API, of: T.Type, includeHeaders: Bool = false) -> AnyPublisher<APIResponse<T>, Error> {
-      AF.request(api.url, method: api.method, parameters: api.params, headers: api.headers)
-            .publishDecodable(type: T.self)
-            .tryMap { response -> APIResponse<T> in
-              if let statusCode = response.response?.statusCode, statusCode >= 400 {
-                throw self.handleHTTPError(statusCode: statusCode, data: response.data)
-              }
-                switch response.result {
-                case .success(let value):
-                    if value.success {
-                        let headers = includeHeaders ? response.response?.headers.dictionary : nil
-                      
-                      return APIResponse<T>(value: value, httpResponse: response.response) //Generic parameter 'T' could not be inferred
-                    } else {
-                      throw APIError.serverError(value.message)
-                    }
-                case .failure(let error):
-              
-                  throw self.handleAlamofireError(error)
-                }
-            }
-            .mapError { error -> Error in
-                if let error = error as? APIError {
-                  return error
-                }
-              return APIError.unknownError(error.localizedDescription)
-            }
-            .eraseToAnyPublisher()
-    }
+  func request<T: Responseable>(_ api: any API, of: T.Type, includeHeaders: Bool = false) -> AnyPublisher<APIResponse<T>, Error> {
+         // Choose encoder based on jsonEncoder flag
+         let encoding: ParameterEncoding = api.jsonEncoder ?
+             JSONEncoding.default : URLEncoding.default
+         
+         return AF.request(
+             api.url,
+             method: api.method,
+             parameters: api.params,
+             encoding: encoding,  // Use the appropriate encoding
+             headers: api.headers
+         )
+         .publishDecodable(type: T.self)
+         .tryMap { response -> APIResponse<T> in
+             if let statusCode = response.response?.statusCode, statusCode >= 400 {
+                 throw self.handleHTTPError(statusCode: statusCode, data: response.data)
+             }
+             
+             switch response.result {
+             case .success(let value):
+                 if value.success {
+                     return APIResponse<T>(value: value, httpResponse: response.response)
+                 } else {
+                     throw APIError.serverError(value.message)
+                 }
+             case .failure(let error):
+                 throw self.handleAlamofireError(error)
+             }
+         }
+         .mapError { error -> Error in
+             if let error = error as? APIError {
+                 return error
+             }
+             return APIError.unknownError(error.localizedDescription)
+         }
+         .eraseToAnyPublisher()
+     }
   
   private func handleHTTPError(statusCode: Int, data: Data?) -> APIError {
        if let data = data,

@@ -12,7 +12,15 @@ protocol API {
   var method: HTTPMethod { get }
   var params: Parameters? { get }
   var headers: HTTPHeaders? { get }
+  var jsonEncoder: Bool { get }
 }
+
+extension API {
+    var jsonEncoder: Bool {
+        return false // Default to false, which will use default encoding
+    }
+}
+
 
 struct APIResponse<T: Responseable> {
     let value: T
