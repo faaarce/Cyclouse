@@ -7,13 +7,17 @@
 
 import UIKit
 
+protocol OnboardingCoordinatorDelegate: AnyObject {
+  func onboardingComplete()
+}
+
 class OnboardingCoordinator: Coordinator, NavigationCoordinator {
   var childCoordinators: [any Coordinator] = []
   
   weak var parentCoordinator: (any Coordinator)?
   
   unowned var navigationController: UINavigationController
-  
+  weak var delegate: OnboardingCoordinatorDelegate?
   
   init(navigationController: UINavigationController) {
     self.navigationController = navigationController
@@ -24,7 +28,11 @@ class OnboardingCoordinator: Coordinator, NavigationCoordinator {
     navigationController.pushViewController(vc, animated: true)
   }
   
-  
+  func finishOnboarding() {
+        TokenManager.shared.setOnboardingComplete()
+        delegate?.onboardingComplete()
+        didFinish()
+    }
   
   
 }

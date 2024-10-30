@@ -45,4 +45,21 @@ class TokenManager {
       print("Error during logout: \(error)")
     }
   }
+  
+  func hasSeenOnboarding() -> Bool {
+         do {
+             return try valet.string(forKey: "hasSeenOnboarding") != nil
+         } catch {
+             print("Failed to retrieve onboarding state: \(error)")
+             return false
+         }
+     }
+     
+     func setOnboardingComplete() {
+         do {
+             try valet.setString("completed", forKey: "hasSeenOnboarding")
+         } catch {
+             print("Failed to store onboarding state: \(error)")
+         }
+     }
 }

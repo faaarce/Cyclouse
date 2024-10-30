@@ -74,7 +74,7 @@ class TabbarCoordinator: Coordinator {
     
     viewControllers[0].tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "home_icon_inactive"), selectedImage:  UIImage(named: "home_icon_active"))
     
-//    viewControllers[1].tabBarItem = UITabBarItem(title: "Cart", image: UIImage(systemName: "cart"), selectedImage: UIImage(systemName: "cart.fill"))
+
     viewControllers[1].tabBarItem = UITabBarItem(title: "Checkout", image: UIImage(named: "profile_icon_inactive"), selectedImage: UIImage(named: "profile_icon_active"))
     
     viewControllers[2].tabBarItem = UITabBarItem(title: "Checkout", image: UIImage(named: "profile_icon_inactive"), selectedImage: UIImage(named: "profile_icon_active"))

@@ -38,6 +38,7 @@ class OnboardingViewController: UIViewController {
       title: "Get Started",
       font: ThemeFont.semibold(ofSize: 14)
     )
+    button.addTarget(self, action: #selector(startedButtonTapped), for: .touchUpInside)
     return button
   }()
   
@@ -63,6 +64,11 @@ class OnboardingViewController: UIViewController {
     setupAnimation()
     customizeAnimationColors()
   }
+  
+  @objc private func startedButtonTapped() {
+      coordinator.finishOnboarding()
+  }
+
   
   private func layout() {
     self.view.addSubview(backgroundImage)
