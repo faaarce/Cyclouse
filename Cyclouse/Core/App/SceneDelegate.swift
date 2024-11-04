@@ -12,6 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   var window: UIWindow?
   var coordinator: Coordinator!
+  private let container = DependencyContainer.shared.container
   
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
@@ -22,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     window.makeKeyAndVisible()
     window.isHeroEnabled = true
     self.window = window
-    coordinator = AppCoordinator(navigationController: navigationController)
+    coordinator = container.resolve(AppCoordinator.self, argument: navigationController)
     coordinator?.start()
     
   }

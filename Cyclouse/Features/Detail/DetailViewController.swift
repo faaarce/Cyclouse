@@ -12,12 +12,9 @@ import Hero
 
 class DetailViewController: UIViewController {
   
-  var isLoading = true
-  
-  let service = DatabaseService.shared
-  var coordinator: DetailCoordinator
-  let product: Product
-  private let cartService: CartService
+  // MARK: - Properties
+  private let viewModel: DetailViewModel
+  private var coordinator: DetailCoordinator
   private var cancellables = Set<AnyCancellable>()
   
   private let detailImage: UIImageView = {
@@ -136,19 +133,17 @@ class DetailViewController: UIViewController {
     setupViews()
     layout()
     configureDescriptionTextView()
-//    configureSkeleton()
-    
-    self.configureViews()
+    bind()
+    configureViews()
     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-      self.isLoading = false
-//      self.hideSkeleton()
+      self.viewModel.isLoading = false
+      
     }
   }
   
-  init(coordinator: DetailCoordinator, product: Product, cartService: CartService = CartService()) {
+  init(coordinator: DetailCoordinator, viewModel: DetailViewModel) {
     self.coordinator = coordinator
-    self.product = product
-    self.cartService = cartService
+    self.viewModel = viewModel
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -156,31 +151,65 @@ class DetailViewController: UIViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
-  private func showMessage(title: String, body: String, theme: Theme, backgroundColor: UIColor? = nil, foregroundColor: UIColor? = nil) {
-          let view = MessageView.viewFromNib(layout: .cardView)
-          view.configureTheme(theme)
-          view.configureDropShadow()
-          
-          if let backgroundColor = backgroundColor {
-              view.backgroundColor = backgroundColor
-          }
-          
-          if let foregroundColor = foregroundColor {
-              view.titleLabel?.textColor = foregroundColor
-              view.bodyLabel?.textColor = foregroundColor
-          }
-          
-          view.configureContent(title: title, body: body)
-          view.button?.isHidden = true
-          
-          var config = SwiftMessages.Config()
-          config.presentationStyle = .top
-          config.duration = .seconds(seconds: 3)
-          config.dimMode = .gray(interactive: true)
-          config.interactiveHide = true
-          
-          SwiftMessages.show(config: config, view: view)
+  // MARK: - Private Methods
+  private func bind() {
+    viewModel.$isLoading
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] isLoading in
+        if isLoading {
+          // self?.configureSkeleton()
+        } else {
+          // self?.hideSkeleton()
+        }
       }
+      .store(in: &cancellables)
+    
+    viewModel.$showError
+      .receive(on: DispatchQueue.main)
+      .compactMap { $0 }
+      .sink { [weak self] error in
+        self?.showMessage(title: error.title,
+                          body: error.message,
+                          theme: .error)
+      }
+      .store(in: &cancellables)
+    
+    viewModel.$showSuccess
+      .receive(on: DispatchQueue.main)
+      .compactMap { $0 }
+      .sink { [weak self] success in
+        self?.showMessage(title: success.title,
+                          body: success.message,
+                          theme: .success)
+      }
+      .store(in: &cancellables)
+  }
+  
+  private func showMessage(title: String, body: String, theme: Theme, backgroundColor: UIColor? = nil, foregroundColor: UIColor? = nil) {
+    let view = MessageView.viewFromNib(layout: .cardView)
+    view.configureTheme(theme)
+    view.configureDropShadow()
+    
+    if let backgroundColor = backgroundColor {
+      view.backgroundColor = backgroundColor
+    }
+    
+    if let foregroundColor = foregroundColor {
+      view.titleLabel?.textColor = foregroundColor
+      view.bodyLabel?.textColor = foregroundColor
+    }
+    
+    view.configureContent(title: title, body: body)
+    view.button?.isHidden = true
+    
+    var config = SwiftMessages.Config()
+    config.presentationStyle = .top
+    config.duration = .seconds(seconds: 3)
+    config.dimMode = .gray(interactive: true)
+    config.interactiveHide = true
+    
+    SwiftMessages.show(config: config, view: view)
+  }
   
   private func configureSkeleton() {
     // Make views skeletonable
@@ -196,7 +225,7 @@ class DetailViewController: UIViewController {
     // Configure text views for skeleton
     priceLabel.linesCornerRadius = 8
     productTitleLabel.linesCornerRadius = 8
-//    descriptionTextView.skeletonTextLineHeight = .fixed(5)
+    //    descriptionTextView.skeletonTextLineHeight = .fixed(5)
     descriptionTextView.skeletonTextNumberOfLines = 1
     
     // Show skeleton
@@ -204,58 +233,9 @@ class DetailViewController: UIViewController {
     view.showAnimatedGradientSkeleton()
   }
   
-  @objc func addToCartButtonTapped(_ sender: UIButton) {
-    
-    
-    let bikeProduct = BikeV2(
-      name: product.name,
-      price: product.price,
-      brand: product.brand,
-      images: product.images,
-      descriptions: product.description,
-      stockQuantity: product.quantity
-    )
-    
-    service.create(bikeProduct)
-      .receive(on: DispatchQueue.main)
-      .sink { completion in
-        switch completion {
-        case .finished:
-          break
-          
-        case .failure(let error):
-          self.showMessage(title: "Error", body: "Failed to add bike item: \(error.localizedDescription)", theme: .error)
-        }
-        
-      } receiveValue: { [weak self] response in
-        self?.showMessage(title: "Success", body: "Bike item added to cart", theme: .success)
-      }
-      .store(in: &cancellables)
+  @objc private func addToCartButtonTapped(_ sender: UIButton) {
+    viewModel.addToCart()
   }
-    /*  with Add to cart API
-     let productId = product.id
-     
-     cartService.addToCart(productId: productId, quantity: 1)
-     .receive(on: DispatchQueue.main)
-     .sink { [weak self] completion in
-     switch completion {
-     case .finished:
-     break
-     
-     case .failure(let error):
-     if let apiError = error as? APIError {
-     print("API Error: \(apiError.localizedDescription)")
-     } else {
-     print("Unknown error: \(error.localizedDescription)")
-     }
-     }
-     } receiveValue: { [weak self] response in
-     self?.showAlert(title: "Success", message: "Added to cart: \(response.value.message)")
-     }
-     .store(in: &cancellables)
-     */
-  
-
   
   private func showAlert(title: String, message: String) {
     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -272,34 +252,36 @@ class DetailViewController: UIViewController {
   }
   
   private func hideSkeleton() {
-        view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
-    }
+    view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+  }
   
-  func configureViews() {
-    productTitleLabel.text = product.name
-    descriptionTextView.text = product.description
-    priceLabel.text = product.price.toRupiah()
-    product.images.map { image in
+  private func configureViews() {
+    productTitleLabel.text = viewModel.productName
+    descriptionTextView.text = viewModel.productDescription
+    priceLabel.text = viewModel.productPrice
+    
+    viewModel.productImages.forEach { imageUrl in
       [detailImage, firstImage, secondImage, thirdImage, fourImage].forEach { display in
-        display.kf.setImage(with: URL(string: image))
+        display.kf.setImage(with: URL(string: imageUrl))
       }
     }
-    detailImage.heroID = "productImage_\(product.id)"
-    productTitleLabel.heroID = "productLabel_\(product.id)"
-    priceLabel.heroID = "priceLabel_\(product.id)"
+    
+    detailImage.heroID = "productImage_\(viewModel.productId)"
+    productTitleLabel.heroID = "productLabel_\(viewModel.productId)"
+    priceLabel.heroID = "priceLabel_\(viewModel.productId)"
   }
   
   func setupViews() {
-         [firstImage, secondImage, thirdImage, fourImage].forEach {
-             hImageStackView.addArrangedSubview($0)
-         }
-         [addToCartButton, buyNowButton].forEach { hButtonStackView.addArrangedSubview($0) }
-         
-         [hImageStackView, detailImage, priceLabel, productTitleLabel, descriptionTextView, hButtonStackView].forEach {
-             view.addSubview($0)
-           
-         }
-     }
+    [firstImage, secondImage, thirdImage, fourImage].forEach {
+      hImageStackView.addArrangedSubview($0)
+    }
+    [addToCartButton, buyNowButton].forEach { hButtonStackView.addArrangedSubview($0) }
+    
+    [hImageStackView, detailImage, priceLabel, productTitleLabel, descriptionTextView, hButtonStackView].forEach {
+      view.addSubview($0)
+      
+    }
+  }
   
   func layout() {
     detailImage.snp.makeConstraints {
@@ -352,3 +334,26 @@ class DetailViewController: UIViewController {
   }
   
 }
+/*  with Add to cart API
+ let productId = product.id
+ 
+ cartService.addToCart(productId: productId, quantity: 1)
+ .receive(on: DispatchQueue.main)
+ .sink { [weak self] completion in
+ switch completion {
+ case .finished:
+ break
+ 
+ case .failure(let error):
+ if let apiError = error as? APIError {
+ print("API Error: \(apiError.localizedDescription)")
+ } else {
+ print("Unknown error: \(error.localizedDescription)")
+ }
+ }
+ } receiveValue: { [weak self] response in
+ self?.showAlert(title: "Success", message: "Added to cart: \(response.value.message)")
+ }
+ .store(in: &cancellables)
+ */
+

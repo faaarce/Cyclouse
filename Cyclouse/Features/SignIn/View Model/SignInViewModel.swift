@@ -22,7 +22,7 @@ class SignInViewModel: ObservableObject {
   private let authService: AuthServiceProtocol
   private var cancellables = Set<AnyCancellable>()
   
-  init(authService: AuthServiceProtocol = AuthService()) {
+  init(authService: AuthServiceProtocol) {
     self.authService = authService
     setupBindings()
   }

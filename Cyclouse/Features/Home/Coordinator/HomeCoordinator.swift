@@ -4,7 +4,7 @@
 //
 //  Created by yoga arie on 05/09/24.
 //
-
+import Swinject
 import UIKit
 
 class HomeCoordinator: Coordinator, NavigationCoordinator {
@@ -12,9 +12,11 @@ class HomeCoordinator: Coordinator, NavigationCoordinator {
   
   weak var parentCoordinator: (any Coordinator)?
   unowned var navigationController: UINavigationController
+  private let container: Container
   
-  init(navigationController: UINavigationController) {
+  init(navigationController: UINavigationController, container: Container) {
     self.navigationController = navigationController
+    self.container = container
   }
   
   func start() {
@@ -24,7 +26,10 @@ class HomeCoordinator: Coordinator, NavigationCoordinator {
   }
   
   func showDetailViewController(for product: Product) {
-    let detailCoordinator = DetailCoordinator(navigationController: navigationController, product: product)
+    let detailCoordinator = container.resolve(
+               DetailCoordinator.self,
+               arguments: navigationController, product
+           )!
     addChildCoordinator(detailCoordinator)
     detailCoordinator.parentCoordinator = self
     detailCoordinator.start()

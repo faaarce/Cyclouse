@@ -34,6 +34,14 @@
 		C162D4362CD2420700DBA8CC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C162D4352CD2420700DBA8CC /* MapViewController.swift */; };
 		C162D4382CD243B900DBA8CC /* MapViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C162D4372CD243B900DBA8CC /* MapViewCoordinator.swift */; };
 		C162D43A2CD2522600DBA8CC /* fixedgear.json in Resources */ = {isa = PBXBuildFile; fileRef = C162D4392CD2522600DBA8CC /* fixedgear.json */; };
+		C162D43C2CD2B31300DBA8CC /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C162D43B2CD2B31300DBA8CC /* DetailViewModel.swift */; };
+		C162D4422CD2BBC400DBA8CC /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C162D4412CD2BBC400DBA8CC /* DependencyContainer.swift */; };
+		C162D4442CD2BBD000DBA8CC /* ServicesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = C162D4432CD2BBD000DBA8CC /* ServicesAssembly.swift */; };
+		C162D4462CD2BBE000DBA8CC /* ViewModelsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = C162D4452CD2BBE000DBA8CC /* ViewModelsAssembly.swift */; };
+		C162D4482CD2BBF700DBA8CC /* CoordinatorsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = C162D4472CD2BBF700DBA8CC /* CoordinatorsAssembly.swift */; };
+		C162D44A2CD2BC0500DBA8CC /* RepositoriesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = C162D4492CD2BC0500DBA8CC /* RepositoriesAssembly.swift */; };
+		C162D44C2CD2BC1600DBA8CC /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C162D44B2CD2BC1600DBA8CC /* Resolver.swift */; };
+		C162D44F2CD2BCD600DBA8CC /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = C162D44E2CD2BCD600DBA8CC /* Swinject */; };
 		C16468B22CD0984700876224 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16468B12CD0984700876224 /* CheckoutViewController.swift */; };
 		C16468B42CD0985D00876224 /* CheckoutCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16468B32CD0985D00876224 /* CheckoutCoordinator.swift */; };
 		C16468B82CD09CBD00876224 /* CheckoutAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16468B72CD09CBD00876224 /* CheckoutAPI.swift */; };
@@ -183,6 +191,13 @@
 		C162D4352CD2420700DBA8CC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C162D4372CD243B900DBA8CC /* MapViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewCoordinator.swift; sourceTree = "<group>"; };
 		C162D4392CD2522600DBA8CC /* fixedgear.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = fixedgear.json; sourceTree = "<group>"; };
+		C162D43B2CD2B31300DBA8CC /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		C162D4412CD2BBC400DBA8CC /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
+		C162D4432CD2BBD000DBA8CC /* ServicesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesAssembly.swift; sourceTree = "<group>"; };
+		C162D4452CD2BBE000DBA8CC /* ViewModelsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelsAssembly.swift; sourceTree = "<group>"; };
+		C162D4472CD2BBF700DBA8CC /* CoordinatorsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorsAssembly.swift; sourceTree = "<group>"; };
+		C162D4492CD2BC0500DBA8CC /* RepositoriesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesAssembly.swift; sourceTree = "<group>"; };
+		C162D44B2CD2BC1600DBA8CC /* Resolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
 		C16468B12CD0984700876224 /* CheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		C16468B32CD0985D00876224 /* CheckoutCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutCoordinator.swift; sourceTree = "<group>"; };
 		C16468B72CD09CBD00876224 /* CheckoutAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutAPI.swift; sourceTree = "<group>"; };
@@ -309,6 +324,7 @@
 				C104D2142CC5537E006EB92B /* SwiftMessages in Frameworks */,
 				C1EE51A72CC67FCE00280BBC /* ReactiveCollectionsKit in Frameworks */,
 				C12213202CC2551B005F8421 /* Kingfisher in Frameworks */,
+				C162D44F2CD2BCD600DBA8CC /* Swinject in Frameworks */,
 				C151E8A72CA9B9BD000C6B73 /* Valet in Frameworks */,
 				C18F517C2C9D1E4900E60C0D /* Alamofire in Frameworks */,
 				C104D20E2CC541DC006EB92B /* Lottie in Frameworks */,
@@ -359,6 +375,7 @@
 			children = (
 				C12251C52CB6ED4A001278E6 /* Model */,
 				C13D90C72C91EE5400430BA4 /* DetailViewController.swift */,
+				C162D43B2CD2B31300DBA8CC /* DetailViewModel.swift */,
 				C13D90C92C91EEA200430BA4 /* DetailCoordinator.swift */,
 				C177238E2C954E6B0078E598 /* PopUpViewController.swift */,
 			);
@@ -489,6 +506,43 @@
 				C15F0B7B2CBC27E800F5ACC3 /* Dummy.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		C162D43D2CD2BADF00DBA8CC /* Dependency Injection */ = {
+			isa = PBXGroup;
+			children = (
+				C162D4402CD2BB6A00DBA8CC /* Resolver */,
+				C162D43F2CD2BB6200DBA8CC /* Container */,
+				C162D43E2CD2BB5B00DBA8CC /* Assembly */,
+			);
+			path = "Dependency Injection";
+			sourceTree = "<group>";
+		};
+		C162D43E2CD2BB5B00DBA8CC /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				C162D4432CD2BBD000DBA8CC /* ServicesAssembly.swift */,
+				C162D4452CD2BBE000DBA8CC /* ViewModelsAssembly.swift */,
+				C162D4472CD2BBF700DBA8CC /* CoordinatorsAssembly.swift */,
+				C162D4492CD2BC0500DBA8CC /* RepositoriesAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		C162D43F2CD2BB6200DBA8CC /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				C162D4412CD2BBC400DBA8CC /* DependencyContainer.swift */,
+			);
+			path = Container;
+			sourceTree = "<group>";
+		};
+		C162D4402CD2BB6A00DBA8CC /* Resolver */ = {
+			isa = PBXGroup;
+			children = (
+				C162D44B2CD2BC1600DBA8CC /* Resolver.swift */,
+			);
+			path = Resolver;
 			sourceTree = "<group>";
 		};
 		C16468B02CD097FC00876224 /* Checkout */ = {
@@ -818,6 +872,7 @@
 		C19370162C89960700B56BA1 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				C162D43D2CD2BADF00DBA8CC /* Dependency Injection */,
 				C13D90D12C9214BE00430BA4 /* Coordinators */,
 				C13D90D02C92145A00430BA4 /* App */,
 				C13D90CB2C9213B200430BA4 /* Common */,
@@ -1143,6 +1198,7 @@
 				C104D20D2CC541DC006EB92B /* Lottie */,
 				C104D2132CC5537E006EB92B /* SwiftMessages */,
 				C1EE51A62CC67FCE00280BBC /* ReactiveCollectionsKit */,
+				C162D44E2CD2BCD600DBA8CC /* Swinject */,
 			);
 			productName = Cyclouse;
 			productReference = C1936FF92C898D1C00B56BA1 /* Cyclouse.app */;
@@ -1188,6 +1244,7 @@
 				C104D20C2CC541DC006EB92B /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				C104D2122CC5537E006EB92B /* XCRemoteSwiftPackageReference "SwiftMessages" */,
 				C1EE51A52CC67FCE00280BBC /* XCRemoteSwiftPackageReference "ReactiveCollectionsKit" */,
+				C162D44D2CD2BCD600DBA8CC /* XCRemoteSwiftPackageReference "Swinject" */,
 			);
 			productRefGroup = C1936FFA2C898D1C00B56BA1 /* Products */;
 			projectDirPath = "";
@@ -1257,15 +1314,19 @@
 				C18F51682C9D1A1000E60C0D /* AuthenticationError.swift in Sources */,
 				C18F51692C9D1A1000E60C0D /* Validateable.swift in Sources */,
 				C1EDE5AD2CAB3CBA00816876 /* CartService.swift in Sources */,
+				C162D4442CD2BBD000DBA8CC /* ServicesAssembly.swift in Sources */,
 				C18F516A2C9D1A1000E60C0D /* User.swift in Sources */,
 				C1F0F2042CCD03C700B8AFDA /* CategoryCellViewModel.swift in Sources */,
 				C18F516B2C9D1A1000E60C0D /* Valueable.swift in Sources */,
 				C196DE4D2CAD0E7E00743EFB /* GetCartResponse.swift in Sources */,
 				C18F516C2C9D1A1000E60C0D /* AuthenticationNetworkRepository.swift in Sources */,
 				C16468BF2CD09DAD00876224 /* CheckoutResponse.swift in Sources */,
+				C162D43C2CD2B31300DBA8CC /* DetailViewModel.swift in Sources */,
 				C18F516D2C9D1A1000E60C0D /* SigninResponse.swift in Sources */,
 				C18F516E2C9D1A1000E60C0D /* AuthenticationRepository.swift in Sources */,
 				C1EE51A42CC57F0E00280BBC /* TestingCoordinator.swift in Sources */,
+				C162D4482CD2BBF700DBA8CC /* CoordinatorsAssembly.swift in Sources */,
+				C162D44A2CD2BC0500DBA8CC /* RepositoriesAssembly.swift in Sources */,
 				C18F516F2C9D1A1000E60C0D /* AuthenticationAPI.swift in Sources */,
 				C1EDE5AB2CAB3CA700816876 /* CartNetworkRepository.swift in Sources */,
 				C13D90DA2C9218E800430BA4 /* BuildConfiguration.swift in Sources */,
@@ -1281,6 +1342,7 @@
 				C18F518C2C9F341C00E60C0D /* LoadingViewController.swift in Sources */,
 				C13D90C82C91EE5400430BA4 /* DetailViewController.swift in Sources */,
 				C1EDE5A72CAB396200816876 /* AddToCartResponse.swift in Sources */,
+				C162D44C2CD2BC1600DBA8CC /* Resolver.swift in Sources */,
 				C1464C562C92A97900F945BA /* CartViewController.swift in Sources */,
 				C193702F2C89E98300B56BA1 /* ProfileViewController.swift in Sources */,
 				C1C582AD2CBBACDF00280F6F /* PaymentViewController.swift in Sources */,
@@ -1322,12 +1384,14 @@
 				C1705E0D2CA55C6D0043CE9D /* BikeRepository.swift in Sources */,
 				C1705E0E2CA55C6D0043CE9D /* BikeAPI.swift in Sources */,
 				C19370672C8B72BA00B56BA1 /* ButtonFactory.swift in Sources */,
+				C162D4462CD2BBE000DBA8CC /* ViewModelsAssembly.swift in Sources */,
 				C16468B22CD0984700876224 /* CheckoutViewController.swift in Sources */,
 				C16468BD2CD09D3100876224 /* CheckoutService.swift in Sources */,
 				C1F0F2252CCD177400B8AFDA /* BikeProductCellViewModel.swift in Sources */,
 				C193705A2C8ABAEE00B56BA1 /* UIColor+Extension.swift in Sources */,
 				C15F0B7C2CBC27E800F5ACC3 /* Dummy.swift in Sources */,
 				C19370612C8AE9AC00B56BA1 /* OnboardingCoordinator.swift in Sources */,
+				C162D4422CD2BBC400DBA8CC /* DependencyContainer.swift in Sources */,
 				C19370632C8B697200B56BA1 /* LabelFactory.swift in Sources */,
 				C1936FFD2C898D1C00B56BA1 /* AppDelegate.swift in Sources */,
 				C1EE5EC32CAEB30100856B94 /* Codable + Dictionary.swift in Sources */,
@@ -1607,6 +1671,14 @@
 				minimumVersion = 4.3.0;
 			};
 		};
+		C162D44D2CD2BCD600DBA8CC /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.1;
+			};
+		};
 		C17682772CBB9D4800065AD5 /* XCRemoteSwiftPackageReference "xendit-sdk-ios-src" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/xendit/xendit-sdk-ios-src";
@@ -1714,6 +1786,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C151E8A52CA9B9BD000C6B73 /* XCRemoteSwiftPackageReference "Valet" */;
 			productName = Valet;
+		};
+		C162D44E2CD2BCD600DBA8CC /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C162D44D2CD2BCD600DBA8CC /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
 		};
 		C17682782CBB9D4800065AD5 /* Xendit */ = {
 			isa = XCSwiftPackageProductDependency;

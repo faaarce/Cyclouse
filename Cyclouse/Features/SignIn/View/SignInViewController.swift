@@ -14,7 +14,7 @@ class SignInViewController: UIViewController {
   
   var coordinator: SignInCoordinator
   
-  private let viewModel = SignInViewModel()
+  private let viewModel : SignInViewModel
   
   private let authService = AuthenticationService()
   private var cancellables = Set<AnyCancellable>()
@@ -97,8 +97,9 @@ class SignInViewController: UIViewController {
     return view
   }()
   
-  init(coordinator: SignInCoordinator) {
+  init(coordinator: SignInCoordinator, viewModel: SignInViewModel) {
     self.coordinator = coordinator
+    self.viewModel = viewModel
     super.init(nibName: nil, bundle: nil)
   }
   

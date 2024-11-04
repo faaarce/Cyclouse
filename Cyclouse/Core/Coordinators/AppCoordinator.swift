@@ -7,6 +7,7 @@
 
 import UIKit
 import Valet
+import Swinject
 
 // MARK: - App Coordinator
 class AppCoordinator: Coordinator {
@@ -15,11 +16,13 @@ class AppCoordinator: Coordinator {
   weak var parentCoordinator: Coordinator?
   var childCoordinators = [Coordinator]()
   var navigationController: UINavigationController
+  private let container: Container
   private let valet = Valet.valet(with: Identifier(nonEmpty: "com.cyclouse.app")!, accessibility: .whenUnlocked)
    
   // MARK: - Initialization
-  init(navigationController: UINavigationController) {
+  init(navigationController: UINavigationController, container: Container) {
     self.navigationController = navigationController
+    self.container = container
   }
   
   // MARK: - Coordinator Methods
@@ -50,7 +53,7 @@ class AppCoordinator: Coordinator {
   
   func showMainTabbar() {
     let tabbarController = UITabBarController()
-    let coordinator = TabbarCoordinator(tabBarController: tabbarController)
+    let coordinator = container.resolve(TabbarCoordinator.self, argument: tabbarController)!
     addChildCoordinator(coordinator)
     coordinator.start()
 
@@ -65,7 +68,7 @@ class AppCoordinator: Coordinator {
   
   func showLogin() {
     childCoordinators.removeAll()
-    let signInCoordinator = SignInCoordinator(navigationController: navigationController)
+    let signInCoordinator = container.resolve(SignInCoordinator.self, argument: navigationController)!
     addChildCoordinator(signInCoordinator)
     signInCoordinator.start()
     

@@ -7,24 +7,27 @@
 
 import UIKit
 import Combine
+import Swinject
 
 class TabbarCoordinator: Coordinator {
   var childCoordinators: [any Coordinator] = []
   
   weak var parentCoordinator: Coordinator?
+  private let container: Container
   unowned var tabBarController: UITabBarController
   
   private var cancellables = Set<AnyCancellable>()
   private let service = DatabaseService.shared
   private var itemCount: Int = 0
   
-  init(tabBarController: UITabBarController) {
+  init(tabBarController: UITabBarController, container: Container) {
     self.tabBarController = tabBarController
+    self.container = container
   }
   
   func start() {
     let homeNav = UINavigationController()
-    let homeCoordinator = HomeCoordinator(navigationController: homeNav)
+    let homeCoordinator = container.resolve(HomeCoordinator.self, argument: homeNav)!
     addChildCoordinator(homeCoordinator)
     homeCoordinator.start()
     
