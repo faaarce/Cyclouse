@@ -14,7 +14,7 @@ enum CartAPI: API {
   case getCart
   
   private var baseURL: String {
-    "http://localhost:8080"
+    AppConfig.current.environment.baseURL
   }
   
   var url: URLConvertible {

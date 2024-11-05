@@ -13,7 +13,7 @@ enum AuthenticationAPI: API {
   case signout
   
   private var baseURL: String {
-    "http://localhost:8080"
+    AppConfig.current.environment.baseURL
   }
   
   var url: any URLConvertible {
