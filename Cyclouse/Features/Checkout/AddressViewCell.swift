@@ -84,10 +84,6 @@ class AddressViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(with item: Dummy) {
-       
-    }
-
     private func setupView() {
       backgroundColor = .clear
       contentView.backgroundColor = .clear

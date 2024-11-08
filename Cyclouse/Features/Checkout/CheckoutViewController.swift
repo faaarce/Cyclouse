@@ -13,24 +13,16 @@ import SnapKit
 
 class CheckoutViewController: UIViewController {
   
+  private var selectedBank: Bank?
   private let checkoutService: CheckoutService
   var coordinator: CheckoutCoordinator
+  private let locationManager = CLLocationManager()
   
   let dummyItems = [
     Dummy(name: "Mountain Bike", price: 1000000, qty: 1, image: "bike"),
     Dummy(name: "Mountain Bike", price: 1000000, qty: 1, image: "bike")
   ]
   
-  private let containerView: UIView = {
-    let object = UIView(frame: .zero)
-    
-    object.backgroundColor = ThemeColor.cardFillColor
-    
-    object.layer.cornerRadius = 12
-    object.layer.borderWidth = 1
-    object.layer.borderColor = UIColor.gray.cgColor
-    return object
-  }()
   
   lazy var tableView: UITableView = {
     let tableView = UITableView(frame: .zero, style: .grouped)
@@ -40,78 +32,38 @@ class CheckoutViewController: UIViewController {
     tableView.separatorStyle = .none
     return tableView
   }()
-  /*
-   
-   lazy var tableView: UITableView = {
-   let tableView = UITableView(frame: .zero, style: .grouped)
-   tableView.dataSource = self
-   tableView.delegate = self
-   tableView.showsVerticalScrollIndicator = false
-   tableView.backgroundColor = .clear
-   tableView.separatorStyle = .none
-   tableView.separatorInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
-   return tableView
-   }()
-   */
   
-  private let addressHeaderTitle: UILabel = {
-    let label = LabelFactory.build(
-      text: "Alamat Pengiriman",
-      font: ThemeFont.semibold(ofSize: 12),
-      textColor: ThemeColor.primary
-    )
-    label.setContentHuggingPriority(.required, for: .vertical)
-    label.setContentCompressionResistancePriority(.required, for: .vertical)
-    return label
-  }()
-  
-  private let iconAddressImage: UIImageView = {
-    let object = UIImageView(image: .init(systemName: "mappin.and.ellipse"))
-    object.contentMode = .scaleToFill
-    object.layer.masksToBounds = true
-    object.layer.cornerRadius = 12
-    object.tintColor = ThemeColor.primary
+  private let totalPriceView: UIView = {
+    let object = UIView(frame: .zero)
+    object.backgroundColor = ThemeColor.cardFillColor
     return object
   }()
   
-  private let userData: UILabel = {
-    let label = LabelFactory.build(
-      text: "Faris",
-      font: ThemeFont.semibold(ofSize: 12),
-      textColor: .white
-    )
-    label.setContentHuggingPriority(.required, for: .vertical)
-    label.setContentCompressionResistancePriority(.required, for: .vertical)
-    return label
+  private let checkoutButton: UIButton = {
+    let button = UIButton()
+    button.setTitle("Checkout", for: .normal)
+    button.setTitleColor(ThemeColor.black, for: .normal)
+    button.backgroundColor = ThemeColor.primary
+    button.addTarget(self, action: #selector(checkoutButtonTapped), for: .touchUpInside)
+    return button
   }()
   
-  private let addressDetail: UILabel = {
-    let label = LabelFactory.build(
-      text: "Jl. Boulevard Selatan, Blok C18 No.1 Marga Mulya, Kab Bekasi, Jawa Barat, ID 17510",
-      font: ThemeFont.semibold(ofSize: 12),
-      textColor: .white
-    )
-    label.textAlignment = .left
-    label.numberOfLines = 0
-    label.setContentHuggingPriority(.required, for: .vertical)
-    label.setContentCompressionResistancePriority(.required, for: .vertical)
-    return label
+  private let priceLabel: UILabel = {
+    LabelFactory.build(text: "Rp 5,000,000", font: ThemeFont.medium(ofSize: 14), textColor: ThemeColor.primary)
   }()
   
-  private lazy var vAddressStackView: UIStackView = {
-    let view = UIStackView(arrangedSubviews: [addressHeaderTitle, userData, addressDetail])
-    view.axis = .vertical
-    view.spacing = 2  // Small positive spacing
-    view.distribution = .fill  // Changed from .fillEqually
-    view.alignment = .leading
-    return view
+  private let totalLabel: UILabel = {
+    LabelFactory.build(text: "Total", font: ThemeFont.medium(ofSize: 12), textColor: ThemeColor.labelColorSecondary)
   }()
+  
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = ThemeColor.background
     setupView()
     layout()
+    configureLocationServices()
   }
   
   init(coordinator: CheckoutCoordinator, checkoutService: CheckoutService = CheckoutService()) {
@@ -124,14 +76,97 @@ class CheckoutViewController: UIViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
+  @objc private func checkoutButtonTapped() {
+  
+  }
+  
+  private func configureLocationServices() {
+    locationManager.delegate = self
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    
+    switch locationManager.authorizationStatus {
+    case .notDetermined:
+      locationManager.requestWhenInUseAuthorization()
+      
+    case .restricted, .denied:
+      showLocationServicesAlert()
+      
+    case .authorizedWhenInUse, .authorizedAlways:
+      locationManager.startUpdatingLocation()
+      
+    @unknown default:
+      break
+    }
+  }
+  
+ 
+  private func getUserAddress(from location: CLLocation) {
+      let geocoder = CLGeocoder()
+      geocoder.reverseGeocodeLocation(location) { [weak self] placemarks, error in
+          guard let self = self,
+                let placemark = placemarks?.first else {
+              return
+          }
+          
+          // Create address components
+          var addressComponents: [String] = []
+          
+          if let street = placemark.thoroughfare {
+              addressComponents.append(street)
+          }
+          if let subLocality = placemark.subLocality {
+              addressComponents.append(subLocality)
+          }
+          if let city = placemark.locality {
+              addressComponents.append(city)
+          }
+          if let state = placemark.administrativeArea {
+              addressComponents.append(state)
+          }
+          if let postalCode = placemark.postalCode {
+              addressComponents.append(postalCode)
+          }
+          if let country = placemark.country {
+              addressComponents.append(country)
+          }
+          
+          let addressString = addressComponents.joined(separator: ", ")
+          
+          // Update the cell with the new address
+          if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AddressViewCell {
+              DispatchQueue.main.async {
+                  cell.updateAddress(addressString)
+                  UIView.performWithoutAnimation {
+                      self.tableView.beginUpdates()
+                      self.tableView.endUpdates()
+                  }
+              }
+          }
+      }
+  }
+  
+  private func showLocationServicesAlert() {
+         let alert = UIAlertController(
+             title: "Location Services Disabled",
+             message: "Please enable location services in Settings to use this feature.",
+             preferredStyle: .alert
+         )
+         
+         alert.addAction(UIAlertAction(title: "Settings", style: .default) { _ in
+             if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
+                 UIApplication.shared.open(settingsUrl)
+             }
+         })
+         
+         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+         present(alert, animated: true)
+     }
+  
   func setupView() {
-    containerView.addSubview(iconAddressImage)
-    containerView.addSubview(vAddressStackView)
-    view.addSubview(containerView)
+    [priceLabel, totalLabel].forEach { totalPriceView.addSubview($0)}
+    view.addSubview(checkoutButton)
+    view.addSubview(totalPriceView)
     view.addSubview(tableView)
-    // Add custom spacing after specific views
-    vAddressStackView.setCustomSpacing(4, after: addressHeaderTitle)  // More space after title
-    vAddressStackView.setCustomSpacing(2, after: userData)  // Less space after user data
     registerCells()
   }
   
@@ -139,42 +174,48 @@ class CheckoutViewController: UIViewController {
   private func registerCells() {
     tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: "ListProductCell")
     tableView.register(AddressViewCell.self, forCellReuseIdentifier: "AddressCell")
+    tableView.register(PaymentViewCell.self, forCellReuseIdentifier: "PaymentCell")
   }
   
   
   func layout() {
-    containerView.snp.makeConstraints {
-      $0.width.equalTo(310)
-      $0.height.greaterThanOrEqualTo(84)
-      $0.left.equalToSuperview().offset(20)
-      $0.right.equalToSuperview().offset(-20)
-      $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
-    }
-    
-    iconAddressImage.snp.makeConstraints { make in
-      make.leading.equalTo(containerView).offset(12)
-      make.top.equalTo(containerView.snp.top)
-    }
-    
-    vAddressStackView.snp.makeConstraints {
-      $0.top.equalTo(containerView).offset(12)
-      $0.leading.equalTo(iconAddressImage.snp.trailing).offset(4)
-      $0.trailing.equalTo(containerView).offset(-12)
-      $0.bottom.equalTo(containerView).offset(-12)
-    }
-    
     tableView.snp.makeConstraints {
-      $0.top.equalTo(containerView.snp.bottom)
+      $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
       $0.left.equalToSuperview().offset(20)
       $0.right.equalToSuperview().offset(-20)
-      $0.bottom.equalToSuperview().offset(-20)
+      $0.bottom.equalTo(checkoutButton.snp.top)
     }
+    
+    checkoutButton.snp.makeConstraints {
+      $0.bottom.equalToSuperview()
+      $0.width.equalTo(113)
+      $0.right.equalToSuperview()
+      $0.height.equalTo(75)
+    }
+    
+    totalPriceView.snp.makeConstraints {
+      $0.left.equalToSuperview()
+      $0.bottom.equalToSuperview()
+      $0.height.equalTo(75)
+      $0.right.equalTo(checkoutButton.snp.left)
+    }
+    
+    totalLabel.snp.makeConstraints {
+      $0.centerY.equalToSuperview()
+      $0.left.equalToSuperview().offset(20)
+    }
+    
+    priceLabel.snp.makeConstraints {
+      $0.centerY.equalToSuperview()
+      $0.left.equalTo(totalLabel.snp.right).offset(5)
+    }
+    
   }}
 
 extension CheckoutViewController: UITableViewDataSource {
   
   func numberOfSections(in tableView: UITableView) -> Int {
-    return 2
+    return 3
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -182,6 +223,8 @@ extension CheckoutViewController: UITableViewDataSource {
       return 1
     } else if section == 1 {
       return dummyItems.count
+    } else {
+      return 1
     }
     return 0
   }
@@ -202,25 +245,72 @@ extension CheckoutViewController: UITableViewDataSource {
       cell.configure(with: item)
       
       return cell
+    } else {
+      guard let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentCell", for: indexPath) as? PaymentViewCell else { return UITableViewCell() }
+      cell.selectionStyle = .none
+      cell.backgroundColor = .clear
+      cell.delegate = self
+      return cell
     }
     return UITableViewCell()
   }
+}
+
+extension CheckoutViewController: PaymentViewCellDelegate {
+    func didSelectBank(_ bank: Bank) {
+        self.selectedBank = bank
+        print("Selected bank: \(bank.name)")
+        print("Bank Image Name: \(bank.imageName)")
+        print("Is Selected: \(bank.isSelected)")
+        
+        // You can also use this selection for your checkout process
+        if let selectedBank = selectedBank {
+            // Enable checkout button if needed
+            checkoutButton.isEnabled = true
+            // You might want to store this for the checkout process
+            print("Ready to checkout with bank: \(selectedBank.name)")
+        }
+    }
+}
+
+// MARK: - CLLocationManagerDelegate
+extension CheckoutViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        getUserAddress(from: location)
+        locationManager.stopUpdatingLocation()
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            locationManager.startUpdatingLocation()
+        case .denied, .restricted:
+            showLocationServicesAlert()
+        default:
+            break
+        }
+    }
 }
 
 extension CheckoutViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
        if indexPath.section == 0 {
            return UITableView.automaticDimension  // Change to automatic dimension
-       } else {
-           return 140
-       }
+       } else if indexPath.section == 1 {
+         return 140
+     } else {
+       return 20
+     }
    }
    
    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
        if indexPath.section == 0 {
            return 100  // Provide an estimated height
-       } else {
+       } else if indexPath.section == 1{
            return 140
+       } else {
+         return 20
        }
    }
   

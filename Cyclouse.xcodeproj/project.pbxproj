@@ -13,6 +13,8 @@
 		C115252D2CDC9BC8001DD6FD /* ConfigDev.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C115252C2CDC9BC8001DD6FD /* ConfigDev.xcconfig */; };
 		C115252F2CDC9BE9001DD6FD /* ConfigSIT.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C115252E2CDC9BE9001DD6FD /* ConfigSIT.xcconfig */; };
 		C11525492CDCBAEA001DD6FD /* AddressViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11525482CDCBAEA001DD6FD /* AddressViewCell.swift */; };
+		C11525612CDDFFF0001DD6FD /* PaymentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11525602CDDFFF0001DD6FD /* PaymentViewCell.swift */; };
+		C11525632CDE2AC3001DD6FD /* Bank.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11525622CDE2AC3001DD6FD /* Bank.swift */; };
 		C121FD482CB903BE00B4AEF5 /* EasyNotificationBadge in Frameworks */ = {isa = PBXBuildFile; productRef = C121FD472CB903BE00B4AEF5 /* EasyNotificationBadge */; };
 		C12213202CC2551B005F8421 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C122131F2CC2551B005F8421 /* Kingfisher */; };
 		C12251C42CB6E065001278E6 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12251C32CB6E065001278E6 /* DatabaseService.swift */; };
@@ -176,6 +178,8 @@
 		C115252C2CDC9BC8001DD6FD /* ConfigDev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ConfigDev.xcconfig; sourceTree = "<group>"; };
 		C115252E2CDC9BE9001DD6FD /* ConfigSIT.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ConfigSIT.xcconfig; sourceTree = "<group>"; };
 		C11525482CDCBAEA001DD6FD /* AddressViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewCell.swift; sourceTree = "<group>"; };
+		C11525602CDDFFF0001DD6FD /* PaymentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewCell.swift; sourceTree = "<group>"; };
+		C11525622CDE2AC3001DD6FD /* Bank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bank.swift; sourceTree = "<group>"; };
 		C12251C32CB6E065001278E6 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		C12251C62CB6EDDF001278E6 /* BikeProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeProduct.swift; sourceTree = "<group>"; };
 		C12251C82CB78D56001278E6 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
@@ -564,10 +568,12 @@
 			isa = PBXGroup;
 			children = (
 				C16468B12CD0984700876224 /* CheckoutViewController.swift */,
+				C11525602CDDFFF0001DD6FD /* PaymentViewCell.swift */,
 				C162D4352CD2420700DBA8CC /* MapViewController.swift */,
 				C162D4372CD243B900DBA8CC /* MapViewCoordinator.swift */,
 				C16468B32CD0985D00876224 /* CheckoutCoordinator.swift */,
 				C11525482CDCBAEA001DD6FD /* AddressViewCell.swift */,
+				C11525622CDE2AC3001DD6FD /* Bank.swift */,
 			);
 			path = Checkout;
 			sourceTree = "<group>";
@@ -1390,6 +1396,7 @@
 				C177238F2C954E6B0078E598 /* PopUpViewController.swift in Sources */,
 				C1DF47EB2C9C9310004F5751 /* SignUpCoordinator.swift in Sources */,
 				C19370132C89941600B56BA1 /* HandleDeepLink.swift in Sources */,
+				C11525632CDE2AC3001DD6FD /* Bank.swift in Sources */,
 				C15B51402CBAB40300892DBD /* Integer + Extension.swift in Sources */,
 				C177238D2C951CF30078E598 /* ReadMoreTextView.swift in Sources */,
 				C19370252C899AD300B56BA1 /* HomeViewController.swift in Sources */,
@@ -1417,6 +1424,7 @@
 				C1EE5EC32CAEB30100856B94 /* Codable + Dictionary.swift in Sources */,
 				C1EE5EC42CAEB30100856B94 /* CoreDataManagerError.swift in Sources */,
 				C1EE51A22CC57E7A00280BBC /* TestingViewController.swift in Sources */,
+				C11525612CDDFFF0001DD6FD /* PaymentViewCell.swift in Sources */,
 				C1EE5EC52CAEB30100856B94 /* CoreDataManager + CRUD.swift in Sources */,
 				C1EE5EC62CAEB30100856B94 /* CoreDataManager.swift in Sources */,
 				C193702D2C89E97B00B56BA1 /* ProfileCoordinator.swift in Sources */,
