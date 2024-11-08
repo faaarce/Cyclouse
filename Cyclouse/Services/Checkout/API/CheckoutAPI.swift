@@ -12,7 +12,7 @@ enum CheckoutAPI: API  {
   case checkout(cart: CheckoutCart)
   
   private var baseURL: String {
-    AppConfig.current.environment.baseURL
+    Constants.baseURL
   }
   
   var url: URLConvertible {

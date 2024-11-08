@@ -1,0 +1,11 @@
+//
+//  ConfigSIT.xcconfig
+//  Cyclouse
+//
+//  Created by yoga arie on 07/11/24.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+BASE_URL = https:/4f7d-182-253-54-18.ngrok-free.app

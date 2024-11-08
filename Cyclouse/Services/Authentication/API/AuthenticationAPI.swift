@@ -13,7 +13,7 @@ enum AuthenticationAPI: API {
   case signout
   
   private var baseURL: String {
-    AppConfig.current.environment.baseURL
+    Constants.baseURL
   }
   
   var url: any URLConvertible {

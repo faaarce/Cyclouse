@@ -45,11 +45,7 @@ class TabbarCoordinator: Coordinator {
     let checkoutCoordinator = CheckoutCoordinator(navigationController: checkNav)
     addChildCoordinator(checkoutCoordinator)
     checkoutCoordinator.start()
-    
-    let mapNav = UINavigationController()
-    let mapViewCoordinator = MapViewCoordinator(navigationController: mapNav)
-    addChildCoordinator(mapViewCoordinator)
-    mapViewCoordinator.start()
+   
     
     let wishlistNav = UINavigationController()
     let wishlistCoordinator = HistoryCoordinator(navigationController: wishlistNav)
@@ -59,7 +55,6 @@ class TabbarCoordinator: Coordinator {
     tabBarController.setViewControllers([
       homeNav,  //new featueres
       checkNav,
-      mapNav,
       profileNav
     ], animated: false)
     setupTabbar()
@@ -79,10 +74,9 @@ class TabbarCoordinator: Coordinator {
     
 
     viewControllers[1].tabBarItem = UITabBarItem(title: "Checkout", image: UIImage(named: "profile_icon_inactive"), selectedImage: UIImage(named: "profile_icon_active"))
+
     
-    viewControllers[2].tabBarItem = UITabBarItem(title: "Checkout", image: UIImage(named: "profile_icon_inactive"), selectedImage: UIImage(named: "profile_icon_active"))
-    
-    viewControllers[3].tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "profile_icon_inactive"), selectedImage: UIImage(named: "profile_icon_active"))
+    viewControllers[2].tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "profile_icon_inactive"), selectedImage: UIImage(named: "profile_icon_active"))
     
   
     UITabBar.appearance().backgroundColor = ThemeColor.cardFillColor

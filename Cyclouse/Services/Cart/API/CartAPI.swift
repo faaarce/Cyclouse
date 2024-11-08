@@ -14,7 +14,7 @@ enum CartAPI: API {
   case getCart
   
   private var baseURL: String {
-    AppConfig.current.environment.baseURL
+    Constants.baseURL
   }
   
   var url: URLConvertible {

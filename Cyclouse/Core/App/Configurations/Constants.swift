@@ -42,4 +42,9 @@ struct Constants {
         static let minPasswordLength = 8
         static let maxUsernameLength = 20
     }
+  
+  public static var baseURL: String {
+    Bundle.main.infoDictionary?["BASE_URL"] as? String ?? ""
+  }
+ 
 }
