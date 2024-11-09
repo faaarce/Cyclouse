@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol PaymentViewCellDelegate: AnyObject {
-    func didSelectBank(_ bank: Bank)
+  func didSelectBank(_ bank: Bank)
 }
 
 
@@ -43,13 +43,6 @@ class PaymentViewCell: UITableViewCell {
     LabelFactory.build(text: "Metode Pembayaran", font: ThemeFont.medium(ofSize: 12))
   }()
   
-  private let checkBankButton: UIButton = {
-    let button = UIButton(type: .system)
-    button.setImage(UIImage(systemName: "circle.circle"), for: .normal)
-    button.tintColor = ThemeColor.primary
-    button.contentMode = .scaleAspectFit
-    return button
-  }()
   
   // Vertical stack view to contain all bank stacks
   private lazy var banksVerticalStackView: UIStackView = {
@@ -97,36 +90,39 @@ class PaymentViewCell: UITableViewCell {
   
   // MARK: - Selection Handling
   @objc private func bankSelected(_ sender: UIButton) {
-      let selectedIndex = sender.tag
-    print("Bank button tapped with tag: \(sender.tag)") 
-      // Update model
-      banks = banks.enumerated().map { index, bank in
-          var updatedBank = bank
-          updatedBank.isSelected = index == selectedIndex
-          return updatedBank
-      }
-      
-      // Call delegate with selected bank
-      if banks.indices.contains(selectedIndex) {
-          let selectedBank = banks[selectedIndex]
-          print("Bank selected in cell: \(selectedBank.name)") // Debug print
-          delegate?.didSelectBank(selectedBank)
-      }
-      
-      // Update UI
-      updateRadioButtons()
+    let selectedIndex = sender.tag
+    print("Bank button tapped with tag: \(sender.tag)")
+    
+    
+    // Update model
+    banks = banks.enumerated().map { index, bank in
+      var updatedBank = bank
+      updatedBank.isSelected = index == selectedIndex
+      return updatedBank
+    }
+    
+    // Call delegate with selected bank
+    if banks.indices.contains(selectedIndex) {
+      let selectedBank = banks[selectedIndex]
+      print("Bank selected in cell: \(selectedBank.name)") // Debug print
+      delegate?.didSelectBank(selectedBank)
+    }
+    
+    // Update UI
+    updateRadioButtons()
   }
-     
-     private func updateRadioButtons() {
-         bankStackViews.enumerated().forEach { index, stackView in
-             if let checkButton = stackView.arrangedSubviews.last as? UIButton {
-                 let image = banks[index].isSelected ?
-                     UIImage(systemName: "checkmark.circle.fill") :
-                     UIImage(systemName: "circle.circle")
-                 checkButton.setImage(image, for: .normal)
-             }
-         }
-     }
+  
+  private func updateRadioButtons() {
+    bankStackViews.enumerated().forEach { index, stackView in
+      if let checkButton = stackView.arrangedSubviews.last as? UIButton {
+        let image = banks[index].isSelected ?
+        UIImage(systemName: "circle.circle.fill") :
+        UIImage(systemName: "circle.circle")
+        checkButton.tintColor = banks[index].isSelected ? ThemeColor.primary : ThemeColor.labelColorSecondary
+        checkButton.setImage(image, for: .normal)
+      }
+    }
+  }
   
   private func createBankStackView(for bank: Bank) -> UIStackView {
     let bankImage = UIImageView(image: .init(named: bank.imageName))
@@ -138,7 +134,7 @@ class PaymentViewCell: UITableViewCell {
     
     let checkButton = UIButton(type: .system)
     checkButton.setImage(UIImage(systemName: "circle.circle"), for: .normal)
-    checkButton.tintColor = ThemeColor.primary
+    checkButton.tintColor = ThemeColor.labelColorSecondary
     checkButton.contentMode = .scaleAspectFit
     checkButton.tag = bankStackViews.count // Use count as tag for identification
     checkButton.addTarget(self, action: #selector(bankSelected(_:)), for: .touchUpInside)
@@ -205,14 +201,9 @@ class PaymentViewCell: UITableViewCell {
     }
     
     banksVerticalStackView.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(8)
-            $0.top.equalTo(iconBankImage.snp.bottom).offset(12)
-            $0.right.equalToSuperview().offset(-8)
-        }
-    
-    checkBankButton.snp.makeConstraints {
-      $0.width.equalTo(16)
-      $0.height.equalTo(16)
+      $0.left.equalToSuperview().offset(8)
+      $0.top.equalTo(iconBankImage.snp.bottom).offset(12)
+      $0.right.equalToSuperview().offset(-8)
     }
     
   }

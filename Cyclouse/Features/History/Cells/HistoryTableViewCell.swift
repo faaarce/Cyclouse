@@ -7,6 +7,7 @@
 import SnapKit
 import UIKit
 import SkeletonView
+import Kingfisher
 
 class HistoryTableViewCell: UITableViewCell {
   
@@ -174,7 +175,16 @@ class HistoryTableViewCell: UITableViewCell {
     
   }
   
-  func configure(with item: Dummy) {
+  func configure(with item: BikeV2) {
+   
+    productBikeImage.kf.setImage(with: URL(string: item.images.first!))
+    productNameLabel.text = item.name
+    priceLabel.text = item.price.toRupiah()
+    quantityLabel.text = "Total \(item.cartQuantity) Product"
+    totalPriceLabel.text = (item.price * item.cartQuantity).toRupiah()
+  }
+  
+  func configureDummy(with item: Dummy) {
     productBikeImage.image = UIImage(named: item.image)
     productNameLabel.text = item.name
     priceLabel.text = "Rp \(item.price)"

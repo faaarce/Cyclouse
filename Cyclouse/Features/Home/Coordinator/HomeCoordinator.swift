@@ -36,7 +36,7 @@ class HomeCoordinator: Coordinator, NavigationCoordinator {
   }
   
   func showCartController(){
-    let cartCoordinator = CartCoordinator(navigationController: navigationController)
+    let cartCoordinator = container.resolve(CartCoordinator.self, argument: navigationController)!
     addChildCoordinator(cartCoordinator)
     cartCoordinator.parentCoordinator = self
     cartCoordinator.start()

@@ -220,7 +220,24 @@ class CartViewController: UIViewController {
   
   
   @objc func checkoutButtonTapped() {
-    print("Check button tapped")
+    // Filter selected bikes
+       let selectedBikes = bikeData.filter { bike in
+           selectedStates[bike.id] ?? false
+       }
+       
+       // Only proceed if there are selected bikes
+       if !selectedBikes.isEmpty {
+         coordinator.showCheckout(bikes: selectedBikes)
+       } else {
+           // Show alert that no items are selected
+           let alert = UIAlertController(
+               title: "No Items Selected",
+               message: "Please select at least one item to checkout",
+               preferredStyle: .alert
+           )
+           alert.addAction(UIAlertAction(title: "OK", style: .default))
+           present(alert, animated: true)
+       }
   }
   
   private func registerCells() {

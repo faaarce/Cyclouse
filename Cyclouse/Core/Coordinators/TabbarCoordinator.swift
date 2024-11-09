@@ -41,10 +41,10 @@ class TabbarCoordinator: Coordinator {
     addChildCoordinator(profileCoordinator)
     profileCoordinator.start()
     
-    let checkNav = UINavigationController()
-    let checkoutCoordinator = CheckoutCoordinator(navigationController: checkNav)
-    addChildCoordinator(checkoutCoordinator)
-    checkoutCoordinator.start()
+//    let checkNav = UINavigationController()
+//    let checkoutCoordinator = CheckoutCoordinator(navigationController: checkNav)
+//    addChildCoordinator(checkoutCoordinator)
+//    checkoutCoordinator.start()
    
     
     let wishlistNav = UINavigationController()
@@ -54,7 +54,7 @@ class TabbarCoordinator: Coordinator {
     
     tabBarController.setViewControllers([
       homeNav,  //new featueres
-      checkNav,
+//      checkNav,
       profileNav
     ], animated: false)
     setupTabbar()
@@ -73,10 +73,10 @@ class TabbarCoordinator: Coordinator {
     viewControllers[0].tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "home_icon_inactive"), selectedImage:  UIImage(named: "home_icon_active"))
     
 
-    viewControllers[1].tabBarItem = UITabBarItem(title: "Checkout", image: UIImage(named: "profile_icon_inactive"), selectedImage: UIImage(named: "profile_icon_active"))
+//    viewControllers[1].tabBarItem = UITabBarItem(title: "Checkout", image: UIImage(named: "profile_icon_inactive"), selectedImage: UIImage(named: "profile_icon_active"))
 
     
-    viewControllers[2].tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "profile_icon_inactive"), selectedImage: UIImage(named: "profile_icon_active"))
+    viewControllers[1].tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "profile_icon_inactive"), selectedImage: UIImage(named: "profile_icon_active"))
     
   
     UITabBar.appearance().backgroundColor = ThemeColor.cardFillColor

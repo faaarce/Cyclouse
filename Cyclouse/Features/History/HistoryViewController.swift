@@ -149,7 +149,7 @@ extension HistoryViewController: UITableViewDataSource, SkeletonTableViewDataSou
     cell.backgroundColor = .clear
     if !isLoading {
       let item = dummyItems[indexPath.row]
-      cell.configure(with: item)
+      cell.configureDummy(with: item)
     } else {
       cell.showCustomSkeletonAnimation()
     }

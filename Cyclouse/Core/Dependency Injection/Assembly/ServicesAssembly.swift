@@ -44,10 +44,6 @@ class ServicesAssembly: Assembly {
                  return AuthenticationService(repository: repository)
              }.inObjectScope(.container)
              
-             // MARK: - Database Service
-             container.register(DatabaseService.self) { _ in
-                 DatabaseService.shared
-             }.inObjectScope(.container)
              
              // MARK: - Cart Service
              container.register(CartService.self) { _ in

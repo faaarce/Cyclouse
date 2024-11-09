@@ -47,7 +47,14 @@ class CoordinatorsAssembly: Assembly {
         navigationController: navigationController,
         container: container
       )
-      // Register other coordinators...
+    }
+    
+    container.register(CartCoordinator.self) { (resolver, navigationController: UINavigationController) in
+      CartCoordinator(navigationController: navigationController, container: container)
+    }
+    
+    container.register(CheckoutCoordinator.self) { (resolver, navigationController: UINavigationController, bike: [BikeV2]) in
+      CheckoutCoordinator(navigationController: navigationController, container: container, bike: bike)
     }
   }
 }

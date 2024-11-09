@@ -7,23 +7,30 @@
 
 import Foundation
 import UIKit
-
+import Swinject
 
 class CheckoutCoordinator: Coordinator, NavigationCoordinator {
   var childCoordinators: [any Coordinator] = []
   
   weak var parentCoordinator: (any Coordinator)?
-  
+  var container: Container
   unowned var navigationController: UINavigationController
+  private let bike: [BikeV2]
   
-  init(navigationController: UINavigationController) {
+  init(navigationController: UINavigationController, container: Container, bike: [BikeV2]) {
     self.navigationController = navigationController
+    self.container = container
+    self.bike = bike
   }
   
-  
   func start() {
-    let vc = CheckoutViewController(coordinator: self)
-    navigationController.setViewControllers([vc], animated: true)
+    let vc = CheckoutViewController(coordinator: self, bike: bike)
+    vc.hidesBottomBarWhenPushed = true
+    navigationController.pushViewController(vc, animated: true)
+  }
+  
+  func didFinish() {
+    parentCoordinator?.removeChildCoordinator(self)
   }
   
 }

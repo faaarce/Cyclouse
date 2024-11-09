@@ -17,12 +17,9 @@ class CheckoutViewController: UIViewController {
   private let checkoutService: CheckoutService
   var coordinator: CheckoutCoordinator
   private let locationManager = CLLocationManager()
-  
-  let dummyItems = [
-    Dummy(name: "Mountain Bike", price: 1000000, qty: 1, image: "bike"),
-    Dummy(name: "Mountain Bike", price: 1000000, qty: 1, image: "bike")
-  ]
-  
+  private var selectedAddress: ShippingAddress?
+  private var cancellables = Set<AnyCancellable>()
+  private let bike: [BikeV2]
   
   lazy var tableView: UITableView = {
     let tableView = UITableView(frame: .zero, style: .grouped)
@@ -64,11 +61,13 @@ class CheckoutViewController: UIViewController {
     setupView()
     layout()
     configureLocationServices()
+    totalPrice()
   }
   
-  init(coordinator: CheckoutCoordinator, checkoutService: CheckoutService = CheckoutService()) {
+  init(coordinator: CheckoutCoordinator, checkoutService: CheckoutService = CheckoutService(), bike: [BikeV2]) {
     self.coordinator = coordinator
     self.checkoutService = checkoutService
+    self.bike = bike
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -77,7 +76,7 @@ class CheckoutViewController: UIViewController {
   }
   
   @objc private func checkoutButtonTapped() {
-  
+    performCheckout()
   }
   
   private func configureLocationServices() {
@@ -99,68 +98,76 @@ class CheckoutViewController: UIViewController {
     }
   }
   
- 
+  
   private func getUserAddress(from location: CLLocation) {
-      let geocoder = CLGeocoder()
-      geocoder.reverseGeocodeLocation(location) { [weak self] placemarks, error in
-          guard let self = self,
-                let placemark = placemarks?.first else {
-              return
-          }
-          
-          // Create address components
-          var addressComponents: [String] = []
-          
-          if let street = placemark.thoroughfare {
-              addressComponents.append(street)
-          }
-          if let subLocality = placemark.subLocality {
-              addressComponents.append(subLocality)
-          }
-          if let city = placemark.locality {
-              addressComponents.append(city)
-          }
-          if let state = placemark.administrativeArea {
-              addressComponents.append(state)
-          }
-          if let postalCode = placemark.postalCode {
-              addressComponents.append(postalCode)
-          }
-          if let country = placemark.country {
-              addressComponents.append(country)
-          }
-          
-          let addressString = addressComponents.joined(separator: ", ")
-          
-          // Update the cell with the new address
-          if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AddressViewCell {
-              DispatchQueue.main.async {
-                  cell.updateAddress(addressString)
-                  UIView.performWithoutAnimation {
-                      self.tableView.beginUpdates()
-                      self.tableView.endUpdates()
-                  }
-              }
-          }
+    let geocoder = CLGeocoder()
+    geocoder.reverseGeocodeLocation(location) { [weak self] placemarks, error in
+      guard let self = self,
+            let placemark = placemarks?.first else {
+        return
       }
+      
+      // Create address components
+      var addressComponents: [String] = []
+      
+      if let street = placemark.thoroughfare {
+        addressComponents.append(street)
+      }
+      if let subLocality = placemark.subLocality {
+        addressComponents.append(subLocality)
+      }
+      if let city = placemark.locality {
+        addressComponents.append(city)
+      }
+      if let state = placemark.administrativeArea {
+        addressComponents.append(state)
+      }
+      if let postalCode = placemark.postalCode {
+        addressComponents.append(postalCode)
+      }
+      if let country = placemark.country {
+        addressComponents.append(country)
+      }
+      
+      let addressString = addressComponents.joined(separator: ", ")
+      
+      self.selectedAddress = ShippingAddress(
+        street: placemark.thoroughfare ?? "",
+        city: placemark.locality ?? "",
+        state: placemark.administrativeArea ?? "",
+        zipCode: placemark.postalCode ?? "",
+        country: placemark.country ?? ""
+      )
+      
+      // Update the cell with the new address
+      if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AddressViewCell {
+        DispatchQueue.main.async {
+          cell.updateAddress(addressString)
+          UIView.performWithoutAnimation {
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
+          }
+        }
+      }
+    }
   }
   
   private func showLocationServicesAlert() {
-         let alert = UIAlertController(
-             title: "Location Services Disabled",
-             message: "Please enable location services in Settings to use this feature.",
-             preferredStyle: .alert
-         )
-         
-         alert.addAction(UIAlertAction(title: "Settings", style: .default) { _ in
-             if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
-                 UIApplication.shared.open(settingsUrl)
-             }
-         })
-         
-         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-         present(alert, animated: true)
-     }
+    let alert = UIAlertController(
+      title: "Location Services Disabled",
+      message: "Please enable location services in Settings to use this feature.",
+      preferredStyle: .alert
+    )
+    
+    alert.addAction(UIAlertAction(title: "Settings", style: .default) { _ in
+      if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
+        UIApplication.shared.open(settingsUrl)
+      }
+    })
+    
+    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+    present(alert, animated: true)
+  }
   
   func setupView() {
     [priceLabel, totalLabel].forEach { totalPriceView.addSubview($0)}
@@ -170,11 +177,63 @@ class CheckoutViewController: UIViewController {
     registerCells()
   }
   
+  func performCheckout() {
+    guard let shippingAddress = selectedAddress else {
+      return
+    }
+    let cartItems = bike.map({ bike in
+        CartItem(productId: bike.id, quantity: bike.cartQuantity)
+      })
+    
+    
+    let checkoutCart = CheckoutCart(
+      items: cartItems,
+      shippingAddress: shippingAddress
+    )
+    
+    checkoutService.checkout(checkout: checkoutCart)
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] completion in
+        switch completion {
+        case .finished:
+          break
+        case .failure(let error):
+          print(error)
+        }
+      } receiveValue: { [weak self] response in
+        if response.value.success {
+          self?.handleSuccessfulCheckout(response.value.data)
+        } else {
+          print("response.value.message")
+        }
+      }
+      .store(in: &cancellables)
+    
+  }
+  
+  private func handleSuccessfulCheckout(_ checkoutData: CheckoutData) {
+  let alert = UIAlertController(
+  title: "Checkout Successful",
+  message: "Your order ID is: \(checkoutData.id)",
+  preferredStyle: .alert
+  )
+  alert.addAction(UIAlertAction(title: "OK", style: .default))
+  present(alert, animated: true)
+  }
+  
   
   private func registerCells() {
     tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: "ListProductCell")
     tableView.register(AddressViewCell.self, forCellReuseIdentifier: "AddressCell")
     tableView.register(PaymentViewCell.self, forCellReuseIdentifier: "PaymentCell")
+  }
+  
+  private func totalPrice() {
+    var total: Double = 0.0
+    for bikePrice in bike {
+      total += Double(bikePrice.price * bikePrice.cartQuantity)
+    }
+    priceLabel.text = total.toRupiah()
   }
   
   
@@ -222,7 +281,7 @@ extension CheckoutViewController: UITableViewDataSource {
     if section == 0 {
       return 1
     } else if section == 1 {
-      return dummyItems.count
+      return bike.count
     } else {
       return 1
     }
@@ -235,13 +294,13 @@ extension CheckoutViewController: UITableViewDataSource {
       
       cell.selectionStyle = .none
       cell.backgroundColor = .clear
-  
+      
       return cell
     } else if indexPath.section == 1 {
       guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListProductCell", for: indexPath) as? HistoryTableViewCell else { return UITableViewCell() }
       cell.selectionStyle = .none
       cell.backgroundColor = .clear
-      let item = dummyItems[indexPath.row]
+      let item = bike[indexPath.row]
       cell.configure(with: item)
       
       return cell
@@ -257,62 +316,62 @@ extension CheckoutViewController: UITableViewDataSource {
 }
 
 extension CheckoutViewController: PaymentViewCellDelegate {
-    func didSelectBank(_ bank: Bank) {
-        self.selectedBank = bank
-        print("Selected bank: \(bank.name)")
-        print("Bank Image Name: \(bank.imageName)")
-        print("Is Selected: \(bank.isSelected)")
-        
-        // You can also use this selection for your checkout process
-        if let selectedBank = selectedBank {
-            // Enable checkout button if needed
-            checkoutButton.isEnabled = true
-            // You might want to store this for the checkout process
-            print("Ready to checkout with bank: \(selectedBank.name)")
-        }
+  func didSelectBank(_ bank: Bank) {
+    self.selectedBank = bank
+    print("Selected bank: \(bank.name)")
+    print("Bank Image Name: \(bank.imageName)")
+    print("Is Selected: \(bank.isSelected)")
+    
+    // You can also use this selection for your checkout process
+    if let selectedBank = selectedBank {
+      // Enable checkout button if needed
+      checkoutButton.isEnabled = true
+      // You might want to store this for the checkout process
+      print("Ready to checkout with bank: \(selectedBank.name)")
     }
+  }
 }
 
 // MARK: - CLLocationManagerDelegate
 extension CheckoutViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        getUserAddress(from: location)
-        locationManager.stopUpdatingLocation()
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    guard let location = locations.last else { return }
+    getUserAddress(from: location)
+    locationManager.stopUpdatingLocation()
+  }
+  
+  func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+    switch manager.authorizationStatus {
+    case .authorizedWhenInUse, .authorizedAlways:
+      locationManager.startUpdatingLocation()
+    case .denied, .restricted:
+      showLocationServicesAlert()
+    default:
+      break
     }
-    
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        switch manager.authorizationStatus {
-        case .authorizedWhenInUse, .authorizedAlways:
-            locationManager.startUpdatingLocation()
-        case .denied, .restricted:
-            showLocationServicesAlert()
-        default:
-            break
-        }
-    }
+  }
 }
 
 extension CheckoutViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-       if indexPath.section == 0 {
-           return UITableView.automaticDimension  // Change to automatic dimension
-       } else if indexPath.section == 1 {
-         return 140
-     } else {
-       return 20
-     }
-   }
-   
-   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-       if indexPath.section == 0 {
-           return 100  // Provide an estimated height
-       } else if indexPath.section == 1{
-           return 140
-       } else {
-         return 20
-       }
-   }
+    if indexPath.section == 0 {
+      return UITableView.automaticDimension  // Change to automatic dimension
+    } else if indexPath.section == 1 {
+      return 140
+    } else {
+      return 250
+    }
+  }
+  
+  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    if indexPath.section == 0 {
+      return 100  // Provide an estimated height
+    } else if indexPath.section == 1{
+      return 140
+    } else {
+      return 250
+    }
+  }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     if indexPath.section == 0 {
@@ -335,12 +394,12 @@ extension CheckoutViewController: UITableViewDelegate {
 extension CheckoutViewController: AddressUpdateDelegate {
   func didUpdateAddress(_ address: String) {
     if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AddressViewCell {
-                cell.updateAddress(address)
-            }
+      cell.updateAddress(address)
+    }
     UIView.performWithoutAnimation {
-                   tableView.beginUpdates()
-                   tableView.endUpdates()
-               }
+      tableView.beginUpdates()
+      tableView.endUpdates()
+    }
     tableView.reloadData()
   }
 }
