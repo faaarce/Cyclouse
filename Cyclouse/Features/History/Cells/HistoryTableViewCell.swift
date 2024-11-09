@@ -175,7 +175,7 @@ class HistoryTableViewCell: UITableViewCell {
     
   }
   
-  func configure(with item: BikeV2) {
+  func configure(with item: BikeDatabase) {
    
     productBikeImage.kf.setImage(with: URL(string: item.images.first!))
     productNameLabel.text = item.name

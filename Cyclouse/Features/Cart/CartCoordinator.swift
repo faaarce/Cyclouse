@@ -28,7 +28,7 @@ class CartCoordinator: Coordinator, NavigationCoordinator {
   
   
   
-  func showCheckout(bikes: [BikeV2]){
+  func showCheckout(bikes: [BikeDatabase]){
     let checkoutCoordinator = container.resolve(
                 CheckoutCoordinator.self,
                 arguments: navigationController, bikes

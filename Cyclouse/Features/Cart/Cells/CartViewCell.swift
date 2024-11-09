@@ -17,7 +17,7 @@ protocol CartCellDelegate: AnyObject {
 class CartViewCell: UITableViewCell {
   
   weak var delegate: CartCellDelegate?
-  var bike: BikeV2?
+  var bike: BikeDatabase?
   var indexPath: IndexPath?
   var isChecked: Bool = true
   
@@ -134,7 +134,7 @@ class CartViewCell: UITableViewCell {
     layout()
   }
   
-  func configure(with bike: BikeV2, isChecked: Bool) {
+  func configure(with bike: BikeDatabase, isChecked: Bool) {
     self.bike = bike
     bikeNameLabel.text = bike.name
     bikePriceLabel.text = bike.price.toRupiah()

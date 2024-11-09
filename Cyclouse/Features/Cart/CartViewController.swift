@@ -23,7 +23,7 @@ class CartViewController: UIViewController {
   var selectedStates: [String: Bool] = [:]
   private var isAllSelected = true
   
-  var bikeData: [BikeV2] = [] {
+  var bikeData: [BikeDatabase] = [] {
     didSet {
       delegate?.updateBadge(badgeNumber: bikeData.count)
       updateViewVisibility()
@@ -139,7 +139,7 @@ class CartViewController: UIViewController {
     }
   }
   
-  func updateBikeQuantity(_ bike: BikeV2, newQuantity: Int) {
+  func updateBikeQuantity(_ bike: BikeDatabase, newQuantity: Int) {
       databaseService.updateBikeQuantity(bike, newQuantity: newQuantity)
           .receive(on: DispatchQueue.main)
           .sink { completion in

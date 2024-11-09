@@ -52,13 +52,14 @@ class DetailViewModel {
     }
     
     func addToCart() {
-        let bikeProduct = BikeV2(
+        let bikeProduct = BikeDatabase(
             name: product.name,
             price: product.price,
             brand: product.brand,
             images: product.images,
             descriptions: product.description,
-            stockQuantity: product.quantity
+            stockQuantity: product.quantity,
+            productId: product.id
         )
         
         databaseService.create(bikeProduct)

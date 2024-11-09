@@ -15,9 +15,9 @@ class CheckoutCoordinator: Coordinator, NavigationCoordinator {
   weak var parentCoordinator: (any Coordinator)?
   var container: Container
   unowned var navigationController: UINavigationController
-  private let bike: [BikeV2]
+  private let bike: [BikeDatabase]
   
-  init(navigationController: UINavigationController, container: Container, bike: [BikeV2]) {
+  init(navigationController: UINavigationController, container: Container, bike: [BikeDatabase]) {
     self.navigationController = navigationController
     self.container = container
     self.bike = bike

@@ -53,7 +53,7 @@ class CoordinatorsAssembly: Assembly {
       CartCoordinator(navigationController: navigationController, container: container)
     }
     
-    container.register(CheckoutCoordinator.self) { (resolver, navigationController: UINavigationController, bike: [BikeV2]) in
+    container.register(CheckoutCoordinator.self) { (resolver, navigationController: UINavigationController, bike: [BikeDatabase]) in
       CheckoutCoordinator(navigationController: navigationController, container: container, bike: bike)
     }
   }

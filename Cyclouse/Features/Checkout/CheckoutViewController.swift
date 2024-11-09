@@ -19,7 +19,7 @@ class CheckoutViewController: UIViewController {
   private let locationManager = CLLocationManager()
   private var selectedAddress: ShippingAddress?
   private var cancellables = Set<AnyCancellable>()
-  private let bike: [BikeV2]
+  private let bike: [BikeDatabase]
   
   lazy var tableView: UITableView = {
     let tableView = UITableView(frame: .zero, style: .grouped)
@@ -64,7 +64,7 @@ class CheckoutViewController: UIViewController {
     totalPrice()
   }
   
-  init(coordinator: CheckoutCoordinator, checkoutService: CheckoutService = CheckoutService(), bike: [BikeV2]) {
+  init(coordinator: CheckoutCoordinator, checkoutService: CheckoutService = CheckoutService(), bike: [BikeDatabase]) {
     self.coordinator = coordinator
     self.checkoutService = checkoutService
     self.bike = bike
@@ -182,15 +182,18 @@ class CheckoutViewController: UIViewController {
       return
     }
     let cartItems = bike.map({ bike in
-        CartItem(productId: bike.id, quantity: bike.cartQuantity)
-      })
-    
+      CartItem(productId: bike.productId, quantity: bike.cartQuantity)
+    })
+//    let cartItems = [
+//    CartItem(productId: "FB001", quantity: 1),
+//    CartItem(productId: "HB001", quantity: 2)
+//    ]
     
     let checkoutCart = CheckoutCart(
       items: cartItems,
       shippingAddress: shippingAddress
     )
-    
+    print("Pembuktian\(checkoutCart)")
     checkoutService.checkout(checkout: checkoutCart)
       .receive(on: DispatchQueue.main)
       .sink { [weak self] completion in
@@ -198,27 +201,47 @@ class CheckoutViewController: UIViewController {
         case .finished:
           break
         case .failure(let error):
-          print(error)
+          self?.handleNetworkError(error)
         }
       } receiveValue: { [weak self] response in
         if response.value.success {
           self?.handleSuccessfulCheckout(response.value.data)
         } else {
-          print("response.value.message")
+          self?.handleCheckoutFailure(message: response.value.message)
         }
       }
       .store(in: &cancellables)
     
   }
   
+  private func handleNetworkError(_ error: Error) {
+    let alert = UIAlertController(
+      title: "Error",
+      message: "Network error: \(error.localizedDescription)",
+      preferredStyle: .alert
+    )
+    alert.addAction(UIAlertAction(title: "OK", style: .default))
+    present(alert, animated: true)
+  }
+  
+  private func handleCheckoutFailure(message: String) {
+    let alert = UIAlertController(
+      title: "Checkout Failed",
+      message: message,
+      preferredStyle: .alert
+    )
+    alert.addAction(UIAlertAction(title: "OK", style: .default))
+    present(alert, animated: true)
+  }
+  
   private func handleSuccessfulCheckout(_ checkoutData: CheckoutData) {
-  let alert = UIAlertController(
-  title: "Checkout Successful",
-  message: "Your order ID is: \(checkoutData.id)",
-  preferredStyle: .alert
-  )
-  alert.addAction(UIAlertAction(title: "OK", style: .default))
-  present(alert, animated: true)
+    let alert = UIAlertController(
+      title: "Checkout Successful",
+      message: "Your order ID is: \(checkoutData.id)",
+      preferredStyle: .alert
+    )
+    alert.addAction(UIAlertAction(title: "OK", style: .default))
+    present(alert, animated: true)
   }
   
   

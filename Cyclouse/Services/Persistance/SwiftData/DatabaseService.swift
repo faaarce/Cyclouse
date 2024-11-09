@@ -29,7 +29,7 @@ class DatabaseService {
     
     private func setupContainer() {
         do {
-          let schema = Schema([BikeV2.self])
+          let schema = Schema([BikeDatabase.self])
             let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
           
             container = try ModelContainer(for: schema, configurations: [modelConfiguration])
@@ -156,7 +156,7 @@ class DatabaseService {
         }
     }
     
-  func updateBike(_ bike: BikeV2) -> AnyPublisher<Void, Error> {
+  func updateBike(_ bike: BikeDatabase) -> AnyPublisher<Void, Error> {
           Deferred {
               Future { [weak self] promise in
                   guard let self = self else {
@@ -175,7 +175,7 @@ class DatabaseService {
       }
   
     // Specific methods for Food and History
-  func saveBike(_ bike: BikeV2) -> AnyPublisher<Void, Error> {
+  func saveBike(_ bike: BikeDatabase) -> AnyPublisher<Void, Error> {
         create(bike)
     }
     
@@ -200,8 +200,8 @@ class DatabaseService {
         }.eraseToAnyPublisher()
     }
     
-  func fetchBike() -> AnyPublisher<[BikeV2], Error> {
-    fetch(BikeV2.self, sortBy: SortDescriptor<BikeV2>(\.time))
+  func fetchBike() -> AnyPublisher<[BikeDatabase], Error> {
+    fetch(BikeDatabase.self, sortBy: SortDescriptor<BikeDatabase>(\.time))
     }
     
     func fetchHistory() -> AnyPublisher<[History], Error> {
@@ -209,14 +209,14 @@ class DatabaseService {
     }
     
     func deleteAllBike() -> AnyPublisher<Void, Error> {
-      deleteAll(BikeV2.self)
+      deleteAll(BikeDatabase.self)
     }
     
-  func deleteBike(_ bike: BikeV2) -> AnyPublisher<Void, Error> {
+  func deleteBike(_ bike: BikeDatabase) -> AnyPublisher<Void, Error> {
         delete(bike)
     }
   
-  func updateBikeQuantity(_ bike: BikeV2, newQuantity: Int) -> AnyPublisher<Void, Error> {
+  func updateBikeQuantity(_ bike: BikeDatabase, newQuantity: Int) -> AnyPublisher<Void, Error> {
       update(bike) { updatedBike in
         updatedBike.cartQuantity = newQuantity
       }
