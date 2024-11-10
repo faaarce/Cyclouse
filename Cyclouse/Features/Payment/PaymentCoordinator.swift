@@ -18,9 +18,12 @@ class PaymentCoordinator: Coordinator, NavigationCoordinator {
   }
   
   func start() {
-    let paymentVC = PaymentViewController(coordinator: self)
-    paymentVC.hidesBottomBarWhenPushed = true
-    navigationController.pushViewController(paymentVC, animated: true)
+//    let paymentVC = PaymentViewController(coordinator: self)
+//    paymentVC.hidesBottomBarWhenPushed = true
+//    navigationController.pushViewController(paymentVC, animated: true)
+    
+    let vc = PaymentViewController(coordinator: self)
+    navigationController.setViewControllers([vc], animated: true)
   }
   
   func didFinish(){

@@ -7,6 +7,7 @@
 
 import UIKit
 import Hero
+import JDStatusBarNotification
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -19,6 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     guard let scene = (scene as? UIWindowScene) else { return }
     let window = UIWindow(windowScene: scene)
     let navigationController = UINavigationController()
+    NotificationPresenter.shared.setWindowScene(scene)
     window.rootViewController = navigationController
     window.makeKeyAndVisible()
     window.isHeroEnabled = true
