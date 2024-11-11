@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,6 +21,9 @@
 		C12251C42CB6E065001278E6 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12251C32CB6E065001278E6 /* DatabaseService.swift */; };
 		C12251C72CB6EDDF001278E6 /* BikeProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12251C62CB6EDDF001278E6 /* BikeProduct.swift */; };
 		C12251C92CB78D56001278E6 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12251C82CB78D56001278E6 /* History.swift */; };
+		C12559102CE1C0B000382028 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C125590F2CE1C0B000382028 /* WidgetKit.framework */; };
+		C12559122CE1C0B000382028 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C12559112CE1C0B000382028 /* SwiftUI.framework */; };
+		C12559232CE1C0B200382028 /* CyclouseWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C125590D2CE1C0B000382028 /* CyclouseWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C13D90C82C91EE5400430BA4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13D90C72C91EE5400430BA4 /* DetailViewController.swift */; };
 		C13D90CA2C91EEA200430BA4 /* DetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13D90C92C91EEA200430BA4 /* DetailCoordinator.swift */; };
 		C13D90D42C92183A00430BA4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13D90D32C92183A00430BA4 /* Constants.swift */; };
@@ -172,6 +175,30 @@
 		C1F0F2252CCD177400B8AFDA /* BikeProductCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F0F2242CCD177400B8AFDA /* BikeProductCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C12559212CE1C0B200382028 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C1936FF12C898D1C00B56BA1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C125590C2CE1C0B000382028;
+			remoteInfo = CyclouseWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C12559282CE1C0B200382028 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C12559232CE1C0B200382028 /* CyclouseWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		C104D20F2CC54370006EB92B /* cycle.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = cycle.json; sourceTree = "<group>"; };
 		C107B1F02CDF9E95008C5F5C /* BikeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeDatabase.swift; sourceTree = "<group>"; };
@@ -183,6 +210,11 @@
 		C12251C32CB6E065001278E6 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		C12251C62CB6EDDF001278E6 /* BikeProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeProduct.swift; sourceTree = "<group>"; };
 		C12251C82CB78D56001278E6 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		C125590D2CE1C0B000382028 /* CyclouseWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CyclouseWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C125590F2CE1C0B000382028 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		C12559112CE1C0B000382028 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		C12559292CE1C0C400382028 /* CyclouseWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CyclouseWidgetExtension.entitlements; sourceTree = "<group>"; };
+		C125592A2CE1C0DF00382028 /* Cyclouse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cyclouse.entitlements; sourceTree = "<group>"; };
 		C13D90C72C91EE5400430BA4 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C13D90C92C91EEA200430BA4 /* DetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoordinator.swift; sourceTree = "<group>"; };
 		C13D90D32C92183A00430BA4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -322,7 +354,30 @@
 		C1F0F2242CCD177400B8AFDA /* BikeProductCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeProductCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C12559242CE1C0B200382028 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C125590C2CE1C0B000382028 /* CyclouseWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		C12559132CE1C0B000382028 /* CyclouseWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C12559242CE1C0B200382028 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = CyclouseWidget; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		C125590A2CE1C0B000382028 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C12559122CE1C0B000382028 /* SwiftUI.framework in Frameworks */,
+				C12559102CE1C0B000382028 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C1936FF62C898D1C00B56BA1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -385,6 +440,15 @@
 				C12251C82CB78D56001278E6 /* History.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		C125590E2CE1C0B000382028 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C125590F2CE1C0B000382028 /* WidgetKit.framework */,
+				C12559112CE1C0B000382028 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C13D90C62C91EE3000430BA4 /* Detail */ = {
@@ -860,7 +924,10 @@
 		C1936FF02C898D1C00B56BA1 = {
 			isa = PBXGroup;
 			children = (
+				C12559292CE1C0C400382028 /* CyclouseWidgetExtension.entitlements */,
 				C1936FFB2C898D1C00B56BA1 /* Cyclouse */,
+				C12559132CE1C0B000382028 /* CyclouseWidget */,
+				C125590E2CE1C0B000382028 /* Frameworks */,
 				C1936FFA2C898D1C00B56BA1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -869,6 +936,7 @@
 			isa = PBXGroup;
 			children = (
 				C1936FF92C898D1C00B56BA1 /* Cyclouse.app */,
+				C125590D2CE1C0B000382028 /* CyclouseWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -876,6 +944,7 @@
 		C1936FFB2C898D1C00B56BA1 /* Cyclouse */ = {
 			isa = PBXGroup;
 			children = (
+				C125592A2CE1C0DF00382028 /* Cyclouse.entitlements */,
 				C115252B2CDC9B98001DD6FD /* Config */,
 				C1EE51A02CC57E5A00280BBC /* Mockup */,
 				C19370382C8A09A000B56BA1 /* Resources */,
@@ -903,6 +972,7 @@
 		C19370172C89960F00B56BA1 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				C19B8ACC2CE1B69100484E81 /* Widget */,
 				C16468B02CD097FC00876224 /* Checkout */,
 				C1C582A92CBBACB700280F6F /* Payment */,
 				C1DF47E92C9C92C4004F5751 /* SignUp */,
@@ -1116,6 +1186,13 @@
 			path = SharedCells;
 			sourceTree = "<group>";
 		};
+		C19B8ACC2CE1B69100484E81 /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
 		C1C533862C90A599000ABA71 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1187,6 +1264,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		C125590C2CE1C0B000382028 /* CyclouseWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C12559252CE1C0B200382028 /* Build configuration list for PBXNativeTarget "CyclouseWidgetExtension" */;
+			buildPhases = (
+				C12559092CE1C0B000382028 /* Sources */,
+				C125590A2CE1C0B000382028 /* Frameworks */,
+				C125590B2CE1C0B000382028 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C12559132CE1C0B000382028 /* CyclouseWidget */,
+			);
+			name = CyclouseWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = CyclouseWidgetExtension;
+			productReference = C125590D2CE1C0B000382028 /* CyclouseWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		C1936FF82C898D1C00B56BA1 /* Cyclouse */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C193700D2C898D1D00B56BA1 /* Build configuration list for PBXNativeTarget "Cyclouse" */;
@@ -1194,10 +1293,12 @@
 				C1936FF52C898D1C00B56BA1 /* Sources */,
 				C1936FF62C898D1C00B56BA1 /* Frameworks */,
 				C1936FF72C898D1C00B56BA1 /* Resources */,
+				C12559282CE1C0B200382028 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C12559222CE1C0B200382028 /* PBXTargetDependency */,
 			);
 			name = Cyclouse;
 			packageProductDependencies = (
@@ -1231,9 +1332,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1540;
+				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
+					C125590C2CE1C0B000382028 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 					C1936FF82C898D1C00B56BA1 = {
 						CreatedOnToolsVersion = 15.4;
 					};
@@ -1271,11 +1375,19 @@
 			projectRoot = "";
 			targets = (
 				C1936FF82C898D1C00B56BA1 /* Cyclouse */,
+				C125590C2CE1C0B000382028 /* CyclouseWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C125590B2CE1C0B000382028 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C1936FF72C898D1C00B56BA1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1307,6 +1419,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C12559092CE1C0B000382028 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C1936FF52C898D1C00B56BA1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1440,6 +1559,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		C12559222CE1C0B200382028 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C125590C2CE1C0B000382028 /* CyclouseWidgetExtension */;
+			targetProxy = C12559212CE1C0B200382028 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		C19370072C898D1D00B56BA1 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -1452,6 +1579,64 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C12559262CE1C0B200382028 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = CyclouseWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7AS32Y773Z;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CyclouseWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CyclouseWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.faris.Cyclouse.CyclouseWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C12559272CE1C0B200382028 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = CyclouseWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7AS32Y773Z;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CyclouseWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CyclouseWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.faris.Cyclouse.CyclouseWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		C193700B2C898D1D00B56BA1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C115252C2CDC9BC8001DD6FD /* ConfigDev.xcconfig */;
@@ -1579,6 +1764,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Cyclouse/Cyclouse.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7AS32Y773Z;
@@ -1610,6 +1796,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Cyclouse/Cyclouse.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7AS32Y773Z;
@@ -1638,6 +1825,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C12559252CE1C0B200382028 /* Build configuration list for PBXNativeTarget "CyclouseWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C12559262CE1C0B200382028 /* Debug */,
+				C12559272CE1C0B200382028 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C1936FF42C898D1C00B56BA1 /* Build configuration list for PBXProject "Cyclouse" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
