@@ -11,9 +11,20 @@ import MapKit
 import CoreLocation
 import SnapKit
 
-class CheckoutViewController: UIViewController {
+enum CheckoutViewSectionType: Int, CaseIterable {
+  case address = 0
+  case history
+  case payment
   
-  private var selectedBank: Bank?
+}
+
+class CheckoutViewController: BaseViewController {
+  
+  private var selectedBank: Bank? {
+    didSet {
+      checkoutButton.isEnabled = selectedBank != nil && selectedAddress != nil
+    }
+  }
   private let checkoutService: CheckoutService
   var coordinator: CheckoutCoordinator
   private let locationManager = CLLocationManager()
@@ -22,7 +33,7 @@ class CheckoutViewController: UIViewController {
   private let bike: [BikeDatabase]
   
   lazy var tableView: UITableView = {
-    let tableView = UITableView(frame: .zero, style: .grouped)
+    let tableView = UITableView(frame: .zero, style: .plain)
     tableView.dataSource = self
     tableView.delegate = self
     tableView.backgroundColor = .clear
@@ -41,6 +52,7 @@ class CheckoutViewController: UIViewController {
     button.setTitle("Checkout", for: .normal)
     button.setTitleColor(ThemeColor.black, for: .normal)
     button.backgroundColor = ThemeColor.primary
+    button.isEnabled = false
     button.addTarget(self, action: #selector(checkoutButtonTapped), for: .touchUpInside)
     return button
   }()
@@ -152,6 +164,7 @@ class CheckoutViewController: UIViewController {
     }
   }
   
+  
   private func showLocationServicesAlert() {
     let alert = UIAlertController(
       title: "Location Services Disabled",
@@ -179,21 +192,27 @@ class CheckoutViewController: UIViewController {
   
   func performCheckout() {
     guard let shippingAddress = selectedAddress else {
+      handleCheckoutFailure(message: "Please select a delivery address")
       return
     }
+    
+    guard let bank = selectedBank else {
+      handleCheckoutFailure(message: "Please select a bank for payment")
+      return
+    }
+    
+    
     let cartItems = bike.map({ bike in
       CartItem(productId: bike.productId, quantity: bike.cartQuantity)
     })
-//    let cartItems = [
-//    CartItem(productId: "FB001", quantity: 1),
-//    CartItem(productId: "HB001", quantity: 2)
-//    ]
     
     let checkoutCart = CheckoutCart(
       items: cartItems,
-      shippingAddress: shippingAddress
+      shippingAddress: shippingAddress, paymentMethod: PaymentMethod(type: "bankTransfer", bank: bank.name)
     )
-    print("Pembuktian\(checkoutCart)")
+    
+    print("Checkout details: \(checkoutCart)")
+    
     checkoutService.checkout(checkout: checkoutCart)
       .receive(on: DispatchQueue.main)
       .sink { [weak self] completion in
@@ -237,11 +256,18 @@ class CheckoutViewController: UIViewController {
   private func handleSuccessfulCheckout(_ checkoutData: CheckoutData) {
     let alert = UIAlertController(
       title: "Checkout Successful",
-      message: "Your order ID is: \(checkoutData.id)",
+      message: "Redirecting to payment...",
       preferredStyle: .alert
     )
-    alert.addAction(UIAlertAction(title: "OK", style: .default))
-    present(alert, animated: true)
+    present(alert, animated: true) {
+      // Dismiss the alert after 1 second and show payment screen
+      DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        alert.dismiss(animated: true) {
+       
+          self.coordinator.showPayment(checkoutData)
+        }
+      }
+    }
   }
   
   
@@ -297,29 +323,34 @@ class CheckoutViewController: UIViewController {
 extension CheckoutViewController: UITableViewDataSource {
   
   func numberOfSections(in tableView: UITableView) -> Int {
-    return 3
+    return CheckoutViewSectionType.allCases.count
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if section == 0 {
+    let type = CheckoutViewSectionType(rawValue: section)
+    switch type {
+    case .address:
       return 1
-    } else if section == 1 {
+    case .history:
       return bike.count
-    } else {
+    case .payment:
       return 1
+    default:
+      return 0
     }
-    return 0
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    if indexPath.section == 0 {
+    let type = CheckoutViewSectionType(rawValue: indexPath.section)
+    switch type {
+    case .address:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: "AddressCell", for: indexPath) as? AddressViewCell else { return UITableViewCell() }
       
       cell.selectionStyle = .none
       cell.backgroundColor = .clear
       
       return cell
-    } else if indexPath.section == 1 {
+    case .history:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListProductCell", for: indexPath) as? HistoryTableViewCell else { return UITableViewCell() }
       cell.selectionStyle = .none
       cell.backgroundColor = .clear
@@ -327,14 +358,15 @@ extension CheckoutViewController: UITableViewDataSource {
       cell.configure(with: item)
       
       return cell
-    } else {
+    case .payment:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentCell", for: indexPath) as? PaymentViewCell else { return UITableViewCell() }
       cell.selectionStyle = .none
       cell.backgroundColor = .clear
       cell.delegate = self
       return cell
+    default:
+      return UITableViewCell()
     }
-    return UITableViewCell()
   }
 }
 
@@ -374,6 +406,7 @@ extension CheckoutViewController: CLLocationManagerDelegate {
     }
   }
 }
+
 
 extension CheckoutViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

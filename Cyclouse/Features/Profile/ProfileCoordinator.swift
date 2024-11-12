@@ -32,10 +32,11 @@ class ProfileCoordinator: Coordinator, NavigationCoordinator {
   }
   
   func showPayment(){
-    let paymentCoordinator = PaymentCoordinator(navigationController: navigationController)
-    childCoordinators.append(paymentCoordinator)
-    paymentCoordinator.parentCoordinator = self
-    paymentCoordinator.start()
+//    let paymentCoordinator = PaymentCoordinator(navigationController: navigationController, paymentDetail: <#CheckoutData#>)
+//    childCoordinators.append(paymentCoordinator)
+//    paymentCoordinator.parentCoordinator = self
+//    paymentCoordinator.start()
+    return 
   }
   
   func logout() {

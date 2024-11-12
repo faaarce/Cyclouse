@@ -8,14 +8,11 @@
 import Foundation
 
 struct CheckoutCart: Codable {
-  var items: [CartItem]
+    var items: [CartItem]
     var shippingAddress: ShippingAddress
+    var paymentMethod: PaymentMethod
 }
 
-struct CheckoutItem: Codable {
-    var productId: String
-    var quantity: Int
-}
 
 struct ShippingAddress: Codable {
     var street: String
@@ -23,4 +20,9 @@ struct ShippingAddress: Codable {
     var state: String
     var zipCode: String
     var country: String
+}
+
+struct PaymentMethod: Codable {
+    var type: String
+    var bank: String
 }

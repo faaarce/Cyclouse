@@ -12,6 +12,14 @@ protocol PaymentViewCellDelegate: AnyObject {
   func didSelectBank(_ bank: Bank)
 }
 
+extension UIView {
+  func add(_ views: [UIView]) {
+    views.forEach {
+      self.addSubview($0)
+    }
+  }
+}
+
 
 class PaymentViewCell: UITableViewCell {
   
@@ -55,10 +63,10 @@ class PaymentViewCell: UITableViewCell {
   }()
   
   private var banks: [Bank] = [
-    Bank(name: "Bank BCA", imageName: "bca", isSelected: false),
-    Bank(name: "Bank BNI", imageName: "bni", isSelected: false),
-    Bank(name: "Bank Mandiri", imageName: "mandiri", isSelected: false),
-    Bank(name: "Bank BRI", imageName: "bri", isSelected: false)
+    Bank(name: "Bank BCA", imageName: "bank bca", isSelected: false),
+    Bank(name: "Bank BNI", imageName: "bank bni", isSelected: false),
+    Bank(name: "Bank Mandiri", imageName: "bank mandiri", isSelected: false),
+    Bank(name: "Bank BRI", imageName: "bank bri", isSelected: false)
   ]
   
   private var bankStackViews: [UIStackView] = []
@@ -79,7 +87,10 @@ class PaymentViewCell: UITableViewCell {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+    
+}
+
+extension PaymentViewCell {
   private func createBankStackViews() {
     banks.forEach { bank in
       let stackView = createBankStackView(for: bank)
@@ -161,15 +172,11 @@ class PaymentViewCell: UITableViewCell {
     return stackView
   }
   
-  
   func setupView() {
     backgroundColor = .clear
     contentView.backgroundColor = .clear
-    contentView.addSubview(paymentMethodTitle)
-    contentView.addSubview(containerView)
-    containerView.addSubview(iconBankImage)
-    containerView.addSubview(transferBankHeaderTitle)
-    containerView.addSubview(banksVerticalStackView)
+    contentView.add([paymentMethodTitle, containerView])
+    containerView.add([iconBankImage, transferBankHeaderTitle, banksVerticalStackView ])
   }
   
   func layout() {
@@ -207,5 +214,4 @@ class PaymentViewCell: UITableViewCell {
     }
     
   }
-  
 }

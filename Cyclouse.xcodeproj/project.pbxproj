@@ -24,6 +24,7 @@
 		C12559102CE1C0B000382028 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C125590F2CE1C0B000382028 /* WidgetKit.framework */; };
 		C12559122CE1C0B000382028 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C12559112CE1C0B000382028 /* SwiftUI.framework */; };
 		C12559232CE1C0B200382028 /* CyclouseWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C125590D2CE1C0B000382028 /* CyclouseWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C125593A2CE323F500382028 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12559392CE323E900382028 /* BaseViewController.swift */; };
 		C13D90C82C91EE5400430BA4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13D90C72C91EE5400430BA4 /* DetailViewController.swift */; };
 		C13D90CA2C91EEA200430BA4 /* DetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13D90C92C91EEA200430BA4 /* DetailCoordinator.swift */; };
 		C13D90D42C92183A00430BA4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13D90D32C92183A00430BA4 /* Constants.swift */; };
@@ -215,6 +216,7 @@
 		C12559112CE1C0B000382028 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		C12559292CE1C0C400382028 /* CyclouseWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CyclouseWidgetExtension.entitlements; sourceTree = "<group>"; };
 		C125592A2CE1C0DF00382028 /* Cyclouse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cyclouse.entitlements; sourceTree = "<group>"; };
+		C12559392CE323E900382028 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		C13D90C72C91EE5400430BA4 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C13D90C92C91EEA200430BA4 /* DetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoordinator.swift; sourceTree = "<group>"; };
 		C13D90D32C92183A00430BA4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -1053,6 +1055,7 @@
 		C19370332C8A063200B56BA1 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C12559392CE323E900382028 /* BaseViewController.swift */,
 				C194655E2C8C430B00171932 /* Styles */,
 				C19370522C8A1D7E00B56BA1 /* CommonAssets.xcassets */,
 				C194655D2C8C42FA00171932 /* Extensions */,
@@ -1525,6 +1528,7 @@
 				C1705E0B2CA55C6D0043CE9D /* BikeNetworkRepository.swift in Sources */,
 				C1705E0C2CA55C6D0043CE9D /* BikeService.swift in Sources */,
 				C1705E0D2CA55C6D0043CE9D /* BikeRepository.swift in Sources */,
+				C125593A2CE323F500382028 /* BaseViewController.swift in Sources */,
 				C1705E0E2CA55C6D0043CE9D /* BikeAPI.swift in Sources */,
 				C19370672C8B72BA00B56BA1 /* ButtonFactory.swift in Sources */,
 				C162D4462CD2BBE000DBA8CC /* ViewModelsAssembly.swift in Sources */,

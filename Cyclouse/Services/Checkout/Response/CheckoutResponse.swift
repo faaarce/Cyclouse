@@ -8,22 +8,35 @@
 import Foundation
 
 struct CheckoutResponse: Responseable {
-  var message: String
-  
-  var success: Bool
-  
-  let data: CheckoutData
+    var message: String
+    var success: Bool
+    var data: CheckoutData
 }
 
-
 struct CheckoutData: Codable {
-    let userId: String
-    let status: String
-    let shippingAddress: String
-    let total: Int
-    let createdAt: String
-    let items: [CartItem]
-    let id: String
+    var total: Int
+    var status: String
+    var shippingAddress: String
+    var paymentDetails: PaymentDetails
+    var orderId: String
+    var createdAt: String
+    var paymentMethod: PaymentMethod
+    var userId: String
+    var items: [OrderItem]
+}
+
+struct PaymentDetails: Codable {
+    var bank: String
+    var expiryDate: String
+    var amount: Int
+    var virtualAccountNumber: String
+}
+
+struct OrderItem: Codable {
+    var name: String
+    var quantity: Int
+    var price: Int
+    var productId: String
 }
 
 //// MARK: - Checkout Data

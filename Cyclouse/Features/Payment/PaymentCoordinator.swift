@@ -12,18 +12,17 @@ class PaymentCoordinator: Coordinator, NavigationCoordinator {
   var childCoordinators: [Coordinator] = []
   weak var parentCoordinator: Coordinator?
   var navigationController: UINavigationController
+  private let paymentDetail: CheckoutData
   
-  init(navigationController: UINavigationController) {
+  init(navigationController: UINavigationController, paymentDetail: CheckoutData) {
     self.navigationController = navigationController
+    self.paymentDetail = paymentDetail
   }
   
   func start() {
-//    let paymentVC = PaymentViewController(coordinator: self)
-//    paymentVC.hidesBottomBarWhenPushed = true
-//    navigationController.pushViewController(paymentVC, animated: true)
-    
-    let vc = PaymentViewController(coordinator: self)
-    navigationController.setViewControllers([vc], animated: true)
+  
+    let vc = PaymentViewController(coordinator: self, paymentDetail: paymentDetail)
+    navigationController.pushViewController(vc, animated: true)
   }
   
   func didFinish(){

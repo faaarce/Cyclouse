@@ -12,6 +12,7 @@ import JDStatusBarNotification
 class PaymentViewController: UIViewController {
   
   var coordinator: PaymentCoordinator
+  var paymentDetail: CheckoutData
   
   private let paymentHeaderLabel: UILabel = {
     LabelFactory.build(text: "Make payment immediately", font: ThemeFont.medium(ofSize: 14))
@@ -141,8 +142,9 @@ class PaymentViewController: UIViewController {
   }()
   
   
-  init(coordinator: PaymentCoordinator) {
+  init(coordinator: PaymentCoordinator, paymentDetail: CheckoutData) {
     self.coordinator = coordinator
+    self.paymentDetail = paymentDetail
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -158,6 +160,42 @@ class PaymentViewController: UIViewController {
     
     setupViews()
     layout()
+    configureWithPaymentDetails()
+  }
+  
+  private func configureWithPaymentDetails() {
+    
+    vaNumberTitleLabel.text = "No. Virtual Account \(paymentDetail.paymentDetails.bank):"
+    vaNumberLabel.text = paymentDetail.paymentDetails.virtualAccountNumber
+    let dateFormatter = DateFormatter()
+           dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+           if let date = dateFormatter.date(from: paymentDetail.paymentDetails.expiryDate) {
+               dateFormatter.dateFormat = "HH.mm 'WIB', EEEE, MMMM dd, yyyy"
+               dateFormatter.locale = Locale(identifier: "en_US")
+               let formattedDate = dateFormatter.string(from: date)
+               paymentDeadlineLabel.text = "Transfer Before \(formattedDate)"
+           }
+           
+           // Configure prices
+           let totalAmount = Double(paymentDetail.total)
+           
+           // Calculate subtotal (total of items)
+           let subtotal = paymentDetail.items.reduce(0.0) { result, item in
+               result + (Double(item.price) * Double(item.quantity))
+           }
+           
+           // Calculate shipping (difference between total and subtotal)
+           let shipping = totalAmount - subtotal
+           
+           // Update price labels
+           normalPriceLabel.text = subtotal.toRupiah()
+           shippingPriceLabel.text = shipping.toRupiah()
+           totalPriceLabel.text = totalAmount.toRupiah()
+           
+           // Configure payment method
+           let bankName = paymentDetail.paymentMethod.bank
+           let bankImageName = bankName.lowercased()
+           bankLogoImageView.image = UIImage(named: bankImageName)
   }
   
   private func setupNotificationStyle() {

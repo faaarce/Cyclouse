@@ -33,4 +33,11 @@ class CheckoutCoordinator: Coordinator, NavigationCoordinator {
     parentCoordinator?.removeChildCoordinator(self)
   }
   
+  func showPayment(_ checkoutData: CheckoutData) {
+    let paymentCoordinator = PaymentCoordinator(navigationController: navigationController, paymentDetail: checkoutData)
+    childCoordinators.append(paymentCoordinator)
+    paymentCoordinator.parentCoordinator = self
+    paymentCoordinator.start()
+  }
+  
 }
