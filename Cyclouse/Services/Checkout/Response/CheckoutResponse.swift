@@ -37,6 +37,7 @@ struct OrderItem: Codable {
     var quantity: Int
     var price: Int
     var productId: String
+  let image: String
 }
 
 //// MARK: - Checkout Data

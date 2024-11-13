@@ -66,7 +66,13 @@ class HomeViewController: UIViewController {
     isLoading = true
       updateCollectionView()
       simulateLoading()
-    
+    NotificationCenter.default.addObserver(
+        self,
+        selector: #selector(handlePaymentCompletion),
+        name: .paymentCompleted,
+        object: nil
+    )
+
     
   }
   
@@ -83,6 +89,21 @@ class HomeViewController: UIViewController {
     
     driver = CollectionViewDriver(view: collectionView, viewModel: makeViewModel(), cellEventCoordinator: self)
   }
+  
+  @objc func handlePaymentCompletion(_ notification: Notification) {
+       // Reload your table view or collection view
+       // For example:
+//       fetchHomeData() // Or whatever method you use to load data
+   }
+   
+   private func setupPaymentCompletionObserver() {
+       NotificationCenter.default.addObserver(
+           self,
+           selector: #selector(handlePaymentCompletion(_:)),
+           name: Notification.Name.paymentCompleted,
+           object: nil
+       )
+   }
   
   private func simulateLoading() {
       DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in

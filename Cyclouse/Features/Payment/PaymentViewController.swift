@@ -8,11 +8,20 @@
 import UIKit
 import SnapKit
 import JDStatusBarNotification
+import Combine
+
+extension Notification.Name {
+    static let paymentCompleted = Notification.Name("PaymentCompletedNotification")
+}
+
 
 class PaymentViewController: UIViewController {
   
   var coordinator: PaymentCoordinator
   var paymentDetail: CheckoutData
+  let paymentService: PaymentService
+  
+  private var cancellables = Set<AnyCancellable>()
   
   private let paymentHeaderLabel: UILabel = {
     LabelFactory.build(text: "Make payment immediately", font: ThemeFont.medium(ofSize: 14))
@@ -70,6 +79,16 @@ class PaymentViewController: UIViewController {
   
   private let normalPriceTitleLabel: UILabel = {
     LabelFactory.build(text: "Sub Total" , font: ThemeFont.medium(ofSize: 12), textColor: ThemeColor.labelColorSecondary)
+  }()
+  
+  private let payButton: UIButton = {
+    let button = UIButton()
+    button.setTitle("Pay", for: .normal)
+    button.backgroundColor = ThemeColor.primary
+    button.setTitleColor(ThemeColor.black, for: .normal)
+    button.layer.cornerRadius = 12
+    button.addTarget(self, action: #selector(paymentButtonTapped), for: .touchUpInside)
+    return button
   }()
   
   private lazy var priceHStackView: UIStackView = {
@@ -140,11 +159,12 @@ class PaymentViewController: UIViewController {
     }
     return view
   }()
+  //checkoutService: CheckoutService = CheckoutService()
   
-  
-  init(coordinator: PaymentCoordinator, paymentDetail: CheckoutData) {
+  init(coordinator: PaymentCoordinator, paymentDetail: CheckoutData, paymentService: PaymentService = PaymentService()) {
     self.coordinator = coordinator
     self.paymentDetail = paymentDetail
+    self.paymentService = paymentService
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -163,98 +183,183 @@ class PaymentViewController: UIViewController {
     configureWithPaymentDetails()
   }
   
+  @objc func paymentButtonTapped() {
+    
+    payButton.isEnabled = false
+    payButton.setTitle("Processing...", for: .normal)
+    
+    paymentService.pay(orderId: paymentDetail.orderId, status: "paid")
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] completion in
+        self?.payButton.isEnabled = true
+        self?.payButton.setTitle("Pay", for: .normal)
+        
+        switch completion {
+        case .finished:
+          break
+          
+        case .failure(let error):
+          self?.handlePaymentError(error)
+        }
+      } receiveValue: { [weak self] response in
+        if response.value.success {
+          self?.handleSuccessfulPayment(response.value)
+        } else {
+          self?.handlePaymentFailure()
+        }
+      }
+      .store(in: &cancellables)
+  }
+  
+  private func handleSuccessfulPayment(_ response: PaymentStatusResponse) {
+          // Show success alert
+          let alert = UIAlertController(
+              title: "Payment Successful! 🎉",
+              message: "Your payment has been confirmed",
+              preferredStyle: .alert
+          )
+          
+          alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+              self?.navigateToHome()
+          })
+          
+          present(alert, animated: true)
+      }
+  
+  private func navigateToHome() {
+    // Post notification for any observers that might need to refresh their data
+    NotificationCenter.default.post(name: Notification.Name.paymentCompleted, object: nil)
+    
+    // Clean up current coordinator
+    coordinator.didFinish()
+    
+    // Dismiss this view controller and pop to root
+    dismiss(animated: true) { [weak self] in
+      self?.navigationController?.popToRootViewController(animated: true)
+      
+      // Find the tab bar controller and switch to home tab
+      if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+         let window = windowScene.windows.first,
+         let tabBarController = window.rootViewController as? UITabBarController {
+        tabBarController.selectedIndex = 0 // Switch to home tab
+      }
+    }
+  }
+  
+  private func handlePaymentFailure() {
+    let alert = UIAlertController(
+      title: "Payment Failed",
+      message: "Unable to process your payment. Please try again.",
+      preferredStyle: .alert
+    )
+    
+    alert.addAction(UIAlertAction(title: "OK", style: .default))
+    present(alert, animated: true)
+  }
+  
+  private func handlePaymentError(_ error: Error) {
+    let alert = UIAlertController(
+      title: "Error",
+      message: "An error occurred: \(error.localizedDescription)",
+      preferredStyle: .alert
+    )
+    
+    alert.addAction(UIAlertAction(title: "OK", style: .default))
+    present(alert, animated: true)
+  }
+  
   private func configureWithPaymentDetails() {
     
     vaNumberTitleLabel.text = "No. Virtual Account \(paymentDetail.paymentDetails.bank):"
     vaNumberLabel.text = paymentDetail.paymentDetails.virtualAccountNumber
     let dateFormatter = DateFormatter()
-           dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-           if let date = dateFormatter.date(from: paymentDetail.paymentDetails.expiryDate) {
-               dateFormatter.dateFormat = "HH.mm 'WIB', EEEE, MMMM dd, yyyy"
-               dateFormatter.locale = Locale(identifier: "en_US")
-               let formattedDate = dateFormatter.string(from: date)
-               paymentDeadlineLabel.text = "Transfer Before \(formattedDate)"
-           }
-           
-           // Configure prices
-           let totalAmount = Double(paymentDetail.total)
-           
-           // Calculate subtotal (total of items)
-           let subtotal = paymentDetail.items.reduce(0.0) { result, item in
-               result + (Double(item.price) * Double(item.quantity))
-           }
-           
-           // Calculate shipping (difference between total and subtotal)
-           let shipping = totalAmount - subtotal
-           
-           // Update price labels
-           normalPriceLabel.text = subtotal.toRupiah()
-           shippingPriceLabel.text = shipping.toRupiah()
-           totalPriceLabel.text = totalAmount.toRupiah()
-           
-           // Configure payment method
-           let bankName = paymentDetail.paymentMethod.bank
-           let bankImageName = bankName.lowercased()
-           bankLogoImageView.image = UIImage(named: bankImageName)
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+    if let date = dateFormatter.date(from: paymentDetail.paymentDetails.expiryDate) {
+      dateFormatter.dateFormat = "HH.mm 'WIB', EEEE, MMMM dd, yyyy"
+      dateFormatter.locale = Locale(identifier: "en_US")
+      let formattedDate = dateFormatter.string(from: date)
+      paymentDeadlineLabel.text = "Transfer Before \(formattedDate)"
+    }
+    
+    // Configure prices
+    let totalAmount = Double(paymentDetail.total)
+    
+    // Calculate subtotal (total of items)
+    let subtotal = paymentDetail.items.reduce(0.0) { result, item in
+      result + (Double(item.price) * Double(item.quantity))
+    }
+    
+    // Calculate shipping (difference between total and subtotal)
+    let shipping = totalAmount - subtotal
+    
+    // Update price labels
+    normalPriceLabel.text = subtotal.toRupiah()
+    shippingPriceLabel.text = shipping.toRupiah()
+    totalPriceLabel.text = totalAmount.toRupiah()
+    
+    // Configure payment method
+    let bankName = paymentDetail.paymentMethod.bank
+    let bankImageName = bankName.lowercased()
+    bankLogoImageView.image = UIImage(named: bankImageName)
   }
   
   private func setupNotificationStyle() {
-          let styleName = "CopyStyle"
-          NotificationPresenter.shared.addStyle(named: styleName) { style in
-              style.backgroundStyle.backgroundColor = ThemeColor.primary
-              style.textStyle.textColor = ThemeColor.cardFillColor
-              style.textStyle.font = ThemeFont.bold(ofSize: 14)
-              style.subtitleStyle.textColor = ThemeColor.cardFillColor
-              style.subtitleStyle.font = ThemeFont.medium(ofSize: 12)
-              style.progressBarStyle.barColor = ThemeColor.cardFillColor
-              style.progressBarStyle.barHeight = 0.1
-              return style
-          }
-      }
+    let styleName = "CopyStyle"
+    NotificationPresenter.shared.addStyle(named: styleName) { style in
+      style.backgroundStyle.backgroundColor = ThemeColor.primary
+      style.textStyle.textColor = ThemeColor.cardFillColor
+      style.textStyle.font = ThemeFont.bold(ofSize: 14)
+      style.subtitleStyle.textColor = ThemeColor.cardFillColor
+      style.subtitleStyle.font = ThemeFont.medium(ofSize: 12)
+      style.progressBarStyle.barColor = ThemeColor.cardFillColor
+      style.progressBarStyle.barHeight = 0.1
+      return style
+    }
+  }
   
   @objc private func copyVANumberTapped() {
-         // Copy VA number to clipboard
-         UIPasteboard.general.string = vaNumberLabel.text
-         
-         // Animate button
-         animateCopyButton()
-         
-         // Show notification
-         showCopyNotification()
-     }
-     
-     // MARK: - Helper Methods
-     private func animateCopyButton() {
-         UIView.animate(withDuration: 0.1, animations: {
-             self.copyButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-         }) { _ in
-             UIView.animate(withDuration: 0.1) {
-                 self.copyButton.transform = .identity
-             }
-         }
-     }
-     
-     private func showCopyNotification() {
-         // Create the left view (copy icon)
-         let imageConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
-         let image = UIImage(systemName: "doc.on.doc.fill", withConfiguration: imageConfig)
-         let imageView = UIImageView(image: image)
-         imageView.tintColor = ThemeColor.cardFillColor
-         
-         // Present the notification
-         NotificationPresenter.shared.present(
-             "Virtual Account number copied!",
-             subtitle: "You can paste it now",
-             styleName: "CopyStyle"
-         ) { presenter in
-             presenter.displayLeftView(imageView)
-             
-             // Add progress bar animation
-             presenter.animateProgressBar(to: 1.0, duration: 1.5) { presenter in
-                 presenter.dismiss()
-             }
-         }
-     }
+    // Copy VA number to clipboard
+    UIPasteboard.general.string = vaNumberLabel.text
+    
+    // Animate button
+    animateCopyButton()
+    
+    // Show notification
+    showCopyNotification()
+  }
+  
+  // MARK: - Helper Methods
+  private func animateCopyButton() {
+    UIView.animate(withDuration: 0.1, animations: {
+      self.copyButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+    }) { _ in
+      UIView.animate(withDuration: 0.1) {
+        self.copyButton.transform = .identity
+      }
+    }
+  }
+  
+  private func showCopyNotification() {
+    // Create the left view (copy icon)
+    let imageConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
+    let image = UIImage(systemName: "doc.on.doc.fill", withConfiguration: imageConfig)
+    let imageView = UIImageView(image: image)
+    imageView.tintColor = ThemeColor.cardFillColor
+    
+    // Present the notification
+    NotificationPresenter.shared.present(
+      "Virtual Account number copied!",
+      subtitle: "You can paste it now",
+      styleName: "CopyStyle"
+    ) { presenter in
+      presenter.displayLeftView(imageView)
+      
+      // Add progress bar animation
+      presenter.animateProgressBar(to: 1.0, duration: 1.5) { presenter in
+        presenter.dismiss()
+      }
+    }
+  }
   
   // MARK: - UI Setup
   
@@ -262,6 +367,7 @@ class PaymentViewController: UIViewController {
     view.addSubview(detalPriceVStackView)
     view.addSubview(paymentHeaderLabel)
     view.addSubview(paymentInstructionLabel)
+    view.addSubview(payButton)
     [bankLogoImageView, vaStackView, accountNameLabel, paymentDeadlineLabel, copyButton].forEach(vaCardView.addSubview(_:))
     view.addSubview(orderDetail)
     view.addSubview(vaCardView)
@@ -317,11 +423,17 @@ class PaymentViewController: UIViewController {
       $0.top.equalTo(vaNumberLabel.snp.bottom).offset(12)
       $0.centerX.equalToSuperview()
     }
-   
+    
     
     paymentDeadlineLabel.snp.makeConstraints {
       $0.top.equalTo(accountNameLabel.snp.bottom).offset(8)
       $0.bottom.equalTo(vaCardView.snp.bottom).offset(-8)
+      $0.centerX.equalToSuperview()
+    }
+    
+    payButton.snp.makeConstraints {
+      $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-20)
+      $0.width.equalTo(140)
       $0.centerX.equalToSuperview()
     }
   }

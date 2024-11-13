@@ -7,11 +7,14 @@
 import SnapKit
 import UIKit
 import SkeletonView
+import Combine
 
 class HistoryViewController: UIViewController {
-  
+  var history: [OrderHistory] = []
+  var cancellables = Set<AnyCancellable>()
   var coordinator: HistoryCoordinator
   var isLoading = true
+  var services = HistoryService()
   
   let dummyItems = [
     Dummy(name: "Mountain Bike", price: 1000000, qty: 1, image: "bike"),
@@ -43,7 +46,7 @@ class HistoryViewController: UIViewController {
     configureAppearance()
     setupViews()
     layout()
-    
+    fetchHistory()
     showCustomSkeletonAnimation()
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -59,6 +62,25 @@ class HistoryViewController: UIViewController {
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  private func fetchHistory() {
+    services.history()
+      .receive(on: DispatchQueue.main)
+      .sink { completion in
+        switch completion {
+        case .finished: break
+        case .failure(let error):
+          print(error)
+        }
+      } receiveValue: { [weak self] historyResponse in
+        guard let self = self else { return }
+        self.history = historyResponse.value.data
+        print(history)
+        tableView.reloadData()
+      }
+      .store(in: &cancellables)
+
   }
   
   private func showCustomSkeletonAnimation() {
@@ -132,7 +154,7 @@ extension HistoryViewController: UITableViewDataSource, SkeletonTableViewDataSou
   }
   
   func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return dummyItems.count
+    return history.count
   }
   
   func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
@@ -140,18 +162,19 @@ extension HistoryViewController: UITableViewDataSource, SkeletonTableViewDataSou
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return isLoading ? dummyItems.count : dummyItems.count
+    return isLoading ? history.count : dummyItems.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryTableViewCell", for: indexPath) as? HistoryTableViewCell else { return UITableViewCell() }
+    let historyCell = history[indexPath.row]
     cell.selectionStyle = .none
     cell.backgroundColor = .clear
     if !isLoading {
       let item = dummyItems[indexPath.row]
-      cell.configureDummy(with: item)
+      cell.configure(with: historyCell)
     } else {
-      cell.showCustomSkeletonAnimation()
+      cell.configure(with: historyCell)
     }
     return cell
   }
