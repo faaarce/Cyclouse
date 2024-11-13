@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import JDStatusBarNotification
 import Combine
+import NVActivityIndicatorView
 
 extension Notification.Name {
     static let paymentCompleted = Notification.Name("PaymentCompletedNotification")
@@ -81,15 +82,30 @@ class PaymentViewController: UIViewController {
     LabelFactory.build(text: "Sub Total" , font: ThemeFont.medium(ofSize: 12), textColor: ThemeColor.labelColorSecondary)
   }()
   
-  private let payButton: UIButton = {
-    let button = UIButton()
-    button.setTitle("Pay", for: .normal)
-    button.backgroundColor = ThemeColor.primary
-    button.setTitleColor(ThemeColor.black, for: .normal)
-    button.layer.cornerRadius = 12
-    button.addTarget(self, action: #selector(paymentButtonTapped), for: .touchUpInside)
-    return button
+  private let payButton: NKButton = {
+      let button = NKButton()
+      button.setTitle("Pay", for: .normal)
+      button.setTitleColor(ThemeColor.black, for: .normal)
+      button.setBackgroundColor(ThemeColor.primary, for: .normal)
+      button.setBackgroundColor(ThemeColor.primary.darker, for: .highlighted)
+      button.isRoundedButton = false
+      button.cornerRadius = 10.0
+      button.addTarget(self, action: #selector(paymentButtonTapped), for: .touchUpInside)
+      button.hideTitleWhileLoading = true
+      button.hideImageWhileLoading = true
+      button.transitionToCircleWhenLoading = true // Enable circle transition
+      button.loadingIndicatorAlignment = .center
+      button.loadingIndicatorStyle = .ballScaleRippleMultiple // Match the example
+      button.loadingIndicatorColor = ThemeColor.black
+      button.imageAlignment = .center
+      button.spacing = 10.0
+      button.extendSize = CGSize(width: 0, height: 20)
+      button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+      button.underlineTitleDisabled = true
+      return button
   }()
+
+
   
   private lazy var priceHStackView: UIStackView = {
     let stackView = UIStackView(arrangedSubviews: [normalPriceTitleLabel, normalPriceLabel])
@@ -182,34 +198,38 @@ class PaymentViewController: UIViewController {
     layout()
     configureWithPaymentDetails()
   }
-  
   @objc func paymentButtonTapped() {
-    
-    payButton.isEnabled = false
-    payButton.setTitle("Processing...", for: .normal)
-    
-    paymentService.pay(orderId: paymentDetail.orderId, status: "paid")
-      .receive(on: DispatchQueue.main)
-      .sink { [weak self] completion in
-        self?.payButton.isEnabled = true
-        self?.payButton.setTitle("Pay", for: .normal)
-        
-        switch completion {
-        case .finished:
-          break
-          
-        case .failure(let error):
-          self?.handlePaymentError(error)
-        }
-      } receiveValue: { [weak self] response in
-        if response.value.success {
-          self?.handleSuccessfulPayment(response.value)
-        } else {
-          self?.handlePaymentFailure()
-        }
-      }
-      .store(in: &cancellables)
-  }
+         // Disable the button and show loading indicator
+         payButton.isEnabled = false
+         payButton.isLoading = true
+         
+         // Delay the payment process by 3 seconds to show the loading indicator
+         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
+             guard let self = self else { return }
+             
+             self.paymentService.pay(orderId: self.paymentDetail.orderId, status: "paid")
+                 .receive(on: DispatchQueue.main)
+                 .sink { completion in
+                     // Re-enable the button and hide loading indicator
+                     self.payButton.isEnabled = true
+                     self.payButton.isLoading = false
+                     
+                     switch completion {
+                     case .finished:
+                         break
+                     case .failure(let error):
+                         self.handlePaymentError(error)
+                     }
+                 } receiveValue: { response in
+                     if response.value.success {
+                         self.handleSuccessfulPayment(response.value)
+                     } else {
+                         self.handlePaymentFailure()
+                     }
+                 }
+                 .store(in: &self.cancellables)
+         }
+     }
   
   private func handleSuccessfulPayment(_ response: PaymentStatusResponse) {
           // Show success alert
@@ -435,6 +455,7 @@ class PaymentViewController: UIViewController {
       $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-20)
       $0.width.equalTo(140)
       $0.centerX.equalToSuperview()
+      $0.height.equalTo(50)
     }
   }
 }

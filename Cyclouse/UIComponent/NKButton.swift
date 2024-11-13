@@ -1,0 +1,925 @@
+//
+//  NKButton.swift
+//  NKButton
+//
+//  Created by Nam Kennic on 8/18/17.
+//  Updated to remove FrameLayoutKit dependency.
+//
+
+import UIKit
+#if canImport(NVActivityIndicatorView)
+import NVActivityIndicatorView
+#endif
+
+public extension UIControl.State {
+    static let hovered = UIControl.State(rawValue: 1 << 18)
+}
+
+public enum NKButtonLoadingIndicatorAlignment {
+    case left
+    case center
+    case right
+    case atImage
+    case atPosition(position: CGPoint)
+}
+
+public enum NKButtonImageAlignment {
+    case left
+    case right
+    case top
+    case bottom
+  case center
+    case leftEdge(spacing: CGFloat)
+    case rightEdge(spacing: CGFloat)
+    case topEdge(spacing: CGFloat)
+    case bottomEdge(spacing: CGFloat)
+}
+
+open class NKButton: UIButton {
+    
+    /** Set/Get title of the button */
+    open var title: String? {
+        get { currentTitle }
+        set {
+            setTitle(newValue, for: .normal)
+            if state != .normal { setTitle(newValue, for: state) }
+            setNeedsLayout()
+        }
+    }
+    
+    /** Space between image and text */
+    open var spacing: CGFloat = 0 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    /** Minimum size of imageView, set zero to width or height to disable */
+    open var imageMinSize: CGSize = .zero {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    /** Maximum size of imageView, set zero to width or height to disable */
+    open var imageMaxSize: CGSize = .zero {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    /** Fixed size of imageView, set zero to width or height to disable */
+    open var imageFixedSize: CGSize = .zero {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    /** Extend size that will be included in sizeThatFits function */
+    open var extendSize: CGSize = .zero
+    
+    /** Corner Radius, will be ignored if `isRoundedButton` is true */
+    open var cornerRadius: CGFloat = 0 {
+        didSet {
+            guard cornerRadius != oldValue else { return }
+            setNeedsDisplay()
+        }
+    }
+    
+    /** Shadow radius */
+    open var shadowRadius: CGFloat = 0 {
+        didSet {
+            guard shadowRadius != oldValue else { return }
+            setNeedsDisplay()
+        }
+    }
+    
+    /** Shadow opacity */
+    open var shadowOpacity: Float = 0.5 {
+        didSet {
+            guard shadowOpacity != oldValue else { return }
+            setNeedsDisplay()
+        }
+    }
+    
+    /** Shadow offset */
+    open var shadowOffset: CGSize = .zero {
+        didSet {
+            guard shadowOffset != oldValue else { return }
+            setNeedsDisplay()
+        }
+    }
+    
+    /** Size of border */
+    open var borderSize: CGFloat {
+        get { borderSize(for: .normal) }
+        set { setBorderSize(newValue, for: .normal) }
+    }
+    
+    /** Rounds both sides of the button */
+    open var isRoundedButton: Bool = false {
+        didSet {
+            guard isRoundedButton != oldValue else { return }
+            setNeedsDisplay()
+        }
+    }
+    
+    /** If `true`, title label will not be underlined when `Settings > Accessibility > Button Shapes` is ON */
+    open var underlineTitleDisabled: Bool = false {
+        didSet {
+            guard underlineTitleDisabled != oldValue else { return }
+            setNeedsDisplay()
+        }
+    }
+    
+    /** Image alignment */
+    open var imageAlignment: NKButtonImageAlignment = .left {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    override open var contentEdgeInsets: UIEdgeInsets {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    /** If `true`, disabled color will be set from normal color with transparency */
+    open var autoSetDisableColor: Bool = true
+    /** If `true`, highlighted color will be set from normal color with transparency */
+    open var autoSetHighlightedColor: Bool = true
+    
+    open var flashColor: UIColor! = UIColor(white: 1.0, alpha: 0.5) {
+        didSet {
+            flashLayer.fillColor = flashColor.cgColor
+        }
+    }
+    
+    /** Set loading state. Tap interaction will be disabled while loading */
+    open var isLoading: Bool = false {
+        didSet {
+            guard isLoading != oldValue else { return }
+            isEnabled = !isLoading
+            
+            if isLoading {
+                showLoadingView()
+                
+                if transitionToCircleWhenLoading {
+                    titleLabel?.alpha = 0.0
+                    imageView?.alpha = 0.0
+                    transition(toCircle: true)
+                }
+                else {
+                    if hideImageWhileLoading {
+                        imageView?.alpha = 0.0
+                    }
+                    
+                    if hideTitleWhileLoading {
+                        titleLabel?.alpha = 0.0
+                    }
+                }
+            }
+            else {
+                hideLoadingView()
+                
+                if transitionToCircleWhenLoading {
+                    titleLabel?.alpha = 1.0
+                    imageView?.alpha = 1.0
+                    transition(toCircle: false)
+                }
+                else {
+                    if hideImageWhileLoading {
+                        imageView?.alpha = 1.0
+                    }
+                    
+                    if hideTitleWhileLoading {
+                        titleLabel?.alpha = 1.0
+                    }
+                }
+            }
+        }
+    }
+    /// `true` if mouse cursor is hovering
+    public fileprivate(set) var isHovering = false
+    /** imageView will be hidden when `isLoading` is true */
+    open var hideImageWhileLoading = false
+    /** titleLabel will be hidden when `isLoading` is true */
+    open var hideTitleWhileLoading = true
+    /** Button will animate to circle shape when set `isLoading = true`*/
+    open var transitionToCircleWhenLoading: Bool = false
+    #if canImport(NVActivityIndicatorView)
+    /** Style of loading indicator */
+    open var loadingIndicatorStyle: NVActivityIndicatorType = .ballPulse
+    #else
+    open var loadingIndicatorStyle: UIActivityIndicatorView.Style = .white
+    #endif
+    /** Scale ratio of loading indicator, based on the minimum value of button width or height */
+    open var loadingIndicatorScaleRatio: CGFloat = 0.7
+    /** Color of loading indicator, if `nil`, it will use titleColor of normal state */
+    open var loadingIndicatorColor: UIColor? = nil
+    /** Alignment for loading indicator */
+    open var loadingIndicatorAlignment: NKButtonLoadingIndicatorAlignment = .center
+    
+    private let flashAnimationKey = "flashAnimation"
+    open var isFlashing: Bool {
+        return flashLayer.animation(forKey: flashAnimationKey) != nil
+    }
+    
+    /** The background view of the button */
+    open var backgroundView: UIView? = nil {
+        didSet {
+            oldValue?.layer.removeFromSuperlayer()
+            guard let view = backgroundView else { return }
+            view.isUserInteractionEnabled = false
+            view.layer.masksToBounds = true
+            layer.insertSublayer(view.layer, at: 0)
+            setNeedsLayout()
+        }
+    }
+    
+    #if canImport(NVActivityIndicatorView)
+    fileprivate var loadingView     : NVActivityIndicatorView? = nil
+    #else
+    fileprivate var loadingView     : UIActivityIndicatorView? = nil
+    #endif
+    fileprivate let shadowLayer     = CAShapeLayer()
+    fileprivate let backgroundLayer = CAShapeLayer()
+    fileprivate let flashLayer      = CAShapeLayer()
+    fileprivate let gradientLayer   = CAGradientLayer()
+    
+    fileprivate var bgColorDict         : [String : UIColor] = [:]
+    fileprivate var borderColorDict     : [String : UIColor] = [:]
+    fileprivate var shadowColorDict     : [String : UIColor] = [:]
+    fileprivate var gradientColorDict   : [String : [UIColor]] = [:]
+    fileprivate var borderSizeDict      : [String : CGFloat] = [:]
+    fileprivate var borderDashDict      : [String : [NSNumber]] = [:]
+    fileprivate var titleFontDict       : [String : UIFont] = [:]
+    
+    // MARK: -
+    
+    public convenience init(title: String, titleColor: UIColor? = nil, buttonColor: UIColor? = nil, shadowColor: UIColor? = nil) {
+        self.init()
+        self.title = title
+        
+        if let color = titleColor { setTitleColor(color, for: .normal) }
+        if let color = buttonColor { setBackgroundColor(color, for: .normal) }
+        if let color = shadowColor { setShadowColor(color, for: .normal) }
+    }
+    
+    public init() {
+        super.init(frame: .zero)
+        setupUI()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupUI()
+    }
+    
+    open func setupUI() {
+        flashLayer.opacity = 0
+        flashLayer.fillColor = flashColor.cgColor
+        contentEdgeInsets = .zero
+        
+        layer.addSublayer(shadowLayer)
+        layer.addSublayer(backgroundLayer)
+        layer.addSublayer(flashLayer)
+        layer.addSublayer(gradientLayer)
+        
+        if #available(iOS 13.4, *) {
+            enablePointerInteraction()
+        }
+        else if #available(iOS 13.0, *) {
+            enableHoverGesture()
+        }
+    }
+    
+    @available(iOS 13.0, *)
+    open func enableHoverGesture() {
+        let hoverGesture = UIHoverGestureRecognizer(target: self, action: #selector(onHovered))
+        addGestureRecognizer(hoverGesture)
+    }
+    
+    override open func sizeThatFits(_ size: CGSize) -> CGSize {
+        var contentSize = CGSize.zero
+        
+        let imageSize = adjustedImageSize()
+        let titleSize = titleLabel?.sizeThatFits(size) ?? .zero
+        
+        switch imageAlignment {
+        case .left, .right, .leftEdge(_), .rightEdge(_):
+            contentSize.width = imageSize.width + spacing + titleSize.width
+            contentSize.height = max(imageSize.height, titleSize.height)
+        case .top, .bottom, .topEdge(_), .bottomEdge(_):
+            contentSize.width = max(imageSize.width, titleSize.width)
+            contentSize.height = imageSize.height + spacing + titleSize.height
+        case .center:
+          contentSize.width = imageSize.width + spacing + titleSize.width
+          contentSize.height = max(imageSize.height, titleSize.height)
+        }
+        
+        contentSize.width += contentEdgeInsets.left + contentEdgeInsets.right + extendSize.width
+        contentSize.height += contentEdgeInsets.top + contentEdgeInsets.bottom + extendSize.height
+        
+        contentSize.width = min(contentSize.width, size.width)
+        contentSize.height = min(contentSize.height, size.height)
+        
+        return contentSize
+    }
+    
+    override open func sizeToFit() {
+        let size = sizeThatFits(UIScreen.main.bounds.size)
+        frame = CGRect(origin: frame.origin, size: size)
+    }
+    
+    override open func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        let currentState    = isHovering ? [state, .hovered] : state
+        let backgroundFrame = bounds
+        let fillColor       = backgroundColor(for: currentState) ?? backgroundColor(for: state) ?? backgroundColor(for: .normal)
+        let strokeColor     = borderColor(for: currentState)
+        let strokeSize      = borderSize(for: currentState)
+        let lineDashPattern = borderDashPattern(for: currentState)
+        let roundedPath     = UIBezierPath(roundedRect: backgroundFrame, cornerRadius: cornerRadius)
+        let path            = transitionToCircleWhenLoading && isLoading ? backgroundLayer.path : roundedPath.cgPath
+        
+        backgroundLayer.path            = path
+        backgroundLayer.fillColor       = fillColor?.cgColor
+        backgroundLayer.strokeColor     = strokeColor?.cgColor
+        backgroundLayer.lineWidth       = strokeSize
+        backgroundLayer.miterLimit      = roundedPath.miterLimit
+        backgroundLayer.lineDashPattern = lineDashPattern
+        
+        flashLayer.path                 = path
+        flashLayer.fillColor            = flashColor.cgColor
+        
+        if let shadowColor = shadowColor(for: currentState) {
+            shadowLayer.isHidden        = false
+            shadowLayer.path            = path
+            shadowLayer.shadowPath      = path
+            shadowLayer.fillColor       = shadowColor.cgColor
+            shadowLayer.shadowColor     = shadowColor.cgColor
+            shadowLayer.shadowRadius    = shadowRadius
+            shadowLayer.shadowOpacity   = shadowOpacity
+            shadowLayer.shadowOffset    = shadowOffset
+        }
+        else {
+            shadowLayer.isHidden = true
+        }
+        
+        if let gradientColors = gradientColor(for: currentState) {
+            var colors: [CGColor] = []
+            for color in gradientColors {
+                colors.append(color.cgColor)
+            }
+            
+            gradientLayer.isHidden = false
+            gradientLayer.cornerRadius = cornerRadius
+            gradientLayer.shadowPath = path
+            gradientLayer.colors = colors
+        }
+        else {
+            gradientLayer.isHidden = true
+            gradientLayer.colors = nil
+        }
+        
+        if let titleFont = titleFont(for: currentState) { titleLabel?.font = titleFont }
+        if underlineTitleDisabled { removeLabelUnderline() }
+    }
+    
+    override open func layoutSubviews() {
+        super.layoutSubviews()
+        
+      
+        let contentRect = bounds.inset(by: contentEdgeInsets)
+        
+        let imageSize = adjustedImageSize()
+        let titleSize = titleLabel?.sizeThatFits(contentRect.size) ?? .zero
+        
+        var imageFrame = CGRect.zero
+        var titleFrame = CGRect.zero
+        
+        switch imageAlignment {
+          
+        case .center:
+                imageFrame.size = imageSize
+                imageFrame.origin.x = contentRect.origin.x + (contentRect.width - imageSize.width)/2
+                imageFrame.origin.y = contentRect.origin.y + (contentRect.height - imageSize.height - spacing - titleSize.height)/2
+                
+                titleFrame.size = titleSize
+                titleFrame.origin.x = contentRect.origin.x + (contentRect.width - titleSize.width)/2
+                titleFrame.origin.y = imageFrame.maxY + spacing
+          
+        case .left:
+            imageFrame.size = imageSize
+            imageFrame.origin.x = contentRect.origin.x
+            imageFrame.origin.y = contentRect.origin.y + (contentRect.height - imageSize.height)/2
+            
+            titleFrame.size = titleSize
+            titleFrame.origin.x = imageFrame.maxX + spacing
+            titleFrame.origin.y = contentRect.origin.y + (contentRect.height - titleSize.height)/2
+        case .right:
+            titleFrame.size = titleSize
+            titleFrame.origin.x = contentRect.origin.x
+            titleFrame.origin.y = contentRect.origin.y + (contentRect.height - titleSize.height)/2
+            
+            imageFrame.size = imageSize
+            imageFrame.origin.x = titleFrame.maxX + spacing
+            imageFrame.origin.y = contentRect.origin.y + (contentRect.height - imageSize.height)/2
+        case .top:
+            imageFrame.size = imageSize
+            imageFrame.origin.x = contentRect.origin.x + (contentRect.width - imageSize.width)/2
+            imageFrame.origin.y = contentRect.origin.y
+            
+            titleFrame.size = titleSize
+            titleFrame.origin.x = contentRect.origin.x + (contentRect.width - titleSize.width)/2
+            titleFrame.origin.y = imageFrame.maxY + spacing
+        case .bottom:
+            titleFrame.size = titleSize
+            titleFrame.origin.x = contentRect.origin.x + (contentRect.width - titleSize.width)/2
+            titleFrame.origin.y = contentRect.origin.y
+            
+            imageFrame.size = imageSize
+            imageFrame.origin.x = contentRect.origin.x + (contentRect.width - imageSize.width)/2
+            imageFrame.origin.y = titleFrame.maxY + spacing
+        case .leftEdge(let edgeSpacing):
+            imageFrame.size = imageSize
+            imageFrame.origin.x = contentRect.origin.x + edgeSpacing
+            imageFrame.origin.y = contentRect.origin.y + (contentRect.height - imageSize.height)/2
+            
+            titleFrame.size = titleSize
+            titleFrame.origin.x = imageFrame.maxX + spacing
+            titleFrame.origin.y = contentRect.origin.y + (contentRect.height - titleSize.height)/2
+        case .rightEdge(let edgeSpacing):
+            titleFrame.size = titleSize
+            titleFrame.origin.x = contentRect.origin.x
+            titleFrame.origin.y = contentRect.origin.y + (contentRect.height - titleSize.height)/2
+            
+            imageFrame.size = imageSize
+            imageFrame.origin.x = contentRect.maxX - imageSize.width - edgeSpacing
+            imageFrame.origin.y = contentRect.origin.y + (contentRect.height - imageSize.height)/2
+        case .topEdge(let edgeSpacing):
+            imageFrame.size = imageSize
+            imageFrame.origin.x = contentRect.origin.x + (contentRect.width - imageSize.width)/2
+            imageFrame.origin.y = contentRect.origin.y + edgeSpacing
+            
+            titleFrame.size = titleSize
+            titleFrame.origin.x = contentRect.origin.x + (contentRect.width - titleSize.width)/2
+            titleFrame.origin.y = imageFrame.maxY + spacing
+        case .bottomEdge(let edgeSpacing):
+            titleFrame.size = titleSize
+            titleFrame.origin.x = contentRect.origin.x + (contentRect.width - titleSize.width)/2
+            titleFrame.origin.y = contentRect.origin.y + edgeSpacing
+            
+            imageFrame.size = imageSize
+            imageFrame.origin.x = contentRect.origin.x + (contentRect.width - imageSize.width)/2
+            imageFrame.origin.y = titleFrame.maxY + spacing
+        }
+        
+        if let imageView = imageView, imageView.image != nil  {
+            imageView.frame = imageFrame
+        } else {
+          titleFrame.origin.y = contentRect.origin.y + (contentRect.height - titleSize.height)/2
+        }
+        if let titleLabel = titleLabel {
+            titleLabel.frame = titleFrame
+        }
+        
+        let viewSize = bounds.size
+     
+         if isRoundedButton {
+             cornerRadius = viewSize.height / 2
+             setNeedsDisplay()
+         }
+         
+        shadowLayer.frame = bounds
+        backgroundLayer.frame = bounds
+        flashLayer.frame = bounds
+        gradientLayer.frame = bounds
+        
+        if let loadingView = loadingView {
+            var point = CGPoint(x: 0, y: viewSize.height/2)
+            
+            if transitionToCircleWhenLoading {
+                point.x = viewSize.width/2
+            }
+            else {
+                switch (loadingIndicatorAlignment) {
+                case .left:
+                    point.x = loadingView.frame.size.width/2 + 5 + contentEdgeInsets.left
+                case .center:
+                    point.x = viewSize.width/2
+                case .right:
+                    point.x = viewSize.width - (loadingView.frame.size.width/2) - 5 -  contentEdgeInsets.right
+                case .atImage:
+                    point = imageView?.center ?? point
+                case .atPosition(let position):
+                    point = position
+                }
+            }
+            
+            loadingView.center = point
+            
+            titleLabel?.alpha = hideTitleWhileLoading ? 0.0 : 1.0
+            imageView?.alpha = hideImageWhileLoading ? 0.0 : 1.0
+        }
+        
+        if isRoundedButton {
+            cornerRadius = viewSize.height / 2
+            setNeedsDisplay()
+        }
+        
+        gradientLayer.cornerRadius = cornerRadius
+        gradientLayer.masksToBounds = cornerRadius > 0
+        
+        backgroundView?.layer.cornerRadius = cornerRadius
+        backgroundView?.frame = bounds
+    }
+    
+    open override func didMoveToWindow() {
+        super.didMoveToWindow()
+        guard window != nil else { return }
+        setNeedsLayout()
+    }
+    
+    open override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        guard window != nil else { return }
+        setNeedsLayout()
+    }
+    
+    fileprivate func adjustedImageSize() -> CGSize {
+        guard let imageView = imageView else { return .zero }
+        var size = imageView.image?.size ?? .zero
+        
+        if imageFixedSize != .zero {
+            size = imageFixedSize
+        } else {
+            if imageMinSize.width > 0 && size.width < imageMinSize.width {
+                size.width = imageMinSize.width
+            }
+            if imageMinSize.height > 0 && size.height < imageMinSize.height {
+                size.height = imageMinSize.height
+            }
+            if imageMaxSize.width > 0 && size.width > imageMaxSize.width {
+                size.width = imageMaxSize.width
+            }
+            if imageMaxSize.height > 0 && size.height > imageMaxSize.height {
+                size.height = imageMaxSize.height
+            }
+        }
+        return size
+    }
+    
+    // MARK: -
+    
+    override open var frame: CGRect {
+        didSet {
+            setNeedsDisplay()
+            setNeedsLayout()
+        }
+    }
+    
+    override open var bounds: CGRect {
+        didSet {
+            setNeedsDisplay()
+            setNeedsLayout()
+        }
+    }
+    
+    override open var center: CGPoint {
+        didSet {
+            setNeedsDisplay()
+            setNeedsLayout()
+        }
+    }
+    
+    override open var isHighlighted: Bool {
+        didSet {
+            guard isHighlighted != oldValue else { return }
+            setNeedsDisplay()
+        }
+    }
+    
+    @available(iOS 13.0, *)
+    @objc func onHovered(_ gesture: UIHoverGestureRecognizer) {
+        let gestureState = gesture.state
+        if gestureState == .began || gestureState == .ended || gestureState == .cancelled {
+            isHovering = gestureState == .began
+            setNeedsDisplay()
+        }
+    }
+    
+    // MARK: -
+    
+    open func startFlashing(flashDuration: TimeInterval = 0.5, intensity: Float = 0.85, repeatCount: Int = -1) {
+        flashLayer.removeAnimation(forKey: flashAnimationKey)
+        
+        let flash = CABasicAnimation(keyPath: "opacity")
+        flash.fromValue = 0.0
+        flash.toValue = intensity
+        flash.duration = flashDuration
+        flash.autoreverses = true
+        flash.repeatCount = repeatCount < 0 ? .infinity : Float(repeatCount)
+        flashLayer.add(flash, forKey: flashAnimationKey)
+    }
+    
+    open func stopFlashing() {
+        flashLayer.removeAnimation(forKey: flashAnimationKey)
+    }
+    
+    @available (iOS 13.4, *)
+    open func enablePointerInteraction(insets: CGFloat = -5) {
+        isPointerInteractionEnabled = true
+        pointerStyleProvider = { (button, effect, shape) in
+            let frame = button.frame.insetBy(dx: insets, dy: insets)
+            let buttonShape = UIPointerShape.roundedRect(frame, radius: self.cornerRadius)
+            return UIPointerStyle(effect: effect, shape: buttonShape)
+        }
+    }
+    
+    // MARK: -
+    
+    override open func setTitle(_ title: String?, for state: UIControl.State) {
+        super.setTitle(title, for: state)
+        guard self.state == state else { return }
+        titleLabel?.text = title
+        setNeedsLayout()
+    }
+    
+    open func setTitleFont(_ font: UIFont?, for state: UIControl.State) {
+        let key = titleFontKey(for: state)
+        titleFontDict[key] = font
+        guard self.state == state else { return }
+        titleLabel?.font = font
+        setNeedsLayout()
+    }
+    
+    override open func setImage(_ image: UIImage?, for state: UIControl.State) {
+        super.setImage(image, for: state)
+        guard self.state == state else { return }
+        imageView?.image = image
+        setNeedsLayout()
+    }
+    
+    open func setBackgroundColor(_ color: UIColor?, for state: UIControl.State) {
+        let key = backgroundColorKey(for: state)
+        bgColorDict[key] = color
+        setNeedsDisplay()
+    }
+    
+    open func setBorderColor(_ color: UIColor?, for state: UIControl.State) {
+        let key = borderColorKey(for: state)
+        borderColorDict[key] = color
+        setNeedsDisplay()
+    }
+    
+    open func setShadowColor(_ color: UIColor?, for state: UIControl.State) {
+        let key = shadowColorKey(for: state)
+        shadowColorDict[key] = color
+        setNeedsDisplay()
+    }
+    
+    open func setGradientColor(_ colors: [UIColor]?, for state: UIControl.State) {
+        let key = gradientColorKey(for: state)
+        gradientColorDict[key] = colors
+        setNeedsDisplay()
+    }
+    
+    open func setBorderSize(_ value: CGFloat?, for state: UIControl.State) {
+        let key = borderSizeKey(for: state)
+        borderSizeDict[key] = value
+        setNeedsDisplay()
+    }
+    
+    open func setBorderDashPattern(_ value: [NSNumber]?, for state: UIControl.State) {
+        let key = borderDashKey(for: state)
+        borderDashDict[key] = value
+        setNeedsDisplay()
+    }
+    
+    open func backgroundColor(for state: UIControl.State) -> UIColor? {
+        let key = backgroundColorKey(for: state)
+        var result = bgColorDict[key]
+        
+        if result == nil {
+            if state == .disabled && autoSetDisableColor {
+                let normalColor = backgroundColor(for: .normal)
+                result = normalColor != nil ? normalColor!.withAlphaComponent(0.3) : nil
+            }
+            else if state == .highlighted && autoSetHighlightedColor {
+                let normalColor = backgroundColor(for: .normal)
+                result = normalColor != nil ? normalColor!.darker(by: 0.5) : nil
+            }
+        }
+        
+        return result
+    }
+    
+    open func borderColor(for state: UIControl.State) -> UIColor? {
+        let key = borderColorKey(for: state)
+        var result = borderColorDict[key]
+        
+        if result == nil {
+            if state == .disabled && autoSetDisableColor {
+                let normalColor = borderColor(for: .normal)
+                result = normalColor != nil ? normalColor!.withAlphaComponent(0.3) : nil
+            }
+            else if state == .highlighted && autoSetHighlightedColor {
+                let normalColor = borderColor(for: .normal)
+                result = normalColor != nil ? normalColor!.darker(by: 0.5) : nil
+            }
+        }
+        
+        return result
+    }
+    
+    open func borderDashPattern(for state: UIControl.State) -> [NSNumber]? {
+        let key = borderDashKey(for: state)
+        return borderDashDict[key]
+    }
+    
+    open func shadowColor(for state: UIControl.State) -> UIColor? {
+        let key = shadowColorKey(for: state)
+        return shadowColorDict[key]
+    }
+    
+    open func gradientColor(for state: UIControl.State) -> [UIColor]? {
+        let key = gradientColorKey(for: state)
+        return gradientColorDict[key]
+    }
+    
+    open func borderSize(for state: UIControl.State) -> CGFloat {
+        let key = borderSizeKey(for: state)
+        return borderSizeDict[key] ?? 0
+    }
+    
+    open func titleFont(for state: UIControl.State) -> UIFont? {
+        let key = titleFontKey(for: state)
+        return titleFontDict[key]
+    }
+    
+    // MARK: -
+    
+    fileprivate func backgroundColorKey(for state: UIControl.State) -> String {
+        return "bg\(state.rawValue)"
+    }
+    
+    fileprivate func borderColorKey(for state: UIControl.State) -> String {
+        return "br\(state.rawValue)"
+    }
+    
+    fileprivate func shadowColorKey(for state: UIControl.State) -> String {
+        return "sd\(state.rawValue)"
+    }
+    
+    fileprivate func gradientColorKey(for state: UIControl.State) -> String {
+        return "gr\(state.rawValue)"
+    }
+    
+    fileprivate func borderSizeKey(for state: UIControl.State) -> String {
+        return "bs\(state.rawValue)"
+    }
+    
+    fileprivate func borderDashKey(for state: UIControl.State) -> String {
+        return "bd\(state.rawValue)"
+    }
+    
+    fileprivate func titleFontKey(for state: UIControl.State) -> String {
+        return "tf\(state.rawValue)"
+    }
+    
+    // MARK: -
+    
+    fileprivate func showLoadingView() {
+        guard loadingView == nil else { return }
+        
+        let viewSize = bounds.size
+        let minSize = min(viewSize.width, viewSize.height) * loadingIndicatorScaleRatio
+        let indicatorSize = CGSize(width: minSize, height: minSize)
+        let loadingFrame = CGRect(x: 0, y: 0, width: indicatorSize.width, height: indicatorSize.height)
+        let color = loadingIndicatorColor ?? titleColor(for: .normal)
+        
+        #if canImport(NVActivityIndicatorView)
+        loadingView = NVActivityIndicatorView(frame: loadingFrame, type: loadingIndicatorStyle, color: color, padding: 0)
+        #else
+        loadingView = UIActivityIndicatorView(style: loadingIndicatorStyle)
+        #endif
+        
+        loadingView!.startAnimating()
+        addSubview(loadingView!)
+        setNeedsLayout()
+    }
+    
+    fileprivate func hideLoadingView() {
+        loadingView?.stopAnimating()
+        loadingView?.removeFromSuperview()
+        loadingView = nil
+    }
+    
+    fileprivate func transition(toCircle: Bool) {
+        backgroundLayer.removeAllAnimations()
+        shadowLayer.removeAllAnimations()
+        
+        let animation = CABasicAnimation(keyPath: "bounds.size.width")
+        
+        if toCircle {
+            animation.fromValue = frame.width
+            animation.toValue = frame.height
+            animation.duration = 0.1
+            animation.timingFunction = CAMediaTimingFunction(name: .easeOut)
+            backgroundLayer.masksToBounds = true
+            backgroundLayer.cornerRadius = min(frame.width, frame.height)/2
+        }
+        else {
+            animation.fromValue = frame.height
+            animation.toValue = frame.width
+            animation.duration = 0.15
+            animation.timingFunction = CAMediaTimingFunction(name: .easeOut)
+            
+            setNeedsLayout()
+            setNeedsDisplay()
+        }
+        
+        animation.fillMode = .forwards
+        animation.isRemovedOnCompletion = false
+        
+        backgroundLayer.add(animation, forKey: animation.keyPath)
+        shadowLayer.add(animation, forKey: animation.keyPath)
+        gradientLayer.add(animation, forKey: animation.keyPath)
+        flashLayer.add(animation, forKey: animation.keyPath)
+    }
+    
+    fileprivate func removeLabelUnderline() {
+        guard let attributedText = titleLabel?.attributedText?.mutableCopy() as? NSMutableAttributedString else { return }
+        attributedText.addAttribute(NSAttributedString.Key.underlineStyle, value: (0), range: NSRange(location: 0, length: attributedText.length))
+        titleLabel?.attributedText = attributedText
+    }
+    
+    deinit {
+        backgroundLayer.removeAllAnimations()
+        shadowLayer.removeAllAnimations()
+        gradientLayer.removeAllAnimations()
+        flashLayer.removeAllAnimations()
+    }
+}
+
+fileprivate extension UIColor {
+    
+    func lighter(by value: CGFloat = 0.5) -> UIColor? {
+        return adjust(by: abs(value))
+    }
+    
+    func darker(by value: CGFloat = 0.5) -> UIColor? {
+        return adjust(by: -1 * abs(value))
+    }
+    
+    func adjust(by value: CGFloat = 0.5) -> UIColor? {
+        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        
+        if getRed(&r, green: &g, blue: &b, alpha: &a) {
+            return UIColor(red: min(r + value, 1.0),
+                           green: min(g + value, 1.0),
+                           blue: min(b + value, 1.0),
+                           alpha: a)
+        }
+        else {
+            return nil
+        }
+    }
+}
+
+// UIControlStateValue class remains the same
+public class UIControlStateValue<T> {
+    private let getter: (UIControl.State) -> T?
+    private let setter: (T?, UIControl.State) -> Void
+    
+    fileprivate init(getter: @escaping (UIControl.State) -> T?,
+                     setter: @escaping (T?, UIControl.State) -> Void) {
+        self.getter = getter
+        self.setter = setter
+    }
+    
+    public subscript(state: UIControl.State) -> T? {
+        get { getter(state) }
+        set { setter(newValue, state) }
+    }
+}
+
+public extension NKButton {
+    
+    var attributedTitles: UIControlStateValue<NSAttributedString> { UIControlStateValue<NSAttributedString>(getter: self.attributedTitle(for:), setter: self.setAttributedTitle(_:for:)) }
+    var titles: UIControlStateValue<String> { UIControlStateValue<String>(getter: self.title(for:), setter: self.setTitle(_:for:)) }
+    var titleColors: UIControlStateValue<UIColor> { UIControlStateValue<UIColor>(getter: self.titleColor(for:), setter: self.setTitleColor(_:for:)) }
+    var titleFonts: UIControlStateValue<UIFont> { UIControlStateValue<UIFont>(getter: self.titleFont(for:), setter: self.setTitleFont(_:for:)) }
+    var images: UIControlStateValue<UIImage> { UIControlStateValue<UIImage>(getter: self.image(for:), setter: self.setImage(_:for:)) }
+    var backgroundColors: UIControlStateValue<UIColor> { UIControlStateValue<UIColor>(getter: self.backgroundColor(for:), setter: self.setBackgroundColor(_:for:)) }
+    var borderColors: UIControlStateValue<UIColor> { UIControlStateValue<UIColor>(getter: self.borderColor(for:), setter: self.setBorderColor(_:for:)) }
+    var borderSizes: UIControlStateValue<CGFloat> { UIControlStateValue<CGFloat>(getter: self.borderSize(for:), setter: self.setBorderSize(_:for:)) }
+    var borderDashPatterns: UIControlStateValue<[NSNumber]> { UIControlStateValue<[NSNumber]>(getter: self.borderDashPattern(for:), setter: self.setBorderDashPattern(_:for:)) }
+    var shadowColors: UIControlStateValue<UIColor> { UIControlStateValue<UIColor>(getter: self.shadowColor(for:), setter: self.setShadowColor(_:for:)) }
+    var gradientColors: UIControlStateValue<[UIColor]> { UIControlStateValue<[UIColor]>(getter: self.gradientColor(for:), setter: self.setGradientColor(_:for:)) }
+    
+}

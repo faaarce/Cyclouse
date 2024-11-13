@@ -167,6 +167,10 @@
 		C1D0B28A2CCA1DC3007C294A /* ExperimentCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D0B2872CCA1DC3007C294A /* ExperimentCellViewModel.swift */; };
 		C1D1BE4E2C8E170A00E73A92 /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D1BE4D2C8E170900E73A92 /* HeaderReusableView.swift */; };
 		C1D1BE512C8EE70D00E73A92 /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D1BE502C8EE70D00E73A92 /* CategoryViewCell.swift */; };
+		C1D8543F2CE496BD00C17C8D /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = C1D8543E2CE496BD00C17C8D /* NVActivityIndicatorView */; };
+		C1D854412CE496BD00C17C8D /* NVActivityIndicatorViewExtended in Frameworks */ = {isa = PBXBuildFile; productRef = C1D854402CE496BD00C17C8D /* NVActivityIndicatorViewExtended */; };
+		C1D854432CE49F5700C17C8D /* NKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D854422CE49F5700C17C8D /* NKButton.swift */; };
+		C1D854452CE49F7C00C17C8D /* NKButtonStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D854442CE49F7C00C17C8D /* NKButtonStack.swift */; };
 		C1DF47EB2C9C9310004F5751 /* SignUpCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF47EA2C9C9305004F5751 /* SignUpCoordinator.swift */; };
 		C1DF47ED2C9C9379004F5751 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF47EC2C9C9379004F5751 /* SignUpViewController.swift */; };
 		C1EAE3A32CBC11530032DE1B /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = C1EAE3A22CBC11530032DE1B /* SkeletonView */; };
@@ -360,6 +364,8 @@
 		C1D0B2882CCA1DC3007C294A /* ExperimentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentViewController.swift; sourceTree = "<group>"; };
 		C1D1BE4D2C8E170900E73A92 /* HeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderReusableView.swift; sourceTree = "<group>"; };
 		C1D1BE502C8EE70D00E73A92 /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
+		C1D854422CE49F5700C17C8D /* NKButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NKButton.swift; sourceTree = "<group>"; };
+		C1D854442CE49F7C00C17C8D /* NKButtonStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NKButtonStack.swift; sourceTree = "<group>"; };
 		C1DF47EA2C9C9305004F5751 /* SignUpCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpCoordinator.swift; sourceTree = "<group>"; };
 		C1DF47EC2C9C9379004F5751 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C1EDE5A62CAB396200816876 /* AddToCartResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToCartResponse.swift; sourceTree = "<group>"; };
@@ -416,8 +422,10 @@
 				C151E8A72CA9B9BD000C6B73 /* Valet in Frameworks */,
 				C18F517C2C9D1E4900E60C0D /* Alamofire in Frameworks */,
 				C104D20E2CC541DC006EB92B /* Lottie in Frameworks */,
+				C1D854412CE496BD00C17C8D /* NVActivityIndicatorViewExtended in Frameworks */,
 				C17682792CBB9D4800065AD5 /* Xendit in Frameworks */,
 				C1A426E92CBECB8A000B1579 /* InstantSearch in Frameworks */,
+				C1D8543F2CE496BD00C17C8D /* NVActivityIndicatorView in Frameworks */,
 				C1A426ED2CBECB8A000B1579 /* InstantSearchInsights in Frameworks */,
 				C1EAE3A32CBC11530032DE1B /* SkeletonView in Frameworks */,
 				C121FD482CB903BE00B4AEF5 /* EasyNotificationBadge in Frameworks */,
@@ -1131,6 +1139,7 @@
 				C19465622C8C488100171932 /* Views */,
 				C19465612C8C47DC00171932 /* Controls */,
 				C19465602C8C47D200171932 /* Factories */,
+				C1D854422CE49F5700C17C8D /* NKButton.swift */,
 			);
 			path = UIComponent;
 			sourceTree = "<group>";
@@ -1276,6 +1285,7 @@
 			children = (
 				C19370622C8B697200B56BA1 /* LabelFactory.swift */,
 				C19370662C8B72BA00B56BA1 /* ButtonFactory.swift */,
+				C1D854442CE49F7C00C17C8D /* NKButtonStack.swift */,
 			);
 			path = Factories;
 			sourceTree = "<group>";
@@ -1445,6 +1455,8 @@
 				C104D2132CC5537E006EB92B /* SwiftMessages */,
 				C1EE51A62CC67FCE00280BBC /* ReactiveCollectionsKit */,
 				C162D44E2CD2BCD600DBA8CC /* Swinject */,
+				C1D8543E2CE496BD00C17C8D /* NVActivityIndicatorView */,
+				C1D854402CE496BD00C17C8D /* NVActivityIndicatorViewExtended */,
 			);
 			productName = Cyclouse;
 			productReference = C1936FF92C898D1C00B56BA1 /* Cyclouse.app */;
@@ -1494,6 +1506,7 @@
 				C104D2122CC5537E006EB92B /* XCRemoteSwiftPackageReference "SwiftMessages" */,
 				C1EE51A52CC67FCE00280BBC /* XCRemoteSwiftPackageReference "ReactiveCollectionsKit" */,
 				C162D44D2CD2BCD600DBA8CC /* XCRemoteSwiftPackageReference "Swinject" */,
+				C1D8543D2CE496BD00C17C8D /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
 			);
 			productRefGroup = C1936FFA2C898D1C00B56BA1 /* Products */;
 			projectDirPath = "";
@@ -1579,9 +1592,11 @@
 				C18F51752C9D1AA300E60C0D /* Responseable.swift in Sources */,
 				C107B1F12CDF9E95008C5F5C /* BikeDatabase.swift in Sources */,
 				C18F51762C9D1AA300E60C0D /* ServerMessageError.swift in Sources */,
+				C1D854432CE49F5700C17C8D /* NKButton.swift in Sources */,
 				C18F51772C9D1AA300E60C0D /* APIService.swift in Sources */,
 				C18F51782C9D1AA300E60C0D /* APIManager.swift in Sources */,
 				C12559522CE33A3000382028 /* PaymentStatusResponse.swift in Sources */,
+				C1D854452CE49F7C00C17C8D /* NKButtonStack.swift in Sources */,
 				C18F51792C9D1AA300E60C0D /* API.swift in Sources */,
 				C18F51682C9D1A1000E60C0D /* AuthenticationError.swift in Sources */,
 				C18F51692C9D1A1000E60C0D /* Validateable.swift in Sources */,
@@ -2105,6 +2120,14 @@
 				minimumVersion = 1.6.3;
 			};
 		};
+		C1D8543D2CE496BD00C17C8D /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ninjaprox/NVActivityIndicatorView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.0;
+			};
+		};
 		C1EAE3A12CBC11530032DE1B /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
@@ -2203,6 +2226,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C1AF6D0D2CC16A3000BEFD41 /* XCRemoteSwiftPackageReference "Hero" */;
 			productName = Hero;
+		};
+		C1D8543E2CE496BD00C17C8D /* NVActivityIndicatorView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1D8543D2CE496BD00C17C8D /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
+			productName = NVActivityIndicatorView;
+		};
+		C1D854402CE496BD00C17C8D /* NVActivityIndicatorViewExtended */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1D8543D2CE496BD00C17C8D /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
+			productName = NVActivityIndicatorViewExtended;
 		};
 		C1EAE3A22CBC11530032DE1B /* SkeletonView */ = {
 			isa = XCSwiftPackageProductDependency;
