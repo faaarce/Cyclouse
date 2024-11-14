@@ -15,25 +15,24 @@ class TabbarCoordinator: Coordinator {
   var childCoordinators: [Coordinator] = []
   weak var parentCoordinator: Coordinator?
   private let container: Container
-  unowned var tabBarController: UITabBarController
-  
-  private var cancellables = Set<AnyCancellable>()
+  private var tabBarController: TabBarController
+//  private var cancellables = Set<AnyCancellable>()
   private let service = DatabaseService.shared
-  private var itemCount: Int = 0 {
-    didSet {
-      updateCartBadge()
-    }
-  }
+//  private var itemCount: Int = 0 {
+//    didSet {
+//      updateCartBadge()
+//    }
+//  }
   
   init(tabBarController: UITabBarController, container: Container) {
-    self.tabBarController = tabBarController
+    self.tabBarController = TabBarController()
     self.container = container
   }
   
   func start() {
     setupViewControllers()
     startWithRoot(tabBarController)
-    setupDatabaseObserver()
+//    setupDatabaseObserver()
   }
   
   func setupViewControllers() {
@@ -60,49 +59,58 @@ class TabbarCoordinator: Coordinator {
   private func setupTabBarItems() {
     guard let viewControllers = tabBarController.viewControllers else { return }
     
-    viewControllers[0].tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "home_icon_inactive"), selectedImage:  UIImage(named: "home_icon_active"))
-    
-    
-    viewControllers[1].tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "profile_icon_inactive"), selectedImage: UIImage(named: "profile_icon_active"))
-    
-    
-    UITabBar.appearance().backgroundColor = ThemeColor.cardFillColor
-    UITabBar.appearance().tintColor = ThemeColor.primary
-    UITabBar.appearance().unselectedItemTintColor = ThemeColor.secondary
+    viewControllers[0].tabBarItem = UITabBarItem(
+         title: "Home",
+         image: UIImage(named: "home_icon_inactive")?
+             .withRenderingMode(.alwaysOriginal),  // Changed to alwaysOriginal
+         selectedImage: UIImage(named: "home_icon_active")?
+             .withRenderingMode(.alwaysTemplate)
+     )
+     
+     viewControllers[1].tabBarItem = UITabBarItem(
+         title: "Profile",
+         image: UIImage(named: "profile_icon_inactive")?
+             .withRenderingMode(.alwaysOriginal),  // Changed to alwaysOriginal
+         selectedImage: UIImage(named: "profile_icon_active")?
+             .withRenderingMode(.alwaysTemplate)
+     )
+     
+    // Important: Set tags for wave animation
+//         viewControllers.enumerated().forEach { $0.element.tabBarItem.tag = $0.offset + 1 }
   }
   
-  private func setupDatabaseObserver() {
-    service.databaseUpdated
-      .receive(on: DispatchQueue.main)
-      .sink { [weak self] _ in
-        self?.updateCartCount()
-      }
-      .store(in: &cancellables)
-    updateCartCount()
-  }
-  
-  private func updateCartCount() {
-    service.fetchBike()
-      .receive(on: DispatchQueue.main)
-      .sink { completion in
-        switch completion {
-        case .finished:
-          break
-          
-        case .failure(let error):
-          print("Error fetching bike items: \(error.localizedDescription)")
-        }
-      } receiveValue: { [weak self] bike in
-        self?.itemCount = bike.count
-      }
-      .store(in: &cancellables)
-  }
-  
-  private func updateCartBadge(){
-    if let cartTab = tabBarController.viewControllers?[0].tabBarItem {
-      cartTab.badgeValue = itemCount > 0 ? "\(itemCount)" : nil
-    }
-  }
+//  private func setupDatabaseObserver() {
+//    service.databaseUpdated
+//      .receive(on: DispatchQueue.main)
+//      .sink { [weak self] _ in
+//        self?.updateCartCount()
+//      }
+//      .store(in: &cancellables)
+//    updateCartCount()
+//  }
+//  
+//  private func updateCartCount() {
+//    service.fetchBike()
+//      .receive(on: DispatchQueue.main)
+//      .sink { completion in
+//        switch completion {
+//        case .finished:
+//          break
+//          
+//        case .failure(let error):
+//          print("Error fetching bike items: \(error.localizedDescription)")
+//        }
+//      } receiveValue: { [weak self] bike in
+//        self?.itemCount = bike.count
+//      }
+//      .store(in: &cancellables)
+//  }
+//  
+//  private func updateCartBadge(){
+//    if let cartTab = tabBarController.viewControllers?[0].tabBarItem {
+//      cartTab.badgeValue = itemCount > 0 ? "\(itemCount)" : nil
+//    }
+//  }
   
   
   func handleLogout() {
@@ -113,10 +121,10 @@ class TabbarCoordinator: Coordinator {
       appCoordinator.handleLogout()
     }
   }
-  
-  deinit {
-    cancellables.removeAll()
-  }
-  
+//  
+//  deinit {
+//    cancellables.removeAll()
+//  }
+//  
   
 }

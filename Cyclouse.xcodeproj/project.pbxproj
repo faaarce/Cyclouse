@@ -91,6 +91,12 @@
 		C17F981B2CE5AD030060BC7B /* CartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F981A2CE5AD030060BC7B /* CartViewModel.swift */; };
 		C17F981E2CE6069E0060BC7B /* MessageAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F981D2CE6069E0060BC7B /* MessageAlert.swift */; };
 		C17F98202CE606ED0060BC7B /* Theme+Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F981F2CE606ED0060BC7B /* Theme+Icon.swift */; };
+		C17F98662CE63CF20060BC7B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98652CE63CF20060BC7B /* TabBarController.swift */; };
+		C17F98672CE63D410060BC7B /* WaveTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98602CE63C710060BC7B /* WaveTabBarController.swift */; };
+		C17F98682CE63D460060BC7B /* WaveTabBarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98632CE63C710060BC7B /* WaveTabBarProtocol.swift */; };
+		C17F98692CE63D460060BC7B /* WaveTabBarPresenterBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98622CE63C710060BC7B /* WaveTabBarPresenterBase.swift */; };
+		C17F986A2CE63D460060BC7B /* UIBezierPath+createCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98642CE63C790060BC7B /* UIBezierPath+createCurve.swift */; };
+		C17F986B2CE63D460060BC7B /* WaveTabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98612CE63C710060BC7B /* WaveTabBarPresenter.swift */; };
 		C18F51622C9D1A1000E60C0D /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51502C9D1A1000E60C0D /* Email.swift */; };
 		C18F51632C9D1A1000E60C0D /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51522C9D1A1000E60C0D /* Password.swift */; };
 		C18F51642C9D1A1000E60C0D /* Username.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51512C9D1A1000E60C0D /* Username.swift */; };
@@ -298,6 +304,12 @@
 		C17F981A2CE5AD030060BC7B /* CartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewModel.swift; sourceTree = "<group>"; };
 		C17F981D2CE6069E0060BC7B /* MessageAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAlert.swift; sourceTree = "<group>"; };
 		C17F981F2CE606ED0060BC7B /* Theme+Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Theme+Icon.swift"; sourceTree = "<group>"; };
+		C17F98602CE63C710060BC7B /* WaveTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveTabBarController.swift; sourceTree = "<group>"; };
+		C17F98612CE63C710060BC7B /* WaveTabBarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveTabBarPresenter.swift; sourceTree = "<group>"; };
+		C17F98622CE63C710060BC7B /* WaveTabBarPresenterBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveTabBarPresenterBase.swift; sourceTree = "<group>"; };
+		C17F98632CE63C710060BC7B /* WaveTabBarProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveTabBarProtocol.swift; sourceTree = "<group>"; };
+		C17F98642CE63C790060BC7B /* UIBezierPath+createCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+createCurve.swift"; sourceTree = "<group>"; };
+		C17F98652CE63CF20060BC7B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C18F514C2C9D1A1000E60C0D /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		C18F514D2C9D1A1000E60C0D /* Validateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validateable.swift; sourceTree = "<group>"; };
 		C18F514E2C9D1A1000E60C0D /* Valueable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Valueable.swift; sourceTree = "<group>"; };
@@ -1097,6 +1109,11 @@
 		C1936FFB2C898D1C00B56BA1 /* Cyclouse */ = {
 			isa = PBXGroup;
 			children = (
+				C17F98602CE63C710060BC7B /* WaveTabBarController.swift */,
+				C17F98612CE63C710060BC7B /* WaveTabBarPresenter.swift */,
+				C17F98622CE63C710060BC7B /* WaveTabBarPresenterBase.swift */,
+				C17F98632CE63C710060BC7B /* WaveTabBarProtocol.swift */,
+				C17F98642CE63C790060BC7B /* UIBezierPath+createCurve.swift */,
 				C125592A2CE1C0DF00382028 /* Cyclouse.entitlements */,
 				C115252B2CDC9B98001DD6FD /* Config */,
 				C1EE51A02CC57E5A00280BBC /* Mockup */,
@@ -1107,6 +1124,7 @@
 				C19370182C89967300B56BA1 /* Services */,
 				C19370172C89960F00B56BA1 /* Features */,
 				C193700A2C898D1D00B56BA1 /* Info.plist */,
+				C17F98652CE63CF20060BC7B /* TabBarController.swift */,
 			);
 			path = Cyclouse;
 			sourceTree = "<group>";
@@ -1704,6 +1722,7 @@
 				C1705E0C2CA55C6D0043CE9D /* BikeService.swift in Sources */,
 				C1705E0D2CA55C6D0043CE9D /* BikeRepository.swift in Sources */,
 				C125593A2CE323F500382028 /* BaseViewController.swift in Sources */,
+				C17F98672CE63D410060BC7B /* WaveTabBarController.swift in Sources */,
 				C1705E0E2CA55C6D0043CE9D /* BikeAPI.swift in Sources */,
 				C19370672C8B72BA00B56BA1 /* ButtonFactory.swift in Sources */,
 				C162D4462CD2BBE000DBA8CC /* ViewModelsAssembly.swift in Sources */,
@@ -1719,9 +1738,14 @@
 				C1EE5EC32CAEB30100856B94 /* Codable + Dictionary.swift in Sources */,
 				C1EE5EC42CAEB30100856B94 /* CoreDataManagerError.swift in Sources */,
 				C1EE51A22CC57E7A00280BBC /* TestingViewController.swift in Sources */,
+				C17F98662CE63CF20060BC7B /* TabBarController.swift in Sources */,
 				C11525612CDDFFF0001DD6FD /* PaymentViewCell.swift in Sources */,
 				C1EE5EC52CAEB30100856B94 /* CoreDataManager + CRUD.swift in Sources */,
 				C1EE5EC62CAEB30100856B94 /* CoreDataManager.swift in Sources */,
+				C17F98682CE63D460060BC7B /* WaveTabBarProtocol.swift in Sources */,
+				C17F98692CE63D460060BC7B /* WaveTabBarPresenterBase.swift in Sources */,
+				C17F986A2CE63D460060BC7B /* UIBezierPath+createCurve.swift in Sources */,
+				C17F986B2CE63D460060BC7B /* WaveTabBarPresenter.swift in Sources */,
 				C193702D2C89E97B00B56BA1 /* ProfileCoordinator.swift in Sources */,
 				C1464C592C92B41800F945BA /* CartViewCell.swift in Sources */,
 				C12251C92CB78D56001278E6 /* History.swift in Sources */,
