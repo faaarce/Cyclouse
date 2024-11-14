@@ -34,7 +34,6 @@ class TabbarCoordinator: Coordinator {
     setupViewControllers()
     startWithRoot(tabBarController)
     setupDatabaseObserver()
-  
   }
   
   func setupViewControllers() {
@@ -105,7 +104,6 @@ class TabbarCoordinator: Coordinator {
     }
   }
   
-
   
   func handleLogout() {
     childCoordinators.forEach { $0.didFinish() }
