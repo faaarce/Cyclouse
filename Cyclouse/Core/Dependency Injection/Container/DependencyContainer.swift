@@ -9,7 +9,7 @@ import Foundation
 import Swinject
 
 final class DependencyContainer {
-    static let shared = DependencyContainer() // Singleton pattern
+    static let shared = DependencyContainer() 
     let container: Container
     
     private init() {

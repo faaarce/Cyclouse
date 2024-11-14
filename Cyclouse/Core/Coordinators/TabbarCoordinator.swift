@@ -10,7 +10,7 @@ import Combine
 import Swinject
 
 class TabbarCoordinator: Coordinator {
-  var childCoordinators: [any Coordinator] = []
+  var childCoordinators: [Coordinator] = []
   
   weak var parentCoordinator: Coordinator?
   private let container: Container
@@ -26,47 +26,36 @@ class TabbarCoordinator: Coordinator {
   }
   
   func start() {
+    setupViewControllers()
+    startWithRoot(tabBarController)
+    setupDatabaseObserver()
+    updateBadge()
+    
+    
+  }
+  
+  func setupViewControllers() {
     let homeNav = UINavigationController()
     let homeCoordinator = container.resolve(HomeCoordinator.self, argument: homeNav)!
     addChildCoordinator(homeCoordinator)
     homeCoordinator.start()
-    
-//    let myNav = UINavigationController()
-//     let myVC = MyViewController()
-//     myNav.viewControllers = [myVC]
-      //new featueres
-    
+
     let profileNav = UINavigationController()
     let profileCoordinator = ProfileCoordinator(navigationController: profileNav)
     addChildCoordinator(profileCoordinator)
     profileCoordinator.start()
     
-//    let checkNav = UINavigationController()
-//    let checkoutCoordinator = CheckoutCoordinator(navigationController: checkNav)
-//    addChildCoordinator(checkoutCoordinator)
-//    checkoutCoordinator.start()
 
-    
-    let wishlistNav = UINavigationController()
-    let wishlistCoordinator = HistoryCoordinator(navigationController: wishlistNav)
-    addChildCoordinator(wishlistCoordinator)
-    wishlistCoordinator.start()
-    
     tabBarController.setViewControllers([
-      homeNav,  //new featueres
+      homeNav,
       profileNav
     ], animated: false)
-    setupTabbar()
-    setupDatabaseObserver()
-    updateBadge()
-    startWithRoot(tabBarController)
-    
-    
+    setupTabBarItems()
   }
   
   
   
-  private func setupTabbar() {
+  private func setupTabBarItems() {
     guard let viewControllers = tabBarController.viewControllers else { return }
     
     viewControllers[0].tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "home_icon_inactive"), selectedImage:  UIImage(named: "home_icon_active"))
@@ -115,13 +104,17 @@ class TabbarCoordinator: Coordinator {
   }
   
   func gotoProfile() {
-    tabBarController.selectedIndex = 3
+    tabBarController.selectedIndex = 1
   }
   
 
   func handleLogout() {
+    childCoordinators.forEach { $0.didFinish() }
+    childCoordinators.removeAll()
     didFinish()
-    (parentCoordinator as? AppCoordinator)?.handleLogout()
+    if let appCoordinator = parentCoordinator as? AppCoordinator {
+        appCoordinator.handleLogout()
+    }
   }
   
   deinit {

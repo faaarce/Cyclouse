@@ -8,9 +8,9 @@ import Swinject
 import UIKit
 
 class HomeCoordinator: Coordinator, NavigationCoordinator {
-  var childCoordinators: [any Coordinator] = []
+  var childCoordinators: [Coordinator] = []
   
-  weak var parentCoordinator: (any Coordinator)?
+  weak var parentCoordinator:  Coordinator?
   unowned var navigationController: UINavigationController
   private let container: Container
   
@@ -21,15 +21,15 @@ class HomeCoordinator: Coordinator, NavigationCoordinator {
   
   func start() {
     let vc = HomeViewController(coordinator: self)
-   
+    
     navigationController.setViewControllers([vc], animated: true)
   }
   
   func showDetailViewController(for product: Product) {
     let detailCoordinator = container.resolve(
-               DetailCoordinator.self,
-               arguments: navigationController, product
-           )!
+      DetailCoordinator.self,
+      arguments: navigationController, product
+    )!
     addChildCoordinator(detailCoordinator)
     detailCoordinator.parentCoordinator = self
     detailCoordinator.start()

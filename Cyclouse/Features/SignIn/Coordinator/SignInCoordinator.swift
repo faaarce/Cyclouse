@@ -8,10 +8,10 @@ import Swinject
 import UIKit
 
 class SignInCoordinator: Coordinator, NavigationCoordinator {
-  var childCoordinators: [any Coordinator] = []
+  var childCoordinators: [Coordinator] = []
   
-  weak var parentCoordinator: (any Coordinator)?
-  unowned var navigationController: UINavigationController
+  weak var parentCoordinator: Coordinator?
+  var navigationController: UINavigationController
   private let container: Container
   
   init(navigationController: UINavigationController, container: Container) {
@@ -26,6 +26,7 @@ class SignInCoordinator: Coordinator, NavigationCoordinator {
   }
   
   func didFinishSign() {
+    parentCoordinator?.removeChildCoordinator(self)
     (parentCoordinator as? AppCoordinator)?.showMainTabbar()
   }
 }

@@ -62,7 +62,7 @@ class ProfileViewController: UIViewController {
   }()
   
   private lazy var menuItems: [UIView] = [
-    createPaddedMenuItemStack(title: "My Account", icon: "person", action: #selector(myAccountTapped)),
+    createPaddedMenuItemStack(title: "My Account", icon: "person", action: #selector(transactionHistoryTapped)),
     createDivider(),
     createPaddedMenuItemStack(title: "Transaction History", icon: "clock.arrow.circlepath", action: #selector(transactionHistoryTapped)),
     createDivider(),
@@ -208,9 +208,6 @@ class ProfileViewController: UIViewController {
     return divider
   }
   
-  @objc private func myAccountTapped(){
-    coordinator.showPayment()
-  }
   
   @objc private func transactionHistoryTapped() {
     coordinator.showTransactionHistory()

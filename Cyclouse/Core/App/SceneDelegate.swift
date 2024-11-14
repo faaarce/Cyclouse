@@ -29,18 +29,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     coordinator?.start()
     
   }
-//  
-//  func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-//      guard let url = URLContexts.first?.url,
-//            url.scheme == "cyclouse",
-//            url.host == "bike" else {
-//          return
-//      }
-//      
-//      let bikeId = url.lastPathComponent
-//      // Navigate to bike detail
-//      coordinator.showBikeDetail(bikeId: bikeId)
-//  }
+
+  
 
   func sceneDidDisconnect(_ scene: UIScene) {
     // Called as the scene is being released by the system.

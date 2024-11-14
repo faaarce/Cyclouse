@@ -28,10 +28,8 @@ extension Coordinator {
   }
   
   func addChildCoordinator(_ coordinator: Coordinator) {
-    self.childCoordinators.append(coordinator)
-
     coordinator.parentCoordinator = self
- 
+    childCoordinators.append(coordinator)
   }
   
   func startWithRoot(_ vc: UIViewController) {
@@ -40,13 +38,4 @@ extension Coordinator {
     window?.rootViewController = vc
   }
   
-  func getParentCoordinator<T: Coordinator>(from coordinator: Coordinator) -> T? {
-    let parent = coordinator.parentCoordinator
-    if let parent = parent as? T {
-      return parent
-    } else if let parent {
-      return getParentCoordinator(from: parent)
-    }
-    return nil
-  }
 }
