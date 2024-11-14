@@ -4,18 +4,19 @@
 //
 //  Created by yoga arie on 05/09/24.
 //
-
+import Swinject
 import UIKit
 
 class ProfileCoordinator: Coordinator, NavigationCoordinator {
-  var childCoordinators: [any Coordinator] = []
+  var childCoordinators: [Coordinator] = []
   
-  weak var parentCoordinator: (any Coordinator)?
-  
+  weak var parentCoordinator: Coordinator?
+  private let container: Container
   unowned var navigationController: UINavigationController
   
-  init(navigationController: UINavigationController) {
+  init(navigationController: UINavigationController, container: Container) {
     self.navigationController = navigationController
+    self.container = container
   }
   
   
@@ -25,7 +26,7 @@ class ProfileCoordinator: Coordinator, NavigationCoordinator {
   }
   
   func showTransactionHistory(){
-    let historyCoordinator = HistoryCoordinator(navigationController: navigationController)
+    let historyCoordinator = container.resolve(HistoryCoordinator.self, argument: navigationController)!
     childCoordinators.append(historyCoordinator)
     historyCoordinator.parentCoordinator = self
     historyCoordinator.start()
@@ -36,7 +37,7 @@ class ProfileCoordinator: Coordinator, NavigationCoordinator {
     didFinish()
     (parentCoordinator as? TabbarCoordinator)?.handleLogout()
   }
-
+  
 }
 
 

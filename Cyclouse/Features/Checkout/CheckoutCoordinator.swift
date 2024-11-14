@@ -34,7 +34,7 @@ class CheckoutCoordinator: Coordinator, NavigationCoordinator {
   }
   
   func showPayment(_ checkoutData: CheckoutData) {
-    let paymentCoordinator = PaymentCoordinator(navigationController: navigationController, paymentDetail: checkoutData)
+    let paymentCoordinator = container.resolve(PaymentCoordinator.self, arguments: navigationController, checkoutData)!
     childCoordinators.append(paymentCoordinator)
     paymentCoordinator.parentCoordinator = self
     paymentCoordinator.start()

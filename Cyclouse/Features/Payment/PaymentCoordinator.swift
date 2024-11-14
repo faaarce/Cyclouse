@@ -7,16 +7,19 @@
 
 import Foundation
 import UIKit
+import Swinject
 
 class PaymentCoordinator: Coordinator, NavigationCoordinator {
   var childCoordinators: [Coordinator] = []
   weak var parentCoordinator: Coordinator?
   var navigationController: UINavigationController
   private let paymentDetail: CheckoutData
+  var container: Container
   
-  init(navigationController: UINavigationController, paymentDetail: CheckoutData) {
+  init(navigationController: UINavigationController, paymentDetail: CheckoutData, container: Container) {
     self.navigationController = navigationController
     self.paymentDetail = paymentDetail
+    self.container = container
   }
   
   func start() {

@@ -313,10 +313,6 @@ extension CartViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    //    let test = bikes?.data.items.count ?? 0
-    //    print(test)
-    //    return test
-    
     return bikeData.count
   }
   

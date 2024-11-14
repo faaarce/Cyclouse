@@ -43,7 +43,7 @@ class TabbarCoordinator: Coordinator {
     homeCoordinator.start()
     
     let profileNav = UINavigationController()
-    let profileCoordinator = ProfileCoordinator(navigationController: profileNav)
+    let profileCoordinator = container.resolve(ProfileCoordinator.self, argument: profileNav)!
     addChildCoordinator(profileCoordinator)
     profileCoordinator.start()
     

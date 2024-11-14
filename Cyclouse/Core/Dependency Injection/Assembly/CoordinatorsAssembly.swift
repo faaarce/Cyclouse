@@ -56,5 +56,17 @@ class CoordinatorsAssembly: Assembly {
     container.register(CheckoutCoordinator.self) { (resolver, navigationController: UINavigationController, bike: [BikeDatabase]) in
       CheckoutCoordinator(navigationController: navigationController, container: container, bike: bike)
     }
+    
+    container.register(ProfileCoordinator.self) { (resolver, navigationController: UINavigationController) in
+      ProfileCoordinator(navigationController: navigationController, container: container)
+    }
+    
+    container.register(HistoryCoordinator.self) { (resolver, navigationController: UINavigationController) in
+      HistoryCoordinator(navigationController: navigationController, container: container)
+    }
+    
+    container.register(PaymentCoordinator.self) { (resolver, navigationController: UINavigationController, checkoutData: CheckoutData) in
+      PaymentCoordinator(navigationController: navigationController, paymentDetail: checkoutData, container: container)
+    }
   }
 }

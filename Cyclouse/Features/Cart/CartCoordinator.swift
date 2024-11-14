@@ -10,9 +10,9 @@ import UIKit
 import Swinject
 
 class CartCoordinator: Coordinator, NavigationCoordinator {
-  var childCoordinators: [any Coordinator] = []
+  var childCoordinators: [Coordinator] = []
   var container: Container
-  weak var parentCoordinator: (any Coordinator)?
+  weak var parentCoordinator: Coordinator?
   unowned var navigationController: UINavigationController
   
   init(navigationController: UINavigationController, container: Container) {
