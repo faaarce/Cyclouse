@@ -89,6 +89,8 @@
 		C17D7DA72C981D0200868F1E /* PlusJakartaSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7DA62C981D0200868F1E /* PlusJakartaSans-Regular.ttf */; };
 		C17D7DA92C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7DA82C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf */; };
 		C17F981B2CE5AD030060BC7B /* CartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F981A2CE5AD030060BC7B /* CartViewModel.swift */; };
+		C17F981E2CE6069E0060BC7B /* MessageAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F981D2CE6069E0060BC7B /* MessageAlert.swift */; };
+		C17F98202CE606ED0060BC7B /* Theme+Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F981F2CE606ED0060BC7B /* Theme+Icon.swift */; };
 		C18F51622C9D1A1000E60C0D /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51502C9D1A1000E60C0D /* Email.swift */; };
 		C18F51632C9D1A1000E60C0D /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51522C9D1A1000E60C0D /* Password.swift */; };
 		C18F51642C9D1A1000E60C0D /* Username.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51512C9D1A1000E60C0D /* Username.swift */; };
@@ -294,6 +296,8 @@
 		C17D7DA62C981D0200868F1E /* PlusJakartaSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-Regular.ttf"; sourceTree = "<group>"; };
 		C17D7DA82C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		C17F981A2CE5AD030060BC7B /* CartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewModel.swift; sourceTree = "<group>"; };
+		C17F981D2CE6069E0060BC7B /* MessageAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAlert.swift; sourceTree = "<group>"; };
+		C17F981F2CE606ED0060BC7B /* Theme+Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Theme+Icon.swift"; sourceTree = "<group>"; };
 		C18F514C2C9D1A1000E60C0D /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		C18F514D2C9D1A1000E60C0D /* Validateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validateable.swift; sourceTree = "<group>"; };
 		C18F514E2C9D1A1000E60C0D /* Valueable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Valueable.swift; sourceTree = "<group>"; };
@@ -984,6 +988,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		C17F981C2CE6068F0060BC7B /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				C17F981D2CE6069E0060BC7B /* MessageAlert.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
 		C18F514F2C9D1A1000E60C0D /* SubDomain */ = {
 			isa = PBXGroup;
 			children = (
@@ -1147,6 +1159,7 @@
 		C19370192C89967800B56BA1 /* UIComponent */ = {
 			isa = PBXGroup;
 			children = (
+				C17F981C2CE6068F0060BC7B /* Alert */,
 				C19465622C8C488100171932 /* Views */,
 				C19465612C8C47DC00171932 /* Controls */,
 				C19465602C8C47D200171932 /* Factories */,
@@ -1287,6 +1300,7 @@
 			children = (
 				C193705B2C8ABBAB00B56BA1 /* ThemeColor.swift */,
 				C19370642C8B69ED00B56BA1 /* ThemeFont.swift */,
+				C17F981F2CE606ED0060BC7B /* Theme+Icon.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -1619,6 +1633,7 @@
 				C18F516B2C9D1A1000E60C0D /* Valueable.swift in Sources */,
 				C196DE4D2CAD0E7E00743EFB /* GetCartResponse.swift in Sources */,
 				C18F516C2C9D1A1000E60C0D /* AuthenticationNetworkRepository.swift in Sources */,
+				C17F98202CE606ED0060BC7B /* Theme+Icon.swift in Sources */,
 				C16468BF2CD09DAD00876224 /* CheckoutResponse.swift in Sources */,
 				C162D43C2CD2B31300DBA8CC /* DetailViewModel.swift in Sources */,
 				C18F516D2C9D1A1000E60C0D /* SigninResponse.swift in Sources */,
@@ -1678,6 +1693,7 @@
 				C125594D2CE338BB00382028 /* PaymentService.swift in Sources */,
 				C177238D2C951CF30078E598 /* ReadMoreTextView.swift in Sources */,
 				C19370252C899AD300B56BA1 /* HomeViewController.swift in Sources */,
+				C17F981E2CE6069E0060BC7B /* MessageAlert.swift in Sources */,
 				C17D7D952C975EB800868F1E /* HistoryViewController.swift in Sources */,
 				C1CDE9AD2CB520FA005B491F /* UserProfile.swift in Sources */,
 				C194655C2C8C20AB00171932 /* CustomInputFieldView.swift in Sources */,

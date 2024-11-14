@@ -25,6 +25,11 @@ class ViewModelsAssembly: Assembly {
               databaseService: databaseService
           )
       }
+    
+    container.register(CartViewModel.self) { r in
+      let databaseService = r.resolve(DatabaseService.self)!
+      return CartViewModel(databaseService: databaseService)
+    }
   }
   
   

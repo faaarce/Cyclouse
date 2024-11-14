@@ -21,6 +21,7 @@ class CartCoordinator: Coordinator, NavigationCoordinator {
   }
   
   func start() {
+    let viewModel = container.resolve(CartViewModel.self)!
     let vc = CartViewController(coordinator: self)
     vc.hidesBottomBarWhenPushed = true
     navigationController.pushViewController(vc, animated: true)
