@@ -8,6 +8,13 @@ import Foundation
 import SwiftData
 import Combine
 
+protocol DatabaseServiceProtocol {
+    func fetchBike() -> AnyPublisher<[BikeDatabase], Error>
+    func delete(_ bike: BikeDatabase) -> AnyPublisher<Void, Error>
+    func updateBikeQuantity(_ bike: BikeDatabase, newQuantity: Int) -> AnyPublisher<Void, Error>
+}
+
+
 enum DatabaseError: Error {
     case contextNotFound
     case fetchFailed
@@ -15,7 +22,7 @@ enum DatabaseError: Error {
     case deleteFailed
 }
 
-class DatabaseService {
+class DatabaseService: DatabaseServiceProtocol {
     static let shared = DatabaseService()
     private var container: ModelContainer?
     private var context: ModelContext?

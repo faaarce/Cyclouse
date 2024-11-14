@@ -88,6 +88,7 @@
 		C17D7DA52C981CF900868F1E /* PlusJakartaSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7DA42C981CF900868F1E /* PlusJakartaSans-Medium.ttf */; };
 		C17D7DA72C981D0200868F1E /* PlusJakartaSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7DA62C981D0200868F1E /* PlusJakartaSans-Regular.ttf */; };
 		C17D7DA92C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7DA82C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf */; };
+		C17F981B2CE5AD030060BC7B /* CartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F981A2CE5AD030060BC7B /* CartViewModel.swift */; };
 		C18F51622C9D1A1000E60C0D /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51502C9D1A1000E60C0D /* Email.swift */; };
 		C18F51632C9D1A1000E60C0D /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51522C9D1A1000E60C0D /* Password.swift */; };
 		C18F51642C9D1A1000E60C0D /* Username.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51512C9D1A1000E60C0D /* Username.swift */; };
@@ -292,6 +293,7 @@
 		C17D7DA42C981CF900868F1E /* PlusJakartaSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-Medium.ttf"; sourceTree = "<group>"; };
 		C17D7DA62C981D0200868F1E /* PlusJakartaSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-Regular.ttf"; sourceTree = "<group>"; };
 		C17D7DA82C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		C17F981A2CE5AD030060BC7B /* CartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewModel.swift; sourceTree = "<group>"; };
 		C18F514C2C9D1A1000E60C0D /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		C18F514D2C9D1A1000E60C0D /* Validateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validateable.swift; sourceTree = "<group>"; };
 		C18F514E2C9D1A1000E60C0D /* Valueable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Valueable.swift; sourceTree = "<group>"; };
@@ -593,6 +595,7 @@
 		C1464C522C9230B500F945BA /* Cart */ = {
 			isa = PBXGroup;
 			children = (
+				C17F98192CE5A7FC0060BC7B /* ViewModel */,
 				C1464C572C92B3F900F945BA /* Cells */,
 				C1464C532C92A96300F945BA /* CartCoordinator.swift */,
 				C1464C552C92A97900F945BA /* CartViewController.swift */,
@@ -971,6 +974,14 @@
 				C17D7D9A2C981C8D00868F1E /* PlusJakartaSans-Bold.ttf */,
 			);
 			path = "Plus Jakarta Sans";
+			sourceTree = "<group>";
+		};
+		C17F98192CE5A7FC0060BC7B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C17F981A2CE5AD030060BC7B /* CartViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		C18F514F2C9D1A1000E60C0D /* SubDomain */ = {
@@ -1569,6 +1580,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C17F981B2CE5AD030060BC7B /* CartViewModel.swift in Sources */,
 				C1DF47ED2C9C9379004F5751 /* SignUpViewController.swift in Sources */,
 				C11525492CDCBAEA001DD6FD /* AddressViewCell.swift in Sources */,
 				C19370582C8AB21600B56BA1 /* WishlistCoordinator.swift in Sources */,
