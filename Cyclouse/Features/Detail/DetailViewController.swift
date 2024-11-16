@@ -168,9 +168,10 @@ class DetailViewController: UIViewController {
       .receive(on: DispatchQueue.main)
       .compactMap { $0 }
       .sink { [weak self] error in
-        self?.showMessage(title: error.title,
-                          body: error.message,
-                          theme: .error)
+        MessageAlert.showError(
+                     title: error.title,
+                     message: error.message
+                 )
       }
       .store(in: &cancellables)
     
@@ -178,9 +179,12 @@ class DetailViewController: UIViewController {
       .receive(on: DispatchQueue.main)
       .compactMap { $0 }
       .sink { [weak self] success in
-        self?.showMessage(title: success.title,
-                          body: success.message,
-                          theme: .success)
+        MessageAlert.show(
+                     title: success.title,
+                     message: success.message,
+                     theme: .success,
+                     presentationStyle: .top
+                 )
       }
       .store(in: &cancellables)
   }

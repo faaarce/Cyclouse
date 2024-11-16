@@ -97,6 +97,8 @@
 		C17F98692CE63D460060BC7B /* WaveTabBarPresenterBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98622CE63C710060BC7B /* WaveTabBarPresenterBase.swift */; };
 		C17F986A2CE63D460060BC7B /* UIBezierPath+createCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98642CE63C790060BC7B /* UIBezierPath+createCurve.swift */; };
 		C17F986B2CE63D460060BC7B /* WaveTabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98612CE63C710060BC7B /* WaveTabBarPresenter.swift */; };
+		C17F98B52CE7A4490060BC7B /* LocationMnager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98B42CE7A4490060BC7B /* LocationMnager.swift */; };
+		C17F98B72CE83C620060BC7B /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98B62CE83C620060BC7B /* LocationService.swift */; };
 		C18F51622C9D1A1000E60C0D /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51502C9D1A1000E60C0D /* Email.swift */; };
 		C18F51632C9D1A1000E60C0D /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51522C9D1A1000E60C0D /* Password.swift */; };
 		C18F51642C9D1A1000E60C0D /* Username.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51512C9D1A1000E60C0D /* Username.swift */; };
@@ -310,6 +312,8 @@
 		C17F98632CE63C710060BC7B /* WaveTabBarProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveTabBarProtocol.swift; sourceTree = "<group>"; };
 		C17F98642CE63C790060BC7B /* UIBezierPath+createCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+createCurve.swift"; sourceTree = "<group>"; };
 		C17F98652CE63CF20060BC7B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		C17F98B42CE7A4490060BC7B /* LocationMnager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMnager.swift; sourceTree = "<group>"; };
+		C17F98B62CE83C620060BC7B /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		C18F514C2C9D1A1000E60C0D /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		C18F514D2C9D1A1000E60C0D /* Validateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validateable.swift; sourceTree = "<group>"; };
 		C18F514E2C9D1A1000E60C0D /* Valueable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Valueable.swift; sourceTree = "<group>"; };
@@ -1125,6 +1129,8 @@
 				C19370172C89960F00B56BA1 /* Features */,
 				C193700A2C898D1D00B56BA1 /* Info.plist */,
 				C17F98652CE63CF20060BC7B /* TabBarController.swift */,
+				C17F98B42CE7A4490060BC7B /* LocationMnager.swift */,
+				C17F98B62CE83C620060BC7B /* LocationService.swift */,
 			);
 			path = Cyclouse;
 			sourceTree = "<group>";
@@ -1655,6 +1661,7 @@
 				C16468BF2CD09DAD00876224 /* CheckoutResponse.swift in Sources */,
 				C162D43C2CD2B31300DBA8CC /* DetailViewModel.swift in Sources */,
 				C18F516D2C9D1A1000E60C0D /* SigninResponse.swift in Sources */,
+				C17F98B72CE83C620060BC7B /* LocationService.swift in Sources */,
 				C18F516E2C9D1A1000E60C0D /* AuthenticationRepository.swift in Sources */,
 				C1EE51A42CC57F0E00280BBC /* TestingCoordinator.swift in Sources */,
 				C162D4482CD2BBF700DBA8CC /* CoordinatorsAssembly.swift in Sources */,
@@ -1678,6 +1685,7 @@
 				C1EDE5A72CAB396200816876 /* AddToCartResponse.swift in Sources */,
 				C162D44C2CD2BC1600DBA8CC /* Resolver.swift in Sources */,
 				C1464C562C92A97900F945BA /* CartViewController.swift in Sources */,
+				C17F98B52CE7A4490060BC7B /* LocationMnager.swift in Sources */,
 				C193702F2C89E98300B56BA1 /* ProfileViewController.swift in Sources */,
 				C1C582AD2CBBACDF00280F6F /* PaymentViewController.swift in Sources */,
 				C16468B82CD09CBD00876224 /* CheckoutAPI.swift in Sources */,

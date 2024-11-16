@@ -211,14 +211,11 @@ class CartViewController: UIViewController {
        if !selectedBikes.isEmpty {
          coordinator.showCheckout(bikes: selectedBikes)
        } else {
-           // Show alert that no items are selected
-           let alert = UIAlertController(
-               title: "No Items Selected",
-               message: "Please select at least one item to checkout",
-               preferredStyle: .alert
-           )
-           alert.addAction(UIAlertAction(title: "OK", style: .default))
-           present(alert, animated: true)
+         MessageAlert.show(
+                    title: "No Items Selected",
+                    message: "Please select at least one item to checkout",
+                    theme: .warning
+                )
        }
   }
   

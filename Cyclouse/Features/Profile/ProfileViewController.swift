@@ -213,38 +213,97 @@ class ProfileViewController: UIViewController {
     coordinator.showTransactionHistory()
   }
   
-  @objc private func logoutButtonTapped() {
-    let alertController = UIAlertController(title: "Logout", message: "Are you sure you want to logout", preferredStyle: .alert)
-    
-    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-    let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { [weak self] _ in
-      self?.performLogout()
-    }
-    
-    alertController.addAction(cancelAction)
-    alertController.addAction(logoutAction)
-    
-    present(alertController, animated: true, completion: nil)
-  }
+
+//  @objc private func logoutButtonTapped() {
+//  let alertController = UIAlertController(title: "Logout", message: "Are you sure you want to logout", preferredStyle: .alert)
+//  
+//  let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+//  let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { [weak self] _ in
+//    self?.performLogout()
+//  }
+//  
+//  alertController.addAction(cancelAction)
+//  alertController.addAction(logoutAction)
+//  
+//  present(alertController, animated: true, completion: nil)
+//}
   
-  private func performLogout() {
-    authService.signOut()
-      .receive(on: DispatchQueue.main)
-      .sink { [weak self] completion in
-        switch completion {
-        case .finished:
-          print("Logout request completed")
-        case .failure(let error):
-          print("Logout failed: \(error)")
-          // Handle error (show alert, etc.)
-        }
-        TokenManager.shared.logout()
-        self?.coordinator.logout()
-      } receiveValue: { response in
-        print("Logout successful: \(response)")
-      }
-      .store(in: &cancellables)
-    
+private func performLogout() {
+
+  authService.signOut()
+    .receive(on: DispatchQueue.main)
+           .sink { [weak self] completion in
+               MessageAlert.hideLoading()
+               
+               switch completion {
+               case .finished:
+                   TokenManager.shared.logout()
+                   MessageAlert.showSuccess(
+                       title: "Success",
+                       message: "Successfully logged out"
+                   )
+                   
+                   DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                       self?.coordinator.logout()
+                   }
+                   
+               case .failure(let error):
+                   MessageAlert.showError(
+                       message: error.localizedDescription
+                   )
+               }
+           } receiveValue: { response in
+               print("Logout successful: \(response)")
+           }
+           .store(in: &cancellables)
+  
+}
+// Third Party Library
+  @objc private func logoutButtonTapped() {
+    MessageAlert.showConfirmation(
+      title: "Logout",
+      message: "Are you sure you want to logout?",
+      confirmTitle: "Logout",
+      cancelTitle: "Cancel") { [weak self] in
+        guard let self = self else { return }
+               self.performLogout()
+           }
   }
+//  
+//  private func performLogout() {
+//    MessageAlert.showLoading(message: "Logging out...")
+//      
+//      authService.signOut()
+//          .receive(on: DispatchQueue.main)
+//          .sink { [weak self] completion in
+//              // Hide loading indicator first
+//              MessageAlert.hideLoading()
+//              
+//              switch completion {
+//              case .finished:
+//                  // Show success message and perform logout actions after a short delay
+//                  MessageAlert.showSuccess(
+//                      title: "Success",
+//                      message: "You have been logged out successfully"
+//                  )
+//                  
+//                  // Slight delay to allow the success message to be seen
+//                  DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                      TokenManager.shared.logout()
+//                      self?.coordinator.logout()
+//                  }
+//                  
+//              case .failure(let error):
+//                  // Show error message
+//                  MessageAlert.showError(
+//                      title: "Logout Failed",
+//                      message: error.localizedDescription
+//                  )
+//              }
+//          } receiveValue: { _ in
+//              // Handle response if needed
+//          }
+//          .store(in: &cancellables)
+//  }
   
 }

@@ -188,30 +188,15 @@ class SignInViewController: UIViewController {
              if self.presentedViewController != nil {
                  print("ViewController: Another view controller is already presented, dismissing it")
                  self.dismiss(animated: false) {
-                     self.showAlert(message: message)
+                   MessageAlert.showError(message: message)
                  }
              } else {
-                 self.showAlert(message: message)
+               MessageAlert.showError(message: message)
              }
          }
      }
   
-  private func showAlert(message: String) {
-      print("ViewController: Creating and presenting alert")
-      let alert = UIAlertController(title: "Login Error", message: message, preferredStyle: .alert)
-      alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
-          self?.resetInputFields()
-      }))
-      
-      if self.isViewLoaded && self.view.window != nil {
-          print("ViewController: View is loaded and visible, presenting alert")
-          self.present(alert, animated: true) {
-              print("ViewController: Alert presented successfully")
-          }
-      } else {
-          print("ViewController: View is not loaded or not in window hierarchy, cannot present alert")
-      }
-  }
+
   
   private func resetInputFields() {
     emailInputView.textField.layer.borderWidth = 0.0
