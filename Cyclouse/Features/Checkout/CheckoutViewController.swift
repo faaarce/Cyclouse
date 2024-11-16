@@ -18,7 +18,7 @@ enum CheckoutViewSectionType: Int, CaseIterable {
   
 }
 
-class CheckoutViewController: BaseViewController {
+class CheckoutViewController: UIViewController {
   
   private var selectedBank: Bank? {
     didSet {
@@ -166,20 +166,17 @@ class CheckoutViewController: BaseViewController {
   
   
   private func showLocationServicesAlert() {
-    let alert = UIAlertController(
-      title: "Location Services Disabled",
-      message: "Please enable location services in Settings to use this feature.",
-      preferredStyle: .alert
-    )
-    
-    alert.addAction(UIAlertAction(title: "Settings", style: .default) { _ in
-      if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
-        UIApplication.shared.open(settingsUrl)
-      }
-    })
-    
-    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-    present(alert, animated: true)
+    MessageAlert.showConfirmation(
+         title: "Location Services Disabled",
+         message: "Please enable location services in Settings to use this feature.",
+         confirmTitle: "Settings",
+         cancelTitle: "Cancel",
+         onConfirm: {
+           if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
+             UIApplication.shared.open(settingsUrl)
+           }
+         }
+       )
   }
   
   func setupView() {
@@ -254,20 +251,15 @@ class CheckoutViewController: BaseViewController {
   }
   
   private func handleSuccessfulCheckout(_ checkoutData: CheckoutData) {
-    let alert = UIAlertController(
+    MessageAlert.showSuccess(
       title: "Checkout Successful",
-      message: "Redirecting to payment...",
-      preferredStyle: .alert
-    )
-    present(alert, animated: true) {
-      // Dismiss the alert after 1 second and show payment screen
+        message: "Redirecting to payment...",
+      duration: .seconds(seconds: 1.0)
+      )
+      
       DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-        alert.dismiss(animated: true) {
-       
-          self.coordinator.showPayment(checkoutData)
-        }
+        self.coordinator.showPayment(checkoutData)
       }
-    }
   }
   
   

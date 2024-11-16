@@ -10,6 +10,7 @@ import SnapKit
 import JDStatusBarNotification
 import Combine
 import NVActivityIndicatorView
+import Lottie
 
 extension Notification.Name {
     static let paymentCompleted = Notification.Name("PaymentCompletedNotification")
@@ -23,6 +24,14 @@ class PaymentViewController: UIViewController {
   let paymentService: PaymentService
   
   private var cancellables = Set<AnyCancellable>()
+  
+  private let animationView: LottieAnimationView = {
+    let animationView = LottieAnimationView(name: "checkmark")
+    animationView.contentMode = .scaleAspectFill
+    animationView.loopMode = .playOnce
+    animationView.isHidden = true
+    return animationView
+  }()
   
   private let paymentHeaderLabel: UILabel = {
     LabelFactory.build(text: "Make payment immediately", font: ThemeFont.medium(ofSize: 14))
@@ -198,6 +207,39 @@ class PaymentViewController: UIViewController {
     layout()
     configureWithPaymentDetails()
   }
+  
+  private func processPayment() {
+    paymentService.pay(orderId: paymentDetail.orderId, status: "paid")
+               .receive(on: DispatchQueue.main)
+               .sink { [weak self] completion in
+                   guard let self = self else { return }
+                   
+                   // Re-enable the button and hide loading indicator
+                   self.payButton.isEnabled = true
+                   self.payButton.isLoading = false
+                   
+                   switch completion {
+                   case .finished:
+                       break
+                   case .failure(let error):
+                       self.handlePaymentError(error)
+                       // Hide animation on error
+                       self.animationView.isHidden = true
+                   }
+               } receiveValue: { [weak self] response in
+                   guard let self = self else { return }
+                   
+                   if response.value.success {
+                       self.handleSuccessfulPayment(response.value)
+                   } else {
+                       self.handlePaymentFailure()
+                       // Hide animation on failure
+                       self.animationView.isHidden = true
+                   }
+               }
+               .store(in: &cancellables)
+  }
+  
   @objc func paymentButtonTapped() {
          // Disable the button and show loading indicator
          payButton.isEnabled = false
@@ -206,28 +248,12 @@ class PaymentViewController: UIViewController {
          // Delay the payment process by 3 seconds to show the loading indicator
          DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
              guard let self = self else { return }
-             
-             self.paymentService.pay(orderId: self.paymentDetail.orderId, status: "paid")
-                 .receive(on: DispatchQueue.main)
-                 .sink { completion in
-                     // Re-enable the button and hide loading indicator
-                     self.payButton.isEnabled = true
-                     self.payButton.isLoading = false
-                     
-                     switch completion {
-                     case .finished:
-                         break
-                     case .failure(let error):
-                         self.handlePaymentError(error)
-                     }
-                 } receiveValue: { response in
-                     if response.value.success {
-                         self.handleSuccessfulPayment(response.value)
-                     } else {
-                         self.handlePaymentFailure()
-                     }
-                 }
-                 .store(in: &self.cancellables)
+           self.animationView.isHidden = false
+           self.animationView.play { completed in
+             if completed {
+               self.processPayment()
+             }
+           }
          }
      }
   
@@ -388,6 +414,7 @@ class PaymentViewController: UIViewController {
     view.addSubview(paymentHeaderLabel)
     view.addSubview(paymentInstructionLabel)
     view.addSubview(payButton)
+    view.addSubview(animationView)
     [bankLogoImageView, vaStackView, accountNameLabel, paymentDeadlineLabel, copyButton].forEach(vaCardView.addSubview(_:))
     view.addSubview(orderDetail)
     view.addSubview(vaCardView)
@@ -395,6 +422,14 @@ class PaymentViewController: UIViewController {
   }
   
   private func layout() {
+    
+    animationView.snp.makeConstraints {
+      $0.centerX.equalToSuperview()
+      $0.bottom.equalTo(payButton.snp.top).offset(-20)
+      $0.width.equalTo(view.bounds.width)
+      $0.top.equalTo(detalPriceVStackView.snp.bottom)
+    }
+    
     paymentHeaderLabel.snp.makeConstraints {
       $0.centerX.equalToSuperview()
       $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(4)

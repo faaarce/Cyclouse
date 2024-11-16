@@ -24,7 +24,6 @@
 		C12559102CE1C0B000382028 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C125590F2CE1C0B000382028 /* WidgetKit.framework */; };
 		C12559122CE1C0B000382028 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C12559112CE1C0B000382028 /* SwiftUI.framework */; };
 		C12559232CE1C0B200382028 /* CyclouseWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C125590D2CE1C0B000382028 /* CyclouseWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		C125593A2CE323F500382028 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12559392CE323E900382028 /* BaseViewController.swift */; };
 		C12559432CE3387A00382028 /* PaymentAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12559422CE3387A00382028 /* PaymentAPI.swift */; };
 		C12559462CE3388C00382028 /* PaymentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12559452CE3388C00382028 /* PaymentRepository.swift */; };
 		C125594A2CE3389700382028 /* PaymentNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12559482CE3389700382028 /* PaymentNetworkRepository.swift */; };
@@ -79,6 +78,7 @@
 		C17682792CBB9D4800065AD5 /* Xendit in Frameworks */ = {isa = PBXBuildFile; productRef = C17682782CBB9D4800065AD5 /* Xendit */; };
 		C177238D2C951CF30078E598 /* ReadMoreTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177238C2C951CF30078E598 /* ReadMoreTextView.swift */; };
 		C177238F2C954E6B0078E598 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177238E2C954E6B0078E598 /* PopUpViewController.swift */; };
+		C177BD1F2CE8DE4E00B504C1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177BD1E2CE8DE4E00B504C1 /* BaseViewController.swift */; };
 		C17D7D952C975EB800868F1E /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D7D942C975EB800868F1E /* HistoryViewController.swift */; };
 		C17D7D972C975EC200868F1E /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D7D962C975EC200868F1E /* HistoryCoordinator.swift */; };
 		C17D7D9B2C981C8D00868F1E /* PlusJakartaSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7D9A2C981C8D00868F1E /* PlusJakartaSans-Bold.ttf */; };
@@ -99,6 +99,7 @@
 		C17F986B2CE63D460060BC7B /* WaveTabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98612CE63C710060BC7B /* WaveTabBarPresenter.swift */; };
 		C17F98B52CE7A4490060BC7B /* LocationMnager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98B42CE7A4490060BC7B /* LocationMnager.swift */; };
 		C17F98B72CE83C620060BC7B /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98B62CE83C620060BC7B /* LocationService.swift */; };
+		C17F98B92CE8990E0060BC7B /* checkmark.json in Resources */ = {isa = PBXBuildFile; fileRef = C17F98B82CE8990E0060BC7B /* checkmark.json */; };
 		C18F51622C9D1A1000E60C0D /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51502C9D1A1000E60C0D /* Email.swift */; };
 		C18F51632C9D1A1000E60C0D /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51522C9D1A1000E60C0D /* Password.swift */; };
 		C18F51642C9D1A1000E60C0D /* Username.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51512C9D1A1000E60C0D /* Username.swift */; };
@@ -243,7 +244,6 @@
 		C12559112CE1C0B000382028 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		C12559292CE1C0C400382028 /* CyclouseWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CyclouseWidgetExtension.entitlements; sourceTree = "<group>"; };
 		C125592A2CE1C0DF00382028 /* Cyclouse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cyclouse.entitlements; sourceTree = "<group>"; };
-		C12559392CE323E900382028 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		C12559422CE3387A00382028 /* PaymentAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentAPI.swift; sourceTree = "<group>"; };
 		C12559452CE3388C00382028 /* PaymentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentRepository.swift; sourceTree = "<group>"; };
 		C12559482CE3389700382028 /* PaymentNetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentNetworkRepository.swift; sourceTree = "<group>"; };
@@ -294,6 +294,7 @@
 		C1705E092CA55C6D0043CE9D /* BikeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeService.swift; sourceTree = "<group>"; };
 		C177238C2C951CF30078E598 /* ReadMoreTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreTextView.swift; sourceTree = "<group>"; };
 		C177238E2C954E6B0078E598 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
+		C177BD1E2CE8DE4E00B504C1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		C17D7D942C975EB800868F1E /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		C17D7D962C975EC200868F1E /* HistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
 		C17D7D9A2C981C8D00868F1E /* PlusJakartaSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -314,6 +315,7 @@
 		C17F98652CE63CF20060BC7B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C17F98B42CE7A4490060BC7B /* LocationMnager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMnager.swift; sourceTree = "<group>"; };
 		C17F98B62CE83C620060BC7B /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		C17F98B82CE8990E0060BC7B /* checkmark.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = checkmark.json; sourceTree = "<group>"; };
 		C18F514C2C9D1A1000E60C0D /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		C18F514D2C9D1A1000E60C0D /* Validateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validateable.swift; sourceTree = "<group>"; };
 		C18F514E2C9D1A1000E60C0D /* Valueable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Valueable.swift; sourceTree = "<group>"; };
@@ -465,6 +467,7 @@
 			isa = PBXGroup;
 			children = (
 				C162D4392CD2522600DBA8CC /* fixedgear.json */,
+				C17F98B82CE8990E0060BC7B /* checkmark.json */,
 				C104D20F2CC54370006EB92B /* cycle.json */,
 			);
 			path = Animations;
@@ -1131,6 +1134,7 @@
 				C17F98652CE63CF20060BC7B /* TabBarController.swift */,
 				C17F98B42CE7A4490060BC7B /* LocationMnager.swift */,
 				C17F98B62CE83C620060BC7B /* LocationService.swift */,
+				C177BD1E2CE8DE4E00B504C1 /* BaseViewController.swift */,
 			);
 			path = Cyclouse;
 			sourceTree = "<group>";
@@ -1234,7 +1238,6 @@
 		C19370332C8A063200B56BA1 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				C12559392CE323E900382028 /* BaseViewController.swift */,
 				C194655E2C8C430B00171932 /* Styles */,
 				C19370522C8A1D7E00B56BA1 /* CommonAssets.xcassets */,
 				C194655D2C8C42FA00171932 /* Extensions */,
@@ -1584,6 +1587,7 @@
 				C19370422C8A0C9400B56BA1 /* Manrope-SemiBold.ttf in Resources */,
 				C17D7D9B2C981C8D00868F1E /* PlusJakartaSans-Bold.ttf in Resources */,
 				C19370462C8A0C9400B56BA1 /* Manrope-Medium.ttf in Resources */,
+				C17F98B92CE8990E0060BC7B /* checkmark.json in Resources */,
 				C193706B2C8B7A7B00B56BA1 /* Assets.xcassets in Resources */,
 				C17D7DA92C981D4000868F1E /* PlusJakartaSans-SemiBold.ttf in Resources */,
 				C162D43A2CD2522600DBA8CC /* fixedgear.json in Resources */,
@@ -1713,6 +1717,7 @@
 				C19465682C8CBF6F00171932 /* HorizontalViewCell.swift in Sources */,
 				C177238F2C954E6B0078E598 /* PopUpViewController.swift in Sources */,
 				C1DF47EB2C9C9310004F5751 /* SignUpCoordinator.swift in Sources */,
+				C177BD1F2CE8DE4E00B504C1 /* BaseViewController.swift in Sources */,
 				C19370132C89941600B56BA1 /* HandleDeepLink.swift in Sources */,
 				C11525632CDE2AC3001DD6FD /* Bank.swift in Sources */,
 				C15B51402CBAB40300892DBD /* Integer + Extension.swift in Sources */,
@@ -1729,7 +1734,6 @@
 				C1705E0B2CA55C6D0043CE9D /* BikeNetworkRepository.swift in Sources */,
 				C1705E0C2CA55C6D0043CE9D /* BikeService.swift in Sources */,
 				C1705E0D2CA55C6D0043CE9D /* BikeRepository.swift in Sources */,
-				C125593A2CE323F500382028 /* BaseViewController.swift in Sources */,
 				C17F98672CE63D410060BC7B /* WaveTabBarController.swift in Sources */,
 				C1705E0E2CA55C6D0043CE9D /* BikeAPI.swift in Sources */,
 				C19370672C8B72BA00B56BA1 /* ButtonFactory.swift in Sources */,
