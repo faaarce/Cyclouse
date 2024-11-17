@@ -10,7 +10,7 @@ import UIKit
 protocol CartCellDelegate: AnyObject {
   func minusButton(_ cell: CartViewCell)
   func plusButton(_ cell: CartViewCell)
-  func deleteButton(_ cell: CartViewCell, indexPath: IndexPath)
+  func deleteButton(_ cell: CartViewCell)
   func checkProduct(_ cell: CartViewCell, isChecked: Bool)
 }
 
@@ -145,11 +145,17 @@ class CartViewCell: UITableViewCell {
     updateCheckButtonAppearance()
   }
   
-  private func updateButtonState(stockQuantity: Int, cartQuantity: Int) {
-    minusButton.isEnabled = cartQuantity > 1
-    plusButton.isEnabled = cartQuantity < stockQuantity
-  }
+  func updateQuantityLabel(_ newQuantity: Int) {
+         quantityLabel.text = "\(newQuantity)"
+     }
+
+     // Update button state method
+     func updateButtonState(stockQuantity: Int, cartQuantity: Int) {
+         minusButton.isEnabled = cartQuantity > 1
+         plusButton.isEnabled = cartQuantity < stockQuantity
+     }
   
+
   
   private func updateCheckButtonAppearance(){
     let imageName = isChecked ? "checkmark.square.fill" : "square"
@@ -168,9 +174,9 @@ class CartViewCell: UITableViewCell {
   }
   
   @objc private func deleteButtonTapped() {
-    if let indexPath = self.indexPath {
-      delegate?.deleteButton(self, indexPath: indexPath)
-    }
+
+      delegate?.deleteButton(self)
+    
   }
   
   @objc private func checkButtonTapped() {

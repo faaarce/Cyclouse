@@ -9,11 +9,6 @@ import UIKit
 import Combine
 import CombineCocoa
 
-import SnapKit
-import UIKit
-import Combine
-import CombineCocoa
-
 protocol OrderBadgesUpdateDelegate {
     func updateBadge(badgeNumber: Int)
 }
@@ -23,20 +18,7 @@ class CartViewController: BaseViewController {
     // MARK: - Properties
 
     var coordinator: CartCoordinator
-    private let service = CartService()
-    var delegate: OrderBadgesUpdateDelegate?
-    let databaseService = DatabaseService.shared
-
-    @Published var bikes: GetCartResponse?
-    var selectedStates: [String: Bool] = [:]
-    private var isAllSelected = true
-
-    var bikeData: [BikeDatabase] = [] {
-        didSet {
-            delegate?.updateBadge(badgeNumber: bikeData.count)
-            updateViewVisibility()
-        }
-    }
+    var viewModel: CartViewModel!
 
     private lazy var emptyStateView: EmptyStateView = {
         let view = EmptyStateView()
@@ -47,7 +29,7 @@ class CartViewController: BaseViewController {
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.dataSource = self
-        tableView.delegate = self
+      tableView.delegate = self
         tableView.showsVerticalScrollIndicator = false
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
@@ -80,11 +62,11 @@ class CartViewController: BaseViewController {
     }()
 
     private let totalChecklistLabel: UILabel = {
-        LabelFactory.build(text: "Semua", font: ThemeFont.medium(ofSize: 14), textColor: .white)
+        LabelFactory.build(text: "Select All", font: ThemeFont.medium(ofSize: 14), textColor: .white)
     }()
 
     private let priceLabel: UILabel = {
-        LabelFactory.build(text: "Rp 5,000,000", font: ThemeFont.medium(ofSize: 14), textColor: ThemeColor.primary)
+        LabelFactory.build(text: "Rp 0", font: ThemeFont.medium(ofSize: 14), textColor: ThemeColor.primary)
     }()
 
     private let totalLabel: UILabel = {
@@ -105,9 +87,11 @@ class CartViewController: BaseViewController {
     // MARK: - Lifecycle Methods
 
     override func viewDidLoad() {
+        // Initialize ViewModel before calling super.viewDidLoad()
+        viewModel = CartViewModel()
+
         super.viewDidLoad()
         title = "Cart"
-        fetchBikes()
     }
 
     // MARK: - Setup Methods
@@ -170,7 +154,32 @@ class CartViewController: BaseViewController {
 
     override func bindViewModel() {
         super.bindViewModel()
-        // You can bind any view model properties here if you have a view model.
+
+        // Subscribe to bikeData
+        viewModel.$bikeData
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] bikes in
+                self?.tableView.reloadData()
+                self?.updateViewVisibility()
+            }
+            .store(in: &cancellables)
+
+        // Subscribe to isAllSelected
+        viewModel.$isAllSelected
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isAllSelected in
+                let imageName = isAllSelected ? "checkmark.square.fill" : "square"
+                self?.checkButton.setImage(UIImage(systemName: imageName), for: .normal)
+            }
+            .store(in: &cancellables)
+
+        // Subscribe to totalPrice
+        viewModel.$totalPrice
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] total in
+                self?.priceLabel.text = total.toRupiah()
+            }
+            .store(in: &cancellables)
     }
 
     // MARK: - Private Methods
@@ -180,7 +189,7 @@ class CartViewController: BaseViewController {
     }
 
     private func updateViewVisibility() {
-        if bikeData.isEmpty {
+        if viewModel.bikeData.isEmpty {
             if !view.subviews.contains(emptyStateView) {
                 view.addSubview(emptyStateView)
                 emptyStateView.snp.makeConstraints { make in
@@ -204,97 +213,16 @@ class CartViewController: BaseViewController {
         }
     }
 
-    private func updateTotalPrice() {
-        var total: Double = 0.0
-        for bike in bikeData {
-            if selectedStates[bike.id] ?? false {
-                total += Double(bike.price) * Double(bike.cartQuantity)
-            }
-        }
-        priceLabel.text = total.toRupiah()
-    }
-
-    private func updateBikeQuantity(_ bike: BikeDatabase, newQuantity: Int) {
-        databaseService.updateBikeQuantity(bike, newQuantity: newQuantity)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                if case .failure(let error) = completion {
-                    self?.showMessage(
-                        title: "Error",
-                        body: "Failed to update quantity: \(error.localizedDescription)",
-                        theme: .error
-                    )
-                }
-            } receiveValue: { [weak self] _ in
-                guard let self = self else { return }
-                if let index = self.bikeData.firstIndex(where: { $0.id == bike.id }) {
-                    self.bikeData[index].cartQuantity = newQuantity
-                    self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
-                    self.updateTotalPrice()
-                }
-            }
-            .store(in: &cancellables)
-    }
-
-    private func fetchBikes() {
-        databaseService.fetchBike()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                if case .failure(let error) = completion {
-                    self?.showMessage(
-                        title: "Error",
-                        body: "Failed to fetch bikes: \(error.localizedDescription)",
-                        theme: .error
-                    )
-                }
-            } receiveValue: { [weak self] bikes in
-                guard let self = self else { return }
-
-                // Preserve existing selectedStates and add new bikes as selected
-                var newSelectedStates = self.selectedStates
-                for bike in bikes {
-                    if newSelectedStates[bike.id] == nil {
-                        newSelectedStates[bike.id] = true // Default new bikes to selected
-                    }
-                }
-                // Remove selection states for bikes no longer in cart
-                let bikeIds = Set(bikes.map { $0.id })
-                newSelectedStates = newSelectedStates.filter { bikeIds.contains($0.key) }
-                self.selectedStates = newSelectedStates
-
-                self.bikeData = bikes
-
-                // Update isAllSelected
-                self.isAllSelected = !self.selectedStates.values.contains(false)
-                let imageName = self.isAllSelected ? "checkmark.square.fill" : "square"
-                self.checkButton.setImage(UIImage(systemName: imageName), for: .normal)
-
-                self.tableView.reloadData()
-                self.updateViewVisibility()
-                self.updateTotalPrice()
-            }
-            .store(in: &cancellables)
-    }
-
     // MARK: - Actions
 
     @objc private func totalCheckButtonTapped() {
-        isAllSelected.toggle()
-        let imageName = isAllSelected ? "checkmark.square.fill" : "square"
-        checkButton.setImage(UIImage(systemName: imageName), for: .normal)
-
-        // Update the selection state of all items
-        for bike in bikeData {
-            selectedStates[bike.id] = isAllSelected
-        }
-        tableView.reloadData()
-        updateTotalPrice()
+        viewModel.toggleSelectAll()
     }
 
     @objc private func checkoutButtonTapped() {
         // Filter selected bikes
-        let selectedBikes = bikeData.filter { bike in
-            selectedStates[bike.id] ?? false
+        let selectedBikes = viewModel.bikeData.filter { bike in
+            viewModel.selectedStates[bike.id] ?? false
         }
 
         // Only proceed if there are selected bikes
@@ -310,15 +238,15 @@ class CartViewController: BaseViewController {
     }
 }
 
-// MARK: - UITableViewDataSource
 
 extension CartViewController: UITableViewDataSource {
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bikeData.count
+        return viewModel.bikeData.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -326,97 +254,73 @@ extension CartViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CartViewCell", for: indexPath) as? CartViewCell else {
             return UITableViewCell()
         }
+      cell.selectionStyle = .none
+      cell.backgroundColor = .clear
         cell.delegate = self
-        let bike = bikeData[indexPath.row]
-        let isChecked = selectedStates[bike.id] ?? false
-        cell.indexPath = indexPath
+        let bike = viewModel.bikeData[indexPath.row]
+        let isChecked = viewModel.selectedStates[bike.id] ?? false
         cell.configure(with: bike, isChecked: isChecked)
-        cell.selectionStyle = .none
-        cell.backgroundColor = .clear
         return cell
     }
 }
 
-// MARK: - UITableViewDelegate
-
-extension CartViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // No action needed
-    }
-
-    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        return false  // Prevent the cell from highlighting when tapped
-    }
-}
-
-// MARK: - CartCellDelegate
-
-extension CartViewController: CartCellDelegate {
-    func minusButton(_ cell: CartViewCell) {
-        guard let indexPath = tableView.indexPath(for: cell),
-              indexPath.row < bikeData.count else { return }
-
-        let bike = bikeData[indexPath.row]
-        let newQuantity = max(1, bike.cartQuantity - 1)
-        updateBikeQuantity(bike, newQuantity: newQuantity)
-    }
-
-    func plusButton(_ cell: CartViewCell) {
-        guard let indexPath = tableView.indexPath(for: cell),
-              indexPath.row < bikeData.count else { return }
-
-        let bike = bikeData[indexPath.row]
-        let newQuantity = min(bike.stockQuantity, bike.cartQuantity + 1)
-        updateBikeQuantity(bike, newQuantity: newQuantity)
-    }
-
-    func checkProduct(_ cell: CartViewCell, isChecked: Bool) {
-        guard let indexPath = tableView.indexPath(for: cell),
-              indexPath.row < bikeData.count else { return }
-        let bike = bikeData[indexPath.row]
-        selectedStates[bike.id] = isChecked
-
-        // Update the 'Select All' button state
-        if selectedStates.values.contains(false) {
-            isAllSelected = false
-            checkButton.setImage(UIImage(systemName: "square"), for: .normal)
-        } else {
-            isAllSelected = true
-            checkButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
-        }
-
-        updateTotalPrice()
-    }
-
-    func deleteButton(_ cell: CartViewCell, indexPath: IndexPath) {
-        let bikeToDelete = self.bikeData[indexPath.row]
-        self.databaseService.delete(bikeToDelete)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                switch completion {
-                case .finished:
-                    self?.fetchBikes()
-                case .failure(let error):
-                    self?.showMessage(
-                        title: "Error",
-                        body: "Failed to delete bike: \(error.localizedDescription)",
-                        theme: .error
-                    )
-                }
-            } receiveValue: { _ in }
-            .store(in: &cancellables)
-    }
-}
-
-// MARK: - EmptyStateViewDelegate
-
 extension CartViewController: EmptyStateViewDelegate {
     func tapButton() {
-        print("Start Shopping tapped")
-        // You can implement navigation to shopping screen here
+        // Implement navigation to the shopping screen or desired action
+
     }
 }
 
+
+extension CartViewController: CartCellDelegate {
+  func minusButton(_ cell: CartViewCell) {
+    guard let indexPath = tableView.indexPath(for: cell),
+          indexPath.row < viewModel.bikeData.count else { return }
+    
+    let bike = viewModel.bikeData[indexPath.row]
+    let newQuantity = max(1, bike.cartQuantity - 1)
+    viewModel.updateBikeQuantity(bike, newQuantity: newQuantity)
+    
+    // Update the cell's quantityLabel and button states
+    cell.updateQuantityLabel(newQuantity)
+    cell.updateButtonState(stockQuantity: bike.stockQuantity, cartQuantity: newQuantity)
+  }
+  
+  func plusButton(_ cell: CartViewCell) {
+    guard let indexPath = tableView.indexPath(for: cell),
+          indexPath.row < viewModel.bikeData.count else { return }
+    
+    let bike = viewModel.bikeData[indexPath.row]
+    let newQuantity = min(bike.stockQuantity, bike.cartQuantity + 1)
+    viewModel.updateBikeQuantity(bike, newQuantity: newQuantity)
+    
+    // Update the cell's quantityLabel and button states
+    cell.updateQuantityLabel(newQuantity)
+    cell.updateButtonState(stockQuantity: bike.stockQuantity, cartQuantity: newQuantity)
+  }
+  func checkProduct(_ cell: CartViewCell, isChecked: Bool) {
+    guard let indexPath = tableView.indexPath(for: cell),
+          indexPath.row < viewModel.bikeData.count else { return }
+    let bike = viewModel.bikeData[indexPath.row]
+    viewModel.selectedStates[bike.id] = isChecked
+    
+    // Update the 'Select All' button state
+    viewModel.isAllSelected = !viewModel.selectedStates.values.contains(false)
+    
+    viewModel.updateTotalPrice()
+  }
+  
+  func deleteButton(_ cell: CartViewCell) {
+    if let indexPath = tableView.indexPath(for: cell) {
+      let bikeToDelete = viewModel.bikeData[indexPath.row]
+      viewModel.deleteBike(bikeToDelete)
+    }
+  }
+}
+
+extension CartViewController: UITableViewDelegate {
+  
+}
 
 
 // 2. Fetch from Add to cart API
