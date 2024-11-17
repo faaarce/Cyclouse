@@ -169,6 +169,7 @@
 		C1A426E92CBECB8A000B1579 /* InstantSearch in Frameworks */ = {isa = PBXBuildFile; productRef = C1A426E82CBECB8A000B1579 /* InstantSearch */; };
 		C1A426EB2CBECB8A000B1579 /* InstantSearchCore in Frameworks */ = {isa = PBXBuildFile; productRef = C1A426EA2CBECB8A000B1579 /* InstantSearchCore */; };
 		C1A426ED2CBECB8A000B1579 /* InstantSearchInsights in Frameworks */ = {isa = PBXBuildFile; productRef = C1A426EC2CBECB8A000B1579 /* InstantSearchInsights */; };
+		C1A505BE2CEA397D00078B46 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A505BD2CEA397D00078B46 /* HistoryViewModel.swift */; };
 		C1AF6D0F2CC16A3000BEFD41 /* Hero in Frameworks */ = {isa = PBXBuildFile; productRef = C1AF6D0E2CC16A3000BEFD41 /* Hero */; };
 		C1B4B94D2C8D4F8D00B4F54B /* BikeProductViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B4B94C2C8D4F8D00B4F54B /* BikeProductViewCell.swift */; };
 		C1C533882C90A618000ABA71 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C533872C90A618000ABA71 /* HomeViewModel.swift */; };
@@ -380,6 +381,7 @@
 		C19465672C8CBF6F00171932 /* HorizontalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalViewCell.swift; sourceTree = "<group>"; };
 		C1956D112CABC70600642FF8 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
 		C196DE4C2CAD0E7E00743EFB /* GetCartResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCartResponse.swift; sourceTree = "<group>"; };
+		C1A505BD2CEA397D00078B46 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		C1B4B94C2C8D4F8D00B4F54B /* BikeProductViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeProductViewCell.swift; sourceTree = "<group>"; };
 		C1C533872C90A618000ABA71 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		C1C582AA2CBBACD500280F6F /* PaymentCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCoordinator.swift; sourceTree = "<group>"; };
@@ -968,6 +970,7 @@
 			children = (
 				C147C24F2CA14D59002B88AF /* Cells */,
 				C17D7D942C975EB800868F1E /* HistoryViewController.swift */,
+				C1A505BD2CEA397D00078B46 /* HistoryViewModel.swift */,
 				C17D7D962C975EC200868F1E /* HistoryCoordinator.swift */,
 			);
 			path = History;
@@ -1737,6 +1740,7 @@
 				C1705E0B2CA55C6D0043CE9D /* BikeNetworkRepository.swift in Sources */,
 				C1705E0C2CA55C6D0043CE9D /* BikeService.swift in Sources */,
 				C1705E0D2CA55C6D0043CE9D /* BikeRepository.swift in Sources */,
+				C1A505BE2CEA397D00078B46 /* HistoryViewModel.swift in Sources */,
 				C17F98672CE63D410060BC7B /* WaveTabBarController.swift in Sources */,
 				C1705E0E2CA55C6D0043CE9D /* BikeAPI.swift in Sources */,
 				C177BD212CE991C100B504C1 /* ProfileViewModel.swift in Sources */,
