@@ -79,6 +79,7 @@
 		C177238D2C951CF30078E598 /* ReadMoreTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177238C2C951CF30078E598 /* ReadMoreTextView.swift */; };
 		C177238F2C954E6B0078E598 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177238E2C954E6B0078E598 /* PopUpViewController.swift */; };
 		C177BD1F2CE8DE4E00B504C1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177BD1E2CE8DE4E00B504C1 /* BaseViewController.swift */; };
+		C177BD212CE991C100B504C1 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177BD202CE991C100B504C1 /* ProfileViewModel.swift */; };
 		C17D7D952C975EB800868F1E /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D7D942C975EB800868F1E /* HistoryViewController.swift */; };
 		C17D7D972C975EC200868F1E /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D7D962C975EC200868F1E /* HistoryCoordinator.swift */; };
 		C17D7D9B2C981C8D00868F1E /* PlusJakartaSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17D7D9A2C981C8D00868F1E /* PlusJakartaSans-Bold.ttf */; };
@@ -295,6 +296,7 @@
 		C177238C2C951CF30078E598 /* ReadMoreTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreTextView.swift; sourceTree = "<group>"; };
 		C177238E2C954E6B0078E598 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		C177BD1E2CE8DE4E00B504C1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		C177BD202CE991C100B504C1 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		C17D7D942C975EB800868F1E /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		C17D7D962C975EC200868F1E /* HistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
 		C17D7D9A2C981C8D00868F1E /* PlusJakartaSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -1231,6 +1233,7 @@
 			children = (
 				C193702C2C89E97B00B56BA1 /* ProfileCoordinator.swift */,
 				C193702E2C89E98300B56BA1 /* ProfileViewController.swift */,
+				C177BD202CE991C100B504C1 /* ProfileViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1736,6 +1739,7 @@
 				C1705E0D2CA55C6D0043CE9D /* BikeRepository.swift in Sources */,
 				C17F98672CE63D410060BC7B /* WaveTabBarController.swift in Sources */,
 				C1705E0E2CA55C6D0043CE9D /* BikeAPI.swift in Sources */,
+				C177BD212CE991C100B504C1 /* ProfileViewModel.swift in Sources */,
 				C19370672C8B72BA00B56BA1 /* ButtonFactory.swift in Sources */,
 				C162D4462CD2BBE000DBA8CC /* ViewModelsAssembly.swift in Sources */,
 				C16468B22CD0984700876224 /* CheckoutViewController.swift in Sources */,

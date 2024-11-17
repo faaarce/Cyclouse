@@ -16,6 +16,7 @@ class ProfileViewController: BaseViewController {
     var coordinator: ProfileCoordinator
 
     private let authService = AuthenticationService()
+    private let viewModel = ProfileViewModel()
 
     private lazy var mainStackView: UIStackView = {
         let stack = UIStackView()
@@ -54,11 +55,11 @@ class ProfileViewController: BaseViewController {
     }()
 
     private let profileName: UILabel = {
-        LabelFactory.build(text: "Faris", font: ThemeFont.semibold(ofSize: 14), textColor: .white)
+        LabelFactory.build(text: "", font: ThemeFont.semibold(ofSize: 14), textColor: .white)
     }()
 
     private let profileEmail: UILabel = {
-        LabelFactory.build(text: "faris@gmail.com", font: ThemeFont.medium(ofSize: 10), textColor: ThemeColor.labelColorSecondary)
+        LabelFactory.build(text: "", font: ThemeFont.medium(ofSize: 10), textColor: ThemeColor.labelColorSecondary)
     }()
 
     private lazy var menuItems: [UIView] = [
@@ -87,6 +88,7 @@ class ProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Profile"
+        viewModel.loadUserProfile()
     }
 
     // MARK: - Setup Methods
@@ -141,16 +143,22 @@ class ProfileViewController: BaseViewController {
 
     override func bindViewModel() {
         super.bindViewModel()
-        if let userProfile = loadUserProfile() {
-            updateUI(with: userProfile)
-        }
+
+        viewModel.userProfilePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] userProfile in
+                guard let profile = userProfile else { return }
+                self?.updateUI(with: profile)
+            }
+            .store(in: &cancellables)
     }
 
     // MARK: - Private Methods
 
     private func updateUI(with profile: UserProfile) {
+
         profileEmail.text = profile.email
-       
+        // Update other UI elements if necessary
     }
 
     private func createMenuItemStack(title: String, icon: String, action: Selector? = nil) -> UIStackView {
@@ -261,6 +269,7 @@ class ProfileViewController: BaseViewController {
         )
     }
 }
+
 
 //  
 //  private func performLogout() {
