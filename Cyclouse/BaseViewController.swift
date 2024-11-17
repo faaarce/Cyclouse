@@ -54,7 +54,7 @@ class BaseViewController: UIViewController {
     // MARK: - Setup Methods
     
     /// Configures the base settings for the view controller.
-    private func setupBaseConfiguration() {
+     func setupBaseConfiguration() {
         view.backgroundColor = ThemeColor.background
         setupNavigationBarAppearance()
     }
