@@ -196,7 +196,7 @@ class CartViewController: BaseViewController {
                     make.edges.equalToSuperview()
                 }
                 emptyStateView.configure(
-                    image: UIImage(named: "bikes"),
+                  animationName: "empty",
                     description: "Your cart is empty.",
                     buttonTitle: "Start Shopping"
                 )
