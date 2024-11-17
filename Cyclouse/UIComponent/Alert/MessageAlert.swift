@@ -116,9 +116,9 @@ final class MessageAlert {
     
     
     // Configure background
-    view.backgroundColor = ThemeColor.cardFillColor
+    view.backgroundColor = .clear
     (view.backgroundView as? CornerRoundingView)?.cornerRadius = 12
-    (view.backgroundView as? CornerRoundingView)?.backgroundColor = .clear
+    (view.backgroundView as? CornerRoundingView)?.backgroundColor = ThemeColor.cardFillColor
     
     // Configure content
     view.configureContent(title: title, body: message)

@@ -4,22 +4,17 @@
 //
 //  Created by yoga arie on 30/10/24.
 //
-
 import UIKit
 import MapKit
 import CoreLocation
 import Combine
 
-
-protocol AddressUpdateDelegate: AnyObject {
-    func didUpdateAddress(_ address: String)
-}
-
-class MapViewController: UIViewController {
+// MARK: - MapViewController
+class MapViewController: BaseViewController {
 
     // MARK: - Properties
     weak var delegate: AddressUpdateDelegate?
-    private var cancellables = Set<AnyCancellable>()
+ 
     private let checkoutService: CheckoutService
     private let locationManager = CLLocationManager()
     private var selectedAddress: ShippingAddress?
@@ -68,72 +63,59 @@ class MapViewController: UIViewController {
     }()
 
     // MARK: - UI Components
-  // MARK: - UI Components
-  private lazy var mapView: MKMapView = {
-      let map = MKMapView()
-      map.translatesAutoresizingMaskIntoConstraints = false
-      
-      // Create and apply configuration
-      let config = MKStandardMapConfiguration()
-      config.elevationStyle = .realistic  // Enable 3D terrain
-      config.emphasisStyle = .default
-      map.preferredConfiguration = config
-      
-      // Basic map features
-      map.showsUserLocation = true
-      map.showsCompass = true
-      map.showsScale = true
-      
-      // 3D features
-      map.showsBuildings = true
-      map.isPitchEnabled = true  // Enables tilting for 3D view
-      map.isRotateEnabled = true // Enables rotation for 3D view
-      
-      return map
-  }()
-  
-  // Add after your currentLocationButton
-  private lazy var threeDButton: UIButton = {
-      let button = UIButton(type: .system)
-      button.setImage(UIImage(systemName: "view.3d"), for: .normal)
-      button.backgroundColor = .white
-      button.tintColor = .systemBlue
-      button.layer.cornerRadius = 25
-      button.layer.shadowColor = UIColor.black.cgColor
-      button.layer.shadowOffset = CGSize(width: 0, height: 2)
-      button.layer.shadowRadius = 4
-      button.layer.shadowOpacity = 0.2
-      button.translatesAutoresizingMaskIntoConstraints = false
-      return button
-  }()
+    private lazy var mapView: MKMapView = {
+        let map = MKMapView()
+        map.translatesAutoresizingMaskIntoConstraints = false
 
-  private lazy var rotateButton: UIButton = {
-      let button = UIButton(type: .system)
-      button.setImage(UIImage(systemName: "rotate.3d"), for: .normal)
-      button.backgroundColor = .white
-      button.tintColor = .systemBlue
-      button.layer.cornerRadius = 25
-      button.layer.shadowColor = UIColor.black.cgColor
-      button.layer.shadowOffset = CGSize(width: 0, height: 2)
-      button.layer.shadowRadius = 4
-      button.layer.shadowOpacity = 0.2
-      button.translatesAutoresizingMaskIntoConstraints = false
-      return button
-  }()
+        // Create and apply configuration
+        let config = MKStandardMapConfiguration()
+        config.elevationStyle = .realistic  // Enable 3D terrain
+        config.emphasisStyle = .default
+        map.preferredConfiguration = config
 
-    // MARK: - Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = ThemeColor.background
-        setupSearchCompleter()
-        setupUI()
-        configureLocationServices()
-        setupMapView()
-      setup3DFeatures()
-    }
-  
-  
+        // Basic map features
+        map.showsUserLocation = true
+        map.showsCompass = true
+        map.showsScale = true
 
+        // 3D features
+        map.showsBuildings = true
+        map.isPitchEnabled = true  // Enables tilting for 3D view
+        map.isRotateEnabled = true // Enables rotation for 3D view
+
+        return map
+    }()
+
+    // 3D Buttons
+    private lazy var threeDButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "view.3d"), for: .normal)
+        button.backgroundColor = .white
+        button.tintColor = .systemBlue
+        button.layer.cornerRadius = 25
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.layer.shadowRadius = 4
+        button.layer.shadowOpacity = 0.2
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    private lazy var rotateButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "rotate.3d"), for: .normal)
+        button.backgroundColor = .white
+        button.tintColor = .systemBlue
+        button.layer.cornerRadius = 25
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.layer.shadowRadius = 4
+        button.layer.shadowOpacity = 0.2
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    // MARK: - Initialization
     init(checkoutService: CheckoutService = CheckoutService()) {
         self.checkoutService = checkoutService
         super.init(nibName: nil, bundle: nil)
@@ -143,113 +125,46 @@ class MapViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setupSearchCompleter() {
-        searchCompleter = MKLocalSearchCompleter()
-        searchCompleter?.delegate = self
-        searchCompleter?.resultTypes = .address
-        suggestionsTableView.delegate = self
-        suggestionsTableView.dataSource = self
-        suggestionsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "SuggestionCell")
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupSearchCompleter()
+        configureLocationServices()
+        setupMapView()
+        setup3DFeatures()
     }
-  
-  // MARK: - 3D Map Features
-  private func setup3DFeatures() {
-      // Add 3D buttons to view
-      view.addSubview(threeDButton)
-      view.addSubview(rotateButton)
-      
-      // Add constraints
-      NSLayoutConstraint.activate([
-          threeDButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-          threeDButton.bottomAnchor.constraint(equalTo: currentLocationButton.topAnchor, constant: -16),
-          threeDButton.widthAnchor.constraint(equalToConstant: 50),
-          threeDButton.heightAnchor.constraint(equalToConstant: 50),
-          
-          rotateButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-          rotateButton.bottomAnchor.constraint(equalTo: threeDButton.topAnchor, constant: -16),
-          rotateButton.widthAnchor.constraint(equalToConstant: 50),
-          rotateButton.heightAnchor.constraint(equalToConstant: 50)
-      ])
-      
-      // Add targets
-      threeDButton.addTarget(self, action: #selector(toggle3DView), for: .touchUpInside)
-      rotateButton.addTarget(self, action: #selector(rotateMapView), for: .touchUpInside)
-      
-      // Add rotation gesture
-      let rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(handleRotation(_:)))
-      mapView.addGestureRecognizer(rotationGesture)
-  }
 
-  @objc private func toggle3DView() {
-      // Get current center
-      let center = mapView.centerCoordinate
-      
-      // Create 3D camera
-      let camera = MKMapCamera(
-          lookingAtCenter: center,
-          fromDistance: 1000, // Meters from the ground
-          pitch: mapView.camera.pitch == 0 ? 60 : 0, // Toggle between 2D and 3D
-          heading: mapView.camera.heading
-      )
-      
-      // Animate camera change
-      UIView.animate(withDuration: 0.5) {
-          self.mapView.setCamera(camera, animated: true)
-      }
-  }
-
-  @objc private func rotateMapView() {
-      let camera = mapView.camera
-      camera.heading += 45 // Rotate 45 degrees
-      
-      UIView.animate(withDuration: 0.3) {
-          self.mapView.setCamera(camera, animated: true)
-      }
-  }
-
-  @objc private func handleRotation(_ gesture: UIRotationGestureRecognizer) {
-      if gesture.state == .changed {
-          let camera = mapView.camera
-          camera.heading += gesture.rotation * 180 / .pi
-          mapView.setCamera(camera, animated: false)
-          gesture.rotation = 0
-      }
-  }
-
-  // Update currentLocationTapped to include 3D view
-  @objc private func currentLocationTapped() {
-      Task {
-          do {
-              try await locationManager.requestLocation()
-              if let location = locationManager.location {
-                  // Create 3D camera for current location
-                  let camera = MKMapCamera(
-                      lookingAtCenter: location.coordinate,
-                      fromDistance: 1000,
-                      pitch: 60,
-                      heading: 0
-                  )
-                  
-                  // Animate to new position
-                  UIView.animate(withDuration: 0.5) {
-                      self.mapView.setCamera(camera, animated: true)
-                  }
-              }
-          } catch {
-              await showErrorAlert(message: error.localizedDescription)
-          }
-      }
-  }
-
-    // MARK: - UI Setup
-    private func setupUI() {
+    // MARK: - Setup Methods
+    override func setupViews() {
+        super.setupViews()
         view.addSubview(mapView)
         view.addSubview(searchBar)
         view.addSubview(suggestionsTableView)
         view.addSubview(currentLocationButton)
+        view.addSubview(threeDButton)
+        view.addSubview(rotateButton)
 
+        // Bring subviews to front
+        view.bringSubviewToFront(searchBar)
+        view.bringSubviewToFront(suggestionsTableView)
+        view.bringSubviewToFront(currentLocationButton)
+        view.bringSubviewToFront(threeDButton)
+        view.bringSubviewToFront(rotateButton)
+
+        searchBar.delegate = self
+        suggestionsTableView.delegate = self
+        suggestionsTableView.dataSource = self
+        suggestionsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "SuggestionCell")
+
+        currentLocationButton.addTarget(self, action: #selector(currentLocationTapped), for: .touchUpInside)
+        threeDButton.addTarget(self, action: #selector(toggle3DView), for: .touchUpInside)
+        rotateButton.addTarget(self, action: #selector(rotateMapView), for: .touchUpInside)
+    }
+
+    override func setupConstraints() {
+        super.setupConstraints()
         NSLayoutConstraint.activate([
-            // Make MapView fullscreen
+            // MapView constraints
             mapView.topAnchor.constraint(equalTo: view.topAnchor),
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -270,48 +185,124 @@ class MapViewController: UIViewController {
             currentLocationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             currentLocationButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             currentLocationButton.widthAnchor.constraint(equalToConstant: 50),
-            currentLocationButton.heightAnchor.constraint(equalToConstant: 50)
+            currentLocationButton.heightAnchor.constraint(equalToConstant: 50),
+
+            // 3D Button
+            threeDButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            threeDButton.bottomAnchor.constraint(equalTo: currentLocationButton.topAnchor, constant: -16),
+            threeDButton.widthAnchor.constraint(equalToConstant: 50),
+            threeDButton.heightAnchor.constraint(equalToConstant: 50),
+
+            // Rotate Button
+            rotateButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            rotateButton.bottomAnchor.constraint(equalTo: threeDButton.topAnchor, constant: -16),
+            rotateButton.widthAnchor.constraint(equalToConstant: 50),
+            rotateButton.heightAnchor.constraint(equalToConstant: 50)
         ])
-
-        searchBar.delegate = self
-        currentLocationButton.addTarget(self, action: #selector(currentLocationTapped), for: .touchUpInside)
-
-        // Bring subviews to front
-        view.bringSubviewToFront(searchBar)
-        view.bringSubviewToFront(suggestionsTableView)
-        view.bringSubviewToFront(currentLocationButton)
     }
 
+    override func bindViewModel() {
+        super.bindViewModel()
+        // Bind any view models here if necessary
+    }
 
-  private func findNearbyPlace(by query: String) {
-      mapView.removeAnnotations(mapView.annotations)
-      let request = MKLocalSearch.Request()
-      request.naturalLanguageQuery = query
-      request.region = mapView.region
+    private func setupSearchCompleter() {
+        searchCompleter = MKLocalSearchCompleter()
+        searchCompleter?.delegate = self
+        searchCompleter?.resultTypes = .address
+    }
 
-      let search = MKLocalSearch(request: request)
-      search.start { [weak self] response, error in
-          guard let self = self,
-                let response = response,
-                error == nil else { return }
-          
-          self.places = response.mapItems.map(PlaceAnnotation.init)
-          self.places.forEach { place in
-              self.mapView.addAnnotation(place)
-          }
+    // MARK: - 3D Map Features
+    private func setup3DFeatures() {
+        // Rotation gesture
+        let rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(handleRotation(_:)))
+        mapView.addGestureRecognizer(rotationGesture)
+    }
 
-          // Show places in 3D
-          if let firstPlace = self.places.first {
-              let camera = MKMapCamera(
-                  lookingAtCenter: firstPlace.coordinate,
-                  fromDistance: 1000,
-                  pitch: 60,
-                  heading: 45
-              )
-              self.mapView.setCamera(camera, animated: true)
-          }
-      }
-  }
+    @objc private func toggle3DView() {
+        // Get current center
+        let center = mapView.centerCoordinate
+
+        // Create 3D camera
+        let camera = MKMapCamera(
+            lookingAtCenter: center,
+            fromDistance: 1000, // Meters from the ground
+            pitch: mapView.camera.pitch == 0 ? 60 : 0, // Toggle between 2D and 3D
+            heading: mapView.camera.heading
+        )
+
+        // Animate camera change
+        UIView.animate(withDuration: 0.5) {
+            self.mapView.setCamera(camera, animated: true)
+        }
+    }
+
+    @objc private func rotateMapView() {
+        let camera = mapView.camera
+        camera.heading += 45 // Rotate 45 degrees
+
+        UIView.animate(withDuration: 0.3) {
+            self.mapView.setCamera(camera, animated: true)
+        }
+    }
+
+    @objc private func handleRotation(_ gesture: UIRotationGestureRecognizer) {
+        if gesture.state == .changed {
+            let camera = mapView.camera
+            camera.heading += gesture.rotation * 180 / .pi
+            mapView.setCamera(camera, animated: false)
+            gesture.rotation = 0
+        }
+    }
+
+    @objc private func currentLocationTapped() {
+        locationManager.requestLocation()
+        if let location = locationManager.location {
+            // Create 3D camera for current location
+            let camera = MKMapCamera(
+                lookingAtCenter: location.coordinate,
+                fromDistance: 1000,
+                pitch: 60,
+                heading: 0
+            )
+
+            // Animate to new position
+            UIView.animate(withDuration: 0.5) {
+                self.mapView.setCamera(camera, animated: true)
+            }
+        }
+    }
+
+    private func findNearbyPlace(by query: String) {
+        mapView.removeAnnotations(mapView.annotations)
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = query
+        request.region = mapView.region
+
+        let search = MKLocalSearch(request: request)
+        search.start { [weak self] response, error in
+            guard let self = self,
+                  let response = response,
+                  error == nil else { return }
+
+            self.places = response.mapItems.map(PlaceAnnotation.init)
+            self.places.forEach { place in
+                self.mapView.addAnnotation(place)
+            }
+
+            // Show places in 3D
+            if let firstPlace = self.places.first {
+                let camera = MKMapCamera(
+                    lookingAtCenter: firstPlace.coordinate,
+                    fromDistance: 1000,
+                    pitch: 60,
+                    heading: 45
+                )
+                self.mapView.setCamera(camera, animated: true)
+            }
+        }
+    }
+
     private func showAllAnnotations() {
         let annotations = mapView.annotations.filter { !($0 is MKUserLocation) }
         if annotations.count > 0 {
@@ -376,7 +367,7 @@ class MapViewController: UIViewController {
         geocoder.reverseGeocodeLocation(location) { [weak self] placemarks, error in
             guard let self = self,
                   let placemark = placemarks?.first else {
-                self?.showErrorAlert(message: "Unable to find address")
+              self?.showErrorAlert(message: "Unable to find address")
                 return
             }
 
@@ -419,6 +410,7 @@ class MapViewController: UIViewController {
     }
 
     private func showAddressConfirmationAlert(address: String) {
+      /*
         let alert = UIAlertController(
             title: "Confirm Location",
             message: "Do you want to use this location?\n\(address)",
@@ -430,7 +422,10 @@ class MapViewController: UIViewController {
         })
 
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        present(alert, animated: true)
+        present(alert, animated: true)*/
+      MessageAlert.showConfirmation(title: "Confirm Location", message: "Do you want to use this location?\n\(address)", confirmTitle: "Confirm", cancelTitle: "Cancel") {
+        self.confirmLocation()
+      }
     }
 
     private func confirmLocation() {
@@ -450,13 +445,7 @@ class MapViewController: UIViewController {
 
     // MARK: - Alert Handlers
     private func showErrorAlert(message: String) {
-        let alert = UIAlertController(
-            title: "Error",
-            message: message,
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
+        showAlert(title: "Error", message: message)
     }
 
     private func showLocationServicesAlert() {
@@ -592,41 +581,49 @@ extension MapViewController: MKMapViewDelegate {
     }
 }
 
+// MARK: - Supporting Classes and Extensions
 
+// AddressUpdateDelegate Protocol
+protocol AddressUpdateDelegate: AnyObject {
+    func didUpdateAddress(_ address: String)
+}
+
+
+// PlaceAnnotation Class
 class PlaceAnnotation: MKPointAnnotation {
-  let mapItem: MKMapItem
-  let id = UUID()
-  var isSelected: Bool = false
-  
-  init(mapItem: MKMapItem) {
-    self.mapItem = mapItem
-    super.init()
-    self.coordinate = mapItem.placemark.coordinate
-  }
-  
-  var name: String {
-    mapItem.name ?? ""
-  }
-  
-  var phone: String {
-    mapItem.phoneNumber ?? ""
-  }
-  
-  var address: String {
-    "\(mapItem.placemark.subThoroughfare ?? "") \(mapItem.placemark.thoroughfare ?? "") \(mapItem.placemark.locality ?? "") \(mapItem.placemark.countryCode ?? "") "
-  }
-  
-  var location: CLLocation {
-    mapItem.placemark.location ?? CLLocation.default
-  }
+    let mapItem: MKMapItem
+    let id = UUID()
+    var isSelected: Bool = false
+
+    init(mapItem: MKMapItem) {
+        self.mapItem = mapItem
+        super.init()
+        self.coordinate = mapItem.placemark.coordinate
+    }
+
+    var name: String {
+        mapItem.name ?? ""
+    }
+
+    var phone: String {
+        mapItem.phoneNumber ?? ""
+    }
+
+    var address: String {
+        "\(mapItem.placemark.subThoroughfare ?? "") \(mapItem.placemark.thoroughfare ?? "") \(mapItem.placemark.locality ?? "") \(mapItem.placemark.countryCode ?? "") "
+    }
+
+    var location: CLLocation {
+        mapItem.placemark.location ?? CLLocation.default
+    }
 }
 
+// CLLocation Extension
 extension CLLocation {
-  static var `default`: CLLocation {
-    CLLocation(latitude: 36.063457, longitude: -95.880516)
-  }
+    static var `default`: CLLocation {
+        CLLocation(latitude: 36.063457, longitude: -95.880516)
+    }
 }
-
 
 
 /*
