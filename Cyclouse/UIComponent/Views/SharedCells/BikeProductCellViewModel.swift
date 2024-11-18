@@ -15,7 +15,7 @@ import ReactiveCollectionsKit
   let isLoading: Bool
 
   // Initializer for real data
-  init(product: Product, categoryName: String) {
+  init(product: Product, categoryName: String? = nil) {
       self.id = "\(product.id)-\(categoryName)"
       self.product = product
       self.categoryName = categoryName

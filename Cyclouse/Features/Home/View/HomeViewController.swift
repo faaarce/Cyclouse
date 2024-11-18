@@ -15,7 +15,7 @@ import Hero
 import ReactiveCollectionsKit
 
 
-class HomeViewController: BaseViewController, CellEventCoordinator {
+class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResultsUpdating, UISearchControllerDelegate {
     
     // MARK: - Properties
     
@@ -24,6 +24,15 @@ class HomeViewController: BaseViewController, CellEventCoordinator {
     var driver: CollectionViewDriver?
     var services = BikeService()
     var categories: [Category] = []
+    var filteredProducts: [Product] = []
+    
+    var isSearching: Bool {
+        return searchController.isActive && !(searchController.searchBar.text?.isEmpty ?? true)
+    }
+    
+    var allProducts: [Product] {
+        return categories.flatMap { $0.products }
+    }
     
     // Hardcoded list of categories
     let allCategories = ["All", "Full Bike", "Handlebar", "Saddle", "Pedal", "Seatpost", "Stem", "Crank", "Wheelset", "Frame", "Tires"]
@@ -44,16 +53,16 @@ class HomeViewController: BaseViewController, CellEventCoordinator {
         super.init(nibName: nil, bundle: nil)
     }
   
-  @MainActor required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+    @MainActor required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
   
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureAppearance()
-        setupNavigationVar()
+        // Remove setupNavigationVar() from here
         isLoading = true  // Start with loading state
     }
     
@@ -65,6 +74,7 @@ class HomeViewController: BaseViewController, CellEventCoordinator {
     // MARK: - Setup Methods
     
     override func setupViews() {
+        setupNavigationVar() // Call this before setupCollectionView()
         setupCollectionView()
     }
     
@@ -102,6 +112,10 @@ class HomeViewController: BaseViewController, CellEventCoordinator {
             self?.fetchBikes()
         }
     }
+  
+    func didDismissSearchController(_ searchController: UISearchController) {
+        updateCollectionView()
+    }
     
     private func fetchBikes() {
         services.getBikes()
@@ -124,84 +138,113 @@ class HomeViewController: BaseViewController, CellEventCoordinator {
             }
             .store(in: &cancellables)
     }
+  
+    // UISearchResultsUpdating Method
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text else { return }
+        filterContentForSearchText(searchText)
+    }
+
+    // Filtering Method
+    func filterContentForSearchText(_ searchText: String) {
+        filteredProducts = allProducts.filter { product in
+            return product.name.lowercased().contains(searchText.lowercased())
+        }
+        updateCollectionView()
+    }
     
     private func updateCollectionView() {
         let viewModel = makeViewModel()
         driver?.update(viewModel: viewModel, animated: true)
+        collectionView.collectionViewLayout = makeLayout()
     }
     
     private func makeViewModel() -> CollectionViewModel {
         var sections: [SectionViewModel] = []
         
-        // First Section: Categories
-        let categoryCellViewModels = allCategories.map { categoryName in
-            let isSelected = (categoryName == selectedCategory) || (selectedCategory == nil && categoryName == "All")
-            return CategoryCellViewModel(category: categoryName, isSelected: isSelected).eraseToAnyViewModel()
-        }
-        
-        let categorySectionHeader = SectionHeaderViewModel(
-            id: "header_categories",
-            title: "Categories"
-        )
-        
-        let categorySection = SectionViewModel(
-            id: "section_categories",
-            cells: categoryCellViewModels,
-            header: categorySectionHeader.eraseToAnyViewModel()
-        )
-        
-        sections.append(categorySection)
-        
-        if isLoading {
-            // Create Multiple Placeholder Sections
-            let placeholderCategoryNames = ["Loading Category 1", "Loading Category 2", "Loading Category 3"]
-            
-            for placeholderCategoryName in placeholderCategoryNames {
-                // Create placeholder header view model
-                let loadingHeader = SectionHeaderViewModel(
-                    id: "loading_header_\(placeholderCategoryName)",
-                    isLoading: true
-                )
-                
-                // Placeholder cells
-                let placeholderCellViewModels = (0..<5).map { _ in
-                    BikeProductCellViewModel(isLoading: true).eraseToAnyViewModel()
-                }
-                
-                let loadingSection = SectionViewModel(
-                    id: "loading_section_\(placeholderCategoryName)",
-                    cells: placeholderCellViewModels,
-                    header: loadingHeader.eraseToAnyViewModel()
-                )
-                
-                sections.append(loadingSection)
+        if isSearching {
+            // Search Results Section
+            let productCellViewModels = filteredProducts.map {
+                BikeProductCellViewModel(product: $0, categoryName: $0.brand).eraseToAnyViewModel()
             }
+            
+            let searchResultsSection = SectionViewModel(
+                id: "search_results",
+                cells: productCellViewModels
+            )
+            
+            sections.append(searchResultsSection)
         } else {
-            // Subsequent Sections: Bike Products
-            let filteredCategories: [Category]
-            if let selectedCategory = selectedCategory, selectedCategory != "All" {
-                filteredCategories = categories.filter { $0.categoryName == selectedCategory }
-            } else {
-                filteredCategories = categories
+            // First Section: Categories
+            let categoryCellViewModels = allCategories.map { categoryName in
+                let isSelected = (categoryName == selectedCategory) || (selectedCategory == nil && categoryName == "All")
+                return CategoryCellViewModel(category: categoryName, isSelected: isSelected).eraseToAnyViewModel()
             }
             
-            for category in filteredCategories {
-                let productCellViewModels = category.products.map {
-                    BikeProductCellViewModel(product: $0, categoryName: category.categoryName).eraseToAnyViewModel()
+            let categorySectionHeader = SectionHeaderViewModel(
+                id: "header_categories",
+                title: "Categories"
+            )
+            
+            let categorySection = SectionViewModel(
+                id: "section_categories",
+                cells: categoryCellViewModels,
+                header: categorySectionHeader.eraseToAnyViewModel()
+            )
+            
+            sections.append(categorySection)
+            
+            if isLoading {
+                // Create Multiple Placeholder Sections
+                let placeholderCategoryNames = ["Loading Category 1", "Loading Category 2", "Loading Category 3"]
+                
+                for placeholderCategoryName in placeholderCategoryNames {
+                    // Create placeholder header view model
+                    let loadingHeader = SectionHeaderViewModel(
+                        id: "loading_header_\(placeholderCategoryName)",
+                        isLoading: true
+                    )
+                    
+                    // Placeholder cells
+                    let placeholderCellViewModels = (0..<5).map { _ in
+                        BikeProductCellViewModel(isLoading: true).eraseToAnyViewModel()
+                    }
+                    
+                    let loadingSection = SectionViewModel(
+                        id: "loading_section_\(placeholderCategoryName)",
+                        cells: placeholderCellViewModels,
+                        header: loadingHeader.eraseToAnyViewModel()
+                    )
+                    
+                    sections.append(loadingSection)
+                }
+            } else {
+                // Subsequent Sections: Bike Products
+                let filteredCategories: [Category]
+                if let selectedCategory = selectedCategory, selectedCategory != "All" {
+                    filteredCategories = categories.filter { $0.categoryName == selectedCategory }
+                } else {
+                    filteredCategories = categories
                 }
                 
-                let productSectionHeader = SectionHeaderViewModel(
-                    id: "header_\(category.categoryName)",
-                    title: category.categoryName
-                )
-                
-                let productSection = SectionViewModel(
-                    id: "section_\(category.categoryName)",
-                    cells: productCellViewModels,
-                    header: productSectionHeader.eraseToAnyViewModel()
-                )
-                
-                sections.append(productSection)
+                for category in filteredCategories {
+                    let productCellViewModels = category.products.map {
+                        BikeProductCellViewModel(product: $0, categoryName: category.categoryName).eraseToAnyViewModel()
+                    }
+                    
+                    let productSectionHeader = SectionHeaderViewModel(
+                        id: "header_\(category.categoryName)",
+                        title: category.categoryName
+                    )
+                    
+                    let productSection = SectionViewModel(
+                        id: "section_\(category.categoryName)",
+                        cells: productCellViewModels,
+                        header: productSectionHeader.eraseToAnyViewModel()
+                    )
+                    
+                    sections.append(productSection)
+                }
             }
         }
         
@@ -215,7 +258,37 @@ class HomeViewController: BaseViewController, CellEventCoordinator {
         let layout = UICollectionViewCompositionalLayout { [weak self] (sectionIndex, environment) -> NSCollectionLayoutSection? in
             
             guard let self = self else { return nil }
-            
+          
+           
+          if self.isSearching {
+              // Layout for Search Results: Vertical layout with 2 columns
+              let itemSize = NSCollectionLayoutSize(
+                  widthDimension: .fractionalWidth(0.5),
+                  heightDimension: .absolute(250) // Use an absolute height
+              )
+              let item = NSCollectionLayoutItem(layoutSize: itemSize)
+              item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
+              
+              let groupSize = NSCollectionLayoutSize(
+                  widthDimension: .fractionalWidth(1.0),
+                  heightDimension: .absolute(250) // Match the item's height
+              )
+              let group = NSCollectionLayoutGroup.horizontal(
+                  layoutSize: groupSize,
+                  subitem: item,
+                  count: 2 // Use subitem with count 2 for two columns
+              )
+              
+              let section = NSCollectionLayoutSection(group: group)
+              section.contentInsets = NSDirectionalEdgeInsets(
+                  top: 0,
+                  leading: 0,
+                  bottom: 16,
+                  trailing: 0
+              )
+              
+              return section
+          }
             if sectionIndex == 0 {
                 // Layout for Category Cells
                 let itemSize = NSCollectionLayoutSize(
@@ -300,6 +373,17 @@ class HomeViewController: BaseViewController, CellEventCoordinator {
     }
     
     private func setupNavigationVar() {
+        // Initialize searchController
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search bikes"
+        searchController.searchResultsUpdater = self
+        searchController.delegate = self
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        navigationItem.hidesSearchBarWhenScrolling = false
+        
+        // Existing code for the cart button
         let cartButton = UIButton(type: .system)
         cartButton.setImage(UIImage(systemName: "cart.fill"), for: .normal)
         cartButton.tintColor = UIColor(hex: "F2F2F2")
@@ -316,13 +400,6 @@ class HomeViewController: BaseViewController, CellEventCoordinator {
         
         let cartBarButton = UIBarButtonItem(customView: cartButton)
         navigationItem.rightBarButtonItems = [cartBarButton]
-        
-        searchController = UISearchController(searchResultsController: nil)
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search bikes"
-        navigationItem.searchController = searchController
-        definesPresentationContext = true
-        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     @objc private func cartButtonTapped() {
@@ -355,6 +432,7 @@ class HomeViewController: BaseViewController, CellEventCoordinator {
             }
             .store(in: &cancellables)
     }
+    
     
     private func showWelcomeNotification(with profile: UserProfile) {
         let styleName = "WelcomeStyle"
@@ -396,12 +474,16 @@ class HomeViewController: BaseViewController, CellEventCoordinator {
     }
     
     // MARK: - CellEventCoordinator
-    
+  
     func didSelectCell(viewModel: any CellViewModel) {
         if let categoryVM = viewModel as? CategoryCellViewModel {
             selectedCategory = categoryVM.category != "All" ? categoryVM.category : nil
             updateCollectionView()
         } else if let productVM = viewModel as? BikeProductCellViewModel {
+            // Dismiss the search controller if active
+            if searchController.isActive {
+                searchController.dismiss(animated: true, completion: nil)
+            }
             coordinator.showDetailViewController(for: productVM.product ?? Product(
                 id: "PLACEHOLDER-001",
                 name: "Loading...",
