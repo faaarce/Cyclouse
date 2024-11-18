@@ -18,7 +18,6 @@ import ReactiveCollectionsKit
 class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResultsUpdating, UISearchControllerDelegate {
     
     // MARK: - Properties
-    
     var coordinator: HomeCoordinator
     private let service = DatabaseService.shared
     var driver: CollectionViewDriver?
@@ -37,6 +36,8 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
     // Hardcoded list of categories
     let allCategories = ["All", "Full Bike", "Handlebar", "Saddle", "Pedal", "Seatpost", "Stem", "Crank", "Wheelset", "Frame", "Tires"]
     var selectedCategory: String? = nil
+  
+    
     
     private var searchController: UISearchController!
     
@@ -400,6 +401,15 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
         
         let cartBarButton = UIBarButtonItem(customView: cartButton)
         navigationItem.rightBarButtonItems = [cartBarButton]
+      
+      let filterButton = UIBarButtonItem(
+             image: UIImage(systemName: "line.horizontal.3.decrease.circle"),
+             style: .plain,
+             target: self,
+             action: #selector(filterButtonTapped)
+         )
+      filterButton.tintColor = ThemeColor.primary
+         navigationItem.leftBarButtonItem = filterButton
     }
     
     @objc private func cartButtonTapped() {
@@ -433,6 +443,19 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
             .store(in: &cancellables)
     }
     
+  @objc private func filterButtonTapped() {
+    let filter = FilterViewController()
+    filter.modalPresentationStyle = .pageSheet
+    if let sheet = filter.sheetPresentationController {
+      sheet.prefersGrabberVisible = true
+      sheet.detents = [.large()]
+      present(filter, animated: true)
+       
+    } else {
+      print("Unable to present")
+    }
+  }
+
     
     private func showWelcomeNotification(with profile: UserProfile) {
         let styleName = "WelcomeStyle"

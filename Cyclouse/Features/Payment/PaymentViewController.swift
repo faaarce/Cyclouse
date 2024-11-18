@@ -259,7 +259,7 @@ class PaymentViewController: UIViewController {
   
   private func handleSuccessfulPayment(_ response: PaymentStatusResponse) {
           // Show success alert
-          let alert = UIAlertController(
+       /*   let alert = UIAlertController(
               title: "Payment Successful! 🎉",
               message: "Your payment has been confirmed",
               preferredStyle: .alert
@@ -270,6 +270,13 @@ class PaymentViewController: UIViewController {
           })
           
           present(alert, animated: true)
+    */
+    
+    MessageAlert.showConfirmation(title: "Payment Successful! 🎉", message: "Your payment has been confirmed") {
+      self.navigateToHome()
+    }
+    
+    
       }
   
   private func navigateToHome() {
