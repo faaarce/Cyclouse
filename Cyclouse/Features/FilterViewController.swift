@@ -224,7 +224,7 @@ class FilterViewController: UIViewController, CellEventCoordinator {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI() //ERROR:- Cannot find 'setupUI, setupCollectionView, setupActions, updateCollectionView' in scope
+        setupUI()
         setupCollectionView()
         setupActions()
         updateCollectionView()
@@ -244,7 +244,7 @@ class FilterViewController: UIViewController, CellEventCoordinator {
             FilterOption(title: $0.rawValue, isSelected: $0 == .nameAsc)
         }
         
-        updateCollectionView() // ERROR:- Cannot find 'updateCollectionView' in scope
+        updateCollectionView()
     }
     
     @objc private func applyButtonTapped() {
@@ -330,7 +330,7 @@ class FilterViewController: UIViewController, CellEventCoordinator {
             default:
                 break
             }
-            updateCollectionView() // ERROR: Cannot find 'updateCollectionView' in scope
+            updateCollectionView()
         }
     }
 }
