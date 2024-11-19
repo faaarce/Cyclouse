@@ -8,40 +8,40 @@
 import UIKit
 import SnapKit
 import ReactiveCollectionsKit
-// FilterViewController.swift
-// Cyclouse
 
-// Created by yoga arie on 18/11/24.
-
-import UIKit
-import SnapKit
-import ReactiveCollectionsKit
 
 // MARK: - Filter Singleton
 class FilterManager {
     static let shared = FilterManager()
     
-    var selectedPetTypes: Set<String> = []
-    var selectedBreeds: Set<String> = []
-    var ageRange: (min: Int, max: Int) = (5, 16)
-    var selectedGender: String?
-    var isVaccinated: Bool = false
-    var isNeutered: Bool = false
-    var selectedCity: String?
-    var selectedDistrict: String?
+    var selectedCategories: Set<String> = []
+    var selectedBrands: Set<String> = []
+    var priceRange: (min: Int, max: Int) = (0, 30_000_000)  // Price in IDR
+    var sortBy: SortOption = .nameAsc
     
     private init() {}
+    
+    func reset() {
+        selectedCategories.removeAll()
+        selectedBrands.removeAll()
+        priceRange = (0, 30_000_000)
+        sortBy = .nameAsc
+    }
 }
 
 // MARK: - Models
 enum FilterSection: Int, CaseIterable {
-    case petType
-    case breed
-    case ageRange
-    case gender
-    case vaccination
-    case neutered
-    case location
+    case categories
+    case brands
+    case priceRange
+    case sortBy
+}
+
+enum SortOption: String, CaseIterable {
+    case nameAsc = "Name (A-Z)"
+    case nameDesc = "Name (Z-A)"
+    case priceLowToHigh = "Price (Low to High)"
+    case priceHighToLow = "Price (High to Low)"
 }
 
 struct FilterOption: Hashable {
@@ -51,276 +51,286 @@ struct FilterOption: Hashable {
 
 // MARK: - View Controller
 class FilterViewController: UIViewController, CellEventCoordinator {
-    private let collectionView: UICollectionView = {
-        // Replace flow layout with compositional layout
-        let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+    // ... existing UI components ...
+    
+    private var categories: [String] = []
+    private var brands: Set<String> = []
+    
+    private var categoryOptions: [FilterOption] = []
+    private var brandOptions: [FilterOption] = []
+    private var sortOptions: [FilterOption] = SortOption.allCases.map {
+        FilterOption(title: $0.rawValue, isSelected: FilterManager.shared.sortBy.rawValue == $0.rawValue)
+    }
+    
+    init(categories: [Category]) {
+        super.init(nibName: nil, bundle: nil)
+        self.setupFilterOptions(from: categories)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+  private let collectionView: UICollectionView = {
+         // Replace flow layout with compositional layout
+         let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+             // Item size with estimated dimensions
+             let itemSize = NSCollectionLayoutSize(
+                 widthDimension: .estimated(100),
+                 heightDimension: .estimated(40)
+             )
+             let item = NSCollectionLayoutItem(layoutSize: itemSize)
+             item.edgeSpacing = NSCollectionLayoutEdgeSpacing(
+                 leading: .fixed(4),
+                 top: .fixed(4),
+                 trailing: .fixed(4),
+                 bottom: .fixed(4)
+             )
 
-            // Item size with estimated dimensions
-            let itemSize = NSCollectionLayoutSize(
-                widthDimension: .estimated(100),
-                heightDimension: .estimated(40)
+             // Group size
+             let groupSize = NSCollectionLayoutSize(
+                 widthDimension: .fractionalWidth(1.0),
+                 heightDimension: .estimated(40)
+             )
+
+             // Group with flexible width to allow wrapping
+             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+
+             // Section with content insets and inter-group spacing
+             let section = NSCollectionLayoutSection(group: group)
+             section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16)
+             section.interGroupSpacing = 8
+
+             // Header configuration
+             let headerSize = NSCollectionLayoutSize(
+                 widthDimension: .fractionalWidth(1.0),
+                 heightDimension: .absolute(40)
+             )
+             let headerItem = NSCollectionLayoutBoundarySupplementaryItem(
+                 layoutSize: headerSize,
+                 elementKind: UICollectionView.elementKindSectionHeader,
+                 alignment: .top
+             )
+             section.boundarySupplementaryItems = [headerItem]
+
+             return section
+         }
+
+         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+         cv.backgroundColor = .clear
+         return cv
+     }()
+
+     private let applyButton: UIButton = {
+         let button = UIButton(type: .system)
+         button.setTitle("Apply Filters", for: .normal)
+         button.backgroundColor = ThemeColor.primary
+         button.setTitleColor(.black, for: .normal)
+         button.titleLabel?.font = ThemeFont.medium(ofSize: 16)
+         button.layer.cornerRadius = 8
+         return button
+     }()
+
+     private let closeButton: UIButton = {
+         let button = UIButton(type: .system)
+         button.setImage(UIImage(systemName: "xmark"), for: .normal)
+         button.tintColor = ThemeColor.primary
+         return button
+     }()
+
+     private let resetButton: UIButton = {
+         let button = UIButton(type: .system)
+         button.setTitle("Reset", for: .normal)
+         button.tintColor = ThemeColor.primary
+         return button
+     }()
+
+     private var driver: CollectionViewDriver?
+
+     // Add these setup methods
+     private func setupUI() {
+         view.backgroundColor = ThemeColor.background
+
+         view.addSubview(closeButton)
+         view.addSubview(resetButton)
+         view.addSubview(collectionView)
+         view.addSubview(applyButton)
+
+         closeButton.snp.makeConstraints { make in
+             make.top.leading.equalTo(view.safeAreaLayoutGuide).inset(16)
+         }
+
+         resetButton.snp.makeConstraints { make in
+             make.top.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+         }
+
+         collectionView.snp.makeConstraints { make in
+             make.top.equalTo(closeButton.snp.bottom).offset(16)
+             make.leading.trailing.equalToSuperview()
+             make.bottom.equalTo(applyButton.snp.top).offset(-16)
+         }
+
+         applyButton.snp.makeConstraints { make in
+             make.leading.trailing.equalToSuperview().inset(16)
+             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
+             make.height.equalTo(50)
+         }
+     }
+
+     private func setupCollectionView() {
+         driver = CollectionViewDriver(
+             view: collectionView,
+             viewModel: makeViewModel(),
+             cellEventCoordinator: self
+         )
+     }
+
+     private func setupActions() {
+         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+         resetButton.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
+         applyButton.addTarget(self, action: #selector(applyButtonTapped), for: .touchUpInside)
+     }
+
+     @objc private func closeButtonTapped() {
+         dismiss(animated: true)
+     }
+
+     private func updateCollectionView() {
+         let viewModel = makeViewModel()
+         driver?.update(viewModel: viewModel, animated: true)
+     }
+  
+    private func setupFilterOptions(from categories: [Category]) {
+        // Extract unique categories
+        self.categories = categories.map { $0.categoryName }
+        self.categoryOptions = self.categories.map { category in
+            FilterOption(
+                title: category,
+                isSelected: FilterManager.shared.selectedCategories.contains(category)
             )
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.edgeSpacing = NSCollectionLayoutEdgeSpacing(
-                leading: .fixed(4),
-                top: .fixed(4),
-                trailing: .fixed(4),
-                bottom: .fixed(4)
-            )
-
-            // Group size
-            let groupSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(40)
-            )
-
-            // Group with flexible width to allow wrapping
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-
-            // Section with content insets and inter-group spacing
-            let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16)
-            section.interGroupSpacing = 8
-
-            // Header configuration
-            let headerSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(40)
-            )
-            let headerItem = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: headerSize,
-                elementKind: UICollectionView.elementKindSectionHeader,
-                alignment: .top
-            )
-            section.boundarySupplementaryItems = [headerItem]
-
-            return section
         }
-
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = .clear
-        return cv
-    }()
-
-    private let applyButton: UIButton = {
-        ButtonFactory.build(title: "Apply Filters", font: ThemeFont.medium(ofSize: 12), radius: 8)
-    }()
-
-    private let closeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "xmark"), for: .normal)
-        button.tintColor = ThemeColor.primary
-        return button
-    }()
-
-    private let resetButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Reset", for: .normal)
-        button.tintColor = ThemeColor.primary
-        return button
-    }()
-
-    private var driver: CollectionViewDriver?
-
-    // Filter options
-    private var petTypeOptions: [FilterOption] = [
-        FilterOption(title: "Cat"),
-        FilterOption(title: "Dog", isSelected: true),
-        FilterOption(title: "Hamster")
-    ]
-
-    private var breedOptions: [FilterOption] = [
-        FilterOption(title: "Golden Retriever", isSelected: true),
-        FilterOption(title: "Labrador"),
-        FilterOption(title: "ABGHAEHGJE"),
-        FilterOption(title: "LabrWBTW4ador"),
-        FilterOption(title: "LabBTW4Brador"),
-        FilterOption(title: "Lab4WBTrador"),
-        FilterOption(title: "LabrW4BTWador"),
-        FilterOption(title: "LabWBTWBTFrador"),
-        FilterOption(title: "PitT4BWbull")
-    ]
-
-    private var genderOptions: [FilterOption] = [
-        FilterOption(title: "Female", isSelected: true),
-        FilterOption(title: "Male")
-    ]
-
+        
+        // Extract unique brands
+        self.brands = Set(categories.flatMap { category in
+            category.products.map { $0.brand }
+        })
+        self.brandOptions = Array(brands).map { brand in
+            FilterOption(
+                title: brand,
+                isSelected: FilterManager.shared.selectedBrands.contains(brand)
+            )
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
+        setupUI() //ERROR:- Cannot find 'setupUI, setupCollectionView, setupActions, updateCollectionView' in scope
         setupCollectionView()
         setupActions()
         updateCollectionView()
     }
-
-    private func setupUI() {
-        view.backgroundColor = ThemeColor.background
-
-        view.addSubview(closeButton)
-        view.addSubview(resetButton)
-        view.addSubview(collectionView)
-        view.addSubview(applyButton)
-
-        closeButton.snp.makeConstraints { make in
-            make.top.leading.equalTo(view.safeAreaLayoutGuide).inset(16)
-        }
-
-        resetButton.snp.makeConstraints { make in
-            make.top.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
-        }
-
-        collectionView.snp.makeConstraints { make in
-            make.top.equalTo(closeButton.snp.bottom).offset(16)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(applyButton.snp.top).offset(-16)
-        }
-
-        applyButton.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
-            make.height.equalTo(50)
-        }
-    }
-
-    private func setupCollectionView() {
-        driver = CollectionViewDriver(
-            view: collectionView,
-            viewModel: makeViewModel(),
-            cellEventCoordinator: self
-        )
-        // No need for flowLayoutDelegate
-    }
-
-    private func updateCollectionView() {
-        let viewModel = makeViewModel()
-        driver?.update(viewModel: viewModel, animated: true)
-    }
-
-    private func setupActions() {
-        closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
-        resetButton.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
-        applyButton.addTarget(self, action: #selector(applyButtonTapped), for: .touchUpInside)
-    }
-
-    @objc private func closeButtonTapped() {
-        dismiss(animated: true)
-    }
-
+    
     @objc private func resetButtonTapped() {
-        // Reset all filters
-        FilterManager.shared.selectedPetTypes.removeAll()
-        FilterManager.shared.selectedBreeds.removeAll()
-        FilterManager.shared.ageRange = (5, 16)
-        FilterManager.shared.selectedGender = nil
-        FilterManager.shared.isVaccinated = false
-        FilterManager.shared.isNeutered = false
-        FilterManager.shared.selectedCity = nil
-        FilterManager.shared.selectedDistrict = nil
-
-        // Reset options
-        petTypeOptions = petTypeOptions.map { FilterOption(title: $0.title, isSelected: false) }
-        breedOptions = breedOptions.map { FilterOption(title: $0.title, isSelected: false) }
-        genderOptions = genderOptions.map { FilterOption(title: $0.title, isSelected: false) }
-
-        updateCollectionView()
+        FilterManager.shared.reset()
+        
+        // Reset all options
+        categoryOptions = categoryOptions.map {
+            FilterOption(title: $0.title, isSelected: false)
+        }
+        brandOptions = brandOptions.map {
+            FilterOption(title: $0.title, isSelected: false)
+        }
+        sortOptions = SortOption.allCases.map {
+            FilterOption(title: $0.rawValue, isSelected: $0 == .nameAsc)
+        }
+        
+        updateCollectionView() // ERROR:- Cannot find 'updateCollectionView' in scope
     }
-
+    
     @objc private func applyButtonTapped() {
         // Save current selections to FilterManager
-        // Close the filter view
+        FilterManager.shared.selectedCategories = Set(
+            categoryOptions.filter { $0.isSelected }.map { $0.title }
+        )
+        FilterManager.shared.selectedBrands = Set(
+            brandOptions.filter { $0.isSelected }.map { $0.title }
+        )
+        
+        if let selectedSortOption = sortOptions.first(where: { $0.isSelected }),
+           let sortBy = SortOption.allCases.first(where: { $0.rawValue == selectedSortOption.title }) {
+            FilterManager.shared.sortBy = sortBy
+        }
+      NotificationCenter.default.post(name: NSNotification.Name("FilterSettingsChanged"), object: nil)
+
         dismiss(animated: true)
     }
-
+    
     private func makeViewModel() -> CollectionViewModel {
         var sections: [SectionViewModel] = []
-
-        // Pet Type Section
-        let petTypeCells = petTypeOptions.map { option in
-            FilterOptionCellViewModel(option: option, sectionType: .petType).eraseToAnyViewModel()
+        
+        // Categories Section
+        let categoryCells = categoryOptions.map { option in
+            FilterOptionCellViewModel(
+                option: option,
+                sectionType: .categories
+            ).eraseToAnyViewModel()
         }
-
-        let petTypeHeader = FilterHeaderViewModel(title: "Pet Type").eraseToAnyViewModel()
-
-        let petTypeSection = SectionViewModel(
-            id: "petTypeSection",
-            cells: petTypeCells,
-            header: petTypeHeader
-        )
-
-        sections.append(petTypeSection)
-
-        // Breed Section
-        let breedCells = breedOptions.map { option in
-            FilterOptionCellViewModel(option: option, sectionType: .breed).eraseToAnyViewModel()
+        sections.append(SectionViewModel(
+            id: "categoriesSection",
+            cells: categoryCells,
+            header: FilterHeaderViewModel(title: "Categories").eraseToAnyViewModel()
+        ))
+        
+        // Brands Section
+        let brandCells = brandOptions.map { option in
+            FilterOptionCellViewModel(
+                option: option,
+                sectionType: .brands
+            ).eraseToAnyViewModel()
         }
-
-        let breedHeader = FilterHeaderViewModel(title: "Breed").eraseToAnyViewModel()
-
-        let breedSection = SectionViewModel(
-            id: "breedSection",
-            cells: breedCells,
-            header: breedHeader
-        )
-
-        sections.append(breedSection)
-
-        // Gender Section
-        let genderCells = genderOptions.map { option in
-            FilterOptionCellViewModel(option: option, sectionType: .gender).eraseToAnyViewModel()
+        sections.append(SectionViewModel(
+            id: "brandsSection",
+            cells: brandCells,
+            header: FilterHeaderViewModel(title: "Brands").eraseToAnyViewModel()
+        ))
+        
+        // Sort Options Section
+        let sortCells = sortOptions.map { option in
+            FilterOptionCellViewModel(
+                option: option,
+                sectionType: .sortBy
+            ).eraseToAnyViewModel()
         }
-
-        let genderHeader = FilterHeaderViewModel(title: "Gender").eraseToAnyViewModel()
-
-        let genderSection = SectionViewModel(
-            id: "genderSection",
-            cells: genderCells,
-            header: genderHeader
-        )
-
-        sections.append(genderSection)
-
-        // Add more sections as needed
-
+        sections.append(SectionViewModel(
+            id: "sortSection",
+            cells: sortCells,
+            header: FilterHeaderViewModel(title: "Sort By").eraseToAnyViewModel()
+        ))
+        
         return CollectionViewModel(id: "filterCollectionView", sections: sections)
     }
-
+    
     // MARK: - CellEventCoordinator
-
     func didSelectCell(viewModel: any CellViewModel) {
         if let filterOptionVM = viewModel as? FilterOptionCellViewModel {
-            // Update the selection state
             switch filterOptionVM.sectionType {
-            case .petType:
-                if let index = petTypeOptions.firstIndex(where: { $0.title == filterOptionVM.option.title }) {
-                    petTypeOptions[index].isSelected.toggle()
-                    if petTypeOptions[index].isSelected {
-                        FilterManager.shared.selectedPetTypes.insert(petTypeOptions[index].title)
-                    } else {
-                        FilterManager.shared.selectedPetTypes.remove(petTypeOptions[index].title)
-                    }
+            case .categories:
+                if let index = categoryOptions.firstIndex(where: { $0.title == filterOptionVM.option.title }) {
+                    categoryOptions[index].isSelected.toggle()
                 }
-            case .breed:
-                if let index = breedOptions.firstIndex(where: { $0.title == filterOptionVM.option.title }) {
-                    breedOptions[index].isSelected.toggle()
-                    if breedOptions[index].isSelected {
-                        FilterManager.shared.selectedBreeds.insert(breedOptions[index].title)
-                    } else {
-                        FilterManager.shared.selectedBreeds.remove(breedOptions[index].title)
-                    }
+            case .brands:
+                if let index = brandOptions.firstIndex(where: { $0.title == filterOptionVM.option.title }) {
+                    brandOptions[index].isSelected.toggle()
                 }
-            case .gender:
-                // For gender, only one can be selected
-                genderOptions = genderOptions.map {
-                    var option = $0
-                    option.isSelected = ($0.title == filterOptionVM.option.title)
-                    return option
+            case .sortBy:
+                // For sort options, only one can be selected
+                sortOptions = sortOptions.map {
+                    FilterOption(title: $0.title, isSelected: $0.title == filterOptionVM.option.title)
                 }
-                FilterManager.shared.selectedGender = filterOptionVM.option.title
             default:
                 break
             }
-            updateCollectionView()
+            updateCollectionView() // ERROR: Cannot find 'updateCollectionView' in scope
         }
     }
 }

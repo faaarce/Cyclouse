@@ -65,6 +65,12 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
         configureAppearance()
         // Remove setupNavigationVar() from here
         isLoading = true  // Start with loading state
+      NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(handleFilterChange),
+                name: NSNotification.Name("FilterSettingsChanged"),
+                object: nil
+            )
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -442,19 +448,70 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
             }
             .store(in: &cancellables)
     }
-    
+  
+  @objc private func handleFilterChange() {
+         applyFilters()
+     }
+  
   @objc private func filterButtonTapped() {
-    let filter = FilterViewController()
-    filter.modalPresentationStyle = .pageSheet
-    if let sheet = filter.sheetPresentationController {
-      sheet.prefersGrabberVisible = true
-      sheet.detents = [.large()]
-      present(filter, animated: true)
-       
-    } else {
-      print("Unable to present")
-    }
-  }
+          let filter = FilterViewController(categories: categories)
+          filter.modalPresentationStyle = .pageSheet
+          
+          if let sheet = filter.sheetPresentationController {
+              sheet.prefersGrabberVisible = true
+              sheet.detents = [.large()]
+              present(filter, animated: true)
+          }
+      }
+  
+  private func applyFilters() {
+          let filterManager = FilterManager.shared
+          
+          // Filter the products based on selected filters
+          let filteredCategories = categories.compactMap { category -> Category? in
+              // Check if we should include this category
+              if !filterManager.selectedCategories.isEmpty &&
+                 !filterManager.selectedCategories.contains(category.categoryName) {
+                  return nil
+              }
+              
+              // Filter products within the category
+              let filteredProducts = category.products.filter { product in
+                  // Apply brand filter
+                  if !filterManager.selectedBrands.isEmpty &&
+                     !filterManager.selectedBrands.contains(product.brand) {
+                      return false
+                  }
+                  
+                  // Apply price filter
+                  if product.price < filterManager.priceRange.min ||
+                     product.price > filterManager.priceRange.max {
+                      return false
+                  }
+                  
+                  return true
+              }
+              
+              // Sort the filtered products
+              let sortedProducts: [Product]
+              switch filterManager.sortBy {
+              case .nameAsc:
+                  sortedProducts = filteredProducts.sorted { $0.name < $1.name }
+              case .nameDesc:
+                  sortedProducts = filteredProducts.sorted { $0.name > $1.name }
+              case .priceLowToHigh:
+                  sortedProducts = filteredProducts.sorted { $0.price < $1.price }
+              case .priceHighToLow:
+                  sortedProducts = filteredProducts.sorted { $0.price > $1.price }
+              }
+              
+              return Category(categoryName: category.categoryName, products: sortedProducts)
+          }
+          
+          // Update the categories with filtered results
+          self.categories = filteredCategories
+          self.updateCollectionView()
+      }
 
     
     private func showWelcomeNotification(with profile: UserProfile) {
@@ -519,3 +576,4 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
         }
     }
 }
+
