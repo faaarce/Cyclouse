@@ -165,6 +165,9 @@
 		C19465682C8CBF6F00171932 /* HorizontalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19465672C8CBF6F00171932 /* HorizontalViewCell.swift */; };
 		C1956D122CABC70600642FF8 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1956D112CABC70600642FF8 /* TokenManager.swift */; };
 		C196DE4D2CAD0E7E00743EFB /* GetCartResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C196DE4C2CAD0E7E00743EFB /* GetCartResponse.swift */; };
+		C19CB9D92CEF1F4C003AC1C6 /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = C19CB9D82CEF1F4C003AC1C6 /* PhoneNumberKit */; };
+		C19CB9DC2CEF24D1003AC1C6 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C19CB9DB2CEF24D1003AC1C6 /* IQKeyboardManagerSwift */; };
+		C19CB9DE2CEF25B5003AC1C6 /* KeyboardConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19CB9DD2CEF25B4003AC1C6 /* KeyboardConfiguration.swift */; };
 		C1A426E52CBEBC9A000B1579 /* JDStatusBarNotification in Frameworks */ = {isa = PBXBuildFile; productRef = C1A426E42CBEBC9A000B1579 /* JDStatusBarNotification */; };
 		C1A426E92CBECB8A000B1579 /* InstantSearch in Frameworks */ = {isa = PBXBuildFile; productRef = C1A426E82CBECB8A000B1579 /* InstantSearch */; };
 		C1A426EB2CBECB8A000B1579 /* InstantSearchCore in Frameworks */ = {isa = PBXBuildFile; productRef = C1A426EA2CBECB8A000B1579 /* InstantSearchCore */; };
@@ -173,6 +176,7 @@
 		C1A505C02CEA685400078B46 /* empty.json in Resources */ = {isa = PBXBuildFile; fileRef = C1A505BF2CEA685400078B46 /* empty.json */; };
 		C1A505D02CEB1C6300078B46 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A505CF2CEB1C6300078B46 /* FilterViewController.swift */; };
 		C1A505E32CEDDFE400078B46 /* SignupResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A505E22CEDDFE400078B46 /* SignupResponse.swift */; };
+		C1A505E52CEEDBBE00078B46 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A505E42CEEDBBE00078B46 /* SignUpViewModel.swift */; };
 		C1AF6D0F2CC16A3000BEFD41 /* Hero in Frameworks */ = {isa = PBXBuildFile; productRef = C1AF6D0E2CC16A3000BEFD41 /* Hero */; };
 		C1B4B94D2C8D4F8D00B4F54B /* BikeProductViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B4B94C2C8D4F8D00B4F54B /* BikeProductViewCell.swift */; };
 		C1C533882C90A618000ABA71 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C533872C90A618000ABA71 /* HomeViewModel.swift */; };
@@ -384,10 +388,12 @@
 		C19465672C8CBF6F00171932 /* HorizontalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalViewCell.swift; sourceTree = "<group>"; };
 		C1956D112CABC70600642FF8 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
 		C196DE4C2CAD0E7E00743EFB /* GetCartResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCartResponse.swift; sourceTree = "<group>"; };
+		C19CB9DD2CEF25B4003AC1C6 /* KeyboardConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardConfiguration.swift; sourceTree = "<group>"; };
 		C1A505BD2CEA397D00078B46 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		C1A505BF2CEA685400078B46 /* empty.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = empty.json; sourceTree = "<group>"; };
 		C1A505CF2CEB1C6300078B46 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		C1A505E22CEDDFE400078B46 /* SignupResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupResponse.swift; sourceTree = "<group>"; };
+		C1A505E42CEEDBBE00078B46 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		C1B4B94C2C8D4F8D00B4F54B /* BikeProductViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeProductViewCell.swift; sourceTree = "<group>"; };
 		C1C533872C90A618000ABA71 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		C1C582AA2CBBACD500280F6F /* PaymentCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCoordinator.swift; sourceTree = "<group>"; };
@@ -447,6 +453,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C19CB9D92CEF1F4C003AC1C6 /* PhoneNumberKit in Frameworks */,
 				C193704B2C8A133100B56BA1 /* CombineCocoa in Frameworks */,
 				C1AF6D0F2CC16A3000BEFD41 /* Hero in Frameworks */,
 				C104D2142CC5537E006EB92B /* SwiftMessages in Frameworks */,
@@ -455,6 +462,7 @@
 				C162D44F2CD2BCD600DBA8CC /* Swinject in Frameworks */,
 				C151E8A72CA9B9BD000C6B73 /* Valet in Frameworks */,
 				C18F517C2C9D1E4900E60C0D /* Alamofire in Frameworks */,
+				C19CB9DC2CEF24D1003AC1C6 /* IQKeyboardManagerSwift in Frameworks */,
 				C104D20E2CC541DC006EB92B /* Lottie in Frameworks */,
 				C1D854412CE496BD00C17C8D /* NVActivityIndicatorViewExtended in Frameworks */,
 				C17682792CBB9D4800065AD5 /* Xendit in Frameworks */,
@@ -622,6 +630,7 @@
 				C13D90D72C9218D700430BA4 /* AppConfig.swift */,
 				C13D90D92C9218E800430BA4 /* BuildConfiguration.swift */,
 				C13D90DB2C9218F400430BA4 /* Environment.swift */,
+				C19CB9DD2CEF25B4003AC1C6 /* KeyboardConfiguration.swift */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -1426,6 +1435,7 @@
 			children = (
 				C1DF47EA2C9C9305004F5751 /* SignUpCoordinator.swift */,
 				C1DF47EC2C9C9379004F5751 /* SignUpViewController.swift */,
+				C1A505E42CEEDBBE00078B46 /* SignUpViewModel.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -1524,6 +1534,8 @@
 				C162D44E2CD2BCD600DBA8CC /* Swinject */,
 				C1D8543E2CE496BD00C17C8D /* NVActivityIndicatorView */,
 				C1D854402CE496BD00C17C8D /* NVActivityIndicatorViewExtended */,
+				C19CB9D82CEF1F4C003AC1C6 /* PhoneNumberKit */,
+				C19CB9DB2CEF24D1003AC1C6 /* IQKeyboardManagerSwift */,
 			);
 			productName = Cyclouse;
 			productReference = C1936FF92C898D1C00B56BA1 /* Cyclouse.app */;
@@ -1574,6 +1586,8 @@
 				C1EE51A52CC67FCE00280BBC /* XCRemoteSwiftPackageReference "ReactiveCollectionsKit" */,
 				C162D44D2CD2BCD600DBA8CC /* XCRemoteSwiftPackageReference "Swinject" */,
 				C1D8543D2CE496BD00C17C8D /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
+				C19CB9D72CEF1F4C003AC1C6 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */,
+				C19CB9DA2CEF24D1003AC1C6 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = C1936FFA2C898D1C00B56BA1 /* Products */;
 			projectDirPath = "";
@@ -1658,6 +1672,7 @@
 				C18F51642C9D1A1000E60C0D /* Username.swift in Sources */,
 				C18F51652C9D1A1000E60C0D /* AuthenticationService.swift in Sources */,
 				C18F51662C9D1A1000E60C0D /* ValidationError.swift in Sources */,
+				C1A505E52CEEDBBE00078B46 /* SignUpViewModel.swift in Sources */,
 				C18F51672C9D1A1000E60C0D /* AuthenticationValidationError.swift in Sources */,
 				C18F51752C9D1AA300E60C0D /* Responseable.swift in Sources */,
 				C107B1F12CDF9E95008C5F5C /* BikeDatabase.swift in Sources */,
@@ -1672,6 +1687,7 @@
 				C18F51692C9D1A1000E60C0D /* Validateable.swift in Sources */,
 				C1EDE5AD2CAB3CBA00816876 /* CartService.swift in Sources */,
 				C162D4442CD2BBD000DBA8CC /* ServicesAssembly.swift in Sources */,
+				C19CB9DE2CEF25B5003AC1C6 /* KeyboardConfiguration.swift in Sources */,
 				C18F516A2C9D1A1000E60C0D /* User.swift in Sources */,
 				C1F0F2042CCD03C700B8AFDA /* CategoryCellViewModel.swift in Sources */,
 				C18F516B2C9D1A1000E60C0D /* Valueable.swift in Sources */,
@@ -2180,6 +2196,22 @@
 				minimumVersion = 0.2.5;
 			};
 		};
+		C19CB9D72CEF1F4C003AC1C6 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marmelroy/PhoneNumberKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+		C19CB9DA2CEF24D1003AC1C6 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
 		C1A426E32CBEBC9A000B1579 /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:calimarkus/JDStatusBarNotification.git";
@@ -2285,6 +2317,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C193704F2C8A140E00B56BA1 /* XCRemoteSwiftPackageReference "CombineDataSources" */;
 			productName = CombineDataSources;
+		};
+		C19CB9D82CEF1F4C003AC1C6 /* PhoneNumberKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C19CB9D72CEF1F4C003AC1C6 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */;
+			productName = PhoneNumberKit;
+		};
+		C19CB9DB2CEF24D1003AC1C6 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C19CB9DA2CEF24D1003AC1C6 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 		C1A426E42CBEBC9A000B1579 /* JDStatusBarNotification */ = {
 			isa = XCSwiftPackageProductDependency;

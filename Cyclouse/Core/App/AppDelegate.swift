@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftData
+import IQKeyboardManagerSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     configureAppearance()
+    setupIQKeyboard()
     return true
   }
   
@@ -22,6 +24,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UINavigationBar.appearance().barTintColor = ThemeColor.background
     UITabBar.appearance().barTintColor = ThemeColor.background
   
+  }
+  
+  
+  private func setupIQKeyboard() {
+    IQKeyboardManager.shared.isEnabled = true
+      IQKeyboardManager.shared.resignOnTouchOutside = true
+      IQKeyboardManager.shared.enableAutoToolbar = true
+      
+      // Customize the keyboard appearance to match your theme
+    IQKeyboardManager.shared.toolbarConfiguration.tintColor = ThemeColor.primary
+    IQKeyboardManager.shared.toolbarConfiguration.placeholderConfiguration.color = UIColor(hex: "9E9E9E")
+    IQKeyboardManager.shared.toolbarConfiguration.barTintColor = ThemeColor.cardFillColor
+      
+      // Set default keyboard distance
+    IQKeyboardManager.shared.keyboardDistance = 10
+      
+      // Enable smart handling of next/previous buttons
+      IQKeyboardManager.shared.enableAutoToolbar = true
+    IQKeyboardManager.shared.toolbarConfiguration.manageBehavior = .byPosition
+      
+      // Customize toolbar buttons
+    IQKeyboardManager.shared.toolbarConfiguration.previousNextDisplayMode = .default
   }
 
   // MARK: UISceneSession Lifecycle

@@ -6,6 +6,7 @@
 //
 import UIKit
 import SnapKit
+import PhoneNumberKit
 
 class CustomInputFieldView: UIView {
   
@@ -40,12 +41,30 @@ class CustomInputFieldView: UIView {
     super.init(frame: .zero)
     self.isPassword = isPassword
     setup(labelText: labelText, placeholder: placeholder)
+    configureKeyboard(labelText: labelText)
   }
   
   required init?(coder: NSCoder) {
     super.init(coder: coder)
     setup(labelText: "", placeholder: "")
   }
+  
+  
+  private func configureKeyboard(labelText: String) {
+      // Configure keyboard toolbar
+      textField.configureKeyboard(placeholder: labelText)
+      
+      // Set input accessory view position
+      textField.inputAccessoryView?.backgroundColor = ThemeColor.cardFillColor
+      
+      // Handle return key
+      textField.addTarget(self, action: #selector(textFieldDidReturn), for: .editingDidEndOnExit)
+  }
+  
+  @objc private func textFieldDidReturn() {
+         // Find next responder
+         textField.findNextResponder()
+     }
   
   private func setup(labelText: String, placeholder: String) {
     label.text = labelText
@@ -103,4 +122,129 @@ class CustomInputFieldView: UIView {
     let imageName = textField.isSecureTextEntry ? "eye.slash" : "eye"
     toggleButton.setImage(UIImage(systemName: imageName), for: .normal)
   }
+}
+
+import UIKit
+import SnapKit
+import PhoneNumberKit
+
+class CustomPhoneInputFieldView: CustomInputFieldView {
+    
+  private let phoneNumberKit = PhoneNumberUtility()
+    private lazy var phoneTextField: PhoneNumberTextField = {
+      let textField = PhoneNumberTextField(utility: phoneNumberKit)
+        textField.withPrefix = true
+        textField.withFlag = true
+        textField.withExamplePlaceholder = true
+        textField.withDefaultPickerUI = true
+        textField.textColor = .white
+        textField.backgroundColor = ThemeColor.cardFillColor
+        textField.layer.cornerRadius = 4
+      textField.flagButton.backgroundColor = .clear
+      textField.flagButton.tintColor = .white
+        return textField
+    }()
+    
+    init(labelText: String) {
+        super.init(labelText: labelText, placeholder: "Enter phone number")
+        setupPhoneTextField()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupPhoneTextField()
+    }
+    
+    private func setupPhoneTextField() {
+        // Remove the default textField from superview
+        textField.removeFromSuperview()
+        
+        // Configure placeholder
+        phoneTextField.attributedPlaceholder = NSAttributedString(
+            string: "Enter phone number",
+            attributes: [
+                NSAttributedString.Key.foregroundColor: UIColor(hex: "9E9E9E"),
+                NSAttributedString.Key.font: ThemeFont.medium(ofSize: 14)
+            ]
+        )
+        
+        // Add phoneTextField to the stack view
+        if let stackView = label.superview as? UIStackView {
+            stackView.addArrangedSubview(phoneTextField)
+        }
+        
+        // Set constraints
+        phoneTextField.snp.makeConstraints { make in
+            make.height.equalTo(42)
+        }
+        
+        // Style the picker
+        configureCountryPicker()
+    }
+    
+    private func configureCountryPicker() {
+        let options = CountryCodePickerOptions(
+            backgroundColor: ThemeColor.background ?? .black,
+            separatorColor: ThemeColor.cardFillColor ?? .darkGray,
+            textLabelColor: .white,
+            textLabelFont: ThemeFont.medium(ofSize: 14),
+            detailTextLabelColor: UIColor(hex: "9E9E9E"),
+            detailTextLabelFont: ThemeFont.medium(ofSize: 14),
+            tintColor: .white,
+            cellBackgroundColor: ThemeColor.cardFillColor ?? .darkGray,
+            cellBackgroundColorSelection: ThemeColor.primary ?? .blue
+        )
+        
+        phoneTextField.withDefaultPickerUIOptions = options
+        
+        // Configure the flag button if needed
+
+          phoneTextField.flagButton.backgroundColor = .clear
+          phoneTextField.flagButton.tintColor = .white
+        
+    }
+    
+    // Expose the phoneTextField
+    var getPhoneTextField: PhoneNumberTextField {
+        return phoneTextField
+    }
+    
+    // Convenience method to get formatted phone number
+    func getFormattedPhoneNumber() -> String? {
+        do {
+            let phoneNumber = try phoneNumberKit.parse(phoneTextField.text ?? "")
+            return phoneNumberKit.format(phoneNumber, toType: .e164)
+        } catch {
+            return nil
+        }
+    }
+    
+    // Validate phone number
+    func isValidPhoneNumber() -> Bool {
+        return ((try? phoneNumberKit.parse(phoneTextField.text ?? "")) != nil)
+    }
+}
+
+// Extension to make the phone field match your theme
+extension CustomPhoneInputFieldView {
+    func applyTheme() {
+        phoneTextField.tintColor = .white
+        phoneTextField.textColor = .white
+        phoneTextField.backgroundColor = ThemeColor.cardFillColor
+        
+
+          phoneTextField.flagButton.backgroundColor = .clear
+          phoneTextField.flagButton.tintColor = .white
+        
+    }
+}
+
+extension UITextField {
+    func findNextResponder() {
+        guard let nextField = self.superview?.viewWithTag(self.tag + 1) as? UITextField else {
+            self.resignFirstResponder()
+            return
+        }
+        nextField.becomeFirstResponder()
+    }
 }
