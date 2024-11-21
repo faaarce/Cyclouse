@@ -4,7 +4,7 @@
 //
 //  Created by yoga arie on 20/09/24.
 //
-
+import Swinject
 import UIKit
 
 class SignUpCoordinator: Coordinator,
@@ -13,8 +13,12 @@ class SignUpCoordinator: Coordinator,
   weak var parentCoordinator: Coordinator?
   var navigationController: UINavigationController
   
-  init(navigationController: UINavigationController) {
+  private let container: Container
+  
+  init(navigationController: UINavigationController, container: Container) {
     self.navigationController = navigationController
+    
+    self.container = container
   }
   
   func start() {
@@ -22,8 +26,9 @@ class SignUpCoordinator: Coordinator,
     navigationController.pushViewController(vc, animated: true)
   }
   
-  func didFinish() {
+  func didFinishSignUp() {
     parentCoordinator?.removeChildCoordinator(self)
+    navigationController.popViewController(animated: true)
   }
 }
 

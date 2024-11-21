@@ -58,6 +58,7 @@ class SignInViewController: UIViewController {
     object.titleLabel?.font = ThemeFont.semibold(ofSize: 14)
     object.setTitle("Sign Up", for: .normal)
     object.setTitleColor(ThemeColor.primary, for: .normal)
+    object.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
     return object
   }()
   
@@ -114,6 +115,11 @@ class SignInViewController: UIViewController {
     layout()
     setupBindings()
   }
+  
+  @objc private func signUpButtonTapped() {
+    coordinator.showSignUp()
+  }
+
   
   private func setupBindings() {
     emailInputView.textField.textPublisher

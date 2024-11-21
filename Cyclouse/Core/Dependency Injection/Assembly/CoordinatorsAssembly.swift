@@ -28,6 +28,10 @@ class CoordinatorsAssembly: Assembly {
       )
     }
     
+    container.register(SignUpCoordinator.self) { (r, navigationController: UINavigationController) in
+      SignUpCoordinator(navigationController: navigationController, container: container)
+    }
+    
     container.register(HomeCoordinator.self) { (r, navigationController: UINavigationController) in
       HomeCoordinator(
         navigationController: navigationController,

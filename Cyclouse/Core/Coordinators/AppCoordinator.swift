@@ -30,7 +30,7 @@ class AppCoordinator: Coordinator {
        if !TokenManager.shared.hasSeenOnboarding() {
            showOnboarding()
        } else if TokenManager.shared.isLoggedIn() {
-           showMainTabbar()
+         showMainTabbar()
        } else {
            showLogin()
        }
@@ -46,6 +46,8 @@ class AppCoordinator: Coordinator {
      
     startWithRoot(navigationController)
    }
+  
+  
   
   func showMainTabbar() {
     let tabbarController = UITabBarController()

@@ -33,4 +33,17 @@ class AuthenticationService {
       .signOut()
       .eraseToAnyPublisher()
   }
+  
+  func signUp(name: String, email: String, password: String) -> AnyPublisher<APIResponse<SignupResponse>, Error> {
+    if let error = Email.validate(email) {
+        return Fail(error: error).eraseToAnyPublisher()
+    }
+    
+    if let error = Password.validate(password) {
+        return Fail(error: error).eraseToAnyPublisher()
+    }
+    
+    return repository.signUp(name: name, email: email, password: password)
+
+  }
 }

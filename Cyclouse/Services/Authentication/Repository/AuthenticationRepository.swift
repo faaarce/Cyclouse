@@ -12,6 +12,8 @@ protocol AuthenticationRepository {
     func signIn(email: String, password: String) -> AnyPublisher<APIResponse<SignInResponse>, Error>
   
   func signOut() -> AnyPublisher<APIResponse<SignoutResponse>, Error>
+  
+  func signUp(name: String, email: String, password: String) -> AnyPublisher<APIResponse<SignupResponse>, Error>
 }
 
 

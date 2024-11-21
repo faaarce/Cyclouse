@@ -117,7 +117,7 @@ class AuthService: AuthServiceProtocol {
           if let authHeader = response.httpResponse?.allHeaderFields["Authorization"] as? String {
             TokenManager.shared.setToken(authHeader)
             print("Auth token stored successfully")
-            self.storeUserProfile(email)
+            self.storeUserProfile(email, response.value.name)
             completion(.success(()))
           }
         } else {
@@ -127,11 +127,11 @@ class AuthService: AuthServiceProtocol {
       .store(in: &cancellables)
   }
   
-  private func storeUserProfile(_ email: String) { // need revision later
+  private func storeUserProfile(_ email: String, _ name: String) { // need revision later
     let userProfile = UserProfile(
   
-      email: email
-     
+      email: email,
+      name: name
       // Add any other relevant fields from your login response
     )
     

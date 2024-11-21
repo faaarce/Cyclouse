@@ -172,6 +172,7 @@
 		C1A505BE2CEA397D00078B46 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A505BD2CEA397D00078B46 /* HistoryViewModel.swift */; };
 		C1A505C02CEA685400078B46 /* empty.json in Resources */ = {isa = PBXBuildFile; fileRef = C1A505BF2CEA685400078B46 /* empty.json */; };
 		C1A505D02CEB1C6300078B46 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A505CF2CEB1C6300078B46 /* FilterViewController.swift */; };
+		C1A505E32CEDDFE400078B46 /* SignupResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A505E22CEDDFE400078B46 /* SignupResponse.swift */; };
 		C1AF6D0F2CC16A3000BEFD41 /* Hero in Frameworks */ = {isa = PBXBuildFile; productRef = C1AF6D0E2CC16A3000BEFD41 /* Hero */; };
 		C1B4B94D2C8D4F8D00B4F54B /* BikeProductViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B4B94C2C8D4F8D00B4F54B /* BikeProductViewCell.swift */; };
 		C1C533882C90A618000ABA71 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C533872C90A618000ABA71 /* HomeViewModel.swift */; };
@@ -386,6 +387,7 @@
 		C1A505BD2CEA397D00078B46 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		C1A505BF2CEA685400078B46 /* empty.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = empty.json; sourceTree = "<group>"; };
 		C1A505CF2CEB1C6300078B46 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		C1A505E22CEDDFE400078B46 /* SignupResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupResponse.swift; sourceTree = "<group>"; };
 		C1B4B94C2C8D4F8D00B4F54B /* BikeProductViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeProductViewCell.swift; sourceTree = "<group>"; };
 		C1C533872C90A618000ABA71 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		C1C582AA2CBBACD500280F6F /* PaymentCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCoordinator.swift; sourceTree = "<group>"; };
@@ -1052,6 +1054,7 @@
 			children = (
 				C18F51552C9D1A1000E60C0D /* SigninResponse.swift */,
 				C1CDE9AE2CB5318B005B491F /* SignoutResponse.swift */,
+				C1A505E22CEDDFE400078B46 /* SignupResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1737,6 +1740,7 @@
 				C125594D2CE338BB00382028 /* PaymentService.swift in Sources */,
 				C177238D2C951CF30078E598 /* ReadMoreTextView.swift in Sources */,
 				C19370252C899AD300B56BA1 /* HomeViewController.swift in Sources */,
+				C1A505E32CEDDFE400078B46 /* SignupResponse.swift in Sources */,
 				C17F981E2CE6069E0060BC7B /* MessageAlert.swift in Sources */,
 				C17D7D952C975EB800868F1E /* HistoryViewController.swift in Sources */,
 				C1CDE9AD2CB520FA005B491F /* UserProfile.swift in Sources */,

@@ -156,7 +156,7 @@ class ProfileViewController: BaseViewController {
     // MARK: - Private Methods
 
     private func updateUI(with profile: UserProfile) {
-      profileName.text = "Faris"
+      profileName.text = profile.name
         profileEmail.text = profile.email
         // Update other UI elements if necessary
     }

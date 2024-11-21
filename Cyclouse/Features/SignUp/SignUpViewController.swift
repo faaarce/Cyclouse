@@ -8,8 +8,10 @@ import SnapKit
 import UIKit
 
 class SignUpViewController: UIViewController {
-
+  private var authenticationManager = AuthenticationService()
   var coordinator: SignUpCoordinator
+  
+  private let nameInputView = CustomInputFieldView(labelText: "Name", placeholder: "Enter your name")
   
   private let emailInputView = CustomInputFieldView(labelText: "Email", placeholder: "Enter your email")
   
@@ -54,8 +56,7 @@ class SignUpViewController: UIViewController {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
-  
+
     override func viewDidLoad() {
         super.viewDidLoad()
       setupViews()
@@ -69,12 +70,47 @@ class SignUpViewController: UIViewController {
   }
     
   private func setupViews(){
-    [emailInputView, passwordInputView, confirmPasswordInputView, signupButton, hLoginStackView].forEach(view.addSubview)
+    [nameInputView, emailInputView, passwordInputView, confirmPasswordInputView, signupButton, hLoginStackView].forEach(view.addSubview)
   }
   
+  @objc private func signUp() {
+    guard let name = nameInputView.textField.text,
+           let email = emailInputView.textField.text,
+           let password = passwordInputView.textField.text,
+           let confirmPassword = confirmPasswordInputView.textField.text,
+           password == confirmPassword else {
+       print("Validation failed")
+       return
+     }
+     
+     authenticationManager.signUp(name: name, email: email, password: password)
+      .sink { [weak self] completionResult in
+        switch completionResult {
+        case .finished:
+          break
+        
+        case .failure(let error):
+          print(error)
+        }
+      } receiveValue: { response in
+        if response.value.success {
+          self.coordinator.didFinishSignUp()
+        }
+      }
+
+   }
+   
+  
   private func layout() {
-    emailInputView.snp.makeConstraints {
+    nameInputView.snp.makeConstraints {
       $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(40)
+      $0.left.equalToSuperview().offset(20)
+      $0.right.equalToSuperview().offset(-20)
+      $0.centerX.equalToSuperview()
+    }
+    
+    emailInputView.snp.makeConstraints {
+      $0.top.equalTo(nameInputView.snp.bottom).offset(16)
       $0.left.equalToSuperview().offset(20)
       $0.right.equalToSuperview().offset(-20)
       $0.centerX.equalToSuperview()

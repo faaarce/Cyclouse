@@ -10,4 +10,5 @@ import Foundation
 
 struct UserProfile: Codable {
   let email: String
+  let name: String
 }
