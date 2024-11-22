@@ -228,6 +228,49 @@ class DatabaseService: DatabaseServiceProtocol {
         updatedBike.cartQuantity = newQuantity
       }
   }
-
+  // Add a new method to fetch bike by productId
+   func fetchBikeByProductId(_ productId: String) -> AnyPublisher<BikeDatabase?, Error> {
+       Deferred {
+           Future { [weak self] promise in
+               guard let self = self, let context = self.context else {
+                   promise(.failure(DatabaseError.contextNotFound))
+                   return
+               }
+               
+               let descriptor = FetchDescriptor<BikeDatabase>(
+                   predicate: #Predicate<BikeDatabase> { bike in
+                       bike.productId == productId
+                   }
+               )
+               
+               do {
+                   let results = try context.fetch(descriptor)
+                   promise(.success(results.first))
+               } catch {
+                   promise(.failure(DatabaseError.fetchFailed))
+               }
+           }
+       }.eraseToAnyPublisher()
+   }
+   
+   // Add a method to handle adding bike to cart with duplicate check
+   func addBikeToCart(_ bike: BikeDatabase) -> AnyPublisher<Void, Error> {
+       fetchBikeByProductId(bike.productId)
+           .flatMap { [weak self] existingBike -> AnyPublisher<Void, Error> in
+               guard let self = self else {
+                   return Fail(error: DatabaseError.contextNotFound).eraseToAnyPublisher()
+               }
+               
+               if let existingBike = existingBike {
+                   // If bike exists, update quantity
+                   let newQuantity = min(existingBike.stockQuantity, existingBike.cartQuantity + bike.cartQuantity)
+                   return self.updateBikeQuantity(existingBike, newQuantity: newQuantity)
+               } else {
+                   // If bike doesn't exist, create new entry
+                   return self.create(bike)
+               }
+           }
+           .eraseToAnyPublisher()
+   }
 
 }

@@ -32,7 +32,9 @@ class EmptyStateView: UIView {
   }()
   
   private lazy var tapButton: UIButton = {
-    ButtonFactory.build(title: "Test", font: ThemeFont.bold(ofSize: 18), radius: 12)
+    let button = ButtonFactory.build(title: "Test", font: ThemeFont.bold(ofSize: 18), radius: 12)
+          button.addTarget(self, action: #selector(actionTap), for: .touchUpInside)
+          return button
   }()
   
   // MARK: - Initializer
@@ -52,6 +54,9 @@ class EmptyStateView: UIView {
     addSubview(descLabel)
     addSubview(tapButton)
   }
+  
+  
+    
   
   private func layout() {
     animationView.snp.makeConstraints { make in

@@ -62,18 +62,18 @@ class DetailViewModel {
             productId: product.id
         )
         
-        databaseService.create(bikeProduct)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self?.showError = ("Error", "Failed to add bike item: \(error.localizedDescription)")
+      databaseService.addBikeToCart(bikeProduct)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] completion in
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        self?.showError = ("Error", "Failed to add bike item: \(error.localizedDescription)")
+                    }
+                } receiveValue: { [weak self] _ in
+                    self?.showSuccess = ("Success", "Bike item added to cart")
                 }
-            } receiveValue: { [weak self] response in
-                self?.showSuccess = ("Success", "Bike item added to cart")
-            }
-            .store(in: &cancellables)
-    }
+                .store(in: &cancellables)
+        }
 }

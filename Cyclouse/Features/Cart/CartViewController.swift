@@ -264,12 +264,6 @@ extension CartViewController: UITableViewDataSource {
     }
 }
 
-extension CartViewController: EmptyStateViewDelegate {
-    func tapButton() {
-        // Implement navigation to the shopping screen or desired action
-
-    }
-}
 
 
 extension CartViewController: CartCellDelegate {
@@ -321,6 +315,18 @@ extension CartViewController: CartCellDelegate {
 extension CartViewController: UITableViewDelegate {
   
 }
+
+
+extension CartViewController: EmptyStateViewDelegate {
+    func tapButton() {
+        // Pop back to root view controller (HomeViewController)
+        navigationController?.popToRootViewController(animated: true)
+        
+        // Remove this coordinator from parent since we're done with it
+        coordinator.didFinish()
+    }
+}
+
 
 
 // 2. Fetch from Add to cart API
