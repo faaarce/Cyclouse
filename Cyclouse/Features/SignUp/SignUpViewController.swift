@@ -33,8 +33,13 @@ class SignUpViewController: BaseViewController {
     object.titleLabel?.font = ThemeFont.semibold(ofSize: 14)
     object.setTitle("Login", for: .normal)
     object.setTitleColor(ThemeColor.primary, for: .normal)
+    object.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
     return object
   }()
+  
+  @objc func signUpButtonTapped() {
+    coordinator.didFinishSignUp()
+  }
   
   private lazy var hLoginStackView: UIStackView = {
     let view = UIStackView(arrangedSubviews: [
@@ -147,7 +152,10 @@ class SignUpViewController: BaseViewController {
     viewModel.signUpSuccess
       .receive(on: DispatchQueue.main)
       .sink { [weak self] _ in
-        self?.coordinator.didFinishSignUp()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9, execute: {
+          self?.coordinator.didFinishSignUp()
+          
+        })
       }
       .store(in: &cancellables)
     

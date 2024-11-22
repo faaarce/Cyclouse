@@ -66,33 +66,182 @@ final class MessageAlert {
   }
   
   
+ 
   static func showError(title: String = NSLocalizedString("Error", comment: ""),
-                        message: String, duration: SwiftMessages.Duration = .seconds(seconds: 3)) {
-    show(
-      title: title,
-      message: message,
-      theme: .error,
-      duration: duration,
-      presentationStyle: .top
-    )
+                       message: String,
+                       duration: SwiftMessages.Duration = .seconds(seconds: 3)) {
+      let view = MessageView.viewFromNib(layout: .cardView)
+      
+      // Configure background
+      view.backgroundColor = .clear
+      (view.backgroundView as? CornerRoundingView)?.cornerRadius = 12
+      (view.backgroundView as? CornerRoundingView)?.backgroundColor = ThemeColor.cardFillColor
+      
+      // Configure content
+      view.configureContent(title: title, body: message)
+      view.iconImageView?.isHidden = true
+      view.iconLabel?.isHidden = true
+      
+      // Style text
+      view.titleLabel?.textColor = UIColor.red  // Error color
+      view.bodyLabel?.textColor = ThemeColor.labelColorSecondary
+      view.titleLabel?.font = ThemeFont.bold(ofSize: 18)
+      view.bodyLabel?.font = ThemeFont.medium(ofSize: 14)
+      view.titleLabel?.textAlignment = .center
+      view.bodyLabel?.textAlignment = .center
+      
+      // Create main content stack view
+      let contentStack = UIStackView()
+      contentStack.axis = .vertical
+      contentStack.spacing = 24
+      contentStack.alignment = .fill
+      view.addSubview(contentStack)
+      
+      // Create button container
+      let buttonContainer = UIStackView()
+      buttonContainer.axis = .horizontal
+      buttonContainer.distribution = .fillEqually
+      
+      // Configure OK button
+      let okButton = UIButton(type: .system)
+      okButton.setTitle("OK", for: .normal)
+      okButton.setTitleColor(.black, for: .normal)
+      okButton.titleLabel?.font = ThemeFont.bold(ofSize: 16)
+      okButton.backgroundColor = UIColor.red  // Error color
+      okButton.layer.cornerRadius = 12
+      okButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+      okButton.addTarget(self, action: #selector(dismissMessage), for: .touchUpInside)
+      
+      // Add button press animation
+      addButtonAnimation(to: okButton)
+      
+      // Add button to container
+      buttonContainer.addArrangedSubview(okButton)
+      
+      // Add everything to the content stack
+      if let titleLabel = view.titleLabel {
+          contentStack.addArrangedSubview(titleLabel)
+      }
+      if let bodyLabel = view.bodyLabel {
+          contentStack.addArrangedSubview(bodyLabel)
+      }
+      contentStack.addArrangedSubview(buttonContainer)
+      
+      // Layout content stack
+      contentStack.translatesAutoresizingMaskIntoConstraints = false
+      NSLayoutConstraint.activate([
+          contentStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
+          contentStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+          contentStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+          contentStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24)
+      ])
+      
+      // Hide default button
+      view.button?.isHidden = true
+      
+      // Add subtle shadow
+      view.layer.shadowColor = UIColor.black.cgColor
+      view.layer.shadowOffset = CGSize(width: 0, height: 4)
+      view.layer.shadowRadius = 12
+      view.layer.shadowOpacity = 0.1
+      
+      var config = SwiftMessages.Config()
+      config.presentationStyle = .center
+      config.presentationContext = .window(windowLevel: .alert)
+      config.duration = duration
+      config.dimMode = .blur(style: .dark, alpha: 0.9, interactive: true)
+      config.interactiveHide = true
+      
+      SwiftMessages.show(config: config, view: view)
   }
   
   static func showSuccess(title: String = NSLocalizedString("Success", comment: ""),
-                             message: String,
-                             duration: SwiftMessages.Duration = .seconds(seconds: 3),
-                             backgroundColor: UIColor? = nil,
-                             foregroundColor: UIColor? = nil) {
-         show(
-             title: title,
-             message: message,
-             theme: .success,
-             duration: duration,
-             backgroundColor: ThemeColor.cardFillColor,
-             foregroundColor: foregroundColor,
-             presentationStyle: .top
-         )
-     }
-     
+                        message: String,
+                        duration: SwiftMessages.Duration = .seconds(seconds: 3)) {
+      let view = MessageView.viewFromNib(layout: .cardView)
+      
+      // Configure background
+      view.backgroundColor = .clear
+      (view.backgroundView as? CornerRoundingView)?.cornerRadius = 12
+      (view.backgroundView as? CornerRoundingView)?.backgroundColor = ThemeColor.cardFillColor
+      
+      // Configure content
+      view.configureContent(title: title, body: message)
+      view.iconImageView?.isHidden = true
+      view.iconLabel?.isHidden = true
+      
+      // Style text
+      view.titleLabel?.textColor = ThemeColor.primary  // Success color
+      view.bodyLabel?.textColor = ThemeColor.labelColorSecondary
+      view.titleLabel?.font = ThemeFont.bold(ofSize: 18)
+      view.bodyLabel?.font = ThemeFont.medium(ofSize: 14)
+      view.titleLabel?.textAlignment = .center
+      view.bodyLabel?.textAlignment = .center
+      
+      // Create main content stack view
+      let contentStack = UIStackView()
+      contentStack.axis = .vertical
+      contentStack.spacing = 24
+      contentStack.alignment = .fill
+      view.addSubview(contentStack)
+      
+      // Create button container
+      let buttonContainer = UIStackView()
+      buttonContainer.axis = .horizontal
+      buttonContainer.distribution = .fillEqually
+      
+      // Configure OK button
+      let okButton = UIButton(type: .system)
+      okButton.setTitle("OK", for: .normal)
+      okButton.setTitleColor(.black, for: .normal)
+      okButton.titleLabel?.font = ThemeFont.bold(ofSize: 16)
+      okButton.backgroundColor = ThemeColor.primary  // Success color
+      okButton.layer.cornerRadius = 12
+      okButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+      okButton.addTarget(self, action: #selector(dismissMessage), for: .touchUpInside)
+      
+      // Add button press animation
+      addButtonAnimation(to: okButton)
+      
+      // Add button to container
+      buttonContainer.addArrangedSubview(okButton)
+      
+      // Add everything to the content stack
+      if let titleLabel = view.titleLabel {
+          contentStack.addArrangedSubview(titleLabel)
+      }
+      if let bodyLabel = view.bodyLabel {
+          contentStack.addArrangedSubview(bodyLabel)
+      }
+      contentStack.addArrangedSubview(buttonContainer)
+      
+      // Layout content stack
+      contentStack.translatesAutoresizingMaskIntoConstraints = false
+      NSLayoutConstraint.activate([
+          contentStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
+          contentStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+          contentStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+          contentStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24)
+      ])
+      
+      // Hide default button
+      view.button?.isHidden = true
+      
+      // Add subtle shadow
+      view.layer.shadowColor = UIColor.black.cgColor
+      view.layer.shadowOffset = CGSize(width: 0, height: 4)
+      view.layer.shadowRadius = 12
+      view.layer.shadowOpacity = 0.1
+      
+      var config = SwiftMessages.Config()
+      config.presentationStyle = .center
+      config.presentationContext = .window(windowLevel: .alert)
+      config.duration = duration
+      config.dimMode = .blur(style: .dark, alpha: 0.9, interactive: true)
+      config.interactiveHide = true
+      
+      SwiftMessages.show(config: config, view: view)
+  }
   
   static func showInfo(title: String = NSLocalizedString("Info", comment: ""),
                            message: String,

@@ -36,5 +36,10 @@ class SignInCoordinator: Coordinator, NavigationCoordinator {
         signUpCoordinator.parentCoordinator = self
         signUpCoordinator.start()
     }
+  
+  func signUpCoordinatorDidFinish(_ coordinator: SignUpCoordinator) {
+         // Handle any additional cleanup or state updates after signup
+         // For example, refresh the sign-in screen data if needed
+     }
 }
 
