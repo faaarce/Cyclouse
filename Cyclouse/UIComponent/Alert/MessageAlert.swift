@@ -101,7 +101,13 @@ final class MessageAlert {
       let buttonContainer = UIStackView()
       buttonContainer.axis = .horizontal
       buttonContainer.distribution = .fillEqually
-      
+    
+    let imageView = UIImageView(image: UIImage(systemName: "x.circle.fill"))
+    imageView.contentMode = .scaleAspectFit
+    imageView.tintColor = .red
+    imageView.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(imageView)
+       
       // Configure OK button
       let okButton = UIButton(type: .system)
       okButton.setTitle("OK", for: .normal)
@@ -130,10 +136,15 @@ final class MessageAlert {
       // Layout content stack
       contentStack.translatesAutoresizingMaskIntoConstraints = false
       NSLayoutConstraint.activate([
-          contentStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
+          contentStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 32),
           contentStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
           contentStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-          contentStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24)
+          contentStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24),
+          
+          imageView.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 8),
+          imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+          imageView.widthAnchor.constraint(equalToConstant: 60),
+          imageView.heightAnchor.constraint(equalToConstant: 60)
       ])
       
       // Hide default button
