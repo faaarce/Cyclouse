@@ -21,7 +21,7 @@ class AuthenticationNetworkRepository: AuthenticationRepository {
     apiService.request(AuthenticationAPI.signout, includeHeaders: true)
   }
   
-  func signUp(name: String, email: String, password: String) -> AnyPublisher<APIResponse<SignupResponse>,  Error> {
-    apiService.request(AuthenticationAPI.signup(name: name, email: email, password: password), includeHeaders: true)
+  func signUp(name: String, email: String, phone: String, password: String) -> AnyPublisher<APIResponse<SignupResponse>,  Error> {
+    apiService.request(AuthenticationAPI.signup(name: name, email: email, phone: phone, password: password), includeHeaders: true)
   }
 }

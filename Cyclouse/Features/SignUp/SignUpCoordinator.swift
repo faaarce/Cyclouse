@@ -22,7 +22,8 @@ class SignUpCoordinator: Coordinator,
   }
   
   func start() {
-    let vc = SignUpViewController(coordinator: self)
+    let viewModel = container.resolve(SignUpViewModel.self)!
+    let vc = SignUpViewController(coordinator: self, viewModel: viewModel)
     navigationController.pushViewController(vc, animated: true)
   }
   

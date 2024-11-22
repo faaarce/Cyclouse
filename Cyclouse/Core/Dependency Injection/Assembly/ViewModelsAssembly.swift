@@ -30,6 +30,11 @@ class ViewModelsAssembly: Assembly {
       let databaseService = r.resolve(DatabaseService.self)!
       return CartViewModel()
     }
+    
+    container.register(SignUpViewModel.self) { r in
+      let authService = r.resolve(AuthenticationService.self)!
+      return SignUpViewModel(authenticationService: authService)
+    }
   }
   
   

@@ -34,7 +34,7 @@ class AuthenticationService {
       .eraseToAnyPublisher()
   }
   
-  func signUp(name: String, email: String, password: String) -> AnyPublisher<APIResponse<SignupResponse>, Error> {
+  func signUp(name: String, email: String, phone: String, password: String) -> AnyPublisher<APIResponse<SignupResponse>, Error> {
     if let error = Email.validate(email) {
         return Fail(error: error).eraseToAnyPublisher()
     }
@@ -43,7 +43,7 @@ class AuthenticationService {
         return Fail(error: error).eraseToAnyPublisher()
     }
     
-    return repository.signUp(name: name, email: email, password: password)
+    return repository.signUp(name: name, email: email, phone: phone, password: password)
 
   }
 }
