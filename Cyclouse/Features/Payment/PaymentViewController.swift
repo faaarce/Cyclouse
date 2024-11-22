@@ -257,21 +257,27 @@ class PaymentViewController: UIViewController {
          }
      }
   
+  private func cleanupCart() {
+      // Get the cart view model from the previous screen
+      if let cartVC = navigationController?.viewControllers
+          .first(where: { $0 is CartViewController }) as? CartViewController {
+          
+          cartVC.viewModel.removeSelectedBikes()
+              .receive(on: DispatchQueue.main)
+              .sink { completion in
+                  switch completion {
+                  case .finished:
+                      print("Successfully removed paid items from cart")
+                  case .failure(let error):
+                      print("Error removing items from cart: \(error)")
+                  }
+              } receiveValue: { _ in }
+              .store(in: &cancellables)
+      }
+  }
+  
   private func handleSuccessfulPayment(_ response: PaymentStatusResponse) {
-          // Show success alert
-       /*   let alert = UIAlertController(
-              title: "Payment Successful! 🎉",
-              message: "Your payment has been confirmed",
-              preferredStyle: .alert
-          )
-          
-          alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in
-              self?.navigateToHome()
-          })
-          
-          present(alert, animated: true)
-    */
-    
+    cleanupCart()
     MessageAlert.showConfirmation(title: "Payment Successful! 🎉", message: "Your payment has been confirmed") {
       self.navigateToHome()
     }

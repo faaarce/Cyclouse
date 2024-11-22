@@ -27,6 +27,24 @@ class CartViewModel {
     init() {
         fetchBikes()
     }
+  
+  func removeSelectedBikes() -> AnyPublisher<Void, Error> {
+      // Get selected bikes
+      let selectedBikes = bikeData.filter { bike in
+          selectedStates[bike.id] ?? false
+      }
+      
+      // Create a publisher array for all delete operations
+      let deleteOperations = selectedBikes.map { bike in
+          databaseService.delete(bike)
+      }
+      
+      // Combine all delete operations into a single publisher
+      return Publishers.MergeMany(deleteOperations)
+          .collect()
+          .map { _ in () }
+          .eraseToAnyPublisher()
+  }
 
     func fetchBikes() {
         databaseService.fetchBike()
