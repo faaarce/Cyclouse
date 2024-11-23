@@ -57,12 +57,7 @@ class AppCoordinator: Coordinator {
 
   }
   
-//  // MARK: - Coordinator Lifecycle
-//  func coordinatorDidFinish(_ coordinator: Coordinator) {
-//    if coordinator is TabbarCoordinator {
-//      showLogin()
-//    }
-//  }
+
   
   func showLogin() {
     childCoordinators.removeAll()

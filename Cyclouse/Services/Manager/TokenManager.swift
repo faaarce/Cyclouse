@@ -34,8 +34,29 @@ class TokenManager {
      }
   
   func isLoggedIn() -> Bool {
-    return getToken() != nil
+      let hasToken = getToken() != nil
+      let hasUserId = getCurrentUserId() != nil
+      print("Auth State - Has Token: \(hasToken), Has UserId: \(hasUserId)")
+      return hasToken && hasUserId
   }
+  
+  func getCurrentUserId() -> String? {
+          do {
+              return try valet.string(forKey: "currentUserId")
+          } catch {
+              print("Failed to retrieve user ID: \(error)")
+              return nil
+          }
+      }
+      
+      func setCurrentUserId(_ userId: String) {
+          do {
+              try valet.setString(userId, forKey: "currentUserId")
+            print("UserId saved successfully: \(userId)")
+          } catch {
+              print("Failed to store user ID: \(error)")
+          }
+      }
   
   
   func logout() {
@@ -54,7 +75,15 @@ class TokenManager {
              return false
          }
      }
-     
+  
+  // MARK: - Login Method
+    func saveLoginData(token: String, userId: String) {
+        setToken(token)
+        setCurrentUserId(userId)
+        print("Login data saved - Token and UserId")
+    }
+    
+  
      func setOnboardingComplete() {
          do {
              try valet.setString("completed", forKey: "hasSeenOnboarding")

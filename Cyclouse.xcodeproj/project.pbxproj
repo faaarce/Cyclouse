@@ -211,6 +211,7 @@
 		C1F0F2022CCD033000B8AFDA /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F0F2012CCD033000B8AFDA /* Category.swift */; };
 		C1F0F2042CCD03C700B8AFDA /* CategoryCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F0F2032CCD03C700B8AFDA /* CategoryCellViewModel.swift */; };
 		C1F0F2252CCD177400B8AFDA /* BikeProductCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F0F2242CCD177400B8AFDA /* BikeProductCellViewModel.swift */; };
+		C1FA57E22CF0DF6800431BDB /* ProfileImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA57E12CF0DF6800431BDB /* ProfileImageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -423,6 +424,7 @@
 		C1F0F2012CCD033000B8AFDA /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		C1F0F2032CCD03C700B8AFDA /* CategoryCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellViewModel.swift; sourceTree = "<group>"; };
 		C1F0F2242CCD177400B8AFDA /* BikeProductCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeProductCellViewModel.swift; sourceTree = "<group>"; };
+		C1FA57E12CF0DF6800431BDB /* ProfileImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -1157,6 +1159,7 @@
 				C17F98B42CE7A4490060BC7B /* LocationMnager.swift */,
 				C17F98B62CE83C620060BC7B /* LocationService.swift */,
 				C177BD1E2CE8DE4E00B504C1 /* BaseViewController.swift */,
+				C1FA57E12CF0DF6800431BDB /* ProfileImageManager.swift */,
 			);
 			path = Cyclouse;
 			sourceTree = "<group>";
@@ -1759,6 +1762,7 @@
 				C1A505E32CEDDFE400078B46 /* SignupResponse.swift in Sources */,
 				C17F981E2CE6069E0060BC7B /* MessageAlert.swift in Sources */,
 				C17D7D952C975EB800868F1E /* HistoryViewController.swift in Sources */,
+				C1FA57E22CF0DF6800431BDB /* ProfileImageManager.swift in Sources */,
 				C1CDE9AD2CB520FA005B491F /* UserProfile.swift in Sources */,
 				C194655C2C8C20AB00171932 /* CustomInputFieldView.swift in Sources */,
 				C1EE5EBC2CAE9D2F00856B94 /* EmptyStateView.swift in Sources */,
@@ -2026,6 +2030,7 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Cyclouse need your location to show delivery options";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Cyclouse need your location to show delivery options";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Cyclouse need your location to show delivery options";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to update your profile picture.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -2058,6 +2063,7 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Cyclouse need your location to show delivery options";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Cyclouse need your location to show delivery options";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Cyclouse need your location to show delivery options";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to update your profile picture.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

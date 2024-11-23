@@ -36,7 +36,7 @@ class DatabaseService: DatabaseServiceProtocol {
     
     private func setupContainer() {
         do {
-          let schema = Schema([BikeDatabase.self])
+          let schema = Schema([BikeDatabase.self, ProfileImageMetadata.self])
             let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
           
             container = try ModelContainer(for: schema, configurations: [modelConfiguration])

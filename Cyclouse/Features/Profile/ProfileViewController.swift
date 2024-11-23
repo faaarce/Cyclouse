@@ -99,6 +99,26 @@ class ProfileViewController: BaseViewController {
         view.sendSubviewToBack(profileView)
 
         menuItems.forEach { mainStackView.addArrangedSubview($0) }
+      
+      cameraButton.addTarget(self, action: #selector(cameraButtonTapped), for: .touchUpInside)
+           
+           // Load profile image
+           loadProfileImage()
+    }
+  
+  private func checkAuthState() {
+         print("🔐 Auth State Check:")
+         print("Is Logged In:", TokenManager.shared.isLoggedIn())
+         print("Current User ID:", TokenManager.shared.getCurrentUserId() ?? "No User ID")
+         print("Has Token:", TokenManager.shared.getToken() != nil)
+     }
+  
+  override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    checkAuthState()
+        // Configure profileImageView
+        profileImageView.contentMode = .scaleAspectFill
+        profileImageView.clipsToBounds = true
     }
 
     override func setupConstraints() {
@@ -160,6 +180,14 @@ class ProfileViewController: BaseViewController {
         profileEmail.text = profile.email
         // Update other UI elements if necessary
     }
+  
+  @objc private func cameraButtonTapped() {
+         let picker = UIImagePickerController()
+         picker.delegate = self
+         picker.sourceType = .photoLibrary
+         picker.allowsEditing = true
+         present(picker, animated: true)
+     }
 
     private func createMenuItemStack(title: String, icon: String, action: Selector? = nil) -> UIStackView {
         let label = LabelFactory.build(text: title, font: ThemeFont.medium(ofSize: 16), textColor: .white)
@@ -271,41 +299,134 @@ class ProfileViewController: BaseViewController {
 }
 
 
-//  
-//  private func performLogout() {
-//    MessageAlert.showLoading(message: "Logging out...")
-//      
-//      authService.signOut()
-//          .receive(on: DispatchQueue.main)
-//          .sink { [weak self] completion in
-//              // Hide loading indicator first
-//              MessageAlert.hideLoading()
-//              
-//              switch completion {
-//              case .finished:
-//                  // Show success message and perform logout actions after a short delay
-//                  MessageAlert.showSuccess(
-//                      title: "Success",
-//                      message: "You have been logged out successfully"
-//                  )
-//                  
-//                  // Slight delay to allow the success message to be seen
-//                  DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                      TokenManager.shared.logout()
-//                      self?.coordinator.logout()
-//                  }
-//                  
-//              case .failure(let error):
-//                  // Show error message
-//                  MessageAlert.showError(
-//                      title: "Logout Failed",
-//                      message: error.localizedDescription
-//                  )
-//              }
-//          } receiveValue: { _ in
-//              // Handle response if needed
-//          }
-//          .store(in: &cancellables)
-//  }
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
-
+  // MARK: - Image Picker Delegate Methods
+ 
+  func imagePickerController(
+         _ picker: UIImagePickerController,
+         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+     ) {
+         print("📸 Image picker completed")
+         
+         // First dismiss the picker to improve UI responsiveness
+         picker.dismiss(animated: true)
+         
+         // Get the selected image
+         guard let selectedImage = info[.editedImage] as? UIImage else {
+             print("⚠️ No image selected")
+             return
+         }
+         
+         guard let userId = TokenManager.shared.getCurrentUserId() else {
+             print("⚠️ No user ID available")
+             return
+         }
+         
+         print("📱 Selected image size:", selectedImage.size)
+         print("👤 Current userId:", userId)
+         
+         // Show loading indicator
+         MessageAlert.showLoading(message: "Updating profile picture...")
+         
+         // Update UI immediately
+         DispatchQueue.main.async { [weak self] in
+             guard let self = self else { return }
+             print("🔄 Updating UI immediately")
+             
+             UIView.transition(with: self.profileImageView,
+                             duration: 0.3,
+                             options: [.transitionCrossDissolve]) {
+                 self.profileImageView.image = selectedImage
+                 self.profileImageView.contentMode = .scaleAspectFill
+             }
+             debugImageState()
+         }
+         
+         // Then save in background
+         Task {
+             do {
+                 print("💾 Attempting to save image")
+                 try await viewModel.saveProfileImage(selectedImage)
+                 print("✅ Image saved successfully")
+                 
+                 await MainActor.run {
+                     MessageAlert.hideLoading()
+                     showMessage(
+                         title: "Success",
+                         body: "Profile picture updated successfully",
+                         theme: .success
+                     )
+                     debugImageState()
+                 }
+             } catch {
+                 print("❌ Failed to save image:", error.localizedDescription)
+                 await MainActor.run {
+                     MessageAlert.hideLoading()
+                     showMessage(
+                         title: "Error",
+                         body: error.localizedDescription,
+                         theme: .error
+                     )
+                     
+                     UIView.transition(with: self.profileImageView,
+                                     duration: 0.3,
+                                     options: [.transitionCrossDissolve]) {
+                         self.profileImageView.image = UIImage(systemName: "person.fill")
+                     }
+                     debugImageState()
+                 }
+             }
+         }
+     }
+  
+  func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    picker.dismiss(animated: true)
+  }
+  
+  // Add this method to check current state
+    private func debugImageState() {
+        print("🔍 Debug Image State:")
+        print("Is Logged In:", TokenManager.shared.isLoggedIn())
+        print("Current User ID:", TokenManager.shared.getCurrentUserId() ?? "No User ID")
+        print("Current Image:", profileImageView.image == nil ? "No Image" : "Has Image")
+        print("Content Mode:", profileImageView.contentMode.rawValue)
+    }
+  // MARK: - Helper Methods
+   // Update your loadProfileImage method
+  private func loadProfileImage() {
+      guard let userId = TokenManager.shared.getCurrentUserId() else {
+          print("⚠️ No user ID available")
+          return
+      }
+      
+      print("📱 Loading profile image for user:", userId)
+      
+      Task {
+          do {
+              print("🔄 Attempting to load image...")
+              if let image = try await viewModel.loadProfileImage() {
+                  print("✅ Image loaded successfully")
+                  await MainActor.run {
+                      print("🖼 Updating UI with loaded image")
+                      UIView.transition(with: self.profileImageView,
+                                     duration: 0.3,
+                                     options: [.transitionCrossDissolve]) {
+                          self.profileImageView.image = image
+                          self.profileImageView.contentMode = .scaleAspectFill
+                      }
+                      debugImageState()
+                  }
+              } else {
+                  print("⚠️ No image returned from loadProfileImage")
+              }
+          } catch {
+              print("❌ Failed to load profile image:", error.localizedDescription)
+              await MainActor.run {
+                  self.profileImageView.image = UIImage(systemName: "person.fill")
+                  debugImageState()
+              }
+          }
+      }
+  }
+}
