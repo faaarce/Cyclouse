@@ -191,7 +191,7 @@
 		C1D8543F2CE496BD00C17C8D /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = C1D8543E2CE496BD00C17C8D /* NVActivityIndicatorView */; };
 		C1D854412CE496BD00C17C8D /* NVActivityIndicatorViewExtended in Frameworks */ = {isa = PBXBuildFile; productRef = C1D854402CE496BD00C17C8D /* NVActivityIndicatorViewExtended */; };
 		C1D854432CE49F5700C17C8D /* NKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D854422CE49F5700C17C8D /* NKButton.swift */; };
-		C1D854452CE49F7C00C17C8D /* NKButtonStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D854442CE49F7C00C17C8D /* NKButtonStack.swift */; };
+		C1D854452CE49F7C00C17C8D /* CyclouseButtonStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D854442CE49F7C00C17C8D /* CyclouseButtonStack.swift */; };
 		C1DF47EB2C9C9310004F5751 /* SignUpCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF47EA2C9C9305004F5751 /* SignUpCoordinator.swift */; };
 		C1DF47ED2C9C9379004F5751 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF47EC2C9C9379004F5751 /* SignUpViewController.swift */; };
 		C1EAE3A32CBC11530032DE1B /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = C1EAE3A22CBC11530032DE1B /* SkeletonView */; };
@@ -406,7 +406,7 @@
 		C1D1BE4D2C8E170900E73A92 /* HeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderReusableView.swift; sourceTree = "<group>"; };
 		C1D1BE502C8EE70D00E73A92 /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
 		C1D854422CE49F5700C17C8D /* NKButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NKButton.swift; sourceTree = "<group>"; };
-		C1D854442CE49F7C00C17C8D /* NKButtonStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NKButtonStack.swift; sourceTree = "<group>"; };
+		C1D854442CE49F7C00C17C8D /* CyclouseButtonStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclouseButtonStack.swift; sourceTree = "<group>"; };
 		C1DF47EA2C9C9305004F5751 /* SignUpCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpCoordinator.swift; sourceTree = "<group>"; };
 		C1DF47EC2C9C9379004F5751 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C1EDE5A62CAB396200816876 /* AddToCartResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToCartResponse.swift; sourceTree = "<group>"; };
@@ -1364,7 +1364,7 @@
 			children = (
 				C19370622C8B697200B56BA1 /* LabelFactory.swift */,
 				C19370662C8B72BA00B56BA1 /* ButtonFactory.swift */,
-				C1D854442CE49F7C00C17C8D /* NKButtonStack.swift */,
+				C1D854442CE49F7C00C17C8D /* CyclouseButtonStack.swift */,
 			);
 			path = Factories;
 			sourceTree = "<group>";
@@ -1684,7 +1684,7 @@
 				C18F51772C9D1AA300E60C0D /* APIService.swift in Sources */,
 				C18F51782C9D1AA300E60C0D /* APIManager.swift in Sources */,
 				C12559522CE33A3000382028 /* PaymentStatusResponse.swift in Sources */,
-				C1D854452CE49F7C00C17C8D /* NKButtonStack.swift in Sources */,
+				C1D854452CE49F7C00C17C8D /* CyclouseButtonStack.swift in Sources */,
 				C18F51792C9D1AA300E60C0D /* API.swift in Sources */,
 				C18F51682C9D1A1000E60C0D /* AuthenticationError.swift in Sources */,
 				C18F51692C9D1A1000E60C0D /* Validateable.swift in Sources */,

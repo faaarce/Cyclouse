@@ -1,14 +1,14 @@
 //
-//  NKButtonStack.swift
+//  CyclouseButtonStack.swift
 //  NKButton
 //
-//  Created by Nam Kennic on 8/23/17.
+//  Created by yoga arie on 8/23/2024.
 //  Updated to remove FrameLayoutKit dependency.
 //
 
 import UIKit
 
-public struct NKButtonItem {
+public struct CyclouseButtonItem {
     public var title: String?
     public var image: UIImage?
     public var selectedImage: UIImage?
@@ -22,18 +22,18 @@ public struct NKButtonItem {
     }
 }
 
-public enum NKButtonStackSelectionMode {
+public enum CyclouseButtonStackSelectionMode {
     case momentary
     case singleSelection
     case multiSelection
 }
 
-public typealias NKButtonCreationBlock<T> = (NKButtonItem, Int) -> T
-public typealias NKButtonSelectionBlock<T> = (T, NKButtonItem, Int) -> Void
+public typealias CyclouseButtonCreationBlock<T> = (CyclouseButtonItem, Int) -> T
+public typealias CyclouseButtonSelectionBlock<T> = (T, CyclouseButtonItem, Int) -> Void
 
-open class NKButtonStack<T: UIButton>: UIControl {
+open class CyclouseButtonStack<T: UIButton>: UIControl {
     
-    open var items: [NKButtonItem]? = nil {
+    open var items: [CyclouseButtonItem]? = nil {
         didSet {
             updateLayout()
             setNeedsLayout()
@@ -168,10 +168,10 @@ open class NKButtonStack<T: UIButton>: UIControl {
         }
     }
     
-    public var selectionMode: NKButtonStackSelectionMode = .singleSelection
-    public var creationBlock: NKButtonCreationBlock<T>? = nil
-    public var configurationBlock: NKButtonSelectionBlock<T>? = nil
-    public var selectionBlock: NKButtonSelectionBlock<T>? = nil
+    public var selectionMode: CyclouseButtonStackSelectionMode = .singleSelection
+    public var creationBlock: CyclouseButtonCreationBlock<T>? = nil
+    public var configurationBlock: CyclouseButtonSelectionBlock<T>? = nil
+    public var selectionBlock: CyclouseButtonSelectionBlock<T>? = nil
     
     public let stackView = UIStackView()
     
@@ -180,7 +180,7 @@ open class NKButtonStack<T: UIButton>: UIControl {
     
     // MARK: -
     
-    convenience public init(items: [NKButtonItem], axis: NSLayoutConstraint.Axis = .horizontal) {
+    convenience public init(items: [CyclouseButtonItem], axis: NSLayoutConstraint.Axis = .horizontal) {
         self.init()
         
         self.axis = axis
@@ -286,19 +286,19 @@ open class NKButtonStack<T: UIButton>: UIControl {
     }
     
     @discardableResult
-    public func creation(_ block: @escaping NKButtonCreationBlock<T>) -> Self {
+    public func creation(_ block: @escaping CyclouseButtonCreationBlock<T>) -> Self {
         creationBlock = block
         return self
     }
     
     @discardableResult
-    public func configuration(_ block: @escaping NKButtonSelectionBlock<T>) -> Self {
+    public func configuration(_ block: @escaping CyclouseButtonSelectionBlock<T>) -> Self {
         configurationBlock = block
         return self
     }
     
     @discardableResult
-    public func selection(_ block: @escaping NKButtonSelectionBlock<T>) -> Self {
+    public func selection(_ block: @escaping CyclouseButtonSelectionBlock<T>) -> Self {
         selectionBlock = block
         return self
     }
