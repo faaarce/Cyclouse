@@ -17,7 +17,7 @@ class AppCoordinator: Coordinator {
   var childCoordinators = [Coordinator]()
   var navigationController: UINavigationController
   private let container: Container
-  private let valet = Valet.valet(with: Identifier(nonEmpty: "com.cyclouse.app")!, accessibility: .whenUnlocked)
+
    
   // MARK: - Initialization
   init(navigationController: UINavigationController, container: Container) {
