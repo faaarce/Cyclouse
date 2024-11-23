@@ -243,7 +243,9 @@ class FilterViewController: UIViewController, CellEventCoordinator {
         sortOptions = SortOption.allCases.map {
             FilterOption(title: $0.rawValue, isSelected: $0 == .nameAsc)
         }
-        
+      NotificationCenter.default.post(name: NSNotification.Name("FilterSettingsChanged"), object: nil)
+      
+
         updateCollectionView()
     }
     

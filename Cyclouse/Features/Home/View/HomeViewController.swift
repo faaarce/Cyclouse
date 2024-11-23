@@ -24,6 +24,7 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
     var services = BikeService()
     var categories: [Category] = []
     var filteredProducts: [Product] = []
+  var filteredCategories: [Category]? = nil
     
     var isSearching: Bool {
         return searchController.isActive && !(searchController.searchBar.text?.isEmpty ?? true)
@@ -169,6 +170,9 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
     private func makeViewModel() -> CollectionViewModel {
         var sections: [SectionViewModel] = []
         
+      let dataToUse = filteredCategories ?? categories
+          
+      
         if isSearching {
             // Search Results Section
             let productCellViewModels = filteredProducts.map {
@@ -227,14 +231,14 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
                 }
             } else {
                 // Subsequent Sections: Bike Products
-                let filteredCategories: [Category]
-                if let selectedCategory = selectedCategory, selectedCategory != "All" {
-                    filteredCategories = categories.filter { $0.categoryName == selectedCategory }
+                let filteredData: [Category]
+              if let selectedCategory = selectedCategory, selectedCategory != "All" {
+                             filteredData = dataToUse.filter { $0.categoryName == selectedCategory }
                 } else {
-                    filteredCategories = categories
+                  filteredData = dataToUse
                 }
                 
-                for category in filteredCategories {
+                for category in filteredData {
                     let productCellViewModels = category.products.map {
                         BikeProductCellViewModel(product: $0, categoryName: category.categoryName).eraseToAnyViewModel()
                     }
@@ -459,7 +463,7 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
           
           if let sheet = filter.sheetPresentationController {
               sheet.prefersGrabberVisible = true
-              sheet.detents = [.large()]
+            sheet.detents = [.large(), .medium()]
               present(filter, animated: true)
           }
       }
@@ -491,6 +495,8 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
                   
                   return true
               }
+            
+            guard !filteredProducts.isEmpty else { return nil }
               
               // Sort the filtered products
               let sortedProducts: [Product]
@@ -507,9 +513,21 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
               
               return Category(categoryName: category.categoryName, products: sortedProducts)
           }
-          
-          // Update the categories with filtered results
-          self.categories = filteredCategories
+    
+    
+    // Check if any filters are applied
+    if filterManager.selectedCategories.isEmpty &&
+       filterManager.selectedBrands.isEmpty &&
+       filterManager.priceRange == (0, 30_000_000) &&
+       filterManager.sortBy == .nameAsc {
+        // No filters applied, reset filteredCategories
+        self.filteredCategories = nil
+    } else {
+        // Filters are applied, update filteredCategories
+        self.filteredCategories = filteredCategories
+    }
+    
+
           self.updateCollectionView()
       }
 
@@ -558,6 +576,9 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
     func didSelectCell(viewModel: any CellViewModel) {
         if let categoryVM = viewModel as? CategoryCellViewModel {
             selectedCategory = categoryVM.category != "All" ? categoryVM.category : nil
+          if selectedCategory == nil {
+                      filteredCategories = nil
+                  }
             updateCollectionView()
         } else if let productVM = viewModel as? BikeProductCellViewModel {
             // Dismiss the search controller if active
