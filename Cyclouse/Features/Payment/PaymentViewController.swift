@@ -91,8 +91,8 @@ class PaymentViewController: UIViewController {
     LabelFactory.build(text: "Sub Total" , font: ThemeFont.medium(ofSize: 12), textColor: ThemeColor.labelColorSecondary)
   }()
   
-  private let payButton: NKButton = {
-      let button = NKButton()
+  private let payButton: CyclouseButton = {
+      let button = CyclouseButton()
       button.setTitle("Pay", for: .normal)
       button.setTitleColor(ThemeColor.black, for: .normal)
       button.setBackgroundColor(ThemeColor.primary, for: .normal)

@@ -1,6 +1,6 @@
 //
-//  NKButton.swift
-//  NKButton
+//  CyclouseButton.swift
+//  CyclouseButton
 //
 //  Created by Nam Kennic on 8/18/17.
 //  Updated to remove FrameLayoutKit dependency.
@@ -15,7 +15,7 @@ public extension UIControl.State {
     static let hovered = UIControl.State(rawValue: 1 << 18)
 }
 
-public enum NKButtonLoadingIndicatorAlignment {
+public enum CyclouseButtonLoadingIndicatorAlignment {
     case left
     case center
     case right
@@ -23,7 +23,7 @@ public enum NKButtonLoadingIndicatorAlignment {
     case atPosition(position: CGPoint)
 }
 
-public enum NKButtonImageAlignment {
+public enum CyclouseButtonImageAlignment {
     case left
     case right
     case top
@@ -35,7 +35,7 @@ public enum NKButtonImageAlignment {
     case bottomEdge(spacing: CGFloat)
 }
 
-open class NKButton: UIButton {
+open class CyclouseButton: UIButton {
     
     /** Set/Get title of the button */
     open var title: String? {
@@ -133,7 +133,7 @@ open class NKButton: UIButton {
     }
     
     /** Image alignment */
-    open var imageAlignment: NKButtonImageAlignment = .left {
+    open var imageAlignment: CyclouseButtonImageAlignment = .left {
         didSet {
             setNeedsLayout()
         }
@@ -219,7 +219,7 @@ open class NKButton: UIButton {
     /** Color of loading indicator, if `nil`, it will use titleColor of normal state */
     open var loadingIndicatorColor: UIColor? = nil
     /** Alignment for loading indicator */
-    open var loadingIndicatorAlignment: NKButtonLoadingIndicatorAlignment = .center
+    open var loadingIndicatorAlignment: CyclouseButtonLoadingIndicatorAlignment = .center
     
     private let flashAnimationKey = "flashAnimation"
     open var isFlashing: Bool {
@@ -908,7 +908,7 @@ public class UIControlStateValue<T> {
     }
 }
 
-public extension NKButton {
+public extension CyclouseButton {
     
     var attributedTitles: UIControlStateValue<NSAttributedString> { UIControlStateValue<NSAttributedString>(getter: self.attributedTitle(for:), setter: self.setAttributedTitle(_:for:)) }
     var titles: UIControlStateValue<String> { UIControlStateValue<String>(getter: self.title(for:), setter: self.setTitle(_:for:)) }
