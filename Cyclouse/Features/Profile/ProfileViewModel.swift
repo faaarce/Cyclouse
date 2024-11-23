@@ -10,8 +10,7 @@ import Valet
 import UIKit
 
 class ProfileViewModel {
-    private let valet = Valet.valet(with: Identifier(nonEmpty: "com.yourapp.auth")!,
-                                   accessibility: .whenUnlocked)
+    private let valetService: ValetServiceProtocol
     private let userProfileSubject = CurrentValueSubject<UserProfile?, Never>(nil)
     private let imageManager = ProfileImageManager.shared
     
@@ -19,28 +18,29 @@ class ProfileViewModel {
         userProfileSubject.eraseToAnyPublisher()
     }
     
+    init(valetService: ValetServiceProtocol = ValetService.shared) {
+        self.valetService = valetService
+    }
+    
     func loadUserProfile() {
         print("📝 Loading user profile")
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self = self else { return }
+        Task {
             do {
-                let profileData = try self.valet.object(forKey: "userProfile")
-                let userProfile = try JSONDecoder().decode(UserProfile.self, from: profileData)
-                print("✅ User profile loaded successfully")
-                self.userProfileSubject.send(userProfile)
-                
-                if let userId = TokenManager.shared.getCurrentUserId() {
-                    print("👤 Current user ID:", userId)
-                    Task {
-                        print("🔄 Loading profile image for user")
-                        try? await self.imageManager.loadProfileImage(for: userId)
+                if let userProfile: UserProfile = try valetService.retrieve(UserProfile.self, for: .userProfile) {
+                    print("✅ User profile loaded successfully")
+                    userProfileSubject.send(userProfile)
+                    
+                    if let userId = TokenManager.shared.getCurrentUserId() {
+                        print("👤 Loading profile image for user:", userId)
+                        try? await imageManager.loadProfileImage(for: userId)
                     }
                 } else {
-                    print("⚠️ No user ID available when loading profile")
+                    print("⚠️ No user profile found")
+                    userProfileSubject.send(nil)
                 }
             } catch {
                 print("❌ Failed to load user profile:", error.localizedDescription)
-                self.userProfileSubject.send(nil)
+                userProfileSubject.send(nil)
             }
         }
     }

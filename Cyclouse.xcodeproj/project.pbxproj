@@ -212,6 +212,7 @@
 		C1F0F2042CCD03C700B8AFDA /* CategoryCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F0F2032CCD03C700B8AFDA /* CategoryCellViewModel.swift */; };
 		C1F0F2252CCD177400B8AFDA /* BikeProductCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F0F2242CCD177400B8AFDA /* BikeProductCellViewModel.swift */; };
 		C1FA57E22CF0DF6800431BDB /* ProfileImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA57E12CF0DF6800431BDB /* ProfileImageManager.swift */; };
+		C1FA57E42CF1CA3500431BDB /* ValetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA57E32CF1CA3500431BDB /* ValetService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -425,6 +426,7 @@
 		C1F0F2032CCD03C700B8AFDA /* CategoryCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellViewModel.swift; sourceTree = "<group>"; };
 		C1F0F2242CCD177400B8AFDA /* BikeProductCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeProductCellViewModel.swift; sourceTree = "<group>"; };
 		C1FA57E12CF0DF6800431BDB /* ProfileImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageManager.swift; sourceTree = "<group>"; };
+		C1FA57E32CF1CA3500431BDB /* ValetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValetService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -962,6 +964,7 @@
 			isa = PBXGroup;
 			children = (
 				C1956D112CABC70600642FF8 /* TokenManager.swift */,
+				C1FA57E32CF1CA3500431BDB /* ValetService.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1685,6 +1688,7 @@
 				C18F51782C9D1AA300E60C0D /* APIManager.swift in Sources */,
 				C12559522CE33A3000382028 /* PaymentStatusResponse.swift in Sources */,
 				C1D854452CE49F7C00C17C8D /* CyclouseButtonStack.swift in Sources */,
+				C1FA57E42CF1CA3500431BDB /* ValetService.swift in Sources */,
 				C18F51792C9D1AA300E60C0D /* API.swift in Sources */,
 				C18F51682C9D1A1000E60C0D /* AuthenticationError.swift in Sources */,
 				C18F51692C9D1A1000E60C0D /* Validateable.swift in Sources */,
