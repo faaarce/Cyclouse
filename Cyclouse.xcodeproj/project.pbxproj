@@ -47,7 +47,6 @@
 		C15B51422CBAC53E00892DBD /* Double + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15B51412CBAC53E00892DBD /* Double + Extension.swift */; };
 		C15F0B7C2CBC27E800F5ACC3 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15F0B7B2CBC27E800F5ACC3 /* Dummy.swift */; };
 		C162D4362CD2420700DBA8CC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C162D4352CD2420700DBA8CC /* MapViewController.swift */; };
-		C162D4382CD243B900DBA8CC /* MapViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C162D4372CD243B900DBA8CC /* MapViewCoordinator.swift */; };
 		C162D43A2CD2522600DBA8CC /* fixedgear.json in Resources */ = {isa = PBXBuildFile; fileRef = C162D4392CD2522600DBA8CC /* fixedgear.json */; };
 		C162D43C2CD2B31300DBA8CC /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C162D43B2CD2B31300DBA8CC /* DetailViewModel.swift */; };
 		C162D4422CD2BBC400DBA8CC /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C162D4412CD2BBC400DBA8CC /* DependencyContainer.swift */; };
@@ -287,7 +286,6 @@
 		C15B51412CBAC53E00892DBD /* Double + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double + Extension.swift"; sourceTree = "<group>"; };
 		C15F0B7B2CBC27E800F5ACC3 /* Dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
 		C162D4352CD2420700DBA8CC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		C162D4372CD243B900DBA8CC /* MapViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewCoordinator.swift; sourceTree = "<group>"; };
 		C162D4392CD2522600DBA8CC /* fixedgear.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = fixedgear.json; sourceTree = "<group>"; };
 		C162D43B2CD2B31300DBA8CC /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		C162D4412CD2BBC400DBA8CC /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
@@ -787,13 +785,10 @@
 		C16468B02CD097FC00876224 /* Checkout */ = {
 			isa = PBXGroup;
 			children = (
-				C16468B12CD0984700876224 /* CheckoutViewController.swift */,
-				C11525602CDDFFF0001DD6FD /* PaymentViewCell.swift */,
-				C162D4352CD2420700DBA8CC /* MapViewController.swift */,
-				C162D4372CD243B900DBA8CC /* MapViewCoordinator.swift */,
-				C16468B32CD0985D00876224 /* CheckoutCoordinator.swift */,
-				C11525482CDCBAEA001DD6FD /* AddressViewCell.swift */,
-				C11525622CDE2AC3001DD6FD /* Bank.swift */,
+				C1FA586F2CF302AE00431BDB /* Coordinator */,
+				C1FA586E2CF302A000431BDB /* Model */,
+				C1FA586D2CF3029400431BDB /* Cells */,
+				C1FA586C2CF3028D00431BDB /* View */,
 			);
 			path = Checkout;
 			sourceTree = "<group>";
@@ -1736,6 +1731,40 @@
 			path = "View Model";
 			sourceTree = "<group>";
 		};
+		C1FA586C2CF3028D00431BDB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C162D4352CD2420700DBA8CC /* MapViewController.swift */,
+				C16468B12CD0984700876224 /* CheckoutViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C1FA586D2CF3029400431BDB /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C11525482CDCBAEA001DD6FD /* AddressViewCell.swift */,
+				C11525602CDDFFF0001DD6FD /* PaymentViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		C1FA586E2CF302A000431BDB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C11525622CDE2AC3001DD6FD /* Bank.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C1FA586F2CF302AE00431BDB /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C16468B32CD0985D00876224 /* CheckoutCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1927,7 +1956,6 @@
 				C162D4362CD2420700DBA8CC /* MapViewController.swift in Sources */,
 				C19370652C8B69ED00B56BA1 /* ThemeFont.swift in Sources */,
 				C169A42D2CE3807B0079DE6B /* OrderHistoryResponse.swift in Sources */,
-				C162D4382CD243B900DBA8CC /* MapViewCoordinator.swift in Sources */,
 				C1EDE5A92CAB3C8000816876 /* CartRepository.swift in Sources */,
 				C18F51622C9D1A1000E60C0D /* Email.swift in Sources */,
 				C18F51632C9D1A1000E60C0D /* Password.swift in Sources */,
