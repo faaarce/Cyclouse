@@ -1,5 +1,5 @@
 //
-//  WaveTabBarPresenter.swift
+//  CyclouseTabBarPresenter.swift
 //  WaveTab
 //
 //  Created by Matthew Pierce on 15/05/2019.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-protocol WaveTabBarPresenter: class {
+protocol CyclouseTabBarPresenter: class {
     
-    var view: WaveTabBarProtocol { get }
+    var view: CyclouseTabBarProtocol { get }
     
     func viewDidLoad()
     

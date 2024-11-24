@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol WaveTabBarProtocol: class {
+protocol CyclouseTabBarProtocol: class {
     
     func showTabBar(_ show: Bool, animated: Bool, over duration: TimeInterval)
     

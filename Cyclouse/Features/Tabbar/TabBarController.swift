@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TabBarController: WaveTabBarController {
+class TabBarController: CyclouseTabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()

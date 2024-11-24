@@ -1,5 +1,5 @@
 //
-//  WaveTabBarPresenterBase.swift
+//  CyclouseTabBarPresenterBase.swift
 //  WaveTab
 //
 //  Created by Matthew Pierce on 15/05/2019.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class WaveTabBarPresenterBase: WaveTabBarPresenter {
+class CyclouseTabBarPresenterBase: CyclouseTabBarPresenter {
     
     private struct Constants {
     
@@ -21,12 +21,12 @@ class WaveTabBarPresenterBase: WaveTabBarPresenter {
         
     }
 
-    unowned let view: WaveTabBarProtocol
+    unowned let view: CyclouseTabBarProtocol
     private var isPortrait = true
     
     // MARK: - Initialization
     
-    init(view: WaveTabBarProtocol) {
+    init(view: CyclouseTabBarProtocol) {
         self.view = view
     }
     

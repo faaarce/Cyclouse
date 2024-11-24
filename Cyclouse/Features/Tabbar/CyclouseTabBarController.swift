@@ -1,5 +1,5 @@
 //
-//  WaveTabBarController.swift
+//  CyclouseTabBarController.swift
 //  WaveTab
 //
 //  Created by Matthew Pierce on 15/05/2019.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class WaveTabBarController: UITabBarController, WaveTabBarProtocol {
+open class CyclouseTabBarController: UITabBarController, CyclouseTabBarProtocol {
     
     private struct Constants {
         
@@ -21,7 +21,7 @@ open class WaveTabBarController: UITabBarController, WaveTabBarProtocol {
         
     }
     
-    private var presenter: WaveTabBarPresenter!
+    private var presenter: CyclouseTabBarPresenter!
      var circle: UIView?
      var imageView: UIImageView?
     
@@ -45,7 +45,7 @@ open class WaveTabBarController: UITabBarController, WaveTabBarProtocol {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        presenter = WaveTabBarPresenterBase(view: self)
+        presenter = CyclouseTabBarPresenterBase(view: self)
         presenter.viewDidLoad()
     }
     

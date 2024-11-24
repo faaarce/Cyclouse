@@ -9,32 +9,6 @@ import Foundation
 import CoreLocation
 
 // LocationServices/LocationError.swift
-enum LocationError: Error {
-    case serviceDisabled
-    case addressNotFound
-    case permissionDenied
-    case unknown(Error)
-    
-    var localizedDescription: String {
-        switch self {
-        case .serviceDisabled:
-            return "Location services are disabled"
-        case .addressNotFound:
-            return "Could not find address for this location"
-        case .permissionDenied:
-            return "Location permission denied"
-        case .unknown(let error):
-            return error.localizedDescription
-        }
-    }
-}
-
-// LocationServices/LocationManager.swift
-protocol LocationManagerDelegate: AnyObject {
-    func locationManager(didUpdateAddress address: ShippingAddress)
-    func locationManager(didFailWithError error: LocationError)
-    func locationManager(didUpdateLocation location: CLLocation)
-}
 
 class LocationManager: NSObject {
     static let shared = LocationManager()
@@ -132,33 +106,7 @@ protocol MapServiceDelegate: AnyObject {
     func mapService(didFailWithError error: LocationError)
 }
 
-class MapService: NSObject {
-    static let shared = MapService()
-    
-    weak var delegate: MapServiceDelegate?
-    
-    func searchPlace(query: String, region: MKCoordinateRegion) async throws -> [PlaceAnnotation] {
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = query
-        request.region = region
-        
-        let search = MKLocalSearch(request: request)
-        let response = try await search.start()
-        return response.mapItems.map(PlaceAnnotation.init)
-    }
-    
-    func get3DCamera(for coordinate: CLLocationCoordinate2D,
-                    distance: CLLocationDistance = 1000,
-                    pitch: CGFloat = 60,
-                    heading: CLLocationDirection = 45) -> MKMapCamera {
-        return MKMapCamera(
-            lookingAtCenter: coordinate,
-            fromDistance: distance,
-            pitch: pitch,
-            heading: heading
-        )
-    }
-}
+
 
 // LocationServices/Models/MapViewState.swift
 struct MapViewState {

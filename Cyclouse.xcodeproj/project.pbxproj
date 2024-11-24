@@ -93,12 +93,12 @@
 		C17F981E2CE6069E0060BC7B /* MessageAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F981D2CE6069E0060BC7B /* MessageAlert.swift */; };
 		C17F98202CE606ED0060BC7B /* Theme+Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F981F2CE606ED0060BC7B /* Theme+Icon.swift */; };
 		C17F98662CE63CF20060BC7B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98652CE63CF20060BC7B /* TabBarController.swift */; };
-		C17F98672CE63D410060BC7B /* WaveTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98602CE63C710060BC7B /* WaveTabBarController.swift */; };
-		C17F98682CE63D460060BC7B /* WaveTabBarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98632CE63C710060BC7B /* WaveTabBarProtocol.swift */; };
-		C17F98692CE63D460060BC7B /* WaveTabBarPresenterBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98622CE63C710060BC7B /* WaveTabBarPresenterBase.swift */; };
-		C17F986A2CE63D460060BC7B /* UIBezierPath+createCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98642CE63C790060BC7B /* UIBezierPath+createCurve.swift */; };
-		C17F986B2CE63D460060BC7B /* WaveTabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98612CE63C710060BC7B /* WaveTabBarPresenter.swift */; };
-		C17F98B52CE7A4490060BC7B /* LocationMnager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98B42CE7A4490060BC7B /* LocationMnager.swift */; };
+		C17F98672CE63D410060BC7B /* CyclouseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98602CE63C710060BC7B /* CyclouseTabBarController.swift */; };
+		C17F98682CE63D460060BC7B /* CyclouseTabBarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98632CE63C710060BC7B /* CyclouseTabBarProtocol.swift */; };
+		C17F98692CE63D460060BC7B /* CyclouseTabBarPresenterBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98622CE63C710060BC7B /* CyclouseTabBarPresenterBase.swift */; };
+		C17F986A2CE63D460060BC7B /* UIBezierPath + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98642CE63C790060BC7B /* UIBezierPath + Extension.swift */; };
+		C17F986B2CE63D460060BC7B /* CyclouseTabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98612CE63C710060BC7B /* CyclouseTabBarPresenter.swift */; };
+		C17F98B52CE7A4490060BC7B /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98B42CE7A4490060BC7B /* LocationManager.swift */; };
 		C17F98B72CE83C620060BC7B /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98B62CE83C620060BC7B /* LocationService.swift */; };
 		C17F98B92CE8990E0060BC7B /* checkmark.json in Resources */ = {isa = PBXBuildFile; fileRef = C17F98B82CE8990E0060BC7B /* checkmark.json */; };
 		C18F51622C9D1A1000E60C0D /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51502C9D1A1000E60C0D /* Email.swift */; };
@@ -213,6 +213,11 @@
 		C1F0F2252CCD177400B8AFDA /* BikeProductCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F0F2242CCD177400B8AFDA /* BikeProductCellViewModel.swift */; };
 		C1FA57E22CF0DF6800431BDB /* ProfileImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA57E12CF0DF6800431BDB /* ProfileImageManager.swift */; };
 		C1FA57E42CF1CA3500431BDB /* ValetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA57E32CF1CA3500431BDB /* ValetService.swift */; };
+		C1FA583A2CF2CA4000431BDB /* LocationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA58392CF2CA4000431BDB /* LocationError.swift */; };
+		C1FA583C2CF2CAD100431BDB /* LocationManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA583B2CF2CAD100431BDB /* LocationManaging.swift */; };
+		C1FA58422CF2CC1600431BDB /* LocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA58412CF2CC1600431BDB /* LocationManagerDelegate.swift */; };
+		C1FA58452CF2EADB00431BDB /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA58442CF2EADA00431BDB /* MapService.swift */; };
+		C1FA58482CF2EB2D00431BDB /* MapViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA58472CF2EB2D00431BDB /* MapViewConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -319,13 +324,13 @@
 		C17F981A2CE5AD030060BC7B /* CartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewModel.swift; sourceTree = "<group>"; };
 		C17F981D2CE6069E0060BC7B /* MessageAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAlert.swift; sourceTree = "<group>"; };
 		C17F981F2CE606ED0060BC7B /* Theme+Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Theme+Icon.swift"; sourceTree = "<group>"; };
-		C17F98602CE63C710060BC7B /* WaveTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveTabBarController.swift; sourceTree = "<group>"; };
-		C17F98612CE63C710060BC7B /* WaveTabBarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveTabBarPresenter.swift; sourceTree = "<group>"; };
-		C17F98622CE63C710060BC7B /* WaveTabBarPresenterBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveTabBarPresenterBase.swift; sourceTree = "<group>"; };
-		C17F98632CE63C710060BC7B /* WaveTabBarProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveTabBarProtocol.swift; sourceTree = "<group>"; };
-		C17F98642CE63C790060BC7B /* UIBezierPath+createCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+createCurve.swift"; sourceTree = "<group>"; };
+		C17F98602CE63C710060BC7B /* CyclouseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclouseTabBarController.swift; sourceTree = "<group>"; };
+		C17F98612CE63C710060BC7B /* CyclouseTabBarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclouseTabBarPresenter.swift; sourceTree = "<group>"; };
+		C17F98622CE63C710060BC7B /* CyclouseTabBarPresenterBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclouseTabBarPresenterBase.swift; sourceTree = "<group>"; };
+		C17F98632CE63C710060BC7B /* CyclouseTabBarProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclouseTabBarProtocol.swift; sourceTree = "<group>"; };
+		C17F98642CE63C790060BC7B /* UIBezierPath + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath + Extension.swift"; sourceTree = "<group>"; };
 		C17F98652CE63CF20060BC7B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		C17F98B42CE7A4490060BC7B /* LocationMnager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMnager.swift; sourceTree = "<group>"; };
+		C17F98B42CE7A4490060BC7B /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		C17F98B62CE83C620060BC7B /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		C17F98B82CE8990E0060BC7B /* checkmark.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = checkmark.json; sourceTree = "<group>"; };
 		C18F514C2C9D1A1000E60C0D /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
@@ -427,6 +432,11 @@
 		C1F0F2242CCD177400B8AFDA /* BikeProductCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeProductCellViewModel.swift; sourceTree = "<group>"; };
 		C1FA57E12CF0DF6800431BDB /* ProfileImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageManager.swift; sourceTree = "<group>"; };
 		C1FA57E32CF1CA3500431BDB /* ValetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValetService.swift; sourceTree = "<group>"; };
+		C1FA58392CF2CA4000431BDB /* LocationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationError.swift; sourceTree = "<group>"; };
+		C1FA583B2CF2CAD100431BDB /* LocationManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManaging.swift; sourceTree = "<group>"; };
+		C1FA58412CF2CC1600431BDB /* LocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerDelegate.swift; sourceTree = "<group>"; };
+		C1FA58442CF2EADA00431BDB /* MapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
+		C1FA58472CF2EB2D00431BDB /* MapViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -600,6 +610,7 @@
 		C13D90CB2C9213B200430BA4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C1FA58322CF2C88200431BDB /* Base */,
 				C147C2472CA14661002B88AF /* Extensions */,
 				C19370352C8A064400B56BA1 /* Network */,
 				C19370342C8A063E00B56BA1 /* Protocols */,
@@ -1033,14 +1044,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		C17F981C2CE6068F0060BC7B /* Alert */ = {
-			isa = PBXGroup;
-			children = (
-				C17F981D2CE6069E0060BC7B /* MessageAlert.swift */,
-			);
-			path = Alert;
-			sourceTree = "<group>";
-		};
 		C18F514F2C9D1A1000E60C0D /* SubDomain */ = {
 			isa = PBXGroup;
 			children = (
@@ -1143,11 +1146,6 @@
 		C1936FFB2C898D1C00B56BA1 /* Cyclouse */ = {
 			isa = PBXGroup;
 			children = (
-				C17F98602CE63C710060BC7B /* WaveTabBarController.swift */,
-				C17F98612CE63C710060BC7B /* WaveTabBarPresenter.swift */,
-				C17F98622CE63C710060BC7B /* WaveTabBarPresenterBase.swift */,
-				C17F98632CE63C710060BC7B /* WaveTabBarProtocol.swift */,
-				C17F98642CE63C790060BC7B /* UIBezierPath+createCurve.swift */,
 				C125592A2CE1C0DF00382028 /* Cyclouse.entitlements */,
 				C115252B2CDC9B98001DD6FD /* Config */,
 				C1EE51A02CC57E5A00280BBC /* Mockup */,
@@ -1158,10 +1156,6 @@
 				C19370182C89967300B56BA1 /* Services */,
 				C19370172C89960F00B56BA1 /* Features */,
 				C193700A2C898D1D00B56BA1 /* Info.plist */,
-				C17F98652CE63CF20060BC7B /* TabBarController.swift */,
-				C17F98B42CE7A4490060BC7B /* LocationMnager.swift */,
-				C17F98B62CE83C620060BC7B /* LocationService.swift */,
-				C177BD1E2CE8DE4E00B504C1 /* BaseViewController.swift */,
 				C1FA57E12CF0DF6800431BDB /* ProfileImageManager.swift */,
 			);
 			path = Cyclouse;
@@ -1181,6 +1175,7 @@
 		C19370172C89960F00B56BA1 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				C1FA58312CF2C61600431BDB /* Tabbar */,
 				C19B8ACC2CE1B69100484E81 /* Widget */,
 				C16468B02CD097FC00876224 /* Checkout */,
 				C1C582A92CBBACB700280F6F /* Payment */,
@@ -1201,6 +1196,7 @@
 		C19370182C89967300B56BA1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				C1FA58332CF2C8F000431BDB /* Location */,
 				C169A41C2CE37EF80079DE6B /* History */,
 				C125593C2CE3380D00382028 /* Payment */,
 				C16468B52CD09C8900876224 /* Checkout */,
@@ -1216,11 +1212,9 @@
 		C19370192C89967800B56BA1 /* UIComponent */ = {
 			isa = PBXGroup;
 			children = (
-				C17F981C2CE6068F0060BC7B /* Alert */,
 				C19465622C8C488100171932 /* Views */,
 				C19465612C8C47DC00171932 /* Controls */,
 				C19465602C8C47D200171932 /* Factories */,
-				C1D854422CE49F5700C17C8D /* CyclouseButton.swift */,
 			);
 			path = UIComponent;
 			sourceTree = "<group>";
@@ -1346,6 +1340,7 @@
 		C194655D2C8C42FA00171932 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C17F98642CE63C790060BC7B /* UIBezierPath + Extension.swift */,
 				C19370592C8ABAEE00B56BA1 /* UIColor+Extension.swift */,
 				C19370682C8B73D900B56BA1 /* UIView+Extension.swift */,
 			);
@@ -1367,7 +1362,6 @@
 			children = (
 				C19370622C8B697200B56BA1 /* LabelFactory.swift */,
 				C19370662C8B72BA00B56BA1 /* ButtonFactory.swift */,
-				C1D854442CE49F7C00C17C8D /* CyclouseButtonStack.swift */,
 			);
 			path = Factories;
 			sourceTree = "<group>";
@@ -1375,6 +1369,11 @@
 		C19465612C8C47DC00171932 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				C17F981D2CE6069E0060BC7B /* MessageAlert.swift */,
+				C1D854422CE49F5700C17C8D /* CyclouseButton.swift */,
+				C177238C2C951CF30078E598 /* ReadMoreTextView.swift */,
+				C194655B2C8C20AB00171932 /* CustomInputFieldView.swift */,
+				C1D854442CE49F7C00C17C8D /* CyclouseButtonStack.swift */,
 				C19465572C8C087100171932 /* PaddedTextField.swift */,
 			);
 			path = Controls;
@@ -1384,8 +1383,6 @@
 			isa = PBXGroup;
 			children = (
 				C18F518B2C9F341C00E60C0D /* LoadingViewController.swift */,
-				C194655B2C8C20AB00171932 /* CustomInputFieldView.swift */,
-				C177238C2C951CF30078E598 /* ReadMoreTextView.swift */,
 				C1EE5EBB2CAE9D2F00856B94 /* EmptyStateView.swift */,
 				C19465662C8CBEC200171932 /* SharedCells */,
 			);
@@ -1477,6 +1474,80 @@
 				C1EE5EC12CAEB30100856B94 /* CoreDataManagerError.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		C1FA58312CF2C61600431BDB /* Tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				C17F98652CE63CF20060BC7B /* TabBarController.swift */,
+				C17F98602CE63C710060BC7B /* CyclouseTabBarController.swift */,
+				C17F98612CE63C710060BC7B /* CyclouseTabBarPresenter.swift */,
+				C17F98622CE63C710060BC7B /* CyclouseTabBarPresenterBase.swift */,
+				C17F98632CE63C710060BC7B /* CyclouseTabBarProtocol.swift */,
+			);
+			path = Tabbar;
+			sourceTree = "<group>";
+		};
+		C1FA58322CF2C88200431BDB /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				C177BD1E2CE8DE4E00B504C1 /* BaseViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		C1FA58332CF2C8F000431BDB /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				C1FA58462CF2EB1F00431BDB /* Configuration */,
+				C1FA58432CF2EAD200431BDB /* Models */,
+				C1FA58382CF2CA3800431BDB /* Error */,
+				C1FA58352CF2C99800431BDB /* Protocol */,
+				C1FA58342CF2C96600431BDB /* Service */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		C1FA58342CF2C96600431BDB /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				C1FA58442CF2EADA00431BDB /* MapService.swift */,
+				C17F98B42CE7A4490060BC7B /* LocationManager.swift */,
+				C17F98B62CE83C620060BC7B /* LocationService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		C1FA58352CF2C99800431BDB /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				C1FA583B2CF2CAD100431BDB /* LocationManaging.swift */,
+				C1FA58412CF2CC1600431BDB /* LocationManagerDelegate.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		C1FA58382CF2CA3800431BDB /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				C1FA58392CF2CA4000431BDB /* LocationError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		C1FA58432CF2EAD200431BDB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C1FA58462CF2EB1F00431BDB /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				C1FA58472CF2EB2D00431BDB /* MapViewConfiguration.swift */,
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1708,6 +1779,7 @@
 				C18F516E2C9D1A1000E60C0D /* AuthenticationRepository.swift in Sources */,
 				C1EE51A42CC57F0E00280BBC /* TestingCoordinator.swift in Sources */,
 				C162D4482CD2BBF700DBA8CC /* CoordinatorsAssembly.swift in Sources */,
+				C1FA583C2CF2CAD100431BDB /* LocationManaging.swift in Sources */,
 				C162D44A2CD2BC0500DBA8CC /* RepositoriesAssembly.swift in Sources */,
 				C18F516F2C9D1A1000E60C0D /* AuthenticationAPI.swift in Sources */,
 				C1EDE5AB2CAB3CA700816876 /* CartNetworkRepository.swift in Sources */,
@@ -1728,7 +1800,8 @@
 				C1EDE5A72CAB396200816876 /* AddToCartResponse.swift in Sources */,
 				C162D44C2CD2BC1600DBA8CC /* Resolver.swift in Sources */,
 				C1464C562C92A97900F945BA /* CartViewController.swift in Sources */,
-				C17F98B52CE7A4490060BC7B /* LocationMnager.swift in Sources */,
+				C1FA58422CF2CC1600431BDB /* LocationManagerDelegate.swift in Sources */,
+				C17F98B52CE7A4490060BC7B /* LocationManager.swift in Sources */,
 				C193702F2C89E98300B56BA1 /* ProfileViewController.swift in Sources */,
 				C1C582AD2CBBACDF00280F6F /* PaymentViewController.swift in Sources */,
 				C16468B82CD09CBD00876224 /* CheckoutAPI.swift in Sources */,
@@ -1753,6 +1826,7 @@
 				C1CDE9AF2CB5318B005B491F /* SignoutResponse.swift in Sources */,
 				C1C533882C90A618000ABA71 /* HomeViewModel.swift in Sources */,
 				C1F0F2022CCD033000B8AFDA /* Category.swift in Sources */,
+				C1FA583A2CF2CA4000431BDB /* LocationError.swift in Sources */,
 				C19465682C8CBF6F00171932 /* HorizontalViewCell.swift in Sources */,
 				C177238F2C954E6B0078E598 /* PopUpViewController.swift in Sources */,
 				C1DF47EB2C9C9310004F5751 /* SignUpCoordinator.swift in Sources */,
@@ -1766,6 +1840,7 @@
 				C1A505E32CEDDFE400078B46 /* SignupResponse.swift in Sources */,
 				C17F981E2CE6069E0060BC7B /* MessageAlert.swift in Sources */,
 				C17D7D952C975EB800868F1E /* HistoryViewController.swift in Sources */,
+				C1FA58452CF2EADB00431BDB /* MapService.swift in Sources */,
 				C1FA57E22CF0DF6800431BDB /* ProfileImageManager.swift in Sources */,
 				C1CDE9AD2CB520FA005B491F /* UserProfile.swift in Sources */,
 				C194655C2C8C20AB00171932 /* CustomInputFieldView.swift in Sources */,
@@ -1776,7 +1851,8 @@
 				C1705E0C2CA55C6D0043CE9D /* BikeService.swift in Sources */,
 				C1705E0D2CA55C6D0043CE9D /* BikeRepository.swift in Sources */,
 				C1A505BE2CEA397D00078B46 /* HistoryViewModel.swift in Sources */,
-				C17F98672CE63D410060BC7B /* WaveTabBarController.swift in Sources */,
+				C1FA58482CF2EB2D00431BDB /* MapViewConfiguration.swift in Sources */,
+				C17F98672CE63D410060BC7B /* CyclouseTabBarController.swift in Sources */,
 				C1705E0E2CA55C6D0043CE9D /* BikeAPI.swift in Sources */,
 				C177BD212CE991C100B504C1 /* ProfileViewModel.swift in Sources */,
 				C19370672C8B72BA00B56BA1 /* ButtonFactory.swift in Sources */,
@@ -1797,10 +1873,10 @@
 				C11525612CDDFFF0001DD6FD /* PaymentViewCell.swift in Sources */,
 				C1EE5EC52CAEB30100856B94 /* CoreDataManager + CRUD.swift in Sources */,
 				C1EE5EC62CAEB30100856B94 /* CoreDataManager.swift in Sources */,
-				C17F98682CE63D460060BC7B /* WaveTabBarProtocol.swift in Sources */,
-				C17F98692CE63D460060BC7B /* WaveTabBarPresenterBase.swift in Sources */,
-				C17F986A2CE63D460060BC7B /* UIBezierPath+createCurve.swift in Sources */,
-				C17F986B2CE63D460060BC7B /* WaveTabBarPresenter.swift in Sources */,
+				C17F98682CE63D460060BC7B /* CyclouseTabBarProtocol.swift in Sources */,
+				C17F98692CE63D460060BC7B /* CyclouseTabBarPresenterBase.swift in Sources */,
+				C17F986A2CE63D460060BC7B /* UIBezierPath + Extension.swift in Sources */,
+				C17F986B2CE63D460060BC7B /* CyclouseTabBarPresenter.swift in Sources */,
 				C193702D2C89E97B00B56BA1 /* ProfileCoordinator.swift in Sources */,
 				C1464C592C92B41800F945BA /* CartViewCell.swift in Sources */,
 				C12251C92CB78D56001278E6 /* History.swift in Sources */,

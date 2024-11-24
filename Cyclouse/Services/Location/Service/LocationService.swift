@@ -15,17 +15,6 @@ protocol LocationServiceDelegate: AnyObject {
   func didFailWithError(_ error: Error)
 }
 
-protocol LocationManaging {
-  var delegate: LocationServiceDelegate? { get set }
-  var currentLocation: CLLocation? { get }
-  var authorizationStatus: CLAuthorizationStatus { get }
-  
-  func requestLocationPermission()
-  func startUpdatingLocation()
-  func stopUpdatingLocation()
-  func reverseGeocodeLocation(_ location: CLLocation)
-  func findNearbyPlaces(by query: String, in region: MKCoordinateRegion, completion: @escaping ([PlaceAnnotation]) -> Void)
-}
 
 final class LocationService: NSObject, LocationManaging {
   // MARK: - Properties
@@ -128,32 +117,5 @@ extension LocationService: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         delegate?.didFailWithError(error)
-    }
-}
-
-// MARK: - Map Configuration Helper
-struct MapViewConfiguration {
-    static func configure(_ mapView: MKMapView) {
-        let config = MKStandardMapConfiguration()
-        config.elevationStyle = .realistic
-        config.emphasisStyle = .default
-        
-        mapView.preferredConfiguration = config
-        mapView.showsUserLocation = true
-        mapView.showsCompass = true
-        mapView.showsScale = true
-        mapView.showsTraffic = true
-        mapView.showsBuildings = true
-        mapView.isPitchEnabled = true
-        mapView.isRotateEnabled = true
-    }
-    
-    static func createCamera(lookingAt center: CLLocationCoordinate2D, distance: CLLocationDistance = 1000, pitch: CGFloat = 60, heading: CLLocationDirection = 0) -> MKMapCamera {
-        MKMapCamera(
-            lookingAtCenter: center,
-            fromDistance: distance,
-            pitch: pitch,
-            heading: heading
-        )
     }
 }
