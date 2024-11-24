@@ -30,23 +30,10 @@ Cyclouse is a modern iOS e-commerce application for bicycles and accessories bui
 
 ### 💾 Robust Data Management
 - SwiftData for local persistence
-- Real-time data synchronization
-- Efficient caching mechanism
-- Offline support
-- Type-safe models
-
-### 💳 Advanced Booking System
-- Secure in-app payments
-- Comprehensive booking history
-- Digital receipt generation
-- Order tracking
-- Multiple payment methods
 
 ### 📍 Location Services
 - Real-time GPS tracking with CoreLocation
 - MapKit integration with 3D views
-- Route optimization
-- Nearby bike station finder
 - Custom map annotations
 
 ### 🔔 Smart Notifications
