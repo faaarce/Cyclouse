@@ -100,17 +100,3 @@ extension LocationManager: CLLocationManagerDelegate {
     }
 }
 
-// LocationServices/MapService.swift
-protocol MapServiceDelegate: AnyObject {
-    func mapService(didSelectPlace place: PlaceAnnotation)
-    func mapService(didFailWithError error: LocationError)
-}
-
-
-
-// LocationServices/Models/MapViewState.swift
-struct MapViewState {
-    var region: MKCoordinateRegion
-    var annotations: [MKAnnotation]
-    var selectedAnnotation: MKAnnotation?
-}

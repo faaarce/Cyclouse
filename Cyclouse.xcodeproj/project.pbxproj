@@ -218,6 +218,9 @@
 		C1FA58422CF2CC1600431BDB /* LocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA58412CF2CC1600431BDB /* LocationManagerDelegate.swift */; };
 		C1FA58452CF2EADB00431BDB /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA58442CF2EADA00431BDB /* MapService.swift */; };
 		C1FA58482CF2EB2D00431BDB /* MapViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA58472CF2EB2D00431BDB /* MapViewConfiguration.swift */; };
+		C1FA584A2CF2ECAE00431BDB /* MapViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA58492CF2ECAE00431BDB /* MapViewState.swift */; };
+		C1FA584C2CF2ECC000431BDB /* ShippingAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA584B2CF2ECC000431BDB /* ShippingAddress.swift */; };
+		C1FA584E2CF2ED2700431BDB /* MapServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA584D2CF2ED2700431BDB /* MapServiceDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -437,6 +440,9 @@
 		C1FA58412CF2CC1600431BDB /* LocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerDelegate.swift; sourceTree = "<group>"; };
 		C1FA58442CF2EADA00431BDB /* MapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
 		C1FA58472CF2EB2D00431BDB /* MapViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewConfiguration.swift; sourceTree = "<group>"; };
+		C1FA58492CF2ECAE00431BDB /* MapViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewState.swift; sourceTree = "<group>"; };
+		C1FA584B2CF2ECC000431BDB /* ShippingAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippingAddress.swift; sourceTree = "<group>"; };
+		C1FA584D2CF2ED2700431BDB /* MapServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapServiceDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -1523,6 +1529,7 @@
 			children = (
 				C1FA583B2CF2CAD100431BDB /* LocationManaging.swift */,
 				C1FA58412CF2CC1600431BDB /* LocationManagerDelegate.swift */,
+				C1FA584D2CF2ED2700431BDB /* MapServiceDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1538,6 +1545,8 @@
 		C1FA58432CF2EAD200431BDB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C1FA58492CF2ECAE00431BDB /* MapViewState.swift */,
+				C1FA584B2CF2ECC000431BDB /* ShippingAddress.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1781,6 +1790,7 @@
 				C162D4482CD2BBF700DBA8CC /* CoordinatorsAssembly.swift in Sources */,
 				C1FA583C2CF2CAD100431BDB /* LocationManaging.swift in Sources */,
 				C162D44A2CD2BC0500DBA8CC /* RepositoriesAssembly.swift in Sources */,
+				C1FA584C2CF2ECC000431BDB /* ShippingAddress.swift in Sources */,
 				C18F516F2C9D1A1000E60C0D /* AuthenticationAPI.swift in Sources */,
 				C1EDE5AB2CAB3CA700816876 /* CartNetworkRepository.swift in Sources */,
 				C13D90DA2C9218E800430BA4 /* BuildConfiguration.swift in Sources */,
@@ -1859,6 +1869,7 @@
 				C162D4462CD2BBE000DBA8CC /* ViewModelsAssembly.swift in Sources */,
 				C16468B22CD0984700876224 /* CheckoutViewController.swift in Sources */,
 				C16468BD2CD09D3100876224 /* CheckoutService.swift in Sources */,
+				C1FA584E2CF2ED2700431BDB /* MapServiceDelegate.swift in Sources */,
 				C1F0F2252CCD177400B8AFDA /* BikeProductCellViewModel.swift in Sources */,
 				C193705A2C8ABAEE00B56BA1 /* UIColor+Extension.swift in Sources */,
 				C15F0B7C2CBC27E800F5ACC3 /* Dummy.swift in Sources */,
@@ -1883,6 +1894,7 @@
 				C19465582C8C087100171932 /* PaddedTextField.swift in Sources */,
 				C12251C72CB6EDDF001278E6 /* BikeProduct.swift in Sources */,
 				C12559462CE3388C00382028 /* PaymentRepository.swift in Sources */,
+				C1FA584A2CF2ECAE00431BDB /* MapViewState.swift in Sources */,
 				C12559432CE3387A00382028 /* PaymentAPI.swift in Sources */,
 				C1B4B94D2C8D4F8D00B4F54B /* BikeProductViewCell.swift in Sources */,
 				C1A505D02CEB1C6300078B46 /* FilterViewController.swift in Sources */,
