@@ -4,7 +4,7 @@
        <h1> <img src="https://github.com/faaarce/Cyclouse/blob/development/Documentation/Images/1730818650581.jpg" width="80px"><br/>Cyclouse</h1>
      </div>
 
-Cyclouse is a modern iOS e-commerce application for bicycles and accessories built with Swift and modern frameworks..
+Cyclouse is a modern iOS e-commerce application for bicycles and accessories built with Swift and modern frameworks.
 
 ## Screenshots
 
