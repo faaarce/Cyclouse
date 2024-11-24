@@ -26,24 +26,4 @@ struct OrderHistory: Codable {
     let paymentDetails: PaymentDetails
 }
 
-//// Order Item Model
-//struct OrderItem: Codable {
-//    let name: String
-//    let quantity: Int
-//    let productId: String
-//    let price: Int
-//}
-//
-//// Payment Method Model
-//struct PaymentMethod: Codable {
-//    let bank: String
-//    let type: String
-//}
-//
-//// Payment Details Model
-//struct PaymentDetails: Codable {
-//    let virtualAccountNumber: String
-//    let amount: Int
-//    let expiryDate: String
-//    let bank: String
-//}
+
