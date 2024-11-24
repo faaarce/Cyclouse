@@ -87,7 +87,7 @@ Cyclouse is a modern iOS e-commerce application for bicycles and accessories bui
 - ReactiveCollectionsKit
 
 ### Data & Security
-- Valet for secure storage
+- Valet for securely stores sensitive data in the keychain
 - Firebase services
 - SwiftData persistence
 
