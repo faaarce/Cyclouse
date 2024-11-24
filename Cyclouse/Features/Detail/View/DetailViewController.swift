@@ -269,26 +269,3 @@ class DetailViewController: BaseViewController, ViewModelBindable {
 
 
 
-/*  with Add to cart API
- let productId = product.id
- 
- cartService.addToCart(productId: productId, quantity: 1)
- .receive(on: DispatchQueue.main)
- .sink { [weak self] completion in
- switch completion {
- case .finished:
- break
- 
- case .failure(let error):
- if let apiError = error as? APIError {
- print("API Error: \(apiError.localizedDescription)")
- } else {
- print("Unknown error: \(error.localizedDescription)")
- }
- }
- } receiveValue: { [weak self] response in
- self?.showAlert(title: "Success", message: "Added to cart: \(response.value.message)")
- }
- .store(in: &cancellables)
- */
-

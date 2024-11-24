@@ -610,11 +610,10 @@
 		C13D90C62C91EE3000430BA4 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				C1FA585E2CF3012600431BDB /* Coordinator */,
+				C1FA585D2CF3011C00431BDB /* View Model */,
+				C1FA585C2CF3010400431BDB /* View */,
 				C12251C52CB6ED4A001278E6 /* Model */,
-				C13D90C72C91EE5400430BA4 /* DetailViewController.swift */,
-				C162D43B2CD2B31300DBA8CC /* DetailViewModel.swift */,
-				C13D90C92C91EEA200430BA4 /* DetailCoordinator.swift */,
-				C177238E2C954E6B0078E598 /* PopUpViewController.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -665,10 +664,10 @@
 		C1464C522C9230B500F945BA /* Cart */ = {
 			isa = PBXGroup;
 			children = (
+				C1FA58652CF301FA00431BDB /* View */,
+				C1FA58642CF301F100431BDB /* Coordinator */,
 				C17F98192CE5A7FC0060BC7B /* ViewModel */,
 				C1464C572C92B3F900F945BA /* Cells */,
-				C1464C532C92A96300F945BA /* CartCoordinator.swift */,
-				C1464C552C92A97900F945BA /* CartViewController.swift */,
 			);
 			path = Cart;
 			sourceTree = "<group>";
@@ -1012,10 +1011,10 @@
 		C17D7D932C975EA200868F1E /* History */ = {
 			isa = PBXGroup;
 			children = (
+				C1FA58682CF3021300431BDB /* Coordinator */,
+				C1FA58672CF3020B00431BDB /* View Model */,
+				C1FA58662CF3020600431BDB /* View */,
 				C147C24F2CA14D59002B88AF /* Cells */,
-				C17D7D942C975EB800868F1E /* HistoryViewController.swift */,
-				C1A505BD2CEA397D00078B46 /* HistoryViewModel.swift */,
-				C17D7D962C975EC200868F1E /* HistoryCoordinator.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -1264,9 +1263,9 @@
 		C193702B2C89E97200B56BA1 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				C193702C2C89E97B00B56BA1 /* ProfileCoordinator.swift */,
-				C193702E2C89E98300B56BA1 /* ProfileViewController.swift */,
-				C177BD202CE991C100B504C1 /* ProfileViewModel.swift */,
+				C1FA58612CF301A800431BDB /* Coordinator */,
+				C1FA58602CF301A000431BDB /* View Model */,
+				C1FA585F2CF3019900431BDB /* View */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1343,8 +1342,8 @@
 		C193705D2C8AE99200B56BA1 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				C193705E2C8AE99E00B56BA1 /* OnboardingViewController.swift */,
-				C19370602C8AE9AC00B56BA1 /* OnboardingCoordinator.swift */,
+				C1FA58632CF301CA00431BDB /* Coordinator */,
+				C1FA58622CF301C400431BDB /* View */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -1449,9 +1448,9 @@
 		C1DF47E92C9C92C4004F5751 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
-				C1DF47EA2C9C9305004F5751 /* SignUpCoordinator.swift */,
-				C1DF47EC2C9C9379004F5751 /* SignUpViewController.swift */,
-				C1A505E42CEEDBBE00078B46 /* SignUpViewModel.swift */,
+				C1FA586B2CF3024C00431BDB /* View Model */,
+				C1FA586A2CF3024700431BDB /* View */,
+				C1FA58692CF3023F00431BDB /* Coordinator */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -1606,6 +1605,135 @@
 				C1A505CF2CEB1C6300078B46 /* FilterViewController.swift */,
 			);
 			path = Filter;
+			sourceTree = "<group>";
+		};
+		C1FA585C2CF3010400431BDB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C177238E2C954E6B0078E598 /* PopUpViewController.swift */,
+				C13D90C72C91EE5400430BA4 /* DetailViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C1FA585D2CF3011C00431BDB /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				C162D43B2CD2B31300DBA8CC /* DetailViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		C1FA585E2CF3012600431BDB /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C13D90C92C91EEA200430BA4 /* DetailCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		C1FA585F2CF3019900431BDB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C193702E2C89E98300B56BA1 /* ProfileViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C1FA58602CF301A000431BDB /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				C177BD202CE991C100B504C1 /* ProfileViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		C1FA58612CF301A800431BDB /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C193702C2C89E97B00B56BA1 /* ProfileCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		C1FA58622CF301C400431BDB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C193705E2C8AE99E00B56BA1 /* OnboardingViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C1FA58632CF301CA00431BDB /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C19370602C8AE9AC00B56BA1 /* OnboardingCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		C1FA58642CF301F100431BDB /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C1464C532C92A96300F945BA /* CartCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		C1FA58652CF301FA00431BDB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C1464C552C92A97900F945BA /* CartViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C1FA58662CF3020600431BDB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C17D7D942C975EB800868F1E /* HistoryViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C1FA58672CF3020B00431BDB /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				C1A505BD2CEA397D00078B46 /* HistoryViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		C1FA58682CF3021300431BDB /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C17D7D962C975EC200868F1E /* HistoryCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		C1FA58692CF3023F00431BDB /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C1DF47EA2C9C9305004F5751 /* SignUpCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		C1FA586A2CF3024700431BDB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C1DF47EC2C9C9379004F5751 /* SignUpViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C1FA586B2CF3024C00431BDB /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				C1A505E42CEEDBBE00078B46 /* SignUpViewModel.swift */,
+			);
+			path = "View Model";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -43,7 +43,7 @@ class OnboardingViewController: UIViewController {
   }()
   
   private let animationView: LottieAnimationView = {
-    let animationView = LottieAnimationView(name: "fixedgear") // Replace with your Lottie JSON file name
+    let animationView = LottieAnimationView(name: "fixedgear") 
        animationView.contentMode = .scaleAspectFit
        animationView.loopMode = .loop
        return animationView
@@ -78,11 +78,6 @@ class OnboardingViewController: UIViewController {
     
     view.addSubview(animationView)
     animationView.snp.makeConstraints {
-//      $0.top.equalToSuperview()
-//      $0.centerX.equalToSuperview()
-//      $0.centerY.equalToSuperview()
-      
-//      $0.height.equalTo(200)
       $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(20)
     }
     
