@@ -73,7 +73,7 @@ open class CyclouseTabBarController: UITabBarController, CyclouseTabBarProtocol 
         presenter.viewWillLayoutSubviews()
     }
     
-    // MARK: - WaveTabBarProtocol functions
+    // MARK: - CyclouseTabBarProtocol functions
     
     func showTabBar(_ show: Bool, animated: Bool, over duration: TimeInterval) {
         guard animated else {

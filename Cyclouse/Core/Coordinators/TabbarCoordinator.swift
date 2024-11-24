@@ -9,83 +9,128 @@ import UIKit
 import Combine
 import Swinject
 
-class TabbarCoordinator: Coordinator {
-  
-  // MARK: - Properties
-  var childCoordinators: [Coordinator] = []
-  weak var parentCoordinator: Coordinator?
-  
-  // MARK: - Private Properties
-  private let container: Container
-  private var tabBarController: TabBarController
-  private let service = DatabaseService.shared
-  
-  // MARK: - Initialization
-  init(tabBarController: UITabBarController, container: Container) {
-    self.tabBarController = TabBarController()
-    self.container = container
-  }
-  
-  
-  // MARK: -  Methods
-  func start() {
-    setupViewControllers()
-    startWithRoot(tabBarController)
-  }
-  
-  func setupViewControllers() {
-    let homeNav = UINavigationController()
-    let homeCoordinator = container.resolve(HomeCoordinator.self, argument: homeNav)!
-    addChildCoordinator(homeCoordinator)
-    homeCoordinator.start()
+final class TabbarCoordinator: Coordinator {
     
-    let profileNav = UINavigationController()
-    let profileCoordinator = container.resolve(ProfileCoordinator.self, argument: profileNav)!
-    addChildCoordinator(profileCoordinator)
-    profileCoordinator.start()
+    // MARK: - Coordinator Properties
     
+    var childCoordinators: [Coordinator] = []
+    weak var parentCoordinator: Coordinator?
     
-    tabBarController.setViewControllers([
-      homeNav,
-      profileNav
-    ], animated: false)
-    setupTabBarItems()
-  }
-  
-  
-  
-  private func setupTabBarItems() {
-    guard let viewControllers = tabBarController.viewControllers else { return }
+    // MARK: - Private Properties
     
-    // Home Tab
-    viewControllers[0].tabBarItem = UITabBarItem(
-      title: "Home",
-      image: UIImage(named: "home_icon_inactive")?
-        .withRenderingMode(.alwaysOriginal),
-      selectedImage: UIImage(named: "home_icon_active")?
-        .withRenderingMode(.alwaysTemplate)
-    )
+    private let container: Container
+    private var tabBarController: TabBarController
+    private let service = DatabaseService.shared
     
-    // Profile Tab
-    viewControllers[1].tabBarItem = UITabBarItem(
-      title: "Profile",
-      image: UIImage(named: "profile_icon_inactive")?
-        .withRenderingMode(.alwaysOriginal),
-      selectedImage: UIImage(named: "profile_icon_active")?
-        .withRenderingMode(.alwaysTemplate)
-    )
-    
-  }
-  
-  
-  func handleLogout() {
-    childCoordinators.forEach { $0.didFinish() }
-    childCoordinators.removeAll()
-    didFinish()
-    if let appCoordinator = parentCoordinator as? AppCoordinator {
-      appCoordinator.handleLogout()
+    private enum Tab: Int, CaseIterable {
+        case home
+        case profile
+        
+        var title: String {
+            switch self {
+            case .home: return "Home"
+            case .profile: return "Profile"
+            }
+        }
+        
+        var inactiveIcon: String {
+            switch self {
+            case .home: return "home_icon_inactive"
+            case .profile: return "profile_icon_inactive"
+            }
+        }
+        
+        var activeIcon: String {
+            switch self {
+            case .home: return "home_icon_active"
+            case .profile: return "profile_icon_active"
+            }
+        }
     }
-  }
-  
-  
+    
+    // MARK: - Initialization
+    
+    init(tabBarController: UITabBarController, container: Container) {
+        self.tabBarController = TabBarController()
+        self.container = container
+    }
+    
+    // MARK: - Coordinator Methods
+    
+    func start() {
+        setupViewControllers()
+        startWithRoot(tabBarController)
+    }
+    
+    // MARK: - Setup Methods
+    
+    private func setupViewControllers() {
+        let viewControllers = createViewControllers()
+        configureTabBar(with: viewControllers)
+        setupTabBarItems()
+    }
+    
+    private func createViewControllers() -> [UINavigationController] {
+        return [
+            createHomeNavigationController(),
+            createProfileNavigationController()
+        ]
+    }
+    
+    private func createHomeNavigationController() -> UINavigationController {
+        let navigationController = UINavigationController()
+        setupCoordinator(HomeCoordinator.self, with: navigationController)
+        return navigationController
+    }
+    
+    private func createProfileNavigationController() -> UINavigationController {
+        let navigationController = UINavigationController()
+        setupCoordinator(ProfileCoordinator.self, with: navigationController)
+        return navigationController
+    }
+    
+    private func setupCoordinator<T: Coordinator>(_ type: T.Type, with navigationController: UINavigationController) {
+        guard let coordinator = container.resolve(type, argument: navigationController) else { return }
+        addChildCoordinator(coordinator)
+        coordinator.start()
+    }
+    
+    private func configureTabBar(with viewControllers: [UIViewController]) {
+        tabBarController.setViewControllers(viewControllers, animated: false)
+    }
+    
+    private func setupTabBarItems() {
+        guard let viewControllers = tabBarController.viewControllers else { return }
+        
+        Tab.allCases.forEach { tab in
+            viewControllers[tab.rawValue].tabBarItem = createTabBarItem(for: tab)
+        }
+    }
+    
+    private func createTabBarItem(for tab: Tab) -> UITabBarItem {
+        UITabBarItem(
+            title: tab.title,
+            image: UIImage(named: tab.inactiveIcon)?
+                .withRenderingMode(.alwaysOriginal),
+            selectedImage: UIImage(named: tab.activeIcon)?
+                .withRenderingMode(.alwaysTemplate)
+        )
+    }
+    
+    // MARK: - Logout Handling
+    
+    func handleLogout() {
+        cleanupCoordinators()
+        notifyParentOfLogout()
+    }
+    
+    private func cleanupCoordinators() {
+        childCoordinators.forEach { $0.didFinish() }
+        childCoordinators.removeAll()
+        didFinish()
+    }
+    
+    private func notifyParentOfLogout() {
+        (parentCoordinator as? AppCoordinator)?.handleLogout()
+    }
 }

@@ -30,7 +30,7 @@ class CyclouseTabBarPresenterBase: CyclouseTabBarPresenter {
         self.view = view
     }
     
-    // MARK: - WaveTabBarPresent functions
+    // MARK: - CyclouseTabBarPresent functions
     
     func viewDidLoad() {
         view.disableTransparentTabBar()
