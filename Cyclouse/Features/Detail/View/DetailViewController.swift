@@ -10,7 +10,7 @@ import Combine
 
 import Hero
 
-class DetailViewController: BaseViewController, ViewModelBindable {
+class DetailViewController: BaseViewController, ViewModelBindable, PopUpViewControllerDelegate {
 
     // MARK: - Properties
 
@@ -231,11 +231,16 @@ class DetailViewController: BaseViewController, ViewModelBindable {
     }
 
     @objc private func buyNowButtonTapped(_ sender: UIButton) {
-        let vc = PopUpViewController()
+      let vc = PopUpViewController(product: viewModel.product)
+      vc.delegate = self
         vc.modalPresentationStyle = .pageSheet
         self.present(vc, animated: true) {
             vc.view.becomeFirstResponder()
         }
+    }
+  
+  func popUpViewController(_ controller: PopUpViewController, didSelectBuyNow bikes: [BikeDatabase]) {
+    coordinator.showCheckout(bikes: bikes)
     }
 
     // MARK: - Private Methods

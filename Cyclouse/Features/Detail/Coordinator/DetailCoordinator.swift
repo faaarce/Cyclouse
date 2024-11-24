@@ -33,6 +33,16 @@ class DetailCoordinator: Coordinator, NavigationCoordinator {
     navigationController.pushViewController(detailVC, animated: true)
   }
   
+  func showCheckout(bikes: [BikeDatabase]){
+    let checkoutCoordinator = container.resolve(
+                CheckoutCoordinator.self,
+                arguments: navigationController, bikes
+            )!
+    childCoordinators.append(checkoutCoordinator)
+    checkoutCoordinator.parentCoordinator = self
+    checkoutCoordinator.start()
+  }
+  
   func didFinish(){
     parentCoordinator?.removeChildCoordinator(self)
   }

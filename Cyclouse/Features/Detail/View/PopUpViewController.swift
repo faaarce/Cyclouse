@@ -6,7 +6,17 @@
 //
 import SnapKit
 import UIKit
+
+protocol PopUpViewControllerDelegate: AnyObject {
+    func popUpViewController(_ controller: PopUpViewController, didSelectBuyNow bikes: [BikeDatabase])
+}
+
 class PopUpViewController: UIViewController {
+  
+  // MARK: - Properties
+  private var product: Product
+  private var quantity: Int = 1
+  weak var delegate: PopUpViewControllerDelegate?
   
   private let productNameLabel: UILabel = {
     LabelFactory.build(text: "Mountain Bike", font: ThemeFont.semibold(ofSize: 16))
@@ -56,7 +66,7 @@ class PopUpViewController: UIViewController {
   }()
   
   private let addToCart: UIButton = {
-    let object = ButtonFactory.build(title: "Add to Cart", font: ThemeFont.medium(ofSize: 12), radius: 12)
+    let object = ButtonFactory.build(title: "Buy Now", font: ThemeFont.medium(ofSize: 12), radius: 12)
     object.addTarget(self, action: #selector(closeController), for: .touchUpInside)
     return object
   }()
@@ -102,15 +112,29 @@ class PopUpViewController: UIViewController {
   
   private let defaultHeight: CGFloat = 300
   
+  init(product: Product) {
+      self.product = product
+      super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
+  }
+
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     setupView()
     setupConstraints()
+    configureWithProduct()
+    setupActions()
     view.isUserInteractionEnabled = true
     containerView.isUserInteractionEnabled = true
     closeButton.isUserInteractionEnabled = true
     testTextField.isUserInteractionEnabled = true
   }
+  
+  
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
@@ -126,6 +150,53 @@ class PopUpViewController: UIViewController {
   override var canBecomeFirstResponder: Bool {
     return true
   }
+  
+  
+     @objc private func incrementQuantity() {
+         quantity += 1
+         quantityLabel.text = "\(quantity)"
+         updateTotalPrice()
+     }
+     
+     @objc private func decrementQuantity() {
+         guard quantity > 1 else { return }
+         quantity -= 1
+         quantityLabel.text = "\(quantity)"
+         updateTotalPrice()
+     }
+  
+  private func setupActions() {
+        plusButton.addTarget(self, action: #selector(incrementQuantity), for: .touchUpInside)
+        minusButton.addTarget(self, action: #selector(decrementQuantity), for: .touchUpInside)
+        addToCart.addTarget(self, action: #selector(buyNowTapped), for: .touchUpInside)
+    }
+  
+  @objc private func buyNowTapped() {
+         let bike = BikeDatabase(
+             name: product.name,
+             price: product.price,
+             brand: product.brand,
+             images: product.images,
+             descriptions: product.description,
+             stockQuantity: quantity,
+             productId: product.id
+         )
+         
+         delegate?.popUpViewController(self, didSelectBuyNow: [bike])
+         dismiss(animated: true)
+     }
+  
+  private func updateTotalPrice() {
+         let totalPrice = Double(product.price) * Double(quantity)
+         priceLabel.text = totalPrice.toRupiah()
+     }
+  
+  private func configureWithProduct() {
+         productNameLabel.text = product.name
+         priceLabel.text = product.price.toRupiah()
+         detailImage.kf.setImage(with: URL(string: product.images.first ?? ""))
+         updateTotalPrice()
+     }
   
   
   @objc private func closeButtonTapped() {

@@ -11,7 +11,7 @@ import Combine
 // MARK: - DetailViewModel
 class DetailViewModel {
     // MARK: - Properties
-    private let product: Product
+    let product: Product
     private let cartService: CartService
     private let databaseService: DatabaseService
     private var cancellables = Set<AnyCancellable>()
