@@ -1,80 +1,111 @@
-# Food App
+# Bike App
 
 <div align="center">
        <h1> <img src="https://github.com/faaarce/Cyclouse/blob/development/Documentation/Images/1730818650581.jpg" width="80px"><br/>Cyclouse</h1>
      </div>
 
-FoodApp is a mobile application that allows users to explore, select, and order their favorite dishes right from their smartphones. Built with Swift and UIKit, this application offers a sleek user experience with robust functionality.
+Cyclouse is a modern iOS e-commerce application for bicycles and accessories built with Swift and modern frameworks..
 
 ## Screenshots
 
-| ![Splash Screen](https://github.com/faaarce/Cyclouse/blob/development/Documentation/GIFs/RocketSim_Recording_iPhone_16_Pro_6.3_2024-11-24_16.21.59.gif?raw=true) | ![Login](https://github.com/faaarce/Cyclouse/blob/development/Documentation/GIFs/RocketSim_Recording_iPhone_16_Pro_6.3_2024-11-24_16.22.45.gif?raw=true) | ![Home](https://github.com/faaarce/Cyclouse/blob/development/Documentation/GIFs/RocketSim_Recording_iPhone_16_Pro_6.3_2024-11-24_16.23.28.gif?raw=true) | ![Checkout](https://github.com/faaarce/Cyclouse/blob/development/Documentation/GIFs/RocketSim_Recording_iPhone_16_Pro_6.3_2024-11-24_16.23.58.gif?raw=true) | 
+| ![Splash Screen](https://github.com/faaarce/Cyclouse/blob/development/Documentation/GIFs/RocketSim_Recording_iPhone_16_Pro_6.3_2024-11-24_16.21.59.gif?raw=true) | ![Home](https://github.com/faaarce/Cyclouse/blob/development/Documentation/GIFs/RocketSim_Recording_iPhone_16_Pro_6.3_2024-11-24_16.22.45.gif?raw=true) | ![Map](https://github.com/faaarce/Cyclouse/blob/development/Documentation/GIFs/RocketSim_Recording_iPhone_16_Pro_6.3_2024-11-24_16.23.28.gif?raw=true) | ![Payment](https://github.com/faaarce/Cyclouse/blob/development/Documentation/GIFs/RocketSim_Recording_iPhone_16_Pro_6.3_2024-11-24_16.23.58.gif?raw=true) | 
 |:---:|:---:|:---:|:---:|
 | Splash Screen | Login | Home | Checkout |
 
-## Table of Contents
+## 📋Table of Contents
 - [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
+- [System Requirements](#systemrequirements)
+- [Architecture](#architecture)
 - [Tech Stack](#tech-stack)
 - [License](#license)
 
-## Features
+## ✨Features
 
-- **Home Page**: Utilizes nested collection views to display various food categories and items in an organized manner. 
-- **Detailed Food View**: Users can view detailed descriptions of food items and add them to their order with ease. 
-- **Persistent Storage**: Integration of SwiftData, the newest persistent storage solution in Swift, to store and manage user orders and preferences. 
-- **Authentication**: Secure user authentication managed via Firebase, ensuring safe access to user accounts and data. 
-- **Tab Bar Integration**: Each page is embedded within a tab bar interface, allowing for easy navigation between the Home, Order, and Profile sections. 
-- **Enhanced Onboarding**: A collection view connected with an indicator page provides a seamless onboarding experience for first-time users.
+### 📱 Interactive UI Components
+- **Custom Animated Tab Bar**: Engaging navigation with smooth animations
+- **Nested Collection Views**: Efficient browsing of categories and products
+- **Hero Transitions**: Seamless transitions between screens
+- **ReactiveCollectionsKit Integration**: Dynamic collection view updates
+- **Plus Jakarta Sans Typography**: Modern and clean font for better readability
 
+### 💾 Robust Data Management
+- SwiftData for local persistence
+- Real-time data synchronization
+- Efficient caching mechanism
+- Offline support
+- Type-safe models
 
-## Installation
+### 💳 Advanced Booking System
+- Secure in-app payments
+- Comprehensive booking history
+- Digital receipt generation
+- Order tracking
+- Multiple payment methods
 
-1. **Clone the repository**
-   ```sh
-   git clone https://github.com/faaarce/Assignment3_Faris.git
-   ```
+### 📍 Location Services
+- Real-time GPS tracking with CoreLocation
+- MapKit integration with 3D views
+- Route optimization
+- Nearby bike station finder
+- Custom map annotations
 
-2. **Open the project**
-   Open the cloned repository in Xcode.
+### 🔔 Smart Notifications
+- SwiftMessages for custom alerts
+- EasyNotificationBadge for cart updates
+- JDStatusBarNotification integration
+- Interactive toast messages
+- Status bar notifications
 
-3. **Install dependencies**
-   This project uses CocoaPods for dependency management. Run the following command to install the necessary dependencies:
-   ```sh
-   pod install
-   ```
+### ⚡️ Enhanced User Experience
+- SkeletonView for loading states
+- Hero animations for transitions
+- IQKeyboardManager integration
+- Lottie animations
+- NVActivityIndicatorView for loading button
 
-4. **Set up Firebase**
-   - Go to the Firebase Console and sign in with your Google account.
-   - Register your app with the iOS bundle ID found in your Xcode project settings.
-   - Download the GoogleService-Info.plist file when prompted and add it to your Xcode project (drag and drop into the project navigator).
+### 🏗 Technical Architecture
+- MVVM-C pattern with Coordinator
+- Dependency injection using Swinject
+- Reactive programming with Combine
+- Protocol-oriented design
 
-## Usage
+## 💻 System Requirements
+- iOS 15.0 or later
+- Xcode 14.0 or later
+- Swift 5.5 or later
+- CocoaPods 1.11.0 or later
 
-Here is an example of how to use the Food App:
+## 🏗 Architecture
+- Cyclouse uses MVVM-C pattern with:
+- **Model**: Engaging navigation with smooth animations
+- **View**: Efficient browsing of categories and products
+- **ViewModel**: Seamless transitions between screens
+- **Coordinator**: Dynamic collection view updates
 
-1. **Launch the app and complete the onboarding process.**
+## Tech Stack 🛠
 
-2. **Sign in using your Firebase-authenticated account.**
+### Core Technologies
+- SwiftData
+- MapKit & CoreLocation
+- Combine & CombineCocoa
+- SnapKit for layouts
+- PhoneNumberKit
 
-3. **Browse the food categories on the Home page.**
- 
-4. **Add items to your order from the detailed food view.**
+### UI/UX
+- Hero Transitions
+- SwiftMessages
+- Lottie Animations
+- IQKeyboardManager
+- Plus Jakarta Sans typography
+- ReactiveCollectionsKit
 
-5. **Access your order via the tab bar and modify it as needed before final checkout.**
+### Data & Security
+- Valet for secure storage
+- Firebase services
+- SwiftData persistence
 
-
-
-## Tech Stack
-
-- **Language**: Swift
-- **Framework**: UIKit
-- **Networking**: Alamofire
-- **Persistence**: SwiftData
-- **Authentication**: Firebase
-- **Dependency Management**: Swift Package Manager
-
+### Networking
+- Alamofire with Combine
 
  ![Swift](https://img.shields.io/badge/swift-F54A2A?style=for-the-badge&logo=swift&logoColor=white)
  ![Swift](https://img.shields.io/badge/UIKit-F54A2A?style=for-the-badge&logo=swift&logoColor=white)
@@ -82,4 +113,4 @@ Here is an example of how to use the Food App:
 
 ## License
 
-This project is licensed under the WTFPL License - see the [WTFPL](https://en.wikipedia.org/wiki/WTFPL) file for details.
+- This project is currently unlicensed. All rights reserved.
