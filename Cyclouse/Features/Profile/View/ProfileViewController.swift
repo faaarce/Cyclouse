@@ -14,7 +14,7 @@ class ProfileViewController: BaseViewController {
     // MARK: - Properties
 
     var coordinator: ProfileCoordinator
-
+    private var profileData: UserProfile?
     private let authService = AuthenticationService()
     private let viewModel = ProfileViewModel()
 
@@ -168,6 +168,7 @@ class ProfileViewController: BaseViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] userProfile in
                 guard let profile = userProfile else { return }
+                self?.profileData = profile
                 self?.updateUI(with: profile)
             }
             .store(in: &cancellables)
@@ -249,9 +250,19 @@ class ProfileViewController: BaseViewController {
 
     // MARK: - Actions
 
-    @objc private func myAccountTapped() {
-        // Implement my account functionality
-    }
+  @objc private func myAccountTapped() {
+          guard let profileData = profileData else {
+              // Create default profile if none exists
+              let defaultProfile = UserProfile(
+                  userId: TokenManager.shared.getCurrentUserId() ?? "",
+                  email: "",
+                  name: ""
+              )
+              coordinator.showEditProfile(userData: defaultProfile)
+              return
+          }
+          coordinator.showEditProfile(userData: profileData)
+      }
 
     @objc private func transactionHistoryTapped() {
         coordinator.showTransactionHistory()

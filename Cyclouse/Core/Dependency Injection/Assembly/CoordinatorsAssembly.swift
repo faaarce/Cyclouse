@@ -72,5 +72,10 @@ class CoordinatorsAssembly: Assembly {
     container.register(PaymentCoordinator.self) { (resolver, navigationController: UINavigationController, checkoutData: CheckoutData) in
       PaymentCoordinator(navigationController: navigationController, paymentDetail: checkoutData, container: container)
     }
+    
+    
+    container.register(EditProfileCoordinator.self) { (resolver, navigationController: UINavigationController, profile: UserProfile) in
+      EditProfileCoordinator(navigationController: navigationController, userData: profile, container: container)
+    }
   }
 }

@@ -11,6 +11,8 @@
 		C104D2102CC54370006EB92B /* cycle.json in Resources */ = {isa = PBXBuildFile; fileRef = C104D20F2CC54370006EB92B /* cycle.json */; };
 		C104D2142CC5537E006EB92B /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = C104D2132CC5537E006EB92B /* SwiftMessages */; };
 		C107B1F12CDF9E95008C5F5C /* BikeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C107B1F02CDF9E95008C5F5C /* BikeDatabase.swift */; };
+		C10AB12F2CF3A73000FE3A8A /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AB12E2CF3A73000FE3A8A /* EditProfileViewController.swift */; };
+		C10AB1332CF3AA8900FE3A8A /* EditProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AB1322CF3AA8900FE3A8A /* EditProfileCoordinator.swift */; };
 		C115252D2CDC9BC8001DD6FD /* ConfigDev.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C115252C2CDC9BC8001DD6FD /* ConfigDev.xcconfig */; };
 		C115252F2CDC9BE9001DD6FD /* ConfigSIT.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C115252E2CDC9BE9001DD6FD /* ConfigSIT.xcconfig */; };
 		C11525492CDCBAEA001DD6FD /* AddressViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11525482CDCBAEA001DD6FD /* AddressViewCell.swift */; };
@@ -252,6 +254,8 @@
 /* Begin PBXFileReference section */
 		C104D20F2CC54370006EB92B /* cycle.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = cycle.json; sourceTree = "<group>"; };
 		C107B1F02CDF9E95008C5F5C /* BikeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeDatabase.swift; sourceTree = "<group>"; };
+		C10AB12E2CF3A73000FE3A8A /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		C10AB1322CF3AA8900FE3A8A /* EditProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileCoordinator.swift; sourceTree = "<group>"; };
 		C115252C2CDC9BC8001DD6FD /* ConfigDev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ConfigDev.xcconfig; sourceTree = "<group>"; };
 		C115252E2CDC9BE9001DD6FD /* ConfigSIT.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ConfigSIT.xcconfig; sourceTree = "<group>"; };
 		C11525482CDCBAEA001DD6FD /* AddressViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewCell.swift; sourceTree = "<group>"; };
@@ -514,6 +518,31 @@
 				C104D20F2CC54370006EB92B /* cycle.json */,
 			);
 			path = Animations;
+			sourceTree = "<group>";
+		};
+		C10AB12D2CF3A71D00FE3A8A /* Edit Profile */ = {
+			isa = PBXGroup;
+			children = (
+				C10AB1312CF3AA6A00FE3A8A /* Coordinator */,
+				C10AB1302CF3AA6000FE3A8A /* View */,
+			);
+			path = "Edit Profile";
+			sourceTree = "<group>";
+		};
+		C10AB1302CF3AA6000FE3A8A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C10AB12E2CF3A73000FE3A8A /* EditProfileViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C10AB1312CF3AA6A00FE3A8A /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C10AB1322CF3AA8900FE3A8A /* EditProfileCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		C115252B2CDC9B98001DD6FD /* Config */ = {
@@ -1180,6 +1209,7 @@
 		C19370172C89960F00B56BA1 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				C10AB12D2CF3A71D00FE3A8A /* Edit Profile */,
 				C1FA585B2CF2F91300431BDB /* Filter */,
 				C1FA58312CF2C61600431BDB /* Tabbar */,
 				C19B8ACC2CE1B69100484E81 /* Widget */,
@@ -2048,6 +2078,7 @@
 				C1DF47EB2C9C9310004F5751 /* SignUpCoordinator.swift in Sources */,
 				C177BD1F2CE8DE4E00B504C1 /* BaseViewController.swift in Sources */,
 				C19370132C89941600B56BA1 /* HandleDeepLink.swift in Sources */,
+				C10AB12F2CF3A73000FE3A8A /* EditProfileViewController.swift in Sources */,
 				C11525632CDE2AC3001DD6FD /* Bank.swift in Sources */,
 				C15B51402CBAB40300892DBD /* Integer + Extension.swift in Sources */,
 				C125594D2CE338BB00382028 /* PaymentService.swift in Sources */,
@@ -2055,6 +2086,7 @@
 				C19370252C899AD300B56BA1 /* HomeViewController.swift in Sources */,
 				C1A505E32CEDDFE400078B46 /* SignupResponse.swift in Sources */,
 				C17F981E2CE6069E0060BC7B /* MessageAlert.swift in Sources */,
+				C10AB1332CF3AA8900FE3A8A /* EditProfileCoordinator.swift in Sources */,
 				C17D7D952C975EB800868F1E /* HistoryViewController.swift in Sources */,
 				C1FA58452CF2EADB00431BDB /* MapService.swift in Sources */,
 				C1FA57E22CF0DF6800431BDB /* ProfileImageManager.swift in Sources */,

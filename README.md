@@ -64,10 +64,10 @@ Cyclouse is a modern iOS e-commerce application for bicycles and accessories bui
 
 ## 🏗 Architecture
 - Cyclouse uses MVVM-C pattern with:
-- **Model**: Engaging navigation with smooth animations
-- **View**: Efficient browsing of categories and products
-- **ViewModel**: Seamless transitions between screens
-- **Coordinator**: Dynamic collection view updates
+- **Model**: Data structures and business logic
+- **View**: UI components and layouts
+- **ViewModel**: Business logic
+- **Coordinator**: Navigation and flow management
 
 ## Tech Stack 🛠
 
