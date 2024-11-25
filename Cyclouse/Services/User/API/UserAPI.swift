@@ -1,38 +1,44 @@
 //
-//  PaymentAPI.swift
+//  UserAPI.swift
 //  Cyclouse
 //
-//  Created by yoga arie on 12/11/24.
+//  Created by yoga arie on 25/11/24.
 //
-import Alamofire
-import Foundation
 
-enum PaymentAPI: API {
-  case pay(orderId: String, status: String)
+import Foundation
+import Alamofire
+
+enum UserAPI: API {
+  case editProfile(userId: String, name: String, email: String, phone: String)
   
   private var baseURL: String {
     Constants.baseURL
   }
-
+  
   var url: URLConvertible {
     switch self {
-    case .pay(let orderId, _):
-      let url = "\(baseURL)/orders/\(orderId)/confirm"
+    case .editProfile(let userId, _, _, _):
+      let url = "\(baseURL)/user/\(userId)/profile"
       return url
     }
   }
   
   var method: HTTPMethod {
     switch self {
-    case .pay:
-      return .post
+    case .editProfile:
+      return .put
     }
   }
   
   var params: Parameters? {
     switch self {
-    case .pay(_ , let status):
-      return ["status": status]
+    case .editProfile(_, let name, let email, let phone):
+      return [
+        "name": name,
+        "phone": phone,
+        "email": email
+      ]
+      
     }
   }
   

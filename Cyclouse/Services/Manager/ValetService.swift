@@ -70,6 +70,16 @@ final class ValetService: ValetServiceProtocol {
             try? remove(key)
         }
     }
+  
+  func loadUserProfile() -> UserProfile? {
+          do {
+              return try retrieve(UserProfile.self, for: .userProfile)
+          } catch {
+              print("❌ Failed to load user profile: \(error)")
+              return nil
+          }
+      }
+  
 }
 
 // MARK: - Error Types

@@ -13,6 +13,12 @@
 		C107B1F12CDF9E95008C5F5C /* BikeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C107B1F02CDF9E95008C5F5C /* BikeDatabase.swift */; };
 		C10AB12F2CF3A73000FE3A8A /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AB12E2CF3A73000FE3A8A /* EditProfileViewController.swift */; };
 		C10AB1332CF3AA8900FE3A8A /* EditProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AB1322CF3AA8900FE3A8A /* EditProfileCoordinator.swift */; };
+		C10AB1522CF4789500FE3A8A /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AB1512CF4789500FE3A8A /* UserAPI.swift */; };
+		C10AB1542CF47AEC00FE3A8A /* UserNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AB1532CF47AEC00FE3A8A /* UserNetworkRepository.swift */; };
+		C10AB1562CF47B0500FE3A8A /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AB1552CF47B0500FE3A8A /* UserRepository.swift */; };
+		C10AB1582CF481B000FE3A8A /* EditProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AB1572CF481B000FE3A8A /* EditProfileResponse.swift */; };
+		C10AB15A2CF481BC00FE3A8A /* EditProfileRequeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AB1592CF481BC00FE3A8A /* EditProfileRequeat.swift */; };
+		C10AB15C2CF4847000FE3A8A /* UserProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AB15B2CF4847000FE3A8A /* UserProfileService.swift */; };
 		C115252D2CDC9BC8001DD6FD /* ConfigDev.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C115252C2CDC9BC8001DD6FD /* ConfigDev.xcconfig */; };
 		C115252F2CDC9BE9001DD6FD /* ConfigSIT.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C115252E2CDC9BE9001DD6FD /* ConfigSIT.xcconfig */; };
 		C11525492CDCBAEA001DD6FD /* AddressViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11525482CDCBAEA001DD6FD /* AddressViewCell.swift */; };
@@ -256,6 +262,12 @@
 		C107B1F02CDF9E95008C5F5C /* BikeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeDatabase.swift; sourceTree = "<group>"; };
 		C10AB12E2CF3A73000FE3A8A /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		C10AB1322CF3AA8900FE3A8A /* EditProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileCoordinator.swift; sourceTree = "<group>"; };
+		C10AB1512CF4789500FE3A8A /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
+		C10AB1532CF47AEC00FE3A8A /* UserNetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkRepository.swift; sourceTree = "<group>"; };
+		C10AB1552CF47B0500FE3A8A /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		C10AB1572CF481B000FE3A8A /* EditProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileResponse.swift; sourceTree = "<group>"; };
+		C10AB1592CF481BC00FE3A8A /* EditProfileRequeat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileRequeat.swift; sourceTree = "<group>"; };
+		C10AB15B2CF4847000FE3A8A /* UserProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileService.swift; sourceTree = "<group>"; };
 		C115252C2CDC9BC8001DD6FD /* ConfigDev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ConfigDev.xcconfig; sourceTree = "<group>"; };
 		C115252E2CDC9BE9001DD6FD /* ConfigSIT.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ConfigSIT.xcconfig; sourceTree = "<group>"; };
 		C11525482CDCBAEA001DD6FD /* AddressViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewCell.swift; sourceTree = "<group>"; };
@@ -543,6 +555,59 @@
 				C10AB1322CF3AA8900FE3A8A /* EditProfileCoordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		C10AB14B2CF4784E00FE3A8A /* User */ = {
+			isa = PBXGroup;
+			children = (
+				C10AB1502CF4787800FE3A8A /* Request */,
+				C10AB14F2CF4787200FE3A8A /* API */,
+				C10AB14E2CF4786C00FE3A8A /* Repository */,
+				C10AB14D2CF4786600FE3A8A /* Service */,
+				C10AB14C2CF4786100FE3A8A /* Response */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		C10AB14C2CF4786100FE3A8A /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				C10AB1572CF481B000FE3A8A /* EditProfileResponse.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		C10AB14D2CF4786600FE3A8A /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				C10AB15B2CF4847000FE3A8A /* UserProfileService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		C10AB14E2CF4786C00FE3A8A /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				C10AB1532CF47AEC00FE3A8A /* UserNetworkRepository.swift */,
+				C10AB1552CF47B0500FE3A8A /* UserRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		C10AB14F2CF4787200FE3A8A /* API */ = {
+			isa = PBXGroup;
+			children = (
+				C10AB1512CF4789500FE3A8A /* UserAPI.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		C10AB1502CF4787800FE3A8A /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				C10AB1592CF481BC00FE3A8A /* EditProfileRequeat.swift */,
+			);
+			path = Request;
 			sourceTree = "<group>";
 		};
 		C115252B2CDC9B98001DD6FD /* Config */ = {
@@ -1231,6 +1296,7 @@
 		C19370182C89967300B56BA1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				C10AB14B2CF4784E00FE3A8A /* User */,
 				C1FA584F2CF2EDE300431BDB /* Profile */,
 				C1FA58332CF2C8F000431BDB /* Location */,
 				C169A41C2CE37EF80079DE6B /* History */,
@@ -2025,6 +2091,7 @@
 				C162D4482CD2BBF700DBA8CC /* CoordinatorsAssembly.swift in Sources */,
 				C1FA583C2CF2CAD100431BDB /* LocationManaging.swift in Sources */,
 				C162D44A2CD2BC0500DBA8CC /* RepositoriesAssembly.swift in Sources */,
+				C10AB1542CF47AEC00FE3A8A /* UserNetworkRepository.swift in Sources */,
 				C1FA584C2CF2ECC000431BDB /* ShippingAddress.swift in Sources */,
 				C18F516F2C9D1A1000E60C0D /* AuthenticationAPI.swift in Sources */,
 				C1EDE5AB2CAB3CA700816876 /* CartNetworkRepository.swift in Sources */,
@@ -2053,6 +2120,7 @@
 				C16468B82CD09CBD00876224 /* CheckoutAPI.swift in Sources */,
 				C16468B42CD0985D00876224 /* CheckoutCoordinator.swift in Sources */,
 				C169A4222CE37F600079DE6B /* HistoryAPI.swift in Sources */,
+				C10AB15C2CF4847000FE3A8A /* UserProfileService.swift in Sources */,
 				C193705C2C8ABBAB00B56BA1 /* ThemeColor.swift in Sources */,
 				C193705F2C8AE99E00B56BA1 /* OnboardingViewController.swift in Sources */,
 				C13D90DC2C9218F400430BA4 /* Environment.swift in Sources */,
@@ -2072,6 +2140,7 @@
 				C1CDE9AF2CB5318B005B491F /* SignoutResponse.swift in Sources */,
 				C1C533882C90A618000ABA71 /* HomeViewModel.swift in Sources */,
 				C1F0F2022CCD033000B8AFDA /* Category.swift in Sources */,
+				C10AB1582CF481B000FE3A8A /* EditProfileResponse.swift in Sources */,
 				C1FA583A2CF2CA4000431BDB /* LocationError.swift in Sources */,
 				C19465682C8CBF6F00171932 /* HorizontalViewCell.swift in Sources */,
 				C177238F2C954E6B0078E598 /* PopUpViewController.swift in Sources */,
@@ -2087,6 +2156,7 @@
 				C1A505E32CEDDFE400078B46 /* SignupResponse.swift in Sources */,
 				C17F981E2CE6069E0060BC7B /* MessageAlert.swift in Sources */,
 				C10AB1332CF3AA8900FE3A8A /* EditProfileCoordinator.swift in Sources */,
+				C10AB1562CF47B0500FE3A8A /* UserRepository.swift in Sources */,
 				C17D7D952C975EB800868F1E /* HistoryViewController.swift in Sources */,
 				C1FA58452CF2EADB00431BDB /* MapService.swift in Sources */,
 				C1FA57E22CF0DF6800431BDB /* ProfileImageManager.swift in Sources */,
@@ -2097,6 +2167,7 @@
 				C1705E0A2CA55C6D0043CE9D /* Bikes.swift in Sources */,
 				C1705E0B2CA55C6D0043CE9D /* BikeNetworkRepository.swift in Sources */,
 				C1705E0C2CA55C6D0043CE9D /* BikeService.swift in Sources */,
+				C10AB1522CF4789500FE3A8A /* UserAPI.swift in Sources */,
 				C1705E0D2CA55C6D0043CE9D /* BikeRepository.swift in Sources */,
 				C1A505BE2CEA397D00078B46 /* HistoryViewModel.swift in Sources */,
 				C1FA58482CF2EB2D00431BDB /* MapViewConfiguration.swift in Sources */,
@@ -2137,6 +2208,7 @@
 				C1FA584A2CF2ECAE00431BDB /* MapViewState.swift in Sources */,
 				C12559432CE3387A00382028 /* PaymentAPI.swift in Sources */,
 				C1B4B94D2C8D4F8D00B4F54B /* BikeProductViewCell.swift in Sources */,
+				C10AB15A2CF481BC00FE3A8A /* EditProfileRequeat.swift in Sources */,
 				C1A505D02CEB1C6300078B46 /* FilterViewController.swift in Sources */,
 				C1464C542C92A96300F945BA /* CartCoordinator.swift in Sources */,
 				C19370152C89943F00B56BA1 /* NavigationCoordinator.swift in Sources */,

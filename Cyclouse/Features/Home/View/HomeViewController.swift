@@ -18,6 +18,7 @@ import ReactiveCollectionsKit
 class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResultsUpdating, UISearchControllerDelegate {
     
     // MARK: - Properties
+    private let valetService: ValetService = .shared
     var coordinator: HomeCoordinator
     private let service = DatabaseService.shared
     var driver: CollectionViewDriver?
@@ -93,13 +94,37 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
     }
     
     override func bindViewModel() {
-        updateBadge()
-        if let userProfile = loadUserProfile() {
-            showWelcomeNotification(with: userProfile)
-        }
-        simulateLoading()
-        addObserver(forName: .paymentCompleted, selector: #selector(handlePaymentCompletion))
+      updateBadge()
+              loadAndShowWelcomeNotification()
+              simulateLoading()
+              addObserver(forName: .paymentCompleted, selector: #selector(handlePaymentCompletion))
+              
+              // Add observer for profile updates
+              NotificationCenter.default.addObserver(
+                  self,
+                  selector: #selector(handleProfileUpdate),
+                  name: NSNotification.Name("UserProfileUpdated"),
+                  object: nil
+              )
     }
+  
+  @objc private func handleProfileUpdate(_ notification: Notification) {
+         if let updatedProfile = notification.userInfo?["profile"] as? UserProfile {
+             print("🔄 Profile updated in Home: \(updatedProfile.name)")
+             // If you want to show welcome notification again after profile update
+             showWelcomeNotification(with: updatedProfile)
+         }
+     }
+  
+  private func loadAndShowWelcomeNotification() {
+         if let userProfile = valetService.loadUserProfile() {
+             print("📱 Loaded profile for welcome: \(userProfile.name)")
+             showWelcomeNotification(with: userProfile)
+         } else {
+             print("❌ No profile found for welcome notification")
+         }
+     }
+     
     
     // MARK: - Loading State Methods
     
@@ -550,7 +575,7 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
         let imageView = UIImageView(image: image)
         imageView.tintColor = ThemeColor.cardFillColor
         
-        let username = profile.email.components(separatedBy: "@").first ?? "User"
+        let username = profile.email.components(separatedBy: "@").first ?? "faris"
         
         NotificationPresenter.shared.present(
             "Welcome back, \(username)!",

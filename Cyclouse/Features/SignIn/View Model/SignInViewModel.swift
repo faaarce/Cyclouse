@@ -119,13 +119,13 @@ class AuthService: AuthServiceProtocol {
                     }
                 }
             }, receiveValue: { [weak self] response in
-              self?.handleSignInResponse(email, response, completion: completion)
+              self?.handleSignInResponse(response, completion: completion)
             })
             .store(in: &cancellables)
     }
     
     // MARK: - Private Methods
-  private func handleSignInResponse(_ email: String, _ response: APIResponse<SignInResponse>, completion: @escaping (Result<Void, AuthError>) -> Void) {
+  private func handleSignInResponse( _ response: APIResponse<SignInResponse>, completion: @escaping (Result<Void, AuthError>) -> Void) {
     guard response.value.success,
               let authHeader =
                 response.httpResponse?.allHeaderFields["Authorization"] as? String else { //ERROR: -Type of expression is ambiguous without a type annotation
@@ -140,7 +140,7 @@ class AuthService: AuthServiceProtocol {
             // Create and save user profile
             let userProfile = UserProfile(
               userId: response.value.userId,
-                email: email,
+              email: response.value.email,
               name: response.value.name
             )
             try valetService.save(userProfile, for: .userProfile)
