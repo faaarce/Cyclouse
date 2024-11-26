@@ -109,7 +109,7 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
     }
   
   @objc private func handleProfileUpdate(_ notification: Notification) {
-         if let updatedProfile = notification.userInfo?["profile"] as? UserProfile {
+         if let updatedProfile = notification.userInfo?["profile"] as? UserProfiles {
              print("🔄 Profile updated in Home: \(updatedProfile.name)")
              // If you want to show welcome notification again after profile update
              showWelcomeNotification(with: updatedProfile)
@@ -557,7 +557,7 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
       }
 
     
-    private func showWelcomeNotification(with profile: UserProfile) {
+    private func showWelcomeNotification(with profile: UserProfiles) {
         let styleName = "WelcomeStyle"
         NotificationPresenter.shared.addStyle(named: styleName) { style in
             style.backgroundStyle.backgroundColor = ThemeColor.primary

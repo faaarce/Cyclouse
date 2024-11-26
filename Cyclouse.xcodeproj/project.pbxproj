@@ -19,6 +19,7 @@
 		C10AB1582CF481B000FE3A8A /* EditProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AB1572CF481B000FE3A8A /* EditProfileResponse.swift */; };
 		C10AB15A2CF481BC00FE3A8A /* EditProfileRequeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AB1592CF481BC00FE3A8A /* EditProfileRequeat.swift */; };
 		C10AB15C2CF4847000FE3A8A /* UserProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AB15B2CF4847000FE3A8A /* UserProfileService.swift */; };
+		C10AB15E2CF4EBE500FE3A8A /* UserProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AB15D2CF4EBE500FE3A8A /* UserProfiles.swift */; };
 		C115252D2CDC9BC8001DD6FD /* ConfigDev.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C115252C2CDC9BC8001DD6FD /* ConfigDev.xcconfig */; };
 		C115252F2CDC9BE9001DD6FD /* ConfigSIT.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C115252E2CDC9BE9001DD6FD /* ConfigSIT.xcconfig */; };
 		C11525492CDCBAEA001DD6FD /* AddressViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11525482CDCBAEA001DD6FD /* AddressViewCell.swift */; };
@@ -189,7 +190,6 @@
 		C1C533882C90A618000ABA71 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C533872C90A618000ABA71 /* HomeViewModel.swift */; };
 		C1C582AB2CBBACD500280F6F /* PaymentCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C582AA2CBBACD500280F6F /* PaymentCoordinator.swift */; };
 		C1C582AD2CBBACDF00280F6F /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C582AC2CBBACDF00280F6F /* PaymentViewController.swift */; };
-		C1CDE9AD2CB520FA005B491F /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CDE9AC2CB520FA005B491F /* UserProfile.swift */; };
 		C1CDE9AF2CB5318B005B491F /* SignoutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CDE9AE2CB5318B005B491F /* SignoutResponse.swift */; };
 		C1D0B2892CCA1DC3007C294A /* ExperimentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D0B2882CCA1DC3007C294A /* ExperimentViewController.swift */; };
 		C1D0B28A2CCA1DC3007C294A /* ExperimentCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D0B2872CCA1DC3007C294A /* ExperimentCellViewModel.swift */; };
@@ -268,6 +268,7 @@
 		C10AB1572CF481B000FE3A8A /* EditProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileResponse.swift; sourceTree = "<group>"; };
 		C10AB1592CF481BC00FE3A8A /* EditProfileRequeat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileRequeat.swift; sourceTree = "<group>"; };
 		C10AB15B2CF4847000FE3A8A /* UserProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileService.swift; sourceTree = "<group>"; };
+		C10AB15D2CF4EBE500FE3A8A /* UserProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfiles.swift; sourceTree = "<group>"; };
 		C115252C2CDC9BC8001DD6FD /* ConfigDev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ConfigDev.xcconfig; sourceTree = "<group>"; };
 		C115252E2CDC9BE9001DD6FD /* ConfigSIT.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ConfigSIT.xcconfig; sourceTree = "<group>"; };
 		C11525482CDCBAEA001DD6FD /* AddressViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewCell.swift; sourceTree = "<group>"; };
@@ -425,7 +426,6 @@
 		C1C533872C90A618000ABA71 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		C1C582AA2CBBACD500280F6F /* PaymentCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCoordinator.swift; sourceTree = "<group>"; };
 		C1C582AC2CBBACDF00280F6F /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
-		C1CDE9AC2CB520FA005B491F /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		C1CDE9AE2CB5318B005B491F /* SignoutResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignoutResponse.swift; sourceTree = "<group>"; };
 		C1D0B2872CCA1DC3007C294A /* ExperimentCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentCellViewModel.swift; sourceTree = "<group>"; };
 		C1D0B2882CCA1DC3007C294A /* ExperimentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentViewController.swift; sourceTree = "<group>"; };
@@ -1092,7 +1092,7 @@
 			isa = PBXGroup;
 			children = (
 				C18F51532C9D1A1000E60C0D /* User.swift */,
-				C1CDE9AC2CB520FA005B491F /* UserProfile.swift */,
+				C10AB15D2CF4EBE500FE3A8A /* UserProfiles.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -2122,6 +2122,7 @@
 				C169A4222CE37F600079DE6B /* HistoryAPI.swift in Sources */,
 				C10AB15C2CF4847000FE3A8A /* UserProfileService.swift in Sources */,
 				C193705C2C8ABBAB00B56BA1 /* ThemeColor.swift in Sources */,
+				C10AB15E2CF4EBE500FE3A8A /* UserProfiles.swift in Sources */,
 				C193705F2C8AE99E00B56BA1 /* OnboardingViewController.swift in Sources */,
 				C13D90DC2C9218F400430BA4 /* Environment.swift in Sources */,
 				C1EDE5AF2CAB3D0F00816876 /* CartAPI.swift in Sources */,
@@ -2160,7 +2161,6 @@
 				C17D7D952C975EB800868F1E /* HistoryViewController.swift in Sources */,
 				C1FA58452CF2EADB00431BDB /* MapService.swift in Sources */,
 				C1FA57E22CF0DF6800431BDB /* ProfileImageManager.swift in Sources */,
-				C1CDE9AD2CB520FA005B491F /* UserProfile.swift in Sources */,
 				C194655C2C8C20AB00171932 /* CustomInputFieldView.swift in Sources */,
 				C1EE5EBC2CAE9D2F00856B94 /* EmptyStateView.swift in Sources */,
 				C17D7D972C975EC200868F1E /* HistoryCoordinator.swift in Sources */,

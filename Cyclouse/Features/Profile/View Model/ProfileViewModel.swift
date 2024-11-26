@@ -11,10 +11,10 @@ import UIKit
 
 class ProfileViewModel {
     private let valetService: ValetServiceProtocol
-    private let userProfileSubject = CurrentValueSubject<UserProfile?, Never>(nil)
+    private let userProfileSubject = CurrentValueSubject<UserProfiles?, Never>(nil)
     private let imageManager = ProfileImageManager.shared
     
-    var userProfilePublisher: AnyPublisher<UserProfile?, Never> {
+    var userProfilePublisher: AnyPublisher<UserProfiles?, Never> {
         userProfileSubject.eraseToAnyPublisher()
     }
     
@@ -26,7 +26,7 @@ class ProfileViewModel {
         print("📝 Loading user profile")
         Task {
             do {
-                if let userProfile: UserProfile = try valetService.retrieve(UserProfile.self, for: .userProfile) {
+                if let userProfile: UserProfiles = try valetService.retrieve(UserProfiles.self, for: .userProfile) {
                     print("✅ User profile loaded successfully")
                     userProfileSubject.send(userProfile)
                     

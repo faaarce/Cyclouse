@@ -12,7 +12,7 @@ class EditProfileViewController: BaseViewController {
   private var editProfileService = UserProfileService()
   
   // MARK: - Properties
-  private var userData: UserProfile
+  private var userData: UserProfiles
   var coordinator: EditProfileCoordinator
   private var isEditingProfile = false
   
@@ -36,11 +36,11 @@ class EditProfileViewController: BaseViewController {
   
   // Field Views
   private lazy var fullNameField = createProfileField(title: "Full Name", value: userData.name)
-  private lazy var phoneField = createProfileField(title: "Phone Number", value: userData.name)
+  private lazy var phoneField = createProfileField(title: "Phone Number", value: userData.phone)
   private lazy var emailField = createProfileField(title: "Email", value: userData.email)
   
   // MARK: - Initialization
-  init(coordinator: EditProfileCoordinator, userData: UserProfile) {
+  init(coordinator: EditProfileCoordinator, userData: UserProfiles) {
     self.userData = userData
     self.coordinator = coordinator
     super.init(nibName: nil, bundle: nil)
@@ -237,10 +237,11 @@ class EditProfileViewController: BaseViewController {
         
         if response.value.success {
           // Update local userData
-          let updatedProfile = UserProfile(
+          let updatedProfile = UserProfiles(
             userId: self.userData.userId,
             email: email,
-            name: name
+            name: name,
+            phone: phone
           )
           
           // Save to Valet

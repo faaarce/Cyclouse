@@ -32,7 +32,7 @@ class ProfileCoordinator: Coordinator, NavigationCoordinator {
     historyCoordinator.start()
   }
   
-  func showEditProfile(userData: UserProfile) {
+  func showEditProfile(userData: UserProfiles) {
          let editProfileCoordinator = container.resolve(
              EditProfileCoordinator.self,
              arguments: navigationController, userData

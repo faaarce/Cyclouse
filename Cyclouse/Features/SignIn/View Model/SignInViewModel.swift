@@ -138,10 +138,10 @@ class AuthService: AuthServiceProtocol {
           TokenManager.shared.saveLoginData(token: authHeader, userId: response.value.userId)
             
             // Create and save user profile
-            let userProfile = UserProfile(
+            let userProfile = UserProfiles(
               userId: response.value.userId,
               email: response.value.email,
-              name: response.value.name
+              name: response.value.name, phone: response.value.phone
             )
             try valetService.save(userProfile, for: .userProfile)
             

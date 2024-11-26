@@ -71,9 +71,9 @@ final class ValetService: ValetServiceProtocol {
         }
     }
   
-  func loadUserProfile() -> UserProfile? {
+  func loadUserProfile() -> UserProfiles? {
           do {
-              return try retrieve(UserProfile.self, for: .userProfile)
+              return try retrieve(UserProfiles.self, for: .userProfile)
           } catch {
               print("❌ Failed to load user profile: \(error)")
               return nil

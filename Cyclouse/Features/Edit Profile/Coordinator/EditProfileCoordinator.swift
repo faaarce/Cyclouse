@@ -13,10 +13,10 @@ class EditProfileCoordinator: Coordinator, NavigationCoordinator {
     var childCoordinators: [Coordinator] = []
     weak var parentCoordinator: Coordinator?
     var navigationController: UINavigationController
-    private let userData: UserProfile
+    private let userData: UserProfiles
     private let container: Container
     
-    init(navigationController: UINavigationController, userData: UserProfile, container: Container) {
+    init(navigationController: UINavigationController, userData: UserProfiles, container: Container) {
         self.navigationController = navigationController
         self.userData = userData
         self.container = container

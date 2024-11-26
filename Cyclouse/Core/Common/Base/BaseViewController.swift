@@ -212,10 +212,10 @@ class BaseViewController: UIViewController {
     /// Loads the user profile using Valet.
     ///
     /// - Returns: An optional `UserProfile` if available.
-    func loadUserProfile() -> UserProfile? {
+    func loadUserProfile() -> UserProfiles? {
         do {
             let profileData = try valet.object(forKey: "userProfile")
-            let userProfile = try JSONDecoder().decode(UserProfile.self, from: profileData)
+            let userProfile = try JSONDecoder().decode(UserProfiles.self, from: profileData)
             return userProfile
         } catch {
             print("Failed to load user profile: \(error)")

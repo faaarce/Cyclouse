@@ -14,7 +14,7 @@ class ProfileViewController: BaseViewController {
     // MARK: - Properties
 
     var coordinator: ProfileCoordinator
-    private var profileData: UserProfile?
+    private var profileData: UserProfiles?
     private let authService = AuthenticationService()
     private let viewModel = ProfileViewModel()
 
@@ -176,7 +176,7 @@ class ProfileViewController: BaseViewController {
 
     // MARK: - Private Methods
 
-    private func updateUI(with profile: UserProfile) {
+    private func updateUI(with profile: UserProfiles) {
       profileName.text = profile.name
         profileEmail.text = profile.email
         // Update other UI elements if necessary
@@ -253,10 +253,10 @@ class ProfileViewController: BaseViewController {
   @objc private func myAccountTapped() {
           guard let profileData = profileData else {
               // Create default profile if none exists
-              let defaultProfile = UserProfile(
+              let defaultProfile = UserProfiles(
                   userId: TokenManager.shared.getCurrentUserId() ?? "",
                   email: "",
-                  name: ""
+                  name: "", phone: ""
               )
               coordinator.showEditProfile(userData: defaultProfile)
               return
