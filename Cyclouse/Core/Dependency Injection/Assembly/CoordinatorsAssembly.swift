@@ -77,5 +77,9 @@ class CoordinatorsAssembly: Assembly {
     container.register(EditProfileCoordinator.self) { (resolver, navigationController: UINavigationController, profile: UserProfiles) in
       EditProfileCoordinator(navigationController: navigationController, userData: profile, container: container)
     }
+    
+    container.register(DetailOrderCoordinator.self) { (resolver, navigationController: UINavigationController, orderData: OrderHistory) in
+      DetailOrderCoordinator(navigationController: navigationController, container: container, orderData: orderData)
+    }
   }
 }

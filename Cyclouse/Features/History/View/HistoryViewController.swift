@@ -139,5 +139,10 @@ extension HistoryViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension HistoryViewController: UITableViewDelegate {
-    // Implement UITableViewDelegate methods if needed
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+          if !isLoading {
+              let orderData = viewModel.history[indexPath.row]
+              coordinator.showOrderDetail(orderData: orderData)
+          }
+      }
 }

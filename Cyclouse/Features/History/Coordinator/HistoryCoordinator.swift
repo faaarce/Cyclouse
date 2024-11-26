@@ -19,6 +19,16 @@ class HistoryCoordinator: Coordinator, NavigationCoordinator {
     self.container = container
   }
   
+  func showOrderDetail(orderData: OrderHistory) {
+         let detailOrderCoordinator = container.resolve(
+             DetailOrderCoordinator.self,
+             arguments: navigationController, orderData
+         )!
+         childCoordinators.append(detailOrderCoordinator)
+         detailOrderCoordinator.parentCoordinator = self
+         detailOrderCoordinator.start()
+     }
+  
   func start() {
     let historyVC = HistoryViewController(coordinator: self)
     historyVC.hidesBottomBarWhenPushed = true

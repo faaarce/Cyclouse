@@ -14,14 +14,16 @@ class DetailOrderCoordinator: Coordinator, NavigationCoordinator {
   weak var parentCoordinator: Coordinator?
   var navigationController: UINavigationController
   private let container: Container
+  private let orderData: OrderHistory
   
-  init(navigationController: UINavigationController, container: Container) {
+  init(navigationController: UINavigationController, container: Container, orderData: OrderHistory) {
     self.navigationController = navigationController
     self.container = container
+    self.orderData = orderData
   }
   
   func start() {
-    let DetailOrderVC = DetailOrderViewController(coordinator: self)
+    let DetailOrderVC = DetailOrderViewController(coordinator: self, orderData: orderData)
     navigationController.pushViewController(DetailOrderVC, animated: true)
   }
   

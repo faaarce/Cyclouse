@@ -191,6 +191,12 @@ class HistoryTableViewCell: UITableViewCell {
     func configure(with bike: BikeDatabase) {
         configure(with: [bike])
     }
+  
+  func configureDetail(order: OrderItem) {
+    itemsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+
+    itemsStackView.addArrangedSubview(createItemView(image: order.image, name: order.name, price: order.price, quantity: order.quantity))
+  }
 
     func configure(with orderHistory: OrderHistory) {
         // Clear existing items

@@ -12,6 +12,7 @@ class DetailOrderViewController: BaseViewController {
   
     // MARK: - Properties
   private var coordinator: DetailOrderCoordinator
+  private var orderData: OrderHistory
   
     lazy var tableView: UITableView = {
       let tableView = UITableView(frame: .zero, style: .grouped)
@@ -44,8 +45,9 @@ class DetailOrderViewController: BaseViewController {
         )
     }()
   
-  init(coordinator: DetailOrderCoordinator) {
+  init(coordinator: DetailOrderCoordinator, orderData: OrderHistory) {
       self.coordinator = coordinator
+    self.orderData = orderData
       super.init(nibName: nil, bundle: nil)
   }
   
@@ -59,6 +61,7 @@ class DetailOrderViewController: BaseViewController {
         setupViews()
         setupConstraints()
         registerCells()
+      configureWithOrderData()
     }
     
     // MARK: - Setup Methods
@@ -93,6 +96,23 @@ class DetailOrderViewController: BaseViewController {
             make.left.equalTo(totalLabel.snp.right).offset(5)
         }
     }
+  
+  private func configureWithOrderData() {
+         // Update header
+         if let headerView = tableView.headerView(forSection: 1) as? OrderSectionHeaderView {
+             headerView.configure(
+                 with: "Order Items",
+                 orderNumber: orderData.orderId,
+                 paymentMethod: orderData.paymentMethod.bank
+             )
+         }
+         
+         // Update total price
+         priceLabel.text = orderData.total.toRupiah()
+         
+         // Reload table to update cells
+         tableView.reloadData()
+     }
     
     private func registerCells() {
         tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: "ListProductCell")
@@ -114,7 +134,7 @@ extension DetailOrderViewController: UITableViewDataSource {
         case 0:  // Address section
             return 1
         case 1:  // Order items section
-            return 3  // Example number, replace with actual order items count
+          return orderData.items.count
         case 2:  // Price details section
               return 1
         default:
@@ -131,8 +151,7 @@ extension DetailOrderViewController: UITableViewDataSource {
             ) as? AddressViewCell else {
                 return UITableViewCell()
             }
-            cell.selectionStyle = .none
-            cell.backgroundColor = .clear
+          cell.updateAddress(orderData.shippingAddress)
             // Configure address cell
             return cell
             
@@ -143,9 +162,13 @@ extension DetailOrderViewController: UITableViewDataSource {
             ) as? HistoryTableViewCell else {
                 return UITableViewCell()
             }
-            cell.selectionStyle = .none
-            cell.backgroundColor = .clear
-            // Configure history cell with order item data
+          let item = orderData.items[indexPath.row]
+          cell.configureDetail(order: item)
+          cell.backgroundColor = .clear
+          cell.contentView.backgroundColor = .clear
+          cell.backgroundView = nil
+          cell.backgroundConfiguration = .clear()
+          
             return cell
           
         case 2:
@@ -156,7 +179,7 @@ extension DetailOrderViewController: UITableViewDataSource {
                   return UITableViewCell()
               }
               // Configure price detail cell
-              cell.configure(subtotal: 5000000, shippingCost: 20000)
+          cell.configure(subtotal: Double(orderData.paymentDetails.amount), shippingCost: 0)
               return cell
             
         default:
@@ -198,7 +221,7 @@ extension DetailOrderViewController: UITableViewDelegate {
       withIdentifier: OrderSectionHeaderView.identifier
     ) as? OrderSectionHeaderView
     
-    headerView?.configure(with: "Order Items", orderNumber: "123543", paymentMethod: "BCA Virtual Account")
+    headerView?.configure(with: "Order Items", orderNumber: String(orderData.orderId.suffix(12)), paymentMethod: "\(orderData.paymentMethod.bank) Virtual Account")
     return headerView
   }
   
