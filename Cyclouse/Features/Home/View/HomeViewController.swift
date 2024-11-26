@@ -13,11 +13,13 @@ import JDStatusBarNotification
 import Valet
 import Hero
 import ReactiveCollectionsKit
+import Lottie
 
 
 class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResultsUpdating, UISearchControllerDelegate {
     
     // MARK: - Properties
+  private let refreshControl = UIRefreshControl()
     private let valetService: ValetService = .shared
     var coordinator: HomeCoordinator
     private let service = DatabaseService.shared
@@ -117,23 +119,24 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
      }
   
   private lazy var emptyViewProvider: EmptyViewProvider = {
-          return EmptyViewProvider { [weak self] in
-              guard let self = self else {
-                  return UIView()
-              }
-              return self.createEmptyStateView()
+      return EmptyViewProvider { [weak self] in
+          guard let self = self else {
+              return UIView()
           }
-      }()
+          return self.createEmptyStateView()
+      }
+  }()
+
 
   
   private func createEmptyStateView() -> UIView {
       let emptyView = UIView()
       emptyView.backgroundColor = .clear
 
-      let imageView = UIImageView()
-      imageView.image = UIImage(systemName: "exclamationmark.circle")
-      imageView.tintColor = .gray
-      imageView.contentMode = .scaleAspectFit
+      // Create Lottie Animation View
+      let animationView = LottieAnimationView(name: "empty")
+      animationView.loopMode = .loop
+      animationView.play()
 
       let label = UILabel()
       label.text = "No products available"
@@ -141,17 +144,20 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
       label.textColor = .gray
       label.font = UIFont.systemFont(ofSize: 16)
 
-      emptyView.addSubview(imageView)
+      emptyView.addSubview(animationView)
       emptyView.addSubview(label)
 
       // Use Auto Layout constraints
-      imageView.translatesAutoresizingMaskIntoConstraints = false
+      animationView.translatesAutoresizingMaskIntoConstraints = false
       label.translatesAutoresizingMaskIntoConstraints = false
 
       NSLayoutConstraint.activate([
-          imageView.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor),
-          imageView.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor, constant: -20),
-          label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
+          animationView.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor),
+          animationView.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor, constant: -20),
+          animationView.widthAnchor.constraint(equalToConstant: 150),
+          animationView.heightAnchor.constraint(equalToConstant: 150),
+          
+          label.topAnchor.constraint(equalTo: animationView.bottomAnchor, constant: 10),
           label.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor)
       ])
 
@@ -179,8 +185,29 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
     
     private func setupCollectionView() {
         view.addSubview(collectionView)
+      collectionView.refreshControl = refreshControl
+
+      // Customize the appearance of the refresh control
+      refreshControl.tintColor = ThemeColor.primary
+      refreshControl.attributedTitle = NSAttributedString(
+          string: "Pull to refresh",
+          attributes: [.foregroundColor: ThemeColor.primary]
+      )
+
+
+      refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+
       driver = CollectionViewDriver(view: collectionView, viewModel: makeViewModel(), emptyViewProvider: emptyViewProvider, cellEventCoordinator: self)
+      
     }
+  
+  @objc private func refreshData() {
+    let generator = UIImpactFeedbackGenerator(style: .medium)
+            generator.impactOccurred()
+      fetchBikes(isRefreshing: true)
+  }
+
+  
     
     private func simulateLoading() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
@@ -193,7 +220,8 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
         updateCollectionView()
     }
     
-    private func fetchBikes() {
+    private func fetchBikes(isRefreshing: Bool = false) {
+      
         services.getBikes()
             .receive(on: DispatchQueue.main)
             .sink { completion in
@@ -205,12 +233,18 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
                     print("Error fetching bikes: \(error)")
                     self.isLoading = false
                     self.updateCollectionView()
+                  if isRefreshing {
+                                     self.refreshControl.endRefreshing()
+                                 }
                 }
             } receiveValue: { [weak self] bikeDataResponse in
                 guard let self = self else { return }
                 self.categories = bikeDataResponse.value.bikes.categories
                 self.isLoading = false
                 self.updateCollectionView()
+              if isRefreshing {
+                             self.refreshControl.endRefreshing()
+                         }
             }
             .store(in: &cancellables)
     }
