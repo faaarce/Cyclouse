@@ -116,6 +116,49 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
          }
      }
   
+  private lazy var emptyViewProvider: EmptyViewProvider = {
+          return EmptyViewProvider { [weak self] in
+              guard let self = self else {
+                  return UIView()
+              }
+              return self.createEmptyStateView()
+          }
+      }()
+
+  
+  private func createEmptyStateView() -> UIView {
+      let emptyView = UIView()
+      emptyView.backgroundColor = .clear
+
+      let imageView = UIImageView()
+      imageView.image = UIImage(systemName: "exclamationmark.circle")
+      imageView.tintColor = .gray
+      imageView.contentMode = .scaleAspectFit
+
+      let label = UILabel()
+      label.text = "No products available"
+      label.textAlignment = .center
+      label.textColor = .gray
+      label.font = UIFont.systemFont(ofSize: 16)
+
+      emptyView.addSubview(imageView)
+      emptyView.addSubview(label)
+
+      // Use Auto Layout constraints
+      imageView.translatesAutoresizingMaskIntoConstraints = false
+      label.translatesAutoresizingMaskIntoConstraints = false
+
+      NSLayoutConstraint.activate([
+          imageView.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor),
+          imageView.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor, constant: -20),
+          label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
+          label.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor)
+      ])
+
+      return emptyView
+  }
+
+  
   private func loadAndShowWelcomeNotification() {
          if let userProfile = valetService.loadUserProfile() {
              print("📱 Loaded profile for welcome: \(userProfile.name)")
@@ -136,7 +179,7 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
     
     private func setupCollectionView() {
         view.addSubview(collectionView)
-        driver = CollectionViewDriver(view: collectionView, viewModel: makeViewModel(), cellEventCoordinator: self)
+      driver = CollectionViewDriver(view: collectionView, viewModel: makeViewModel(), emptyViewProvider: emptyViewProvider, cellEventCoordinator: self)
     }
     
     private func simulateLoading() {
