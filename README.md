@@ -35,6 +35,15 @@ Cyclouse is a modern iOS e-commerce application for bicycles and accessories, bu
    ```bash
    git clone https://github.com/faaarce/Cyclouse.git
 
+2. **Install dependencies using Swift Package Manager:** 
+  Navigate to the project directory:
+
+  ```bash
+  cd Cyclouse
+Once in the project directory, run the following command to resolve and fetch the project dependencies:
+```bash
+swift package resolve
+This will download and integrate all the necessary dependencies specified in the Package.swift file.
 
 ## ✨Features
 
