@@ -14,6 +14,7 @@ import Valet
 import Hero
 import ReactiveCollectionsKit
 import Lottie
+import SnapKit
 
 
 class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResultsUpdating, UISearchControllerDelegate {
@@ -634,40 +635,56 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
       }
 
     
-    private func showWelcomeNotification(with profile: UserProfiles) {
-        let styleName = "WelcomeStyle"
-        NotificationPresenter.shared.addStyle(named: styleName) { style in
-            style.backgroundStyle.backgroundColor = ThemeColor.primary
-            style.textStyle.textColor = ThemeColor.cardFillColor
-            style.textStyle.font = ThemeFont.bold(ofSize: 14)
-            style.subtitleStyle.textColor = ThemeColor.cardFillColor
-            style.subtitleStyle.font = ThemeFont.medium(ofSize: 12)
-            style.progressBarStyle.barColor = ThemeColor.cardFillColor
-            style.progressBarStyle.barHeight = 0.1
-            return style
-        }
-        
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
-        let image = UIImage(systemName: "helmet.fill", withConfiguration: imageConfig)
-        let imageView = UIImageView(image: image)
-        imageView.tintColor = ThemeColor.cardFillColor
-        
-        let username = profile.email.components(separatedBy: "@").first ?? "faris"
-        
-        NotificationPresenter.shared.present(
-            "Welcome back, \(username)!",
-            subtitle: "Ready to ride",
-            styleName: styleName
-        ) { presenter in
-            presenter.displayLeftView(imageView)
-            
-            presenter.animateProgressBar(to: 1.0, duration: 2.0) { presenter in
-                presenter.dismiss()
-            }
-        }
-        
-        NotificationPresenter.shared.displayProgressBar(at: 0.0)
+  private func showWelcomeNotification(with profile: UserProfiles) {
+      let styleName = "WelcomeStyle"
+      NotificationPresenter.shared.addStyle(named: styleName) { style in
+          style.backgroundStyle.backgroundColor = ThemeColor.primary
+          style.textStyle.textColor = ThemeColor.cardFillColor
+          style.textStyle.font = ThemeFont.bold(ofSize: 14)
+          style.subtitleStyle.textColor = ThemeColor.cardFillColor
+          style.subtitleStyle.font = ThemeFont.medium(ofSize: 12)
+        style.progressBarStyle.barColor = .clear
+          style.progressBarStyle.barHeight = 0.0
+          return style
+      }
+      
+      // Create Lottie Animation View
+      let animationView = LottieAnimationView(name: "cycle")
+    animationView.loopMode = .playOnce
+      animationView.play()
+      animationView.translatesAutoresizingMaskIntoConstraints = false
+      animationView.contentMode = .scaleAspectFit
+      
+      // Create a container view if needed
+      let containerView = UIView()
+      containerView.addSubview(animationView)
+  
+    animationView.snp.makeConstraints {
+      $0.width.equalTo(260 )
+      $0.height.equalTo(20)
+      $0.centerX.equalTo(containerView.snp.centerX).offset(80)
+      $0.centerY.equalTo(containerView.snp.centerY).offset(10)
+//      $0.bottom.equalTo(containerView.snp.bottom)
     }
+      
+      let username = profile.email.components(separatedBy: "@").first ?? "User"
+      
+      NotificationPresenter.shared.present(
+          "Welcome back, \(username)!",
+          subtitle: "                ",
+          styleName: styleName
+      ) { presenter in
+          presenter.displayLeftView(containerView)
+          
+          presenter.animateProgressBar(to: 1.0, duration: 2.0) { presenter in
+              presenter.dismiss()
+          }
+      }
+      
+      NotificationPresenter.shared.displayProgressBar(at: 0.0)
+  }
+
+
     
     @objc private func handlePaymentCompletion(_ notification: Notification) {
         // Handle payment completion

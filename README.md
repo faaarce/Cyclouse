@@ -12,6 +12,14 @@ Cyclouse is a modern iOS e-commerce application for bicycles and accessories, bu
 |:---:|:---:|:---:|:---:|
 | Splash Screen | Login | Home | Checkout |
 
+## 📹 Demo Video
+
+<video width="320" height="240" controls>
+  <source src="https://github.com/faaarce/Cyclouse/blob/development/Documentation/Video/cyclouse.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+
 ## 📋Table of Contents
 - [Features](#features)
 - [System Requirements](#systemrequirements)
