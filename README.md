@@ -9,15 +9,12 @@
 
 Cyclouse is a modern iOS e-commerce application for bicycles and accessories, built with Swift and leveraging the latest frameworks and technologies 🚲
 
-## Screenshots
+## Demo Video
 
 | ![Splash Screen](https://github.com/faaarce/Cyclouse/blob/development/Documentation/GIFs/RocketSim_Recording_iPhone_16_Pro_6.3_2024-11-24_16.21.59.gif?raw=true) | ![Home](https://github.com/faaarce/Cyclouse/blob/development/Documentation/GIFs/RocketSim_Recording_iPhone_16_Pro_6.3_2024-11-24_16.22.45.gif?raw=true) | ![Map](https://github.com/faaarce/Cyclouse/blob/development/Documentation/GIFs/RocketSim_Recording_iPhone_16_Pro_6.3_2024-11-24_16.23.28.gif?raw=true) | ![Payment](https://github.com/faaarce/Cyclouse/blob/development/Documentation/GIFs/RocketSim_Recording_iPhone_16_Pro_6.3_2024-11-24_16.23.58.gif?raw=true) | 
 |:---:|:---:|:---:|:---:|
 | Splash Screen | Login | Home | Checkout |
 
-## Demo Video
-
-[Watch Demo Video](https://github.com/faaarce/Cyclouse/blob/development/Documentation/Video/cyclouse.mp4)
 
 ## Table of Contents
 
