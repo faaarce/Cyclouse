@@ -9,14 +9,14 @@
 
 Cyclouse is a modern iOS e-commerce application for bicycles and accessories, built with Swift and leveraging the latest frameworks and technologies 🚲
 
-## Demo Video
+## 📹 Demo Video
 
 | ![Profile](https://github.com/faaarce/Cyclouse/blob/development/Documentation/GIFs/RocketSim_Recording_iPhone_16_Pro_6.3_2024-11-24_16.21.59.gif?raw=true) | ![Home](https://github.com/faaarce/Cyclouse/blob/development/Documentation/GIFs/RocketSim_Recording_iPhone_16_Pro_6.3_2024-11-24_16.22.45.gif?raw=true) | ![Map](https://github.com/faaarce/Cyclouse/blob/development/Documentation/GIFs/RocketSim_Recording_iPhone_16_Pro_6.3_2024-11-24_16.23.28.gif?raw=true) | ![Payment](https://github.com/faaarce/Cyclouse/blob/development/Documentation/GIFs/RocketSim_Recording_iPhone_16_Pro_6.3_2024-11-24_16.23.58.gif?raw=true) | 
 |:---:|:---:|:---:|:---:|
 | Profile | Home | Map | Payment |
 
 
-## Table of Contents
+## 📋Table of Contents
 
 - [Features](#features)
 - [System Requirements](#system-requirements)
@@ -46,9 +46,9 @@ Cyclouse is a modern iOS e-commerce application for bicycles and accessories, bu
    swift package resolve
    ```
 
-## Features
+## ✨Features
 
-### Interactive UI Components
+### 📱 Interactive UI Components
 
 - **Custom Animated Tab Bar**: Engaging navigation with smooth animations
 - **Nested Collection Views**: Efficient browsing of categories and products
@@ -56,17 +56,17 @@ Cyclouse is a modern iOS e-commerce application for bicycles and accessories, bu
 - **ReactiveCollectionsKit Integration**: Dynamic collection view updates
 - **Plus Jakarta Sans Typography**: Modern and clean font for better readability
 
-### Robust Data Management
+### 💾 Robust Data Management
 
 - SwiftData for local persistence
 
-### Location Services
+### 📍 Location Services
 
 - Real-time GPS tracking with CoreLocation
 - MapKit integration with 3D views
 - Custom map annotations
 
-### Smart Notifications
+### 🔔 Smart Notifications
 
 - SwiftMessages for custom alerts
 - EasyNotificationBadge for cart updates
@@ -74,7 +74,7 @@ Cyclouse is a modern iOS e-commerce application for bicycles and accessories, bu
 - Interactive toast messages
 - Status bar notifications
 
-### Enhanced User Experience
+### ⚡️ Enhanced User Experience
 
 - SkeletonView for loading states
 - Hero animations for transitions
@@ -82,21 +82,21 @@ Cyclouse is a modern iOS e-commerce application for bicycles and accessories, bu
 - Lottie animations
 - NVActivityIndicatorView for loading button
 
-### Technical Architecture
+### 🏗 Technical Architecture
 
 - MVVM-C pattern with Coordinator
 - Dependency injection using Swinject
 - Reactive programming with Combine
 - Protocol-oriented design
 
-## System Requirements
+## 💻 System Requirements
 
 - iOS 15.0 or later
 - Xcode 14.0 or later
 - Swift 5.5 or later
 - CocoaPods 1.11.0 or later
 
-## Architecture
+## 🏗 Architecture
 
 Cyclouse uses MVVM-C pattern with:
 
@@ -105,7 +105,7 @@ Cyclouse uses MVVM-C pattern with:
 - **ViewModel**: Business logic
 - **Coordinator**: Navigation and flow management
 
-## Tech Stack
+## Tech Stack 🛠
 
 ### Programming Languages & Frameworks
 
