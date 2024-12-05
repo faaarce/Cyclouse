@@ -27,6 +27,15 @@ Cyclouse is a modern iOS e-commerce application for bicycles and accessories, bu
 - [Tech Stack](#tech-stack)
 - [License](#license)
 
+## How to Clone and Run the Project
+
+1. **Clone the repository:**
+   Open a terminal window and type the following command to clone the repository to your local machine:
+
+   ```bash
+   git clone https://github.com/faaarce/Cyclouse.git
+
+
 ## ✨Features
 
 ### 📱 Interactive UI Components
