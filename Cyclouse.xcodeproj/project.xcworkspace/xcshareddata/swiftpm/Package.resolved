@@ -1,5 +1,5 @@
 {
-  "originHash" : "172c6789c2aae844b094e7fb533c74f7617101ecc0436a393430aa5c2930465d",
+  "originHash" : "03ab4628e725099f818d3248ac7683d1f0c66cb805c611617a1a4c1abf8be235",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -8,15 +8,6 @@
       "state" : {
         "revision" : "f455c2975872ccd2d9c81594c658af65716e9b9a",
         "version" : "5.9.1"
-      }
-    },
-    {
-      "identity" : "algoliasearch-client-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/algolia/algoliasearch-client-swift",
-      "state" : {
-        "revision" : "4322ab2dc8cdb7acb6d06a019fd56f84dc998f25",
-        "version" : "8.21.0"
       }
     },
     {
@@ -53,24 +44,6 @@
       "state" : {
         "revision" : "b307e2d48d582118e5101d04f5187c91595a1095",
         "version" : "1.6.3"
-      }
-    },
-    {
-      "identity" : "instantsearch-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/algolia/instantsearch-ios",
-      "state" : {
-        "revision" : "a413df32897a841601f42e875fc6abe08b7ea293",
-        "version" : "7.26.3"
-      }
-    },
-    {
-      "identity" : "instantsearch-telemetry-native",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/algolia/instantsearch-telemetry-native",
-      "state" : {
-        "revision" : "d9861ceb2fe25899a31672fb7c648ae8036d3221",
-        "version" : "0.1.3"
       }
     },
     {
@@ -200,15 +173,6 @@
       }
     },
     {
-      "identity" : "sentry-cocoa",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/getsentry/sentry-cocoa.git",
-      "state" : {
-        "revision" : "e2ac1723a4a9632e291c171b6e25a0c403b0fecb",
-        "version" : "8.35.0"
-      }
-    },
-    {
       "identity" : "skeletonview",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Juanpe/SkeletonView.git",
@@ -224,24 +188,6 @@
       "state" : {
         "revision" : "2842e6e84e82eb9a8dac0100ca90d9444b0307f4",
         "version" : "5.7.1"
-      }
-    },
-    {
-      "identity" : "swift-log",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-log",
-      "state" : {
-        "revision" : "9cb486020ebf03bfa5b5df985387a14a98744537",
-        "version" : "1.6.1"
-      }
-    },
-    {
-      "identity" : "swift-protobuf",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-protobuf.git",
-      "state" : {
-        "revision" : "ebc7251dd5b37f627c93698e4374084d98409633",
-        "version" : "1.28.2"
       }
     },
     {
@@ -269,15 +215,6 @@
       "state" : {
         "revision" : "3df8eaa90e1fa0d80830733cdc3c9e098146af3d",
         "version" : "4.3.0"
-      }
-    },
-    {
-      "identity" : "xendit-sdk-ios-src",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/xendit/xendit-sdk-ios-src",
-      "state" : {
-        "revision" : "893a344ab37bd498a37b003ab068b9732c8ce818",
-        "version" : "3.10.0"
       }
     }
   ],

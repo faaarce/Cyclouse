@@ -86,7 +86,6 @@
 		C1705E0C2CA55C6D0043CE9D /* BikeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E092CA55C6D0043CE9D /* BikeService.swift */; };
 		C1705E0D2CA55C6D0043CE9D /* BikeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E082CA55C6D0043CE9D /* BikeRepository.swift */; };
 		C1705E0E2CA55C6D0043CE9D /* BikeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E062CA55C6D0043CE9D /* BikeAPI.swift */; };
-		C17682792CBB9D4800065AD5 /* Xendit in Frameworks */ = {isa = PBXBuildFile; productRef = C17682782CBB9D4800065AD5 /* Xendit */; };
 		C177238D2C951CF30078E598 /* ReadMoreTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177238C2C951CF30078E598 /* ReadMoreTextView.swift */; };
 		C177238F2C954E6B0078E598 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177238E2C954E6B0078E598 /* PopUpViewController.swift */; };
 		C177BD1F2CE8DE4E00B504C1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177BD1E2CE8DE4E00B504C1 /* BaseViewController.swift */; };
@@ -180,9 +179,6 @@
 		C19CB9DC2CEF24D1003AC1C6 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C19CB9DB2CEF24D1003AC1C6 /* IQKeyboardManagerSwift */; };
 		C19CB9DE2CEF25B5003AC1C6 /* KeyboardConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19CB9DD2CEF25B4003AC1C6 /* KeyboardConfiguration.swift */; };
 		C1A426E52CBEBC9A000B1579 /* JDStatusBarNotification in Frameworks */ = {isa = PBXBuildFile; productRef = C1A426E42CBEBC9A000B1579 /* JDStatusBarNotification */; };
-		C1A426E92CBECB8A000B1579 /* InstantSearch in Frameworks */ = {isa = PBXBuildFile; productRef = C1A426E82CBECB8A000B1579 /* InstantSearch */; };
-		C1A426EB2CBECB8A000B1579 /* InstantSearchCore in Frameworks */ = {isa = PBXBuildFile; productRef = C1A426EA2CBECB8A000B1579 /* InstantSearchCore */; };
-		C1A426ED2CBECB8A000B1579 /* InstantSearchInsights in Frameworks */ = {isa = PBXBuildFile; productRef = C1A426EC2CBECB8A000B1579 /* InstantSearchInsights */; };
 		C1A505BE2CEA397D00078B46 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A505BD2CEA397D00078B46 /* HistoryViewModel.swift */; };
 		C1A505C02CEA685400078B46 /* empty.json in Resources */ = {isa = PBXBuildFile; fileRef = C1A505BF2CEA685400078B46 /* empty.json */; };
 		C1A505D02CEB1C6300078B46 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A505CF2CEB1C6300078B46 /* FilterViewController.swift */; };
@@ -511,16 +507,12 @@
 				C19CB9DC2CEF24D1003AC1C6 /* IQKeyboardManagerSwift in Frameworks */,
 				C104D20E2CC541DC006EB92B /* Lottie in Frameworks */,
 				C1D854412CE496BD00C17C8D /* NVActivityIndicatorViewExtended in Frameworks */,
-				C17682792CBB9D4800065AD5 /* Xendit in Frameworks */,
-				C1A426E92CBECB8A000B1579 /* InstantSearch in Frameworks */,
 				C1D8543F2CE496BD00C17C8D /* NVActivityIndicatorView in Frameworks */,
-				C1A426ED2CBECB8A000B1579 /* InstantSearchInsights in Frameworks */,
 				C1EAE3A32CBC11530032DE1B /* SkeletonView in Frameworks */,
 				C121FD482CB903BE00B4AEF5 /* EasyNotificationBadge in Frameworks */,
 				C1A426E52CBEBC9A000B1579 /* JDStatusBarNotification in Frameworks */,
 				C193704E2C8A137600B56BA1 /* SnapKit in Frameworks */,
 				C19370512C8A140E00B56BA1 /* CombineDataSources in Frameworks */,
-				C1A426EB2CBECB8A000B1579 /* InstantSearchCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1941,12 +1933,8 @@
 				C18F517B2C9D1E4900E60C0D /* Alamofire */,
 				C151E8A62CA9B9BD000C6B73 /* Valet */,
 				C121FD472CB903BE00B4AEF5 /* EasyNotificationBadge */,
-				C17682782CBB9D4800065AD5 /* Xendit */,
 				C1EAE3A22CBC11530032DE1B /* SkeletonView */,
 				C1A426E42CBEBC9A000B1579 /* JDStatusBarNotification */,
-				C1A426E82CBECB8A000B1579 /* InstantSearch */,
-				C1A426EA2CBECB8A000B1579 /* InstantSearchCore */,
-				C1A426EC2CBECB8A000B1579 /* InstantSearchInsights */,
 				C1AF6D0E2CC16A3000BEFD41 /* Hero */,
 				C122131F2CC2551B005F8421 /* Kingfisher */,
 				C104D20D2CC541DC006EB92B /* Lottie */,
@@ -1996,10 +1984,8 @@
 				C18F517A2C9D1E4900E60C0D /* XCRemoteSwiftPackageReference "Alamofire" */,
 				C151E8A52CA9B9BD000C6B73 /* XCRemoteSwiftPackageReference "Valet" */,
 				C121FD462CB903BE00B4AEF5 /* XCRemoteSwiftPackageReference "EasyNotificationBadge" */,
-				C17682772CBB9D4800065AD5 /* XCRemoteSwiftPackageReference "xendit-sdk-ios-src" */,
 				C1EAE3A12CBC11530032DE1B /* XCRemoteSwiftPackageReference "SkeletonView" */,
 				C1A426E32CBEBC9A000B1579 /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */,
-				C1A426E72CBECB8A000B1579 /* XCRemoteSwiftPackageReference "instantsearch-ios" */,
 				C1AF6D0D2CC16A3000BEFD41 /* XCRemoteSwiftPackageReference "Hero" */,
 				C122131E2CC2551B005F8421 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				C104D20C2CC541DC006EB92B /* XCRemoteSwiftPackageReference "lottie-spm" */,
@@ -2604,14 +2590,6 @@
 				minimumVersion = 2.9.1;
 			};
 		};
-		C17682772CBB9D4800065AD5 /* XCRemoteSwiftPackageReference "xendit-sdk-ios-src" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/xendit/xendit-sdk-ios-src";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.10.0;
-			};
-		};
 		C18F517A2C9D1E4900E60C0D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -2666,14 +2644,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.2.2;
-			};
-		};
-		C1A426E72CBECB8A000B1579 /* XCRemoteSwiftPackageReference "instantsearch-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/algolia/instantsearch-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.26.3;
 			};
 		};
 		C1AF6D0D2CC16A3000BEFD41 /* XCRemoteSwiftPackageReference "Hero" */ = {
@@ -2741,11 +2711,6 @@
 			package = C162D44D2CD2BCD600DBA8CC /* XCRemoteSwiftPackageReference "Swinject" */;
 			productName = Swinject;
 		};
-		C17682782CBB9D4800065AD5 /* Xendit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C17682772CBB9D4800065AD5 /* XCRemoteSwiftPackageReference "xendit-sdk-ios-src" */;
-			productName = Xendit;
-		};
 		C18F517B2C9D1E4900E60C0D /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C18F517A2C9D1E4900E60C0D /* XCRemoteSwiftPackageReference "Alamofire" */;
@@ -2780,21 +2745,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C1A426E32CBEBC9A000B1579 /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */;
 			productName = JDStatusBarNotification;
-		};
-		C1A426E82CBECB8A000B1579 /* InstantSearch */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C1A426E72CBECB8A000B1579 /* XCRemoteSwiftPackageReference "instantsearch-ios" */;
-			productName = InstantSearch;
-		};
-		C1A426EA2CBECB8A000B1579 /* InstantSearchCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C1A426E72CBECB8A000B1579 /* XCRemoteSwiftPackageReference "instantsearch-ios" */;
-			productName = InstantSearchCore;
-		};
-		C1A426EC2CBECB8A000B1579 /* InstantSearchInsights */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C1A426E72CBECB8A000B1579 /* XCRemoteSwiftPackageReference "instantsearch-ios" */;
-			productName = InstantSearchInsights;
 		};
 		C1AF6D0E2CC16A3000BEFD41 /* Hero */ = {
 			isa = XCSwiftPackageProductDependency;
