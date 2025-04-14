@@ -17,7 +17,6 @@ final class TabbarCoordinator: Coordinator {
     weak var parentCoordinator: Coordinator?
     
     // MARK: - Private Properties
-    let test = "test"
     private let container: Container
     private var tabBarController: TabBarController
     private let service = DatabaseService.shared
