@@ -110,8 +110,15 @@ class SignUpViewController: BaseViewController {
       .assign(to: \.password, on: viewModel)
       .store(in: &cancellables)
     
-    phoneInputView.textField.textPublisher
+    phoneInputView.getPhoneTextField.textPublisher
       .assign(to: \.phoneNumber, on: viewModel)
+      .store(in: &cancellables)
+    
+    phoneInputView.getPhoneTextField.textPublisher
+      .sink { text in
+          print("Phone number being typed: \(text)")
+          self.viewModel.phoneNumber = text
+      }
       .store(in: &cancellables)
     
     confirmPasswordInputView.textField.textPublisher
