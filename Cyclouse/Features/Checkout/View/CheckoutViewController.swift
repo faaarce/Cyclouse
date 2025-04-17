@@ -218,6 +218,7 @@ class CheckoutViewController: BaseViewController {
           self.handleNetworkError(error)
         }
       } receiveValue: { [weak self] response in
+        print("Checkout successful: \(response)")
         guard let self = self else { return }
         if response.value.success {
           self.handleSuccessfulCheckout(response.value.data)

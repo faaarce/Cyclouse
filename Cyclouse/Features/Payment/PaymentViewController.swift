@@ -227,6 +227,7 @@ class PaymentViewController: UIViewController {
                        self.animationView.isHidden = true
                    }
                } receiveValue: { [weak self] response in
+                 print("payment successful: \(response)")
                    guard let self = self else { return }
                    
                    if response.value.success {

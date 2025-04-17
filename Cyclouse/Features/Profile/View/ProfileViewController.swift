@@ -291,7 +291,7 @@ class ProfileViewController: BaseViewController {
                     )
                 }
             } receiveValue: { response in
-                print("Logout successful: \(response)")
+                print("Logout successful: \(response)") //print here
             }
             .store(in: &cancellables)
     }

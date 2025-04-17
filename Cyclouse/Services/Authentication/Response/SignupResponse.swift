@@ -8,8 +8,10 @@
 import Foundation
 
 struct SignupResponse: Responseable {
-  let message: String
   let success: Bool
+  let message: String
   let userId: String
-  
+  let name: String
+  let email: String
+  let phone: String
 }

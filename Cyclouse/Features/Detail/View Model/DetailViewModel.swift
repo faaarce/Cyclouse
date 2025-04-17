@@ -71,7 +71,8 @@ class DetailViewModel {
                     case .failure(let error):
                         self?.showError = ("Error", "Failed to add bike item: \(error.localizedDescription)")
                     }
-                } receiveValue: { [weak self] _ in
+                } receiveValue: { [weak self] response in
+                  print("Add to cart successful: \(response)")
                     self?.showSuccess = ("Success", "Bike item added to cart")
                 }
                 .store(in: &cancellables)

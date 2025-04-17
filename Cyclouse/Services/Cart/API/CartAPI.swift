@@ -49,6 +49,7 @@ enum CartAPI: API {
   
   var headers: HTTPHeaders? {
     if let token = TokenManager.shared.getToken() {
+      print("TARI \(token)")
       return ["Authorization" : token]
     } else {
       print("No authorization token available")
