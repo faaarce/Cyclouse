@@ -69,7 +69,7 @@ class ProfileViewController: BaseViewController {
         createDivider(),
         createPaddedMenuItemStack(title: "Language", icon: "globe"),
         createDivider(),
-        createPaddedMenuItemStack(title: "Logout", icon: "questionmark.circle", action: #selector(logoutButtonTapped))
+        createPaddedMenuItemStack(title: "Logout", icon: "rectangle.portrait.and.arrow.right", action: #selector(logoutButtonTapped))
     ]
 
     // MARK: - Initialization
