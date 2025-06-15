@@ -7,6 +7,7 @@
 import SnapKit
 import UIKit
 import Combine
+import EasyNotificationBadge
 
 import Hero
 
@@ -17,6 +18,8 @@ class DetailViewController: BaseViewController, ViewModelBindable, PopUpViewCont
     typealias ViewModel = DetailViewModel
     var viewModel: DetailViewModel
     var coordinator: DetailCoordinator
+  private let service = DatabaseService.shared
+  
 
     private let detailImage: UIImageView = {
         let object = UIImageView()
@@ -142,6 +145,11 @@ class DetailViewController: BaseViewController, ViewModelBindable, PopUpViewCont
         super.viewDidLoad()
         title = "Detail"
     }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+  }
 
     // MARK: - Setup Methods
 
@@ -154,7 +162,7 @@ class DetailViewController: BaseViewController, ViewModelBindable, PopUpViewCont
         [hImageStackView, detailImage, priceLabel, productTitleLabel, descriptionTextView, hButtonStackView].forEach {
             view.addSubview($0)
         }
-
+      setupNavigationBar()
         configureDescriptionTextView()
         configureViews()
     }
@@ -223,6 +231,31 @@ class DetailViewController: BaseViewController, ViewModelBindable, PopUpViewCont
             }
             .store(in: &cancellables)
     }
+  
+  private func setupNavigationBar() {
+    let cartButton = UIButton(type: .system)
+    cartButton.setImage(UIImage(systemName: "cart.fill"), for: .normal)
+    cartButton.tintColor = UIColor(hex: "F2F2F2")
+    cartButton.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
+    
+    
+    // Add badge to cart button
+    var badgeAppearance = BadgeAppearance()
+    badgeAppearance.backgroundColor = .red
+    badgeAppearance.textColor = .white
+    badgeAppearance.font = ThemeFont.bold(ofSize: 12)
+    badgeAppearance.distanceFromCenterX = 13
+    badgeAppearance.distanceFromCenterY = -10
+    cartButton.badge(text: nil, appearance: badgeAppearance)
+    
+    let cartBarButton = UIBarButtonItem(customView: cartButton)
+    navigationItem.rightBarButtonItems = [cartBarButton]
+
+  }
+  
+  @objc private func cartButtonTapped() {
+    coordinator.showCartController()
+  }
 
     // MARK: - Actions
 

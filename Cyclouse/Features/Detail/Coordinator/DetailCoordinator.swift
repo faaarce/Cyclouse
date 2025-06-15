@@ -43,6 +43,13 @@ class DetailCoordinator: Coordinator, NavigationCoordinator {
     checkoutCoordinator.start()
   }
   
+  func showCartController(){
+    let cartCoordinator = container.resolve(CartCoordinator.self, argument: navigationController)!
+    addChildCoordinator(cartCoordinator)
+    cartCoordinator.parentCoordinator = self
+    cartCoordinator.start()
+  }
+  
   func didFinish(){
     parentCoordinator?.removeChildCoordinator(self)
   }
