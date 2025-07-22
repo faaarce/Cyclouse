@@ -196,6 +196,8 @@ class HistoryTableViewCell: UITableViewCell {
     itemsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
     itemsStackView.addArrangedSubview(createItemView(image: order.image, name: order.name, price: order.price, quantity: order.quantity))
+  
+    totalPriceLabel.text = order.price.toRupiah()
   }
 
     func configure(with orderHistory: OrderHistory) {

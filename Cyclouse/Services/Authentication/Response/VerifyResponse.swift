@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+struct VerifyResponse: Responseable {
+  var message: String
+  var success: Bool
+  
+}

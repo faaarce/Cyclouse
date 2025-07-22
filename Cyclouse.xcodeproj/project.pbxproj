@@ -20,6 +20,16 @@
 		C10AB15A2CF481BC00FE3A8A /* EditProfileRequeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AB1592CF481BC00FE3A8A /* EditProfileRequeat.swift */; };
 		C10AB15C2CF4847000FE3A8A /* UserProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AB15B2CF4847000FE3A8A /* UserProfileService.swift */; };
 		C10AB15E2CF4EBE500FE3A8A /* UserProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AB15D2CF4EBE500FE3A8A /* UserProfiles.swift */; };
+		C10EA6782E0BFFA000FE65C8 /* ForgotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10EA6772E0BFFA000FE65C8 /* ForgotViewController.swift */; };
+		C10EA67B2E0C009000FE65C8 /* ForgotCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10EA67A2E0C009000FE65C8 /* ForgotCoordinator.swift */; };
+		C10EA67D2E0C01B300FE65C8 /* ForgotViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10EA67C2E0C01B300FE65C8 /* ForgotViewModel.swift */; };
+		C1122CCD2E10E689009D2A42 /* ResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1122CCC2E10E689009D2A42 /* ResetViewController.swift */; };
+		C1122CD22E10E7FB009D2A42 /* OTPVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1122CD12E10E7FB009D2A42 /* OTPVerificationViewController.swift */; };
+		C1122CD72E10E8C3009D2A42 /* OTPVerificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1122CD62E10E8C3009D2A42 /* OTPVerificationViewModel.swift */; };
+		C1122CDA2E10EB85009D2A42 /* OTPCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1122CD92E10EB85009D2A42 /* OTPCoordinator.swift */; };
+		C1122CDC2E119028009D2A42 /* VerifyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1122CDB2E119028009D2A42 /* VerifyResponse.swift */; };
+		C1122CE12E124D7E009D2A42 /* ResetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1122CE02E124D7E009D2A42 /* ResetCoordinator.swift */; };
+		C1122CE32E124EA0009D2A42 /* ResetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1122CE22E124EA0009D2A42 /* ResetViewModel.swift */; };
 		C115252D2CDC9BC8001DD6FD /* ConfigDev.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C115252C2CDC9BC8001DD6FD /* ConfigDev.xcconfig */; };
 		C115252F2CDC9BE9001DD6FD /* ConfigSIT.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C115252E2CDC9BE9001DD6FD /* ConfigSIT.xcconfig */; };
 		C11525492CDCBAEA001DD6FD /* AddressViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11525482CDCBAEA001DD6FD /* AddressViewCell.swift */; };
@@ -40,6 +50,7 @@
 		C125594F2CE339F800382028 /* PaymentStatusRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C125594E2CE339F800382028 /* PaymentStatusRequest.swift */; };
 		C12559502CE339F800382028 /* PaymentStatusRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C125594E2CE339F800382028 /* PaymentStatusRequest.swift */; };
 		C12559522CE33A3000382028 /* PaymentStatusResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12559512CE33A3000382028 /* PaymentStatusResponse.swift */; };
+		C12D31E62E158D71002023F8 /* ResetResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12D31E52E158D6B002023F8 /* ResetResponse.swift */; };
 		C13D90C82C91EE5400430BA4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13D90C72C91EE5400430BA4 /* DetailViewController.swift */; };
 		C13D90CA2C91EEA200430BA4 /* DetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13D90C92C91EEA200430BA4 /* DetailCoordinator.swift */; };
 		C13D90D42C92183A00430BA4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13D90D32C92183A00430BA4 /* Constants.swift */; };
@@ -86,6 +97,7 @@
 		C1705E0C2CA55C6D0043CE9D /* BikeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E092CA55C6D0043CE9D /* BikeService.swift */; };
 		C1705E0D2CA55C6D0043CE9D /* BikeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E082CA55C6D0043CE9D /* BikeRepository.swift */; };
 		C1705E0E2CA55C6D0043CE9D /* BikeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1705E062CA55C6D0043CE9D /* BikeAPI.swift */; };
+		C174990E2E0C484000996321 /* ForgotResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C174990D2E0C484000996321 /* ForgotResponse.swift */; };
 		C177238D2C951CF30078E598 /* ReadMoreTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177238C2C951CF30078E598 /* ReadMoreTextView.swift */; };
 		C177238F2C954E6B0078E598 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177238E2C954E6B0078E598 /* PopUpViewController.swift */; };
 		C177BD1F2CE8DE4E00B504C1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177BD1E2CE8DE4E00B504C1 /* BaseViewController.swift */; };
@@ -111,6 +123,9 @@
 		C17F98B52CE7A4490060BC7B /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98B42CE7A4490060BC7B /* LocationManager.swift */; };
 		C17F98B72CE83C620060BC7B /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17F98B62CE83C620060BC7B /* LocationService.swift */; };
 		C17F98B92CE8990E0060BC7B /* checkmark.json in Resources */ = {isa = PBXBuildFile; fileRef = C17F98B82CE8990E0060BC7B /* checkmark.json */; };
+		C18082372E0507AB00F194D6 /* ShippingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18082362E0507AB00F194D6 /* ShippingViewCell.swift */; };
+		C18082392E050C7100F194D6 /* ShippingSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18082382E050C7100F194D6 /* ShippingSelect.swift */; };
+		C180823C2E086B7600F194D6 /* ShippingMethodViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C180823B2E086B7600F194D6 /* ShippingMethodViewCell.swift */; };
 		C18F51622C9D1A1000E60C0D /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51502C9D1A1000E60C0D /* Email.swift */; };
 		C18F51632C9D1A1000E60C0D /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51522C9D1A1000E60C0D /* Password.swift */; };
 		C18F51642C9D1A1000E60C0D /* Username.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18F51512C9D1A1000E60C0D /* Username.swift */; };
@@ -230,6 +245,7 @@
 		C1FA58562CF2EE5900431BDB /* ProfileImageMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA58552CF2EE5900431BDB /* ProfileImageMetadata.swift */; };
 		C1FA58582CF2EE8800431BDB /* ProfileStorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA58572CF2EE8800431BDB /* ProfileStorageError.swift */; };
 		C1FA585A2CF2EEBB00431BDB /* UIImage + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA58592CF2EEBB00431BDB /* UIImage + Extension.swift */; };
+		C1FFC48F2E0028FF0064A375 /* UILabel + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FFC48E2E0028FF0064A375 /* UILabel + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -268,6 +284,16 @@
 		C10AB1592CF481BC00FE3A8A /* EditProfileRequeat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileRequeat.swift; sourceTree = "<group>"; };
 		C10AB15B2CF4847000FE3A8A /* UserProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileService.swift; sourceTree = "<group>"; };
 		C10AB15D2CF4EBE500FE3A8A /* UserProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfiles.swift; sourceTree = "<group>"; };
+		C10EA6772E0BFFA000FE65C8 /* ForgotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotViewController.swift; sourceTree = "<group>"; };
+		C10EA67A2E0C009000FE65C8 /* ForgotCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotCoordinator.swift; sourceTree = "<group>"; };
+		C10EA67C2E0C01B300FE65C8 /* ForgotViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotViewModel.swift; sourceTree = "<group>"; };
+		C1122CCC2E10E689009D2A42 /* ResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetViewController.swift; sourceTree = "<group>"; };
+		C1122CD12E10E7FB009D2A42 /* OTPVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationViewController.swift; sourceTree = "<group>"; };
+		C1122CD62E10E8C3009D2A42 /* OTPVerificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationViewModel.swift; sourceTree = "<group>"; };
+		C1122CD92E10EB85009D2A42 /* OTPCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPCoordinator.swift; sourceTree = "<group>"; };
+		C1122CDB2E119028009D2A42 /* VerifyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyResponse.swift; sourceTree = "<group>"; };
+		C1122CE02E124D7E009D2A42 /* ResetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetCoordinator.swift; sourceTree = "<group>"; };
+		C1122CE22E124EA0009D2A42 /* ResetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetViewModel.swift; sourceTree = "<group>"; };
 		C115252C2CDC9BC8001DD6FD /* ConfigDev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ConfigDev.xcconfig; sourceTree = "<group>"; };
 		C115252E2CDC9BE9001DD6FD /* ConfigSIT.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ConfigSIT.xcconfig; sourceTree = "<group>"; };
 		C11525482CDCBAEA001DD6FD /* AddressViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewCell.swift; sourceTree = "<group>"; };
@@ -287,6 +313,7 @@
 		C125594B2CE338BB00382028 /* PaymentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentService.swift; sourceTree = "<group>"; };
 		C125594E2CE339F800382028 /* PaymentStatusRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentStatusRequest.swift; sourceTree = "<group>"; };
 		C12559512CE33A3000382028 /* PaymentStatusResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentStatusResponse.swift; sourceTree = "<group>"; };
+		C12D31E52E158D6B002023F8 /* ResetResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetResponse.swift; sourceTree = "<group>"; };
 		C13D90C72C91EE5400430BA4 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C13D90C92C91EEA200430BA4 /* DetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoordinator.swift; sourceTree = "<group>"; };
 		C13D90D32C92183A00430BA4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -331,6 +358,7 @@
 		C1705E072CA55C6D0043CE9D /* BikeNetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeNetworkRepository.swift; sourceTree = "<group>"; };
 		C1705E082CA55C6D0043CE9D /* BikeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRepository.swift; sourceTree = "<group>"; };
 		C1705E092CA55C6D0043CE9D /* BikeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeService.swift; sourceTree = "<group>"; };
+		C174990D2E0C484000996321 /* ForgotResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotResponse.swift; sourceTree = "<group>"; };
 		C177238C2C951CF30078E598 /* ReadMoreTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreTextView.swift; sourceTree = "<group>"; };
 		C177238E2C954E6B0078E598 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		C177BD1E2CE8DE4E00B504C1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -356,6 +384,9 @@
 		C17F98B42CE7A4490060BC7B /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		C17F98B62CE83C620060BC7B /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		C17F98B82CE8990E0060BC7B /* checkmark.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = checkmark.json; sourceTree = "<group>"; };
+		C18082362E0507AB00F194D6 /* ShippingViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippingViewCell.swift; sourceTree = "<group>"; };
+		C18082382E050C7100F194D6 /* ShippingSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippingSelect.swift; sourceTree = "<group>"; };
+		C180823B2E086B7600F194D6 /* ShippingMethodViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippingMethodViewCell.swift; sourceTree = "<group>"; };
 		C18F514C2C9D1A1000E60C0D /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		C18F514D2C9D1A1000E60C0D /* Validateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validateable.swift; sourceTree = "<group>"; };
 		C18F514E2C9D1A1000E60C0D /* Valueable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Valueable.swift; sourceTree = "<group>"; };
@@ -465,6 +496,7 @@
 		C1FA58552CF2EE5900431BDB /* ProfileImageMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageMetadata.swift; sourceTree = "<group>"; };
 		C1FA58572CF2EE8800431BDB /* ProfileStorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStorageError.swift; sourceTree = "<group>"; };
 		C1FA58592CF2EEBB00431BDB /* UIImage + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Extension.swift"; sourceTree = "<group>"; };
+		C1FFC48E2E0028FF0064A375 /* UILabel + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -606,6 +638,116 @@
 				C10AB1592CF481BC00FE3A8A /* EditProfileRequeat.swift */,
 			);
 			path = Request;
+			sourceTree = "<group>";
+		};
+		C10EA6732E0BFF6000FE65C8 /* Forgot */ = {
+			isa = PBXGroup;
+			children = (
+				C10EA6792E0C007F00FE65C8 /* Coordinator */,
+				C10EA6762E0BFF7100FE65C8 /* View Model */,
+				C10EA6752E0BFF6B00FE65C8 /* Model */,
+				C10EA6742E0BFF6600FE65C8 /* View */,
+			);
+			path = Forgot;
+			sourceTree = "<group>";
+		};
+		C10EA6742E0BFF6600FE65C8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C10EA6772E0BFFA000FE65C8 /* ForgotViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C10EA6752E0BFF6B00FE65C8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C10EA6762E0BFF7100FE65C8 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				C10EA67C2E0C01B300FE65C8 /* ForgotViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		C10EA6792E0C007F00FE65C8 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C10EA67A2E0C009000FE65C8 /* ForgotCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		C1122CCB2E10E676009D2A42 /* Reset Password */ = {
+			isa = PBXGroup;
+			children = (
+				C1122CDF2E124B86009D2A42 /* Coordinator */,
+				C1122CDE2E124B5B009D2A42 /* View Model */,
+				C1122CDD2E124B4C009D2A42 /* View */,
+			);
+			path = "Reset Password";
+			sourceTree = "<group>";
+		};
+		C1122CD32E10E823009D2A42 /* OTP */ = {
+			isa = PBXGroup;
+			children = (
+				C1122CD82E10EB65009D2A42 /* OTPCoordinator */,
+				C1122CD42E10E858009D2A42 /* View Model */,
+				C1122CD52E10E860009D2A42 /* View */,
+			);
+			path = OTP;
+			sourceTree = "<group>";
+		};
+		C1122CD42E10E858009D2A42 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				C1122CD62E10E8C3009D2A42 /* OTPVerificationViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		C1122CD52E10E860009D2A42 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C1122CD12E10E7FB009D2A42 /* OTPVerificationViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C1122CD82E10EB65009D2A42 /* OTPCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C1122CD92E10EB85009D2A42 /* OTPCoordinator.swift */,
+			);
+			path = OTPCoordinator;
+			sourceTree = "<group>";
+		};
+		C1122CDD2E124B4C009D2A42 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C1122CCC2E10E689009D2A42 /* ResetViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C1122CDE2E124B5B009D2A42 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				C1122CE22E124EA0009D2A42 /* ResetViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		C1122CDF2E124B86009D2A42 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C1122CE02E124D7E009D2A42 /* ResetCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		C115252B2CDC9B98001DD6FD /* Config */ = {
@@ -840,6 +982,7 @@
 		C151EFBD2CF565D8002A463F /* Detail Order */ = {
 			isa = PBXGroup;
 			children = (
+				C180823A2E086B5D00F194D6 /* Cell */,
 				C151EFC12CF56774002A463F /* View */,
 				C151EFC02CF5676F002A463F /* Coordinator */,
 			);
@@ -1168,6 +1311,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		C180823A2E086B5D00F194D6 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C180823B2E086B7600F194D6 /* ShippingMethodViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		C18F514F2C9D1A1000E60C0D /* SubDomain */ = {
 			isa = PBXGroup;
 			children = (
@@ -1193,9 +1344,12 @@
 		C18F51562C9D1A1000E60C0D /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				C12D31E52E158D6B002023F8 /* ResetResponse.swift */,
 				C18F51552C9D1A1000E60C0D /* SigninResponse.swift */,
 				C1CDE9AE2CB5318B005B491F /* SignoutResponse.swift */,
 				C1A505E22CEDDFE400078B46 /* SignupResponse.swift */,
+				C174990D2E0C484000996321 /* ForgotResponse.swift */,
+				C1122CDB2E119028009D2A42 /* VerifyResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1298,6 +1452,9 @@
 		C19370172C89960F00B56BA1 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				C1122CD32E10E823009D2A42 /* OTP */,
+				C1122CCB2E10E676009D2A42 /* Reset Password */,
+				C10EA6732E0BFF6000FE65C8 /* Forgot */,
 				C151EFBD2CF565D8002A463F /* Detail Order */,
 				C10AB12D2CF3A71D00FE3A8A /* Edit Profile */,
 				C1FA585B2CF2F91300431BDB /* Filter */,
@@ -1471,6 +1628,7 @@
 				C19370592C8ABAEE00B56BA1 /* UIColor+Extension.swift */,
 				C19370682C8B73D900B56BA1 /* UIView+Extension.swift */,
 				C1FA58592CF2EEBB00431BDB /* UIImage + Extension.swift */,
+				C1FFC48E2E0028FF0064A375 /* UILabel + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1866,6 +2024,7 @@
 			children = (
 				C11525482CDCBAEA001DD6FD /* AddressViewCell.swift */,
 				C11525602CDDFFF0001DD6FD /* PaymentViewCell.swift */,
+				C18082362E0507AB00F194D6 /* ShippingViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1874,6 +2033,7 @@
 			isa = PBXGroup;
 			children = (
 				C11525622CDE2AC3001DD6FD /* Bank.swift */,
+				C18082382E050C7100F194D6 /* ShippingSelect.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2071,6 +2231,7 @@
 				C162D4362CD2420700DBA8CC /* MapViewController.swift in Sources */,
 				C19370652C8B69ED00B56BA1 /* ThemeFont.swift in Sources */,
 				C169A42D2CE3807B0079DE6B /* OrderHistoryResponse.swift in Sources */,
+				C1FFC48F2E0028FF0064A375 /* UILabel + Extension.swift in Sources */,
 				C1EDE5A92CAB3C8000816876 /* CartRepository.swift in Sources */,
 				C18F51622C9D1A1000E60C0D /* Email.swift in Sources */,
 				C18F51632C9D1A1000E60C0D /* Password.swift in Sources */,
@@ -2080,9 +2241,11 @@
 				C18F51662C9D1A1000E60C0D /* ValidationError.swift in Sources */,
 				C1A505E52CEEDBBE00078B46 /* SignUpViewModel.swift in Sources */,
 				C18F51672C9D1A1000E60C0D /* AuthenticationValidationError.swift in Sources */,
+				C12D31E62E158D71002023F8 /* ResetResponse.swift in Sources */,
 				C18F51752C9D1AA300E60C0D /* Responseable.swift in Sources */,
 				C107B1F12CDF9E95008C5F5C /* BikeDatabase.swift in Sources */,
 				C18F51762C9D1AA300E60C0D /* ServerMessageError.swift in Sources */,
+				C18082392E050C7100F194D6 /* ShippingSelect.swift in Sources */,
 				C1D854432CE49F5700C17C8D /* CyclouseButton.swift in Sources */,
 				C18F51772C9D1AA300E60C0D /* APIService.swift in Sources */,
 				C18F51782C9D1AA300E60C0D /* APIManager.swift in Sources */,
@@ -2104,6 +2267,7 @@
 				C17F98202CE606ED0060BC7B /* Theme+Icon.swift in Sources */,
 				C16468BF2CD09DAD00876224 /* CheckoutResponse.swift in Sources */,
 				C162D43C2CD2B31300DBA8CC /* DetailViewModel.swift in Sources */,
+				C10EA67B2E0C009000FE65C8 /* ForgotCoordinator.swift in Sources */,
 				C18F516D2C9D1A1000E60C0D /* SigninResponse.swift in Sources */,
 				C17F98B72CE83C620060BC7B /* LocationService.swift in Sources */,
 				C18F516E2C9D1A1000E60C0D /* AuthenticationRepository.swift in Sources */,
@@ -2128,6 +2292,7 @@
 				C19370562C8AB19900B56BA1 /* WishlistViewController.swift in Sources */,
 				C12251C42CB6E065001278E6 /* DatabaseService.swift in Sources */,
 				C13D90D82C9218D700430BA4 /* AppConfig.swift in Sources */,
+				C18082372E0507AB00F194D6 /* ShippingViewCell.swift in Sources */,
 				C18F518C2C9F341C00E60C0D /* LoadingViewController.swift in Sources */,
 				C1FA58582CF2EE8800431BDB /* ProfileStorageError.swift in Sources */,
 				C13D90C82C91EE5400430BA4 /* DetailViewController.swift in Sources */,
@@ -2141,6 +2306,7 @@
 				C16468B82CD09CBD00876224 /* CheckoutAPI.swift in Sources */,
 				C16468B42CD0985D00876224 /* CheckoutCoordinator.swift in Sources */,
 				C169A4222CE37F600079DE6B /* HistoryAPI.swift in Sources */,
+				C1122CDA2E10EB85009D2A42 /* OTPCoordinator.swift in Sources */,
 				C10AB15C2CF4847000FE3A8A /* UserProfileService.swift in Sources */,
 				C193705C2C8ABBAB00B56BA1 /* ThemeColor.swift in Sources */,
 				C10AB15E2CF4EBE500FE3A8A /* UserProfiles.swift in Sources */,
@@ -2153,6 +2319,7 @@
 				C169A4202CE37F500079DE6B /* HistoryService.swift in Sources */,
 				C1D1BE4E2C8E170A00E73A92 /* HeaderReusableView.swift in Sources */,
 				C19370692C8B73D900B56BA1 /* UIView+Extension.swift in Sources */,
+				C1122CDC2E119028009D2A42 /* VerifyResponse.swift in Sources */,
 				C16468C62CD0C10F00876224 /* CheckoutNetworkRepository.swift in Sources */,
 				C16468C42CD0C09D00876224 /* CheckoutCart.swift in Sources */,
 				C169A4252CE37F810079DE6B /* HistoryRepository.swift in Sources */,
@@ -2170,10 +2337,12 @@
 				C1DF47EB2C9C9310004F5751 /* SignUpCoordinator.swift in Sources */,
 				C177BD1F2CE8DE4E00B504C1 /* BaseViewController.swift in Sources */,
 				C19370132C89941600B56BA1 /* HandleDeepLink.swift in Sources */,
+				C10EA67D2E0C01B300FE65C8 /* ForgotViewModel.swift in Sources */,
 				C10AB12F2CF3A73000FE3A8A /* EditProfileViewController.swift in Sources */,
 				C11525632CDE2AC3001DD6FD /* Bank.swift in Sources */,
 				C15B51402CBAB40300892DBD /* Integer + Extension.swift in Sources */,
 				C125594D2CE338BB00382028 /* PaymentService.swift in Sources */,
+				C1122CE32E124EA0009D2A42 /* ResetViewModel.swift in Sources */,
 				C177238D2C951CF30078E598 /* ReadMoreTextView.swift in Sources */,
 				C19370252C899AD300B56BA1 /* HomeViewController.swift in Sources */,
 				C1A505E32CEDDFE400078B46 /* SignupResponse.swift in Sources */,
@@ -2181,6 +2350,7 @@
 				C10AB1332CF3AA8900FE3A8A /* EditProfileCoordinator.swift in Sources */,
 				C10AB1562CF47B0500FE3A8A /* UserRepository.swift in Sources */,
 				C17D7D952C975EB800868F1E /* HistoryViewController.swift in Sources */,
+				C10EA6782E0BFFA000FE65C8 /* ForgotViewController.swift in Sources */,
 				C1FA58452CF2EADB00431BDB /* MapService.swift in Sources */,
 				C1FA57E22CF0DF6800431BDB /* ProfileImageManager.swift in Sources */,
 				C194655C2C8C20AB00171932 /* CustomInputFieldView.swift in Sources */,
@@ -2192,6 +2362,8 @@
 				C10AB1522CF4789500FE3A8A /* UserAPI.swift in Sources */,
 				C1705E0D2CA55C6D0043CE9D /* BikeRepository.swift in Sources */,
 				C1A505BE2CEA397D00078B46 /* HistoryViewModel.swift in Sources */,
+				C1122CCD2E10E689009D2A42 /* ResetViewController.swift in Sources */,
+				C174990E2E0C484000996321 /* ForgotResponse.swift in Sources */,
 				C1FA58482CF2EB2D00431BDB /* MapViewConfiguration.swift in Sources */,
 				C17F98672CE63D410060BC7B /* CyclouseTabBarController.swift in Sources */,
 				C1705E0E2CA55C6D0043CE9D /* BikeAPI.swift in Sources */,
@@ -2199,6 +2371,7 @@
 				C19370672C8B72BA00B56BA1 /* ButtonFactory.swift in Sources */,
 				C162D4462CD2BBE000DBA8CC /* ViewModelsAssembly.swift in Sources */,
 				C16468B22CD0984700876224 /* CheckoutViewController.swift in Sources */,
+				C1122CD72E10E8C3009D2A42 /* OTPVerificationViewModel.swift in Sources */,
 				C16468BD2CD09D3100876224 /* CheckoutService.swift in Sources */,
 				C1FA584E2CF2ED2700431BDB /* MapServiceDelegate.swift in Sources */,
 				C1F0F2252CCD177400B8AFDA /* BikeProductCellViewModel.swift in Sources */,
@@ -2206,6 +2379,7 @@
 				C193705A2C8ABAEE00B56BA1 /* UIColor+Extension.swift in Sources */,
 				C15F0B7C2CBC27E800F5ACC3 /* Dummy.swift in Sources */,
 				C1FA585A2CF2EEBB00431BDB /* UIImage + Extension.swift in Sources */,
+				C1122CD22E10E7FB009D2A42 /* OTPVerificationViewController.swift in Sources */,
 				C19370612C8AE9AC00B56BA1 /* OnboardingCoordinator.swift in Sources */,
 				C162D4422CD2BBC400DBA8CC /* DependencyContainer.swift in Sources */,
 				C19370632C8B697200B56BA1 /* LabelFactory.swift in Sources */,
@@ -2217,6 +2391,7 @@
 				C11525612CDDFFF0001DD6FD /* PaymentViewCell.swift in Sources */,
 				C1EE5EC52CAEB30100856B94 /* CoreDataManager + CRUD.swift in Sources */,
 				C1EE5EC62CAEB30100856B94 /* CoreDataManager.swift in Sources */,
+				C180823C2E086B7600F194D6 /* ShippingMethodViewCell.swift in Sources */,
 				C17F98682CE63D460060BC7B /* CyclouseTabBarProtocol.swift in Sources */,
 				C17F98692CE63D460060BC7B /* CyclouseTabBarPresenterBase.swift in Sources */,
 				C17F986A2CE63D460060BC7B /* UIBezierPath + Extension.swift in Sources */,
@@ -2230,6 +2405,7 @@
 				C1FA584A2CF2ECAE00431BDB /* MapViewState.swift in Sources */,
 				C12559432CE3387A00382028 /* PaymentAPI.swift in Sources */,
 				C1B4B94D2C8D4F8D00B4F54B /* BikeProductViewCell.swift in Sources */,
+				C1122CE12E124D7E009D2A42 /* ResetCoordinator.swift in Sources */,
 				C10AB15A2CF481BC00FE3A8A /* EditProfileRequeat.swift in Sources */,
 				C1A505D02CEB1C6300078B46 /* FilterViewController.swift in Sources */,
 				C1464C542C92A96300F945BA /* CartCoordinator.swift in Sources */,

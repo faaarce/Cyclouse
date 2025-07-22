@@ -117,6 +117,7 @@ class DetailOrderViewController: BaseViewController {
     private func registerCells() {
         tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: "ListProductCell")
         tableView.register(AddressViewCell.self, forCellReuseIdentifier: "AddressCell")
+      tableView.register(ShippingMethodViewCell.self, forCellReuseIdentifier: "ShippingCell")
         tableView.register(OrderPriceDetailCell.self, forCellReuseIdentifier: OrderPriceDetailCell.identifier)
       tableView.register(OrderSectionHeaderView.self,
                              forHeaderFooterViewReuseIdentifier: OrderSectionHeaderView.identifier)
@@ -126,7 +127,7 @@ class DetailOrderViewController: BaseViewController {
 // MARK: - UITableViewDataSource
 extension DetailOrderViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3  // Address and Order Items sections
+        return 4  // Address and Order Items sections
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -134,8 +135,10 @@ extension DetailOrderViewController: UITableViewDataSource {
         case 0:  // Address section
             return 1
         case 1:  // Order items section
+          return 1
+        case 2:
           return orderData.items.count
-        case 2:  // Price details section
+        case 3:  // Price details section
               return 1
         default:
             return 0
@@ -156,6 +159,16 @@ extension DetailOrderViewController: UITableViewDataSource {
             return cell
             
         case 1:
+          
+          let cell = tableView.dequeueReusableCell(withIdentifier: "ShippingCell", for: indexPath) as! ShippingMethodViewCell
+          cell.configure(type: orderData.shipping.typeName, estimatedDays: orderData.shipping.estimatedDays, estimatedDate: orderData.shipping.estimatedDeliveryDate)
+          // Or using your shipping data
+//          cell.configure(with: orderData.items)
+          return cell
+          
+        case 2:
+   
+          
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: "ListProductCell",
                 for: indexPath
@@ -163,6 +176,7 @@ extension DetailOrderViewController: UITableViewDataSource {
                 return UITableViewCell()
             }
           let item = orderData.items[indexPath.row]
+//          cell.configure(with: item)
           cell.configureDetail(order: item)
           cell.backgroundColor = .clear
           cell.contentView.backgroundColor = .clear
@@ -171,7 +185,7 @@ extension DetailOrderViewController: UITableViewDataSource {
           
             return cell
           
-        case 2:
+        case 3:
               guard let cell = tableView.dequeueReusableCell(
                   withIdentifier: OrderPriceDetailCell.identifier,
                   for: indexPath
@@ -179,7 +193,7 @@ extension DetailOrderViewController: UITableViewDataSource {
                   return UITableViewCell()
               }
               // Configure price detail cell
-          cell.configure(subtotal: Double(orderData.paymentDetails.amount), shippingCost: 0)
+          cell.configure(subtotal: Double(orderData.paymentDetails.amount), shippingCost: Double(orderData.shipping.cost))
               return cell
             
         default:
@@ -195,8 +209,10 @@ extension DetailOrderViewController: UITableViewDelegate {
     case 0:  // Address section
       return UITableView.automaticDimension
     case 1:  // Order items section
-      return 140
+      return UITableView.automaticDimension
     case 2:  // Price details section
+      return 140
+    case 3:
       return UITableView.automaticDimension
     default:
       return 0
@@ -206,9 +222,9 @@ extension DetailOrderViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
     switch indexPath.section {
     case 0:
-      return 100
-    case 1:
       return 140
+    case 1:
+      return 100
     default:
       return 0
     }
@@ -257,6 +273,11 @@ class OrderSectionHeaderView: UITableViewHeaderFooterView {
     LabelFactory.build(text: "", font: ThemeFont.medium(ofSize: 12), textColor: ThemeColor.labelColorSecondary)
   }()
   
+  private let paidStatusLabel: UILabel = {
+    let label = UILabel.createStatusBadge(status: "Paid", style: .paid)
+    return label
+  }()
+  
   
   
   private let orderNumberLabel: UILabel = {
@@ -303,6 +324,7 @@ class OrderSectionHeaderView: UITableViewHeaderFooterView {
     containerView.addSubview(paymentMethodTitleLabel)
     containerView.addSubview(paymentMethodLabel)
          containerView.addSubview(copyButton)
+    containerView.addSubview(paidStatusLabel)
      }
      
   private func setupConstraints() {
@@ -342,6 +364,13 @@ class OrderSectionHeaderView: UITableViewHeaderFooterView {
               make.right.equalToSuperview()
               make.centerY.equalTo(paymentMethodTitleLabel.snp.centerY)
           }
+    
+    paidStatusLabel.snp.makeConstraints { make in
+      make.left.equalTo(sectionTitleLabel.snp.right).offset(12)
+      make.centerY.equalTo(sectionTitleLabel)
+      make.width.greaterThanOrEqualTo(50)
+      make.height.equalTo(24)
+    }
       }
 
 
@@ -352,6 +381,7 @@ class OrderSectionHeaderView: UITableViewHeaderFooterView {
          paymentMethodTitleLabel.text = "Payment Method"
          paymentMethodLabel.text = paymentMethod
          self.orderNumber = orderNumber
+   
      }
 
   // MARK: - Copy Button Action

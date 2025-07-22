@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct ForgotResponse: Responseable {
+  let success: Bool
+  let message: String
+}

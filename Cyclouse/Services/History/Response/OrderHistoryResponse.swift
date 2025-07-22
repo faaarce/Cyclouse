@@ -24,6 +24,14 @@ struct OrderHistory: Codable {
     let userId: String
     let paymentMethod: PaymentMethod
     let paymentDetails: PaymentDetails
+  let shipping: Shipping
 }
 
+struct Shipping: Codable {
+    let type: String
+    let typeName: String
+    let cost: Int
+    let estimatedDays: String
+    let estimatedDeliveryDate: String
+}
 

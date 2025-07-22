@@ -12,7 +12,7 @@ import CombineCocoa
 class OTPVerificationViewController: BaseViewController {
     
     // MARK: - Properties
-    var coordinator: ForgotCoordinator
+  var coordinator: OTPCoordinator
     private let viewModel: OTPVerificationViewModel
     
     // MARK: - UI Components
@@ -87,7 +87,7 @@ class OTPVerificationViewController: BaseViewController {
     private var resendCountdown: Int = 0
     
     // MARK: - Initialization
-    init(coordinator: ForgotCoordinator, viewModel: OTPVerificationViewModel) {
+  init(coordinator: OTPCoordinator, viewModel: OTPVerificationViewModel) {
         self.coordinator = coordinator
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -105,7 +105,7 @@ class OTPVerificationViewController: BaseViewController {
         createOTPFields()
         layout()
         setupBindings()
-        configureSubtitleWithEmail()
+//        configureSubtitleWithEmail()
         
         // Auto-focus first field
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -169,43 +169,45 @@ class OTPVerificationViewController: BaseViewController {
     }
     
     // MARK: - Bindings
-    private func setupBindings() {
-        // Verify button tap
-        verifyButton.tapPublisher
-            .sink { [weak self] _ in
-                self?.handleVerifyTap()
-            }
-            .store(in: &cancellables)
-        
-        // Resend button tap
-        resendButton.tapPublisher
-            .sink { [weak self] _ in
-                self?.viewModel.resendCodeTapped.send()
-            }
-            .store(in: &cancellables)
-        
-        // Loading state
-        viewModel.$isLoading
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] isLoading in
-                self?.updateLoadingState(isLoading)
-            }
-            .store(in: &cancellables)
-        
-        // Error messages
-        viewModel.errorMessage
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] message in
-                self?.presentErrorAlert(message: message)
-            }
-            .store(in: &cancellables)
-        
-        // Success navigation
-        viewModel.verificationSuccess
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.coordinator.showResetPassword(email: self?.viewModel.email ?? "")
-            }
+  private func setupBindings() {
+    // Verify button tap
+    verifyButton.tapPublisher
+      .sink { [weak self] _ in
+        self?.handleVerifyTap()
+      }
+      .store(in: &cancellables)
+    
+    // Resend button tap
+    resendButton.tapPublisher
+      .sink { [weak self] _ in
+        self?.viewModel.resendCodeTapped.send()
+      }
+      .store(in: &cancellables)
+    
+    // Loading state
+    viewModel.$isLoading
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] isLoading in
+        self?.updateLoadingState(isLoading)
+      }
+      .store(in: &cancellables)
+    
+    // Error messages
+    viewModel.errorMessage
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] message in
+        self?.presentErrorAlert(message: message)
+      }
+      .store(in: &cancellables)
+    
+    // Success navigation
+    viewModel.verificationSuccess
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] _ in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { 
+        self?.coordinator.navigateToResetScreen() //ERROR
+      }
+  }
             .store(in: &cancellables)
         
         // Resend success
@@ -428,7 +430,7 @@ extension OTPVerificationViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         // Remove highlight
-        textField.layer.borderColor = ThemeColor.gray.cgColor
+      textField.layer.borderColor = UIColor.gray.cgColor
         textField.layer.borderWidth = 1.0
     }
 }
@@ -448,7 +450,7 @@ class OTPTextField: UITextField {
     
     private func configure() {
         // Basic configuration
-        backgroundColor = ThemeColor.secondaryBackground
+      backgroundColor = ThemeColor.cardFillColor
         textColor = .white
         font = ThemeFont.bold(ofSize: 24)
         textAlignment = .center
@@ -457,7 +459,7 @@ class OTPTextField: UITextField {
         // Border styling
         layer.cornerRadius = 12
         layer.borderWidth = 1.0
-        layer.borderColor = ThemeColor.gray.cgColor
+      layer.borderColor = UIColor.gray.cgColor
         
         // Limit to 1 character
         addTarget(self, action: #selector(textDidChange), for: .editingChanged)
@@ -486,4 +488,27 @@ class OTPTextField: UITextField {
         }
         return false
     }
+}
+
+extension OTPVerificationViewController {
+//    // Add this method back to your viewDidLoad
+//    private func configureSubtitleWithEmail() {
+//        let fullText = "We have to sent a code to\n\(viewModel.email)"
+//        let attributedString = NSMutableAttributedString(string: fullText)
+//        
+//        // Style the entire string with default color
+//        attributedString.addAttribute(.foregroundColor,
+//                                    value: ThemeColor.labelColor,
+//                                    range: NSRange(location: 0, length: fullText.count))
+//        
+//        // Style the email in green
+//        if let emailRange = fullText.range(of: viewModel.email) {
+//            let nsRange = NSRange(emailRange, in: fullText)
+//            attributedString.addAttribute(.foregroundColor,
+//                                        value: ThemeColor.primary,
+//                                        range: nsRange)
+//        }
+//        
+//        subtitleLabel.attributedText = attributedString
+//    }
 }

@@ -148,7 +148,7 @@ class DetailViewController: BaseViewController, ViewModelBindable, PopUpViewCont
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    
+    updateBadge()
   }
 
     // MARK: - Setup Methods
@@ -252,6 +252,42 @@ class DetailViewController: BaseViewController, ViewModelBindable, PopUpViewCont
     navigationItem.rightBarButtonItems = [cartBarButton]
 
   }
+  
+  func updateCartBadge(count: Int) {
+      if let cartButton = navigationItem.rightBarButtonItems?.first?.customView as? UIButton {
+          if count > 0 {
+              cartButton.badge(text: "\(count)")
+          } else {
+              cartButton.badge(text: nil)
+          }
+      }
+  }
+  
+  private func updateBadge() {
+      service.fetchBike()
+          .receive(on: DispatchQueue.main)
+          .sink { completion in
+              switch completion {
+              case .finished:
+                  break
+                  
+              case .failure(let error):
+                  print("Error fetching bike items: \(error.localizedDescription)")
+              }
+          } receiveValue: { [weak self] bike in
+              self?.updateCartBadge(count: bike.count)
+          }
+          .store(in: &cancellables)
+    
+    // Add this new subscription to listen for database updates
+    DatabaseService.shared.databaseUpdated
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] _ in
+            self?.updateBadge()
+        }
+        .store(in: &cancellables)
+  }
+
   
   @objc private func cartButtonTapped() {
     coordinator.showCartController()

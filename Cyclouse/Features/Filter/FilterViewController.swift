@@ -202,7 +202,7 @@ class FilterViewController: UIViewController, CellEventCoordinator {
   
     private func setupFilterOptions(from categories: [Category]) {
         // Extract unique categories
-        self.categories = categories.map { $0.categoryName }
+      self.categories = categories.map { $0.categoryName }.sorted()
         self.categoryOptions = self.categories.map { category in
             FilterOption(
                 title: category,
@@ -214,7 +214,7 @@ class FilterViewController: UIViewController, CellEventCoordinator {
         self.brands = Set(categories.flatMap { category in
             category.products.map { $0.brand }
         })
-        self.brandOptions = Array(brands).map { brand in
+      self.brandOptions = Array(brands).sorted().map { brand in
             FilterOption(
                 title: brand,
                 isSelected: FilterManager.shared.selectedBrands.contains(brand)

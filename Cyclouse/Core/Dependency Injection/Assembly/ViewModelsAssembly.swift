@@ -35,6 +35,23 @@ class ViewModelsAssembly: Assembly {
       let authService = r.resolve(AuthenticationService.self)!
       return SignUpViewModel(authenticationService: authService)
     }
+    
+    container.register(ForgotViewModel.self) { r in
+      let authService = r.resolve(AuthenticationService.self)!
+      return ForgotViewModel(authenticationService: authService)
+  
+    }
+    
+    container.register(OTPVerificationViewModel.self) { (r, email: String) in
+      let authService = r.resolve(AuthenticationService.self)!
+      return OTPVerificationViewModel(email: email, authenticationService: authService)
+    }
+    
+    container.register(ResetViewModel.self) { (r, email: String, code: String) in
+      let authService = r.resolve(AuthenticationService.self)!
+      return ResetViewModel(authenticationService: authService, email: email, code: code)    }
+    
+    
   }
   
   

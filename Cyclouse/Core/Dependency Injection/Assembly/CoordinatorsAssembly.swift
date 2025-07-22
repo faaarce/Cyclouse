@@ -81,5 +81,35 @@ class CoordinatorsAssembly: Assembly {
     container.register(DetailOrderCoordinator.self) { (resolver, navigationController: UINavigationController, orderData: OrderHistory) in
       DetailOrderCoordinator(navigationController: navigationController, container: container, orderData: orderData)
     }
+    
+    container.register(ForgotCoordinator.self) { (resolver, navigationController: UINavigationController) in
+      ForgotCoordinator(navigationController: navigationController, container: container)
+    }
+    
+    container.register(OTPCoordinator.self) { (resolver, navigationController: UINavigationController, email: String) in
+        // Notice: 'email' here is a parameter name, not a value
+        // It's like defining a function parameter - you name it, but don't give it a value yet
+        return OTPCoordinator(
+            navigationController: navigationController,
+            container: container,
+            email: email  // This uses the email parameter from above
+        )
+    }
+    
+    
+    container.register(ResetCoordinator.self) { (resolver, navigationController: UINavigationController, email: String, code: String) in
+        // Notice: 'email' here is a parameter name, not a value
+        // It's like defining a function parameter - you name it, but don't give it a value yet
+      return ResetCoordinator(
+            navigationController: navigationController,
+            container: container,
+            email: email,
+            code: code
+            // This uses the email parameter from above
+        )
+    }
+    
+    
+  
   }
 }

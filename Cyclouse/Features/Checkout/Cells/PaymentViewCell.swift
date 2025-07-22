@@ -48,7 +48,7 @@ class PaymentViewCell: UITableViewCell {
   
   
   private let paymentMethodTitle: UILabel = {
-    LabelFactory.build(text: "Metode Pembayaran", font: ThemeFont.medium(ofSize: 12))
+    LabelFactory.build(text: "Payment Method", font: ThemeFont.medium(ofSize: 12))
   }()
   
   
@@ -176,7 +176,7 @@ extension PaymentViewCell {
     backgroundColor = .clear
     contentView.backgroundColor = .clear
     contentView.add([paymentMethodTitle, containerView])
-    containerView.add([iconBankImage, transferBankHeaderTitle, banksVerticalStackView ])
+    containerView.add([iconBankImage, transferBankHeaderTitle, banksVerticalStackView])
   }
   
   func layout() {

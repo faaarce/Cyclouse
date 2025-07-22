@@ -26,6 +26,7 @@ class SignInViewController: UIViewController {
     object.titleLabel?.font = ThemeFont.semibold(ofSize: 12)
     object.setTitle("Forgot Password", for: .normal)
     object.setTitleColor(ThemeColor.primary, for: .normal)
+    object.addTarget(self, action: #selector(forgotButtonTapped), for: .touchUpInside)
     return object
   }()
   
@@ -44,38 +45,52 @@ class SignInViewController: UIViewController {
     return button
   }()
   
-  private let signUpLabel: UILabel = {
-    LabelFactory.build(
-      text: "Don't have an account?",
-      font: ThemeFont.medium(ofSize: 14),
-      textColor: ThemeColor.labelColor,
-      textAlignment: .left
+  private lazy var registerButton: UIButton = {
+    let button = ButtonFactory.build(
+      title: "Register",
+      font: ThemeFont.semibold(ofSize: 14)
     )
-  }()
-  
-  private let signUpButton: UIButton = {
-    let object = UIButton()
-    object.titleLabel?.font = ThemeFont.semibold(ofSize: 14)
-    object.setTitle("Sign Up", for: .normal)
-    object.setTitleColor(ThemeColor.primary, for: .normal)
-    object.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
-    return object
+    button.setTitleColor(ThemeColor.primary, for: .normal)
+    button.backgroundColor = UIColor.clear
+    button.layer.borderWidth = 2
+    button.layer.borderColor = ThemeColor.primary.cgColor
+    button.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+    return button
   }()
   
   
-  private lazy var hSignUpStackView: UIStackView = {
-    let view = UIStackView(arrangedSubviews: [
-      signUpLabel,
-      signUpButton
-    ])
-    view.axis = .horizontal
-    view.spacing = 4
-    view.distribution = .fill
-    view.alignment = .fill
-    return view
-    
-  }()
+//  private let signUpLabel: UILabel = {
+//    LabelFactory.build(
+//      text: "Don't have an account?",
+//      font: ThemeFont.medium(ofSize: 14),
+//      textColor: ThemeColor.labelColor,
+//      textAlignment: .left
+//    )
+//  }()
   
+//  private let signUpButton: UIButton = {
+//    let object = UIButton()
+//    object.titleLabel?.font = ThemeFont.semibold(ofSize: 14)
+//    object.setTitle("Sign Up", for: .normal)
+//    object.setTitleColor(ThemeColor.primary, for: .normal)
+//    object.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+//    return object
+//  }()
+//  
+  
+//  private lazy var hSignUpStackView: UIStackView = {
+//    let view = UIStackView(arrangedSubviews: [
+//      signUpLabel,
+//      signUpButton
+//    ])
+//    view.axis = .horizontal
+//    view.spacing = 4
+//    view.distribution = .fill
+//    view.alignment = .fill
+//    return view
+//    
+//  }()
+//  
   private let separatorLabel: UILabel = {
     LabelFactory.build(
       text: "Or With",
@@ -89,7 +104,7 @@ class SignInViewController: UIViewController {
     let view = UIStackView(arrangedSubviews: [
       loginButton,
       separatorLabel,
-      appleLoginButton
+      registerButton
     ])
     view.axis = .vertical
     view.spacing = 10
@@ -114,6 +129,10 @@ class SignInViewController: UIViewController {
     configureAppearance()
     layout()
     setupBindings()
+  }
+  
+  @objc private func forgotButtonTapped() {
+    coordinator.showForgot()
   }
   
   @objc private func signUpButtonTapped() {
@@ -223,13 +242,17 @@ class SignInViewController: UIViewController {
   
   
   private func setupViews() {
-    [emailInputView, passwordInputView, forgotPasswordButton, hSignUpStackView, vSignInStackView].forEach(view.addSubview)
+    [emailInputView, passwordInputView, forgotPasswordButton, vSignInStackView].forEach(view.addSubview)
   }
   
   
   private func layout() {
     
     loginButton.snp.makeConstraints {
+      $0.height.equalTo(42)
+    }
+    
+    registerButton.snp.makeConstraints {
       $0.height.equalTo(42)
     }
     
@@ -255,11 +278,11 @@ class SignInViewController: UIViewController {
       $0.top.equalTo(passwordInputView.snp.bottom).offset(16)
       $0.right.equalToSuperview().offset(-20)
     }
-
-    hSignUpStackView.snp.makeConstraints {
-      $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-12)
-      $0.centerX.equalToSuperview()
-    }
+//
+//    hSignUpStackView.snp.makeConstraints {
+//      $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-12)
+//      $0.centerX.equalToSuperview()
+//    }
     
     vSignInStackView.snp.makeConstraints {
       $0.top.equalTo(passwordInputView.snp.bottom).offset(85)

@@ -13,6 +13,7 @@ import SnapKit
 
 enum CheckoutViewSectionType: Int, CaseIterable {
   case address = 0
+  case shipping
   case history
   case payment
 }
@@ -21,7 +22,12 @@ class CheckoutViewController: BaseViewController {
 
   private var selectedBank: Bank? {
     didSet {
-      checkoutButton.isEnabled = selectedBank != nil && selectedAddress != nil
+      checkoutButton.isEnabled = selectedBank != nil && selectedAddress != nil && selectedShipping != nil
+    }
+  }
+  private var selectedShipping: ShippingSelect? {
+    didSet {
+      checkoutButton.isEnabled = selectedBank != nil && selectedAddress != nil && selectedShipping != nil
     }
   }
   
@@ -66,7 +72,7 @@ class CheckoutViewController: BaseViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    setupBaseConfiguration()  // Ensure base settings are applied
+    setupBaseConfiguration()
     setupView()
     layout()
     configureLocationServices()
@@ -191,6 +197,11 @@ class CheckoutViewController: BaseViewController {
       handleCheckoutFailure(message: "Please select a bank for payment")
       return
     }
+    
+    guard let shipping = selectedShipping else {
+      handleCheckoutFailure(message: "Please select a bank for payment")
+      return
+    }
 
     let cartItems = bike.map { bike in
       CartItem(productId: bike.productId, quantity: bike.cartQuantity)
@@ -199,7 +210,8 @@ class CheckoutViewController: BaseViewController {
     let checkoutCart = CheckoutCart(
       items: cartItems,
       shippingAddress: shippingAddress,
-      paymentMethod: PaymentMethod(type: "bankTransfer", bank: bank.name)
+      paymentMethod: PaymentMethod(type: "bankTransfer", bank: bank.name), shippingMethod: ShippingMethod(type: shipping.name.lowercased().replacingOccurrences(of: " ", with: "_"))
+      
     )
 
     print("Checkout details: \(checkoutCart)")
@@ -261,12 +273,40 @@ class CheckoutViewController: BaseViewController {
   private func registerCells() {
     tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: "ListProductCell")
     tableView.register(AddressViewCell.self, forCellReuseIdentifier: "AddressCell")
+    tableView.register(ShippingViewCell.self, forCellReuseIdentifier: "ShippingCell")
     tableView.register(PaymentViewCell.self, forCellReuseIdentifier: "PaymentCell")
   }
+  
+  // In CheckoutViewController.swift
 
+  private func parseCurrency(_ string: String) -> Double {
+      let sanitizedString = string
+          .replacingOccurrences(of: "Rp", with: "")
+          .replacingOccurrences(of: ".", with: "")
+          .trimmingCharacters(in: .whitespaces)
+      return Double(sanitizedString) ?? 0.0
+  }
+
+//  private func totalPrice() {
+//    let bikeTotal = bike.reduce(0.0) { $0 + Double($1.price * $1.cartQuantity) }
+//    // 2. Get the selected shipping cost, defaulting to 0.0 if none is selected
+//    let shippingCost = (selectedShipping.map { Double($0.price) } ?? 0.0) ?? 0.0
+//      
+//      // 3. Add them together and update the label
+//    let grandTotal = bikeTotal + shippingCost
+//      priceLabel.text = grandTotal.toRupiah()
+//  }
+  
   private func totalPrice() {
-    let total = bike.reduce(0.0) { $0 + Double($1.price * $1.cartQuantity) }
-    priceLabel.text = total.toRupiah()
+      // 1. Calculate the base total from the bikes
+      let bikeTotal = bike.reduce(0.0) { $0 + Double($1.price * $1.cartQuantity) }
+      
+      // 2. Use the helper to get the selected shipping cost, defaulting to 0.0
+      let shippingCost = selectedShipping.map { parseCurrency($0.price) } ?? 0.0
+      
+      // 3. Add them together and update the label
+      let grandTotal = bikeTotal + shippingCost
+      priceLabel.text = grandTotal.toRupiah()
   }
 
   func layout() {
@@ -314,6 +354,8 @@ extension CheckoutViewController: UITableViewDataSource {
     switch type {
     case .address:
       return 1
+    case .shipping:
+      return 1
     case .history:
       return bike.count
     case .payment:
@@ -335,6 +377,17 @@ extension CheckoutViewController: UITableViewDataSource {
       cell.backgroundColor = .clear
 
       return cell
+      
+      
+    case .shipping:
+      guard let cell = tableView.dequeueReusableCell(withIdentifier: "ShippingCell", for: indexPath) as? ShippingViewCell else {
+        return UITableViewCell()
+      }
+      cell.selectionStyle = .none
+      cell.backgroundColor = .clear
+      cell.delegate = self
+      return cell
+      
     case .history:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListProductCell", for: indexPath) as? HistoryTableViewCell else {
         return UITableViewCell()
@@ -359,6 +412,13 @@ extension CheckoutViewController: UITableViewDataSource {
   }
 }
 
+extension CheckoutViewController: ShippingViewCellDelegate {
+  func didSelectShipping(_ shipping: ShippingSelect) {
+    self.selectedShipping = shipping
+    totalPrice()
+    checkoutButton.isEnabled = selectedBank != nil && selectedAddress != nil && selectedShipping != nil  }
+}
+
 extension CheckoutViewController: PaymentViewCellDelegate {
   func didSelectBank(_ bank: Bank) {
     self.selectedBank = bank
@@ -367,7 +427,7 @@ extension CheckoutViewController: PaymentViewCellDelegate {
     print("Is Selected: \(bank.isSelected)")
 
     // Update checkout button state
-    checkoutButton.isEnabled = selectedBank != nil && selectedAddress != nil
+    checkoutButton.isEnabled = selectedBank != nil && selectedAddress != nil && selectedShipping != nil 
   }
 }
 
@@ -395,8 +455,11 @@ extension CheckoutViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     if indexPath.section == 0 {
       return UITableView.automaticDimension
-    } else if indexPath.section == 1 {
+    } else if indexPath.section == 2 {
       return 140
+      
+    }else if indexPath.section == 1 {
+      return 350
     } else {
       return 250
     }
@@ -405,8 +468,10 @@ extension CheckoutViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
     if indexPath.section == 0 {
       return 100
-    } else if indexPath.section == 1 {
+    } else if indexPath.section == 2 {
       return 140
+    }else if indexPath.section == 1 {
+      return 350
     } else {
       return 250
     }

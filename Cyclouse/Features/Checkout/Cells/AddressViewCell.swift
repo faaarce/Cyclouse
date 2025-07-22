@@ -29,7 +29,7 @@ class AddressViewCell: UITableViewCell {
 
     private let addressHeaderTitle: UILabel = {
         let label = LabelFactory.build(
-            text: "Alamat Pengiriman",
+            text: "Shipping Address",
             font: ThemeFont.semibold(ofSize: 12),
             textColor: ThemeColor.primary
         )

@@ -46,4 +46,33 @@ class AuthenticationService {
     return repository.signUp(name: name, email: email, phone: phone, password: password)
 
   }
+  
+  func forgot(email: String) -> AnyPublisher<APIResponse<ForgotResponse>, Error> {
+    if let error = Email.validate(email) {
+      return Fail(error: error).eraseToAnyPublisher()
+    }
+    return repository.forgot(email: email)
+      
+  }
+  
+  func verify(email: String, code: String) -> AnyPublisher<APIResponse<VerifyResponse>, Error> {
+    if let error = Email.validate(email) {
+      return Fail(error: error).eraseToAnyPublisher()
+    }
+    return repository.verify(email: email, code: code)
+  }
+  
+  func reset(email: String, code: String, newPassword: String) -> AnyPublisher<APIResponse<ResetResponse>, Error> {
+    if let error = Email.validate(email) {
+      return Fail(error: error).eraseToAnyPublisher()
+    }
+    
+    if let error = Password.validate(newPassword) {
+        return Fail(error: error).eraseToAnyPublisher()
+    }
+    
+    return repository.reset(email: email, code: code, newPassword: newPassword)
+  }
+  
+  
 }

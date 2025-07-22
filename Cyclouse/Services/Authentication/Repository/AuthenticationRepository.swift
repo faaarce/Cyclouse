@@ -14,6 +14,14 @@ protocol AuthenticationRepository {
   func signOut() -> AnyPublisher<APIResponse<SignoutResponse>, Error>
   
   func signUp(name: String, email: String, phone: String, password: String) -> AnyPublisher<APIResponse<SignupResponse>, Error>
+  
+  func forgot(email: String) -> AnyPublisher<APIResponse<ForgotResponse>, Error>
+  
+  func verify(email: String, code:String) -> AnyPublisher<APIResponse<VerifyResponse>, Error>
+  
+  func reset(email: String, code:String, newPassword: String) -> AnyPublisher<APIResponse<ResetResponse>, Error>
+  
+  
 }
 
 

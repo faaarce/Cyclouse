@@ -23,7 +23,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func configureAppearance() {
     UINavigationBar.appearance().barTintColor = ThemeColor.background
     UITabBar.appearance().barTintColor = ThemeColor.background
-  
+    let appearance = UINavigationBarAppearance()
+      
+      // This makes the navigation bar background fully opaque and adopt a specific color.
+      appearance.configureWithOpaqueBackground()
+    appearance.backgroundColor = ThemeColor.background // Or .black, etc.
+
+      // --- THIS IS THE MOST IMPORTANT PART ---
+      // Set the color for the large title
+      appearance.largeTitleTextAttributes = [
+          .foregroundColor: UIColor.white
+      ]
+      
+      // Set the color for the small title (when scrolled)
+      appearance.titleTextAttributes = [
+          .foregroundColor: UIColor.white
+      ]
+      
+      // Apply this appearance to all navigation bar states
+      UINavigationBar.appearance().standardAppearance = appearance
+      UINavigationBar.appearance().scrollEdgeAppearance = appearance
+      UINavigationBar.appearance().compactAppearance = appearance
+      
+      // Set the color for bar button items (like the "< Sign In" back button)
+      UINavigationBar.appearance().tintColor = .white
   }
   
   

@@ -30,6 +30,13 @@ class SignInCoordinator: Coordinator, NavigationCoordinator {
     (parentCoordinator as? AppCoordinator)?.showMainTabbar()
   }
   
+  func showForgot() {
+    let forgotCoordinator = container.resolve(ForgotCoordinator.self, argument: navigationController)!
+    addChildCoordinator(forgotCoordinator)
+    forgotCoordinator.parentCoordinator = self
+    forgotCoordinator.start()
+  }
+  
   func showSignUp() {
         let signUpCoordinator = container.resolve(SignUpCoordinator.self, argument: navigationController)!
         addChildCoordinator(signUpCoordinator)

@@ -18,9 +18,11 @@ struct CheckoutData: Codable {
     var status: String
     var shippingAddress: String
     var paymentDetails: PaymentDetails
+  var shipping: ShippingInfo
     var orderId: String
     var createdAt: String
     var paymentMethod: PaymentMethod
+  var productSubtotal: Int
     var userId: String
     var items: [OrderItem]
 }
@@ -38,6 +40,14 @@ struct OrderItem: Codable {
     var price: Int
     var productId: String
   let image: String
+}
+
+struct ShippingInfo: Codable {
+  var type: String
+  var typeName: String
+  var cost: Int
+  var estimatedDays: String
+  var estimatedDeliveryDate: String
 }
 
 //// MARK: - Checkout Data
