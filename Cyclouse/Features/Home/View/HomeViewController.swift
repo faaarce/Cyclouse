@@ -273,109 +273,120 @@ class HomeViewController: BaseViewController, CellEventCoordinator, UISearchResu
   }
   
   private func makeViewModel() -> CollectionViewModel {
-    var sections: [SectionViewModel] = []
-    
-    let dataToUse = filteredCategories ?? categories
-    
-    
+      var sections: [SectionViewModel] = []
       
-    if isSearching {
+      let dataToUse = filteredCategories ?? categories
       
-      let productCellViewModels = filteredProducts.map {
-        BikeProductCellViewModel(product: $0, categoryName: $0.brand).eraseToAnyViewModel()
-      }
-      let searchResultsSection = SectionViewModel(id: "search_results", cells: productCellViewModels)
-      sections.append(searchResultsSection)
-      
-      return CollectionViewModel(id: "main_collection", sections: sections)
-    }
-    // --- Case 2: We are NOT searching ---
-    
-    // Step 2a: ALWAYS add the category filter section first.
-    let categoryCellViewModels = allCategories.map { categoryName in
-        let isSelected = (categoryName == selectedCategory) || (selectedCategory == nil && categoryName == "All")
-        return CategoryCellViewModel(category: categoryName, isSelected: isSelected).eraseToAnyViewModel()
-    }
-    let categorySectionHeader = SectionHeaderViewModel(id: "header_categories", title: "Categories")
-    let categorySection = SectionViewModel(id: "section_categories", cells: categoryCellViewModels, header: categorySectionHeader.eraseToAnyViewModel())
-    sections.append(categorySection)
-
-    let isSpecificCategorySelected = selectedCategory != nil && selectedCategory != "All"
-    let isFilterActive = filteredCategories != nil
-    
-    if isSpecificCategorySelected || isFilterActive {
-           // If a category IS selected OR a filter IS active, create ONE vertical grid section.
-           
-           // Flatten all products from all categories in `dataToUse` into a single list.
-           let productsToShow = dataToUse.flatMap { $0.products }
-           
-           let productCellViewModels = productsToShow.map { product in
-               BikeProductCellViewModel(product: product, categoryName: product.brand).eraseToAnyViewModel()
-           }
-           
-           // Determine the title for the section header.
-           var title: String
-           if isSpecificCategorySelected && !isFilterActive {
-               title = selectedCategory!
-           } else {
-               title = "Filtered Results"
-           }
-      
-        let header = SectionHeaderViewModel(id: "header_\(selectedCategory)", title: title)
-        
-        let gridSection = SectionViewModel(
-            id: "vertical_grid_\(selectedCategory)",
-            cells: productCellViewModels,
-            header: header.eraseToAnyViewModel()
-        )
-        sections.append(gridSection)
-        
-    } else {
-      // If "All" is selected, create multiple horizontal "shelf" sections.
-      if isLoading {
-        // Create Multiple Placeholder Sections
-        let placeholderCategoryNames = ["Loading Category 1", "Loading Category 2", "Loading Category 3"]
-        
-        for placeholderCategoryName in placeholderCategoryNames {
-          // Create placeholder header view model
-          let loadingHeader = SectionHeaderViewModel(
-            id: "loading_header_\(placeholderCategoryName)",
-            isLoading: true
-          )
+      if isSearching {
+          // Search results section
+          let productCellViewModels = filteredProducts.map {
+              BikeProductCellViewModel(product: $0, categoryName: $0.brand).eraseToAnyViewModel()
+          }
+          let searchResultsSection = SectionViewModel(id: "search_results", cells: productCellViewModels)
+          sections.append(searchResultsSection)
           
-          // Placeholder cells
-          let placeholderCellViewModels = (0..<5).map { _ in
-            BikeProductCellViewModel(isLoading: true).eraseToAnyViewModel()
+          return CollectionViewModel(id: "main_collection", sections: sections)
+      }
+      
+      // Always add the category filter section first
+      let categoryCellViewModels = allCategories.map { categoryName in
+          let isSelected = (categoryName == selectedCategory) || (selectedCategory == nil && categoryName == "All")
+          return CategoryCellViewModel(category: categoryName, isSelected: isSelected).eraseToAnyViewModel()
+      }
+      let categorySectionHeader = SectionHeaderViewModel(id: "header_categories", title: "Categories")
+      let categorySection = SectionViewModel(
+          id: "section_categories",
+          cells: categoryCellViewModels,
+          header: categorySectionHeader.eraseToAnyViewModel()
+      )
+      sections.append(categorySection)
+
+      let isSpecificCategorySelected = selectedCategory != nil && selectedCategory != "All"
+      let isFilterActive = filteredCategories != nil
+      
+      if isSpecificCategorySelected || isFilterActive {
+          // FIXED: Filter the categories to only include the selected category
+          let categoriesToShow: [Category]
+          if isSpecificCategorySelected && !isFilterActive {
+              // Only show products from the selected category
+              categoriesToShow = dataToUse.filter { $0.categoryName == selectedCategory }
+          } else {
+              // Show all filtered categories
+              categoriesToShow = dataToUse
           }
           
-          let loadingSection = SectionViewModel(
-            id: "loading_section_\(placeholderCategoryName)",
-            cells: placeholderCellViewModels,
-            header: loadingHeader.eraseToAnyViewModel()
-          )
+          // Now flatten products only from the filtered categories
+          let productsToShow = categoriesToShow.flatMap { $0.products }
           
-          sections.append(loadingSection)
-        }
+          let productCellViewModels = productsToShow.map { product in
+              BikeProductCellViewModel(product: product, categoryName: product.brand).eraseToAnyViewModel()
+          }
+          
+          // Determine the title for the section header
+          var title: String
+          if isSpecificCategorySelected && !isFilterActive {
+              title = selectedCategory!
+          } else {
+              title = "Filtered Results"
+          }
+          
+          let header = SectionHeaderViewModel(id: "header_\(selectedCategory ?? "filtered")", title: title)
+          
+          let gridSection = SectionViewModel(
+              id: "vertical_grid_\(selectedCategory ?? "filtered")",
+              cells: productCellViewModels,
+              header: header.eraseToAnyViewModel()
+          )
+          sections.append(gridSection)
+          
       } else {
-        for category in dataToUse {
-            let productCellViewModels = category.products.map {
-                BikeProductCellViewModel(product: $0, categoryName: category.categoryName).eraseToAnyViewModel()
-            }
-            let productSectionHeader = SectionHeaderViewModel(id: "header_\(category.categoryName)", title: category.categoryName)
-            let productSection = SectionViewModel(
-                id: "section_\(category.categoryName)",
-                cells: productCellViewModels,
-                header: productSectionHeader.eraseToAnyViewModel()
-            )
-            sections.append(productSection)
-        }
-    }
-}
-    
-    return CollectionViewModel(
-      id: "main_collection",
-      sections: sections
-    )
+          // "All" is selected - show horizontal shelves
+          if isLoading {
+              // Create loading placeholders
+              let placeholderCategoryNames = ["Loading Category 1", "Loading Category 2", "Loading Category 3"]
+              
+              for placeholderCategoryName in placeholderCategoryNames {
+                  let loadingHeader = SectionHeaderViewModel(
+                      id: "loading_header_\(placeholderCategoryName)",
+                      isLoading: true
+                  )
+                  
+                  let placeholderCellViewModels = (0..<5).map { _ in
+                      BikeProductCellViewModel(isLoading: true).eraseToAnyViewModel()
+                  }
+                  
+                  let loadingSection = SectionViewModel(
+                      id: "loading_section_\(placeholderCategoryName)",
+                      cells: placeholderCellViewModels,
+                      header: loadingHeader.eraseToAnyViewModel()
+                  )
+                  
+                  sections.append(loadingSection)
+              }
+          } else {
+              // Create horizontal shelf sections for each category
+              for category in dataToUse {
+                  let productCellViewModels = category.products.map {
+                      BikeProductCellViewModel(product: $0, categoryName: category.categoryName).eraseToAnyViewModel()
+                  }
+                  let productSectionHeader = SectionHeaderViewModel(
+                      id: "header_\(category.categoryName)",
+                      title: category.categoryName
+                  )
+                  let productSection = SectionViewModel(
+                      id: "section_\(category.categoryName)",
+                      cells: productCellViewModels,
+                      header: productSectionHeader.eraseToAnyViewModel()
+                  )
+                  sections.append(productSection)
+              }
+          }
+      }
+      
+      return CollectionViewModel(
+          id: "main_collection",
+          sections: sections
+      )
   }
   
   private func makeLayout() -> UICollectionViewCompositionalLayout {
