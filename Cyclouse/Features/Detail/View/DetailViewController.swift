@@ -102,28 +102,39 @@ class DetailViewController: BaseViewController, ViewModelBindable, PopUpViewCont
         LabelFactory.build(text: "TDR 3.000 - Mountain Bike", font: ThemeFont.semibold(ofSize: 12), textColor: .white)
     }()
 
-    private let descriptionTextView: ReadMoreTextView = {
-        let textView = ReadMoreTextView()
-        textView.font = ThemeFont.medium(ofSize: 12)
-        textView.textColor = ThemeColor.labelColorSecondary
-        textView.backgroundColor = .clear
-        textView.isScrollEnabled = false
-        textView.maximumNumberOfLines = 5
-        textView.shouldTrim = true
-        let readMoreAttributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: ThemeColor.primary,
-            .font: ThemeFont.medium(ofSize: 12)
-        ]
-        let readLessAttributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: ThemeColor.primary,
-            .font: ThemeFont.medium(ofSize: 12)
-        ]
-
-        textView.attributedReadMoreText = NSAttributedString(string: "... Read More", attributes: readMoreAttributes)
-        textView.attributedReadLessText = NSAttributedString(string: " Read Less", attributes: readLessAttributes)
-
-        return textView
-    }()
+//    private let descriptionTextView: ReadMoreTextView = {
+//        let textView = ReadMoreTextView()
+//        textView.font = ThemeFont.medium(ofSize: 12)
+//        textView.textColor = ThemeColor.labelColorSecondary
+//        textView.backgroundColor = .clear
+//        textView.isScrollEnabled = false
+//        textView.maximumNumberOfLines = 5
+//        textView.shouldTrim = true
+//        let readMoreAttributes: [NSAttributedString.Key: Any] = [
+//            .foregroundColor: ThemeColor.primary,
+//            .font: ThemeFont.medium(ofSize: 12)
+//        ]
+//        let readLessAttributes: [NSAttributedString.Key: Any] = [
+//            .foregroundColor: ThemeColor.primary,
+//            .font: ThemeFont.medium(ofSize: 12)
+//        ]
+//
+//        textView.attributedReadMoreText = NSAttributedString(string: "... Read More", attributes: readMoreAttributes)
+//        textView.attributedReadLessText = NSAttributedString(string: " Read Less", attributes: readLessAttributes)
+//
+//        return textView
+//    }()
+  
+  
+  private let descriptionTextView: UILabel = {
+      let textView = UILabel()
+      textView.font = ThemeFont.medium(ofSize: 12)
+      textView.textColor = ThemeColor.labelColorSecondary
+      textView.backgroundColor = .clear
+//      textView.isScrollEnabled = false
+    textView.numberOfLines = 0
+      return textView
+  }()
 
     private var fullDescription: String = ""
 
@@ -163,7 +174,7 @@ class DetailViewController: BaseViewController, ViewModelBindable, PopUpViewCont
             view.addSubview($0)
         }
       setupNavigationBar()
-        configureDescriptionTextView()
+//        configureDescriptionTextView()
         configureViews()
     }
 
@@ -314,14 +325,14 @@ class DetailViewController: BaseViewController, ViewModelBindable, PopUpViewCont
 
     // MARK: - Private Methods
 
-    private func configureDescriptionTextView() {
-        descriptionTextView.text = fullDescription
-
-        // Handle size changes
-        descriptionTextView.onSizeChange = { [weak self] _ in
-            self?.view.layoutIfNeeded()
-        }
-    }
+//    private func configureDescriptionTextView() {
+//        descriptionTextView.text = fullDescription
+//
+//        // Handle size changes
+//        descriptionTextView.onSizeChange = { [weak self] _ in
+//            self?.view.layoutIfNeeded()
+//        }
+//    }
 
     private func configureViews() {
         productTitleLabel.text = viewModel.productName
